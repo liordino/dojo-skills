@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dojo — A Disciplined Development System for AI Agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:      #1A1612;
+    --ground:   #F7F4EE;
+    --red:      #8B1C1C;
+    --stone:    #6B6058;
+    --border:   #D4CFC7;
+    --code-bg:  #EDEBE5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ink-stroke dividers ── */
+  .stroke {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border) 15%, var(--border) 85%, transparent);
+    margin: 0;
+  }
+
+  /* ── layout ── */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ── nav ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247,244,238,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+  .nav-mark {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-mark span { color: var(--red); }
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin-left: auto;
+  }
+  nav a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--stone);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: color 0.15s;
+  }
+  nav a:hover { color: var(--ink); }
+
+  /* ── hero ── */
+  header {
+    padding: 7rem 0 5rem;
+  }
+  .eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5vw, 3.4rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  h1 .kanji {
+    font-weight: 400;
+    color: var(--stone);
+    font-size: 0.72em;
+    margin-left: 0.35em;
+  }
+  .hero-sub {
+    font-size: 1.125rem;
+    color: var(--stone);
+    max-width: 580px;
+    margin-bottom: 1.75rem;
+    line-height: 1.65;
+  }
+  .personal-note {
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--stone);
+    border-left: 2px solid var(--red);
+    padding-left: 1rem;
+    margin-bottom: 2.25rem;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.65em 1.35em;
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+  .btn-primary { background: var(--ink); color: var(--ground); }
+  .btn-primary:hover { background: #2d2620; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--border); }
+
+  /* ── section shells ── */
+  section { padding: 5rem 0; }
+  section + .stroke { }
+
+  h2 {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+  p { margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 600; }
+
+  /* ── philosophy pillars ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .pillar-num {
+    font-family: 'Noto Serif', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .pillar h3 { margin-bottom: 0.4rem; }
+  .pillar p { font-size: 0.92rem; color: var(--stone); }
+
+  /* ── THE KATA DIAGRAM (signature element) ── */
+  #cycle { padding: 5rem 0; }
+  #cycle h2 { margin-bottom: 0.75rem; }
+  #cycle .lead {
+    color: var(--stone);
+    font-size: 0.97rem;
+    margin-bottom: 2.75rem;
+    max-width: 520px;
+  }
+
+  .kata-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .kata-step {
+    flex: 1;
+    min-width: 110px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .kata-step-inner {
+    flex: 1;
+    padding: 1.25rem 1rem 1.1rem;
+    border-top: 2px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    transition: background 0.15s;
+  }
+  .kata-step:hover .kata-step-inner { background: rgba(139,28,28,0.04); }
+  .kata-step.active .kata-step-inner {
+    border-top-color: var(--red);
+    background: rgba(139,28,28,0.05);
+  }
+  .kata-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.3rem;
+  }
+  .kata-cmd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .kata-desc {
+    font-size: 0.8rem;
+    color: var(--stone);
+    line-height: 1.45;
+  }
+  /* arrows between steps */
+  .kata-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 0.1rem;
+    margin-top: 2px; /* optical align with border-top */
+    color: var(--border);
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    align-self: center;
+    position: relative;
+    top: -0.5rem;
+  }
+  .kata-loop {
+    font-size: 0.75rem;
+    color: var(--stone);
+    font-style: italic;
+    margin-top: 1rem;
+  }
+
+  /* ── skills grid ── */
+  .skills-intro { color: var(--stone); margin-bottom: 2rem; }
+
+  .skill-group { margin-bottom: 2.5rem; }
+  .skill-group-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .skill-card {
+    background: var(--ground);
+    padding: 1.1rem 1.25rem;
+    transition: background 0.12s;
+  }
+  .skill-card:hover { background: var(--code-bg); }
+  .skill-card-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+  .skill-card-role {
+    font-size: 0.84rem;
+    color: var(--stone);
+    line-height: 1.45;
+  }
+
+  /* ── principles ── */
+  .principles-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 1rem;
+  }
+  .principle-item {
+    padding: 0.9rem 1.1rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .principle-item:hover { background: var(--code-bg); }
+  .principle-item strong { display: block; font-weight: 500; color: var(--ink); margin-bottom: 0.15rem; }
+  .principle-item span { color: var(--stone); font-size: 0.82rem; line-height: 1.4; }
+
+  /* ── install ── */
+  .install-block {
+    background: var(--ink);
+    color: var(--ground);
+    padding: 1.5rem 1.75rem;
+    border-radius: 4px;
+    margin: 1.5rem 0;
+  }
+  .install-comment {
+    color: var(--stone);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+  .install-cmd {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #E8E4DC;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .install-cmd:last-child { margin-bottom: 0; }
+  .install-cmd .prompt { color: #8B7355; user-select: none; }
+  .install-cmd .cmd-kw { color: #C4A882; }
+
+  /* ── artifacts ── */
+  .artifacts-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1.5rem;
+  }
+  .artifact-item {
+    background: var(--ground);
+    padding: 0.9rem 1.1rem;
+  }
+  .artifact-item:hover { background: var(--code-bg); }
+  .artifact-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+  .artifact-desc { font-size: 0.82rem; color: var(--stone); line-height: 1.4; }
+
+  /* ── names section ── */
+  .names-quote {
+    font-family: 'Noto Serif', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--stone);
+    border-left: 2px solid var(--red);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    line-height: 1.6;
+  }
+  .name-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4rem 1.25rem;
+    margin-top: 1.25rem;
+    font-size: 0.9rem;
+  }
+  .name-term {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--red);
+    white-space: nowrap;
+    padding-top: 0.05rem;
+  }
+  .name-def { color: var(--stone); }
+
+  /* ── footer ── */
+  footer {
+    padding: 3rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .footer-mark {
+    font-family: 'Noto Serif', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--stone);
+  }
+  .footer-mark span { color: var(--red); }
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin-left: auto;
+  }
+  .footer-links a {
+    font-size: 0.83rem;
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-copy {
+    width: 100%;
+    font-size: 0.8rem;
+    color: var(--border);
+    margin-top: 1rem;
+  }
+
+  /* ── inline code ── */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--code-bg);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+    color: var(--ink);
+  }
+
+  /* ── motion ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .kata-step-inner { transition: background 0.15s, border-top-color 0.15s; }
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 600px) {
+    h1 { font-size: 2rem; }
+    nav ul { display: none; }
+    .kata-flow { gap: 0; }
+    .kata-step { min-width: 90px; }
+    .kata-step-inner { padding: 0.9rem 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav aria-label="Site navigation">
+  <div class="wrap">
+    <a class="nav-mark" href="#top">Dojo<span>道場</span></a>
+    <ul>
+      <li><a href="#cycle">Wave cycle</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#principles">Principles</a></li>
+      <li><a href="#install">Install</a></li>
+      <li><a href="https://github.com/USERNAME/REPO" target="_blank" rel="noopener">GitHub ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- ── HERO ── -->
+  <header id="top">
+    <p class="eyebrow">A disciplined development system for AI agents</p>
+    <h1>Dojo <span class="kanji">道場</span></h1>
+    <p class="hero-sub">
+      Turns an AI coding agent into a disciplined pair-programming partner — enforcing
+      test-driven development in approval-gated waves, building a shared domain language,
+      and keeping long sessions sharp through a compaction cycle.
+    </p>
+    <p class="personal-note">
+      Built for my own work and my own way of pairing with agents. Published only because
+      someone might find it useful — or want to improve it together. Opinionated, deliberately
+      specific in places, and not trying to be a universal framework. Fork freely, adapt mercilessly.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#install">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/USERNAME/REPO" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+  </header>
+
+  <span class="stroke"></span>
+
+  <!-- ── PHILOSOPHY ── -->
+  <section id="philosophy">
+    <p class="eyebrow">Philosophy</p>
+    <h2>Three pillars</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-num">一</div>
+        <h3>XP Pair Programming</h3>
+        <p>You navigate — define what correct looks like, approve each step. The agent drives — writes code, runs checks, narrates its reasoning. Neither role is optional.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">二</div>
+        <h3>Test-Driven Development</h3>
+        <p>Tests are the contract. A failing check written before implementation is the most precise expression of "what done means."</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">三</div>
+        <h3>Goal-Driven Execution</h3>
+        <p>Every wave is a verifiable outcome, not a task list. The agent derives the path; you define correct.</p>
+      </div>
+    </div>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── WHY ── -->
+  <section id="why">
+    <p class="eyebrow">Rationale</p>
+    <h2>Why waves instead of a rules file?</h2>
+    <p>A flat <code>AGENTS.md</code> asks the agent to <em>remember</em> discipline. Dojo <em>mechanizes</em> it. The failure modes of a rules file map one-to-one onto Dojo mechanisms:</p>
+    <br>
+    <p><strong>Silent scope creep →</strong> declared non-goals plus the kaizen gate.</p>
+    <p><strong>"Tests passed" claims →</strong> the <code>dojo-check</code> proof artifact — only a real green run produces it.</p>
+    <p><strong>Long-session context rot →</strong> the compaction cycle: everything durable on disk, each wave reloads lean.</p>
+    <p><strong>Plans drifting from reality →</strong> divergence halts and re-grilling via <code>/kaizen</code>.</p>
+    <p><strong>Rubber-stamp reviews →</strong> gates that ask for a decision with content, and an engagement note that calls it out when you stop deciding.</p>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── KATA CYCLE (SIGNATURE ELEMENT) ── -->
+  <section id="cycle">
+    <p class="eyebrow">The kata cycle</p>
+    <h2>One wave at a time</h2>
+    <p class="lead">Each wave is a verifiable outcome. The agent stops for your decision at gates (supervised) or runs to completion (autonomous), halting only when reality diverges.</p>
+
+    <div class="kata-flow" role="list">
+
+      <div class="kata-step" role="listitem">
+        <div class="kata-step-inner">
+          <div class="kata-label">Entry</div>
+          <div class="kata-cmd">/hajime</div>
+          <div class="kata-desc">Set rigor &amp; mode, scaffold the project, grill the design, write the plan</div>
+        </div>
+      </div>
+
+      <div class="kata-arrow" aria-hidden="true">›</div>
+
+      <div class="kata-step active" role="listitem">
+        <div class="kata-step-inner">
+          <div class="kata-label">Red</div>
+          <div class="kata-cmd">/kata-red</div>
+          <div class="kata-desc">Write the failing check — the precise contract for this wave</div>
+        </div>
+      </div>
+
+      <div class="kata-arrow" aria-hidden="true">›</div>
+
+      <div class="kata-step" role="listitem">
+        <div class="kata-step-inner">
+          <div class="kata-label">Green</div>
+          <div class="kata-cmd">/kata-green</div>
+          <div class="kata-desc">Minimum implementation to pass. YAGNI enforced</div>
+        </div>
+      </div>
+
+      <div class="kata-arrow" aria-hidden="true">›</div>
+
+      <div class="kata-step" role="listitem">
+        <div class="kata-step-inner">
+          <div class="kata-label">Refactor</div>
+          <div class="kata-cmd">/kata-refactor</div>
+          <div class="kata-desc">Clean without changing behavior. Tests stay green throughout</div>
+        </div>
+      </div>
+
+      <div class="kata-arrow" aria-hidden="true">›</div>
+
+      <div class="kata-step" role="listitem">
+        <div class="kata-step-inner">
+          <div class="kata-label">Commit</div>
+          <div class="kata-cmd">/kata-commit</div>
+          <div class="kata-desc">Proof verified, artifacts updated, next wave loaded from TASKS.md</div>
+        </div>
+      </div>
+
+    </div>
+    <p class="kata-loop">↺ &nbsp;Repeats per wave until TASKS.md is complete, or the wave ceiling triggers a clean pause with RESUME.md</p>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── SKILLS ── -->
+  <section id="skills">
+    <p class="eyebrow">17 skills</p>
+    <h2>The skill set</h2>
+    <p class="skills-intro">Each skill is a <code>SKILL.md</code> file — terse normative rules the agent loads. Rationale and walkthroughs live in the manual, which the agent never loads.</p>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Always loaded — every session</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-name">dojo-principles</div>
+          <div class="skill-card-role">Cross-cutting engineering rules for the code itself — navigation, DRY, minimal delta, negative space, purity, logging, ECS, and your promoted insights</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">dojo-project</div>
+          <div class="skill-card-role">Project-level rules — structure, docs, config, entrypoints, the global preferences store, and the preferences-vs-insights promotion rule</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">dojo-conduct</div>
+          <div class="skill-card-role">How the agent behaves — the precedence hierarchy, evidence gates, gate density, concise output, and optional tool treatment</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Session entry</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-name">hajime</div>
+          <div class="skill-card-role">Feature session start — asks rigor (real/PoC) and mode (supervised/autonomous), scaffolds the project, runs the design grill</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">hajime-bugfix</div>
+          <div class="skill-card-role">Bugfix session start — same scaffolding, kan diagnosis instead of randori, regression-test-first wave goal</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">The kata steps</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-name">kata-red</div>
+          <div class="skill-card-role">Write the failing check — invariant-based, property-first strategy ladder, non-automatable wave handling</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kata-green</div>
+          <div class="skill-card-role">Minimum implementation — YAGNI, idempotency, explicit types, error propagation, two-attempt stuck protocol</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kata-refactor</div>
+          <div class="skill-card-role">Clean without changing behavior — SRP, naming, structural DRY, formatter, framework-detected UI pass</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kata-commit</div>
+          <div class="skill-card-role">Commit the wave — proof-verified gate, explicit staging with denylist, debrief, TASKS.md advancement, wave ceiling</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kata-stuck</div>
+          <div class="skill-card-role">Surface a blocker after two failed attempts — structured diagnostic, adjusted approaches, route forward</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-label">Techniques — called from the cycle</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-name">randori</div>
+          <div class="skill-card-role">Interview-driven design grill — domain language, ADRs, the TASKS.md plan. Scoping mode when answers live elsewhere</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kan</div>
+          <div class="skill-card-role">Disciplined diagnosis — reproduce → minimise → hypothesise → instrument → fix → regression-test</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">waza</div>
+          <div class="skill-card-role">Algorithmic technique — classify as recognition, derivation, or approximation; produce a test-first contract</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">tanren</div>
+          <div class="skill-card-role">Iterative optimization — forge a better algorithm by propose → score → keep-or-revert, gated on a measurable metric and a frozen scorer</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kaizen</div>
+          <div class="skill-card-role">Re-grill and rewrite the plan on pivots or divergence halts. Never writes code</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kokai</div>
+          <div class="skill-card-role">Release and distribution — install surface, CI, tag-triggered release, changelog</div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-name">kensha</div>
+          <div class="skill-card-role">PR audit — correctness, regressions, quality, coverage, doc sync. Advises; human decides</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── PRINCIPLES ── -->
+  <section id="principles">
+    <p class="eyebrow">Engineering principles</p>
+    <h2>What the agent internalizes</h2>
+    <p style="color:var(--stone); margin-bottom:1.5rem;">Rules, not guidelines — split across three governing skills by scope.</p>
+
+    <div class="principles-cols">
+      <div class="principle-item">
+        <strong>Code navigation</strong>
+        <span>rg for text frequency, ast-grep for structure. Never the wrong tool for the question</span>
+      </div>
+      <div class="principle-item">
+        <strong>Minimal delta</strong>
+        <span>Survey first. Build the smallest delta that fully achieves the outcome</span>
+      </div>
+      <div class="principle-item">
+        <strong>Negative space</strong>
+        <span>Make invalid states unrepresentable — in types, before runtime checks</span>
+      </div>
+      <div class="principle-item">
+        <strong>Parse, don't validate</strong>
+        <span>parse(input) → Narrow. The output type is narrower than the input — that is the point</span>
+      </div>
+      <div class="principle-item">
+        <strong>Function purity</strong>
+        <span>Functional core, imperative shell. IO lives at the boundary; logic stays pure</span>
+      </div>
+      <div class="principle-item">
+        <strong>Errors as values</strong>
+        <span>Expected failures return Result/error. Exceptions are for the truly exceptional</span>
+      </div>
+      <div class="principle-item">
+        <strong>Deterministic first</strong>
+        <span>Probabilistic only when deterministic is genuinely impossible — and never silently chosen</span>
+      </div>
+      <div class="principle-item">
+        <strong>Structured logging</strong>
+        <span>JSON Lines at the boundary. Injected LogSink interface. Never secrets, never prose</span>
+      </div>
+      <div class="principle-item">
+        <strong>Enforce over instruct</strong>
+        <span>If a rule can be a script, make it a script. Gates verify evidence, not claims</span>
+      </div>
+      <div class="principle-item">
+        <strong>Precedence hierarchy</strong>
+        <span>Human instruction → governance files → project files → skill text → memory</span>
+      </div>
+      <div class="principle-item">
+        <strong>Gate density</strong>
+        <span>full / standard / light — same content, fewer stops. Never skip, only batch</span>
+      </div>
+      <div class="principle-item">
+        <strong>Promoted insights</strong>
+        <span>Per-project learnings earn global status only by deliberate, consented promotion</span>
+      </div>
+    </div>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── LIVING ARTIFACTS ── -->
+  <section id="artifacts">
+    <p class="eyebrow">Living artifacts</p>
+    <h2>Everything durable on disk</h2>
+    <p style="color:var(--stone);">The compaction cycle works because every durable fact has a home. The agent forgets wave context — the files don't.</p>
+    <ul class="artifacts-list">
+      <li class="artifact-item">
+        <div class="artifact-name">TASKS.md</div>
+        <div class="artifact-desc">The plan — every wave a verifiable outcome with a status. Written by randori, advanced by kata-commit, rewritten by kaizen</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">HANDOFF.md</div>
+        <div class="artifact-desc">Living project document — always current; the resume surface. Pick the project up cold from here</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">dojo-session.md</div>
+        <div class="artifact-desc">Current wave state — mode, rigor, step, goal, attempts. Gitignored; per-machine</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">CONTEXT.md</div>
+        <div class="artifact-desc">Glossary · Non-Goals · Decisions. Three sections, nothing else. The domain contract</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">learning-log.md</div>
+        <div class="artifact-desc">Per-wave briefs (concepts to explore) and debriefs. Append-only</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">progress.md</div>
+        <div class="artifact-desc">Terse per-wave log — built, exposes, next dependency, commit hash</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">.dojo/check-proof</div>
+        <div class="artifact-desc">Evidence the gate actually ran — timestamp, exit 0, output hash. Verified by kata-commit before every commit</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">RESUME.md</div>
+        <div class="artifact-desc">One-line continuation pointer written at the autonomous wave ceiling</div>
+      </li>
+    </ul>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── INSTALL ── -->
+  <section id="install">
+    <p class="eyebrow">Get started</p>
+    <h2>Install</h2>
+    <div class="install-block">
+      <span class="install-comment"># everything</span>
+      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add USERNAME/REPO</span>
+      <span class="install-comment"># be selective</span>
+      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add USERNAME/REPO --skill hajime --skill kata-red</span>
+    </div>
+    <p style="color:var(--stone); font-size:0.92rem;">Or copy the skill directories manually — each is a folder containing a <code>SKILL.md</code>. Then run <code>/hajime</code> on a new project; it scaffolds everything else.</p>
+
+    <h3 style="margin-top:2rem;">Two checks before you edit skills</h3>
+    <div class="install-block" style="margin-top:0.75rem;">
+      <span class="install-comment"># internal consistency (enums, headings, canonical template)</span>
+      <span class="install-cmd"><span class="prompt">$ </span>./scripts/dojo-lint.sh</span>
+      <span class="install-comment"># proof contract, end-to-end on a fixture repo</span>
+      <span class="install-cmd"><span class="prompt">$ </span>./evals/run-mechanics.sh</span>
+    </div>
+  </section>
+
+  <span class="stroke"></span>
+
+  <!-- ── NAMES ── -->
+  <section id="names">
+    <p class="eyebrow">The names</p>
+    <h2>道場 — the training hall</h2>
+    <blockquote class="names-quote">
+      A dojo is the place where discipline is built. A kata is a form practiced until internalized — not a ruleset you consult, but a form you execute automatically. That is the intent.
+    </blockquote>
+
+    <div class="name-grid">
+      <span class="name-term">dojo 道場</span><span class="name-def">Training hall — the system itself</span>
+      <span class="name-term">kata 型</span><span class="name-def">The wave form — RED → GREEN → REFACTOR → COMMIT</span>
+      <span class="name-term">hajime 始め</span><span class="name-def">"Begin" — the session entry command</span>
+      <span class="name-term">randori 乱取り</span><span class="name-def">Freeform sparring — interview-driven design</span>
+      <span class="name-term">kan 看</span><span class="name-def">Perception — disciplined diagnosis</span>
+      <span class="name-term">waza 技</span><span class="name-def">Technique — algorithmic classification</span>
+      <span class="name-term">kaizen 改善</span><span class="name-def">Continuous improvement — plan revision</span>
+      <span class="name-term">kokai 公開</span><span class="name-def">Publication — release and distribution</span>
+      <span class="name-term">kensha 検査</span><span class="name-def">Inspection — PR audit</span>
+    </div>
+  </section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="footer-mark">Dojo<span>道場</span></span>
+      <ul class="footer-links">
+        <li><a href="https://github.com/USERNAME/REPO" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/USERNAME/REPO/blob/main/DOJO-MANUAL.md" target="_blank" rel="noopener">Manual</a></li>
+        <li><a href="https://github.com/USERNAME/REPO/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+      </ul>
+    </div>
+    <p class="footer-copy">MIT License — built for my own work, shared freely.</p>
+  </div>
+</footer>
+
+</body>
+</html>
