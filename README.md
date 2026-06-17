@@ -50,7 +50,7 @@ technique.
 ## Quickstart
 
 ```bash
-npx skills add https://codeberg.org/liordino/dojo-skills 
+npx skills add https://codeberg.org/liordino/dojo-skills.git
 ```
 
 Then run `/hajime` to start a feature, or `/hajime-bugfix` to fix a bug.
@@ -70,10 +70,10 @@ always knows what the next wave is.
 ## Install
 
 ```bash
-npx skills add https://codeberg.org/liordino/dojo-skills                                    # everything
-npx skills add https://codeberg.org/liordino/dojo-skills --list                             # see what's in the repo
-npx skills add https://codeberg.org/liordino/dojo-skills --skill hajime --skill kata-red    # be selective
-npx skills add https://codeberg.org/liordino/dojo-skills -a pi                              # target a specific agent
+npx skills add https://codeberg.org/liordino/dojo-skills.git                                    # everything
+npx skills add https://codeberg.org/liordino/dojo-skills.git --list                             # see what's in the repo
+npx skills add https://codeberg.org/liordino/dojo-skills.git --skill hajime --skill kata-red    # be selective
+npx skills add https://codeberg.org/liordino/dojo-skills.git -a pi                              # target a specific agent
 ```
 
 The `skills` CLI reads the GitHub repo directly and copies the skill directories into your
