@@ -1,0 +1,10 @@
+# Per-machine state (never tracked)
+.dojo/
+dojo-session.md
+
+# Override ~/.gitignore_global for Dojo artifacts that MUST be tracked in this repo
+!CONTEXT.md
+!TASKS.md
+!progress.md
+!AGENTS.md
+!CLAUDE.md
