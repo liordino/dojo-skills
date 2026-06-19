@@ -11,7 +11,10 @@
 - **wave** — one verifiable outcome in `TASKS.md`; one trip through the
   `DEFINE → RED → GREEN → REFACTOR → COMMIT` cycle.
 - **dojo-check** — the canonical gate script. Always produces `.dojo/check-proof` as
-  evidence; `kata-commit` hard-gates on it.
+  evidence; `kata-commit` hard-gates on it. *Source-of-truth split (see Decisions):* the
+  proof-contract invariant (what `.dojo/check-proof` must contain) is normative in
+  `dojo-principles`; the three stack commands are per-project in `scripts/dojo-check.sh`;
+  `hajime/SKILL.md`'s inline block is illustrative.
 - **dojo-lint** — `scripts/dojo-lint.sh`; static internal-consistency checker for this
   package (R1–R9). Dev-time tooling, not a wave gate.
 - **eval** — automated scenario under `evals/`; deterministic, no agent required. Honest
@@ -19,6 +22,36 @@
 - **author / package owner** — the human who develops Dojo on their own harness and
   publishes it; the implicit audience for any change here is also *future* agents that
   will install and use the skill set.
+- **leading word** — a compact, pretrained concept (often a kanji name) that an agent
+  reasons with while running a skill. Repeated through a skill's body, it accumulates a
+  distributed definition and anchors behaviour in fewest tokens by recruiting priors
+  the model already holds. Source: Matt Pocock's `writing-great-skills` (MIT).
+- **branch** — a distinct way a skill is invoked; different runs taking different paths
+  through it. Each branch earns its own trigger phrase in the description; collapsing
+  synonyms to one branch keeps context load honest. Source: same.
+- **router skill** — a user-invoked skill whose body is an index of other skills by
+  name and trigger, used when user-invoked skills have piled up past what the human can
+  remember. `dojo/SKILL.md` is Dojo's router. Source: same.
+- **single source of truth (SoT)** — for any given meaning, one authoritative place;
+  changing behaviour is a one-place edit. Where a meaning must appear in multiple
+  places, the secondary sites are pointers and (where possible) lint-enforced
+  equivalences. Source: same.
+- **enforce-over-instruct** — the leading word `_enforce_`. When a rule can be enforced
+  by a script (a hook, a generated artifact, a state check), prefer that to prompting.
+  Dojo's existing tokens for this idea: lint R1–R9, the dojo-check proof artifact, the
+  freshness rule in kata-commit.
+- **proof artifact** — the leading word `_proof_`. The `.dojo/check-proof` file
+  (sha256'd pass/fail with `ts`/`exit`/`output_sha256`) written by a green run; the
+  concrete evidence that gates a commit. "Tests passed" is prose; the proof is evidence.
+- **non-goal** — a deliberate, recorded boundary. Items in `## Non-Goals` bind every
+  future session and autonomous run; crossing the line is a scope change handled by
+  `/kaizen` with an ADR. The noun is preserved (it is the artefact the project edits);
+  a separate leading word for the *behaviour* (currently `_bound_` provisional) is used
+  in prose.
+- **session-invoked** — a skill pre-loaded at session start (the three `dojo-*` files),
+  neither model-invoked (the agent reaches it from prose matching) nor user-invoked
+  (the human types the name). The YAML flag is binary; these stay model-invoked for
+  mechanical reasons, but the *reasoning* belongs in the ADR for the invocation rule.
 
 ## Non-Goals
 
@@ -26,7 +59,10 @@
   workflow. Other harnesses / stacks are tolerated where they don't add cost, but Dojo will
   not grow to be "framework-agnostic" or "stack-agnostic" for its own sake.
 - **Not a teaching platform.** The skill files are terse rules (rationale in `DOJO-MANUAL.md`).
-  No tutorials, no exhaustive prose.
+  No tutorials, no exhaustive prose. *Concrete for the audit domain:* the meta-skill
+  `dojo-write-skill/SKILL.md` is a *bridge* to upstream `writing-great-skills` (Matt
+  Pocock, MIT), not a fork, course, or guide. We do not turn Dojo into a skill-writing
+  framework.
 - **Not a curated marketplace.** We don't take contributions lightly; quality and cohesion
   of the system outweigh adding skills. New techniques require a clear gap (decision in
   randori, not bolt-on).
@@ -34,6 +70,10 @@
   not assent. Dojo never silently rubber-stamps.
 - **Not testing "AI judgment" via evals.** The evals test *artifacts* and *deterministic
   protocol guarantees* — never whether the agent made a "good" decision.
+- **The wave cycle is not in scope for this round of work.** The
+  `DEFINE → RED → GREEN → REFACTOR → COMMIT` cycle, gate density, and the meaning of the
+  proof artifact are settled. Every wave in `TASKS.md` may touch skills; none may redefine
+  the cycle. Cross this line only via `/kaizen` with an ADR.
 
 ## Decisions
 
@@ -61,3 +101,27 @@
   `dojo-session.md` per wave).
 - **Wave ceiling default.** 4 (per dojo-project preference default; recorded in
   `dojo-session.md` per wave).
+- **dojo-check source-of-truth split.** Three sources today, each normative for a
+  distinct layer: the **proof-contract invariant** (what `.dojo/check-proof` must
+  contain) lives in `dojo-principles`; the **three stack commands** live in the
+  per-project `scripts/dojo-check.sh`; the inline bash block in `hajime/SKILL.md` is
+  **illustrative**, not normative. `DOJO-MANUAL.md` mirrors the illustrative block for
+  human readers and references `dojo-principles` for the contract. Lint R6 (byte-equality
+  enforcement) is retired and replaced by an R that verifies each surface references the
+  same proof-contract identifiers. ADR: `docs/adr/0001-dojo-check-source-of-truth.md`.
+- **Skill invocation rule.** Model-invoked (default; YAML `disable-model-invocation`
+  absent) when the agent reaches the skill from prose matching. User-invoked (`true`)
+  when the skill is reached by the human typing its name. `dojo-*` governance files are
+  *session-invoked* — pre-loaded at session start, neither; the binary flag keeps them
+  model-invoked for mechanical reasons. Per-skill rationale lives in the YAML
+  front-matter. ADR: `docs/adr/0002-skill-invocation-rule.md`.
+- **Meta-skill as bridge, not fork.** `dojo-write-skill/SKILL.md` is a Dojo-native
+  bridge to upstream `writing-great-skills` (MIT). It imports the upstream's vocabulary
+  (leading word, branch, router skill, single source of truth) but restates none of its
+  content; the upstream remains canonical for skill-writing knowledge. Attribution at
+  the top of the file. Completion criterion: the skill passes its own checklist. ADR:
+  `docs/adr/0003-meta-skill-bridge-not-fork.md`.
+- **Skill-writing vocabulary is now part of the project's domain language.** Adopted
+  from `writing-great-skills` (MIT) at the randori that produced `TASKS.md`. New glossary
+  entries above; reversion is via `/kaizen` with an ADR if a wave finds a term doesn't
+  earn its place.

@@ -44,27 +44,33 @@ Look for `dojo-session.md` in the project root, and run `git status --porcelain`
 confirm-or-override instead of cold questions. It is a convenience; never depend on it.
 
 **Rigor — real work or throwaway?**
+
 ```
 What are we building?
   1. Real software — full discipline (tests, durable docs, the works)
   2. Proof of concept — a throwaway experiment to answer one question fast
 ```
+
 Sets `rigor: real|poc`. PoC adjustments are in section 2b — but PoC still gets a mode.
 
 **Mode:**
+
 ```
 How do you want to run this session?
   1. Supervised — I stop at gates for your decision (density: full/standard/light, see dojo-conduct)
   2. Autonomous — I run the cycle to completion, halting only on divergence
 ```
+
 Sets `mode`. In supervised mode also set `gate_density` from preferences (default `standard`).
 
 **Design:**
+
 ```
 Is the design already done — is there a TASKS.md or equivalent plan to execute?
   1. Yes — I'll audit and work from the existing plan
   2. No — we'll grill it out first (always supervised, even for an autonomous run)
 ```
+
 Grilling is always supervised. Autonomy begins only after the plan is set and confirmed.
 
 ---
@@ -92,27 +98,36 @@ Work through each item; report status. These steps are yours to execute, agent �
 touchpoint is confirming the dojo-check script.
 
 ### CONTEXT.md
+
 If missing, create with exactly this skeleton (contract in randori; listed in dojo-project):
+
 ```markdown
 # Context — [project name]
 ## Glossary
 ## Non-Goals
 ## Decisions
 ```
+
 `docs/adr/` is created lazily on the first ADR.
 
-### dojo-check (the canonical template)
+### dojo-check (the scaffolded gate)
+
 ```
 [ ] scripts/dojo-check.sh exists and is executable
 ```
+
 If missing:
+
 1. Create `scripts/`.
 2. Detect the stack: `Cargo.toml` → Rust · `*.csproj`/`*.sln` → C# · `go.mod` → Go ·
    `package.json` → Node/TS · `CMakeLists.txt`/`Makefile` → C/C++ (ask for exact commands) ·
    nothing recognized → ask the human. Never skip the script — a project without dojo-check
    has no gate.
-3. Create `scripts/dojo-check.sh` — compile → lint → test **plus the proof artifact**. This
-   template is canonical; swap only the three stack commands:
+3. Create `scripts/dojo-check.sh` — compile → lint → test **plus the proof artifact**. The
+   example below is illustrative (cargo-shaped); the proof-contract invariant it implements
+   lives in `dojo-principles → Enforce Over Instruct — the Proof Contract`, which is the
+   normative definition. Swap only the three stack commands:
+
 ```bash
 #!/usr/bin/env bash
 set -e
@@ -131,6 +146,7 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
   echo "output_sha256=$(sha .dojo/check-output.log | awk '{print $1}')"
 } > .dojo/check-proof
 ```
+
    The proof is evidence, not a claim — kata-commit verifies it before committing. On Windows,
    run under Git Bash or WSL — or use the PowerShell variant at
    `hajime/reference/dojo-check.ps1` (same contract; swap the same three commands).
@@ -139,24 +155,28 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
 5. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
    stack?" Do not proceed until confirmed.
 6. Run it to establish the **baseline**:
-   - All green → proceed.
-   - No tests yet → create a trivial passing test, re-run.
-   - **Pre-existing failures** (brownfield) → record them in dojo-session.md under
+
+- All green → proceed.
+- No tests yet → create a trivial passing test, re-run.
+- **Pre-existing failures** (brownfield) → record them in dojo-session.md under
      `pre_existing_failures`, then offer: (a) a **stabilization wave 0** to green the baseline
      first (recommended), or (b) proceed with the rule that every gate requires *no new
      failures* — pre-existing ones are tracked, not fixed silently, not allowed to grow.
 
 ### graphify (optional tool — active treatment per dojo-conduct)
+
 Empty/greenfield project → skip entirely; kata-commit will suggest it once code exists.
 Existing code + cache present → skip silently. Existing code + no cache → offer to run it now
 ("builds a structural graph, paid once, skippable"); run if no objection. Runs *before* randori
 so the grill is informed by real structure.
 
 ### Living artifacts
+
 Create if absent: **HANDOFF.md** (skeleton below, Project Overview synthesized from CONTEXT.md)
 and **learning-log.md** (header: "# Learning Log — [project]. Wave briefs and debriefs.
 Append-only."). If the work may span multiple waves or sessions, also initialize `progress.md`
 and `findings.md` now (kata-commit and the halt protocols append to them).
+
 ```markdown
 # Project Handoff — [project name]
 ## Project Overview
@@ -174,6 +194,7 @@ and `findings.md` now (kata-commit and the halt protocols append to them).
 Ask once per session; store as `commit_style`. If a preference exists, confirm it instead of
 asking cold; if the human states a new lasting preference, propose saving it (consent rule in
 dojo-project).
+
 ```
 How do you like your commit messages?
   TERSE        fix: prevent double discount on retry
@@ -187,6 +208,7 @@ How do you like your commit messages?
 
 If CONTEXT.md → Decisions already records a log sink: skip silently. Otherwise ask once, record
 the answer there, and write an ADR (it's architectural):
+
 ```
 How should this project's application logs be handled? (All options are JSON Lines.)
   1. Text file (JSONL) — default; simple, forward anywhere later
@@ -194,6 +216,7 @@ How should this project's application logs be handled? (All options are JSON Lin
   3. Database — a logs table with a structured column
   4. Log service — with automatic local-file fallback
 ```
+
 Note in the Decision: code depends on a `LogSink` interface, never a destination; remote sinks
 require local fallback (dojo-principles → Logging).
 
@@ -203,6 +226,7 @@ require local fallback (dojo-principles → Logging).
 
 **If the design exists:** read TASKS.md and **audit before trusting** — declared done is not
 verified done, and an autonomous run amplifies vagueness:
+
 - Each wave states a **single verifiable outcome** — you can name the one check that proves it.
   ("A Customer with no payment method gets PaymentMethodMissingError at checkout" passes;
   "add payment validation" does not.)
@@ -222,6 +246,7 @@ outcome with `status:` fields) whenever the work spans more than one wave. Alway
 
 Write `dojo-session.md` (wave 1's goal comes from TASKS.md, or from randori for single-wave
 work):
+
 ```markdown
 # Dojo Session
 mode: [supervised|autonomous]
@@ -239,6 +264,7 @@ test_status:
 attempts: 0
 pre_existing_failures: [list or "none"]
 ```
+
 Present the goal. Supervised: confirm it. Autonomous: confirm the full plan before any
 autonomy begins.
 

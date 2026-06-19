@@ -63,6 +63,7 @@ Rules only. Rationale and examples live in DOJO-MANUAL.md.
 ## Negative Space Programming (Make Invalid States Unrepresentable)
 
 Strongest first:
+
 - Illegal states unrepresentable in types: enums for closed sets; sum types / discriminated
   unions where each case carries exactly its valid fields — never nullable-field-plus-flags.
 - Constrain at construction: validate once at the boundary, return a type that guarantees
@@ -89,7 +90,39 @@ Strongest first:
 - Pure functions need no mocks. Needing a mock to test a function means a side effect should be
   lifted out.
 
-## Logging — Structured, at the Boundary
+## Enforce Over Instruct — the Proof Contract
+
+This is the canonical home of the **dojo-check proof contract**. Anything that defines what
+a green run proves lives here; nothing else restates it.
+
+The artifact: `.dojo/check-proof` — written by `scripts/dojo-check.sh` after a fully green
+run (`set -e` + `set -o pipefail` reaches the proof block only on success). It contains
+exactly three lines:
+
+```
+ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+exit=0
+output_sha256=$(sha .dojo/check-output.log | awk '{print $1}')
+```
+
+- `ts` is the wall-clock time the proof was written (ISO-8601 UTC).
+- `exit=0` records that every check passed; a non-zero run never rewrites the file.
+- `output_sha256` is the sha256 of `.dojo/check-output.log` — the full stdout/stderr of the
+  check run. The log is the *input*; the proof is the *seal*.
+
+The **freshness invariant** is part of the contract: the proof's `ts` must be newer than
+every tracked source file. `kata-commit` enforces this before any commit — a stale proof
+cannot pass the gate. Edit anything after the run, the proof is no longer fresh; re-run
+dojo-check.
+
+**Where the contract is referenced from:** `scripts/dojo-check.sh` writes it (the per-project
+stack executor); `hajime/SKILL.md` and `DOJO-MANUAL.md` carry *illustrative* cargo-shaped
+examples that point here; `hajime/reference/dojo-check.ps1` carries the Windows variant
+(same contract, PowerShell). The PowerShell reference and any future per-stack variants
+must reference `check-proof`, `output_sha256`, and `check-output.log` to keep agreement;
+`scripts/dojo-lint.sh` R10 enforces the structural equivalence.
+
+When in doubt about the contract, change it here — the proof rule is one place.
 
 - Logging is a side effect: the shell logs; the pure core stays silent (propagate outward as a
   value if something deep is worth logging).

@@ -246,10 +246,12 @@ and proves it. Called at four points: session start (baseline) · after RED (new
 for the right reason, no new failures elsewhere) · after GREEN (everything passes) · before
 COMMIT (final gate, proof verified).
 
-### The canonical template
+### The illustrative template
 
-This is the same template hajime scaffolds (dojo-lint verifies the two stay identical). Swap
-only the three stack commands:
+This is the same cargo-shaped example hajime scaffolds. The **proof-contract invariant**
+(what `.dojo/check-proof` must contain, and what it proves) is normative in
+`dojo-principles → Enforce Over Instruct — the Proof Contract` — change it there, not
+here. This block shows the shape; swap only the three stack commands:
 
 ```bash
 #!/usr/bin/env bash
@@ -279,8 +281,12 @@ is easier than faking the artifact — which is the honest bar in a harness with
 (fast), tests last; exit 1 on first failure with diagnosable output; headless (no prompts);
 no missing environment requirements; consistent parseable output.
 
-`evals/run-mechanics.sh` exercises this entire contract end-to-end against a fixture repo —
-extracting the live canonical template, so it fails if the template and this section drift.
+`scripts/dojo-lint.sh` R10 enforces that `dojo-principles`, `scripts/dojo-check.sh`, this
+manual, the hajime scaffold, and the PowerShell reference all reference the same
+proof-contract identifiers (`check-proof`, `output_sha256`, `check-output.log`) — the
+*structural* agreement. The surfaces are free to diverge in prose so long as they all
+reference the same identifiers. See ADR 0001 in `docs/adr/` for the rationale and the
+migration history from the prior byte-equality check.
 
 ### Targeted runs (optional, for large suites)
 
@@ -482,12 +488,15 @@ merging and sign-off are always the human's. Normative: `kensha/SKILL.md`.
 **Scenario:** validate payment methods at checkout.
 
 **Step 1 — Start**
+
 ```
 You: /hajime Add payment method validation to checkout
 ```
+
 The agent: no dojo-session.md → fresh · asks rigor → real · mode → supervised (density
 standard from your preferences) · design → not done · scaffolds/verifies CONTEXT.md and
 dojo-check, baseline green ✓ · offers graphify, you accept · runs randori:
+
 ```
 Agent: "Should validation happen before or after the order total is calculated?
 My recommendation: before — no point totaling an order that can't be paid. Your call?"
@@ -498,7 +507,9 @@ specifically. Agree?"
 You: "Yes."
 [... non-goals suggested and confirmed, two more questions ...]
 ```
+
 Randori writes TASKS.md (two waves) and the intent line; hajime writes dojo-session.md:
+
 ```
 Agent: "Plan: Wave 1 — a checkout attempt with no payment method on file raises
 PaymentMethodMissingError before order total calculation. Wave 2 — expired methods are
@@ -506,18 +517,22 @@ rejected with PaymentMethodExpiredError. Baseline green. Run /kata-red when read
 ```
 
 **Step 2 — RED (one stop: brief + failing check)**
+
 ```
 You: /kata-red
 ```
+
 The agent reloads from disk, then presents together: the wave brief (what/why/concepts:
 "parse-don't-validate", "guard clauses"/bigger picture), the test written in CONTEXT.md
 language, and the dojo-check output — new test failing for the right reason, 47 existing
 passing. STOP. You approve.
 
 **Step 3 — GREEN (one stop: diff + assessment + decision)**
+
 ```
 You: /kata-green
 ```
+
 ```
 Agent: "Approach: a PaymentMethodMissingError type and one guard at the top of checkout.
 YAGNI: no validation framework. ... All 48 tests pass; fresh .dojo/check-proof written.
@@ -529,12 +544,14 @@ Refactor opportunities:
 
 Want to refactor?  1. Yes, handle the above  2. Yes, with instructions  3. No, straight to commit
 ```
+
 You pick 1.
 
 **Step 4 — REFACTOR (stop)**
 Agent extracts the predicate, dojo-check stays green, presents the diff. You approve.
 
 **Step 5 — COMMIT (gate, then advancement)**
+
 ```
 Agent: "Proof verified fresh. Staging 3 files (status summary below — no denylist hits).
 Suggested commit:
@@ -553,6 +570,7 @@ PaymentMethodExpiredError. Confirm and run /kata-red, or stop here."
 You: /hajime-bugfix Orders get double discounts when the checkout request is retried on a
 network timeout. Line 47 of OrderService.cs.
 ```
+
 Checklist runs; baseline: 34 passing, 2 pre-existing failures (unrelated — recorded, not
 owned). Kan reproduces deterministically ("calling applyDiscount twice drops the total by 20"),
 minimises, and names the root cause: a relative operation with no idempotency guard. You
@@ -560,6 +578,7 @@ approve the diagnosis. Wave goal: "applyDiscount is idempotent — proven by a r
 Then `/kata-red` (regression test `applyDiscount_isIdempotent_whenCalledTwice` fails, 34 others
 unchanged) → `/kata-green` (guard + flag; 35 pass, 2 pre-existing still tracked) →
 `/kata-commit`:
+
 ```
 fix(orders): prevent discount from applying twice on retry
 
@@ -588,6 +607,7 @@ for per-item approval.
 You: /hajime-bugfix (autonomous) The payment webhook fires twice for some orders. Happens on
 retries; order_id is in the payload.
 ```
+
 The agent diagnoses, writes the regression test, fixes, commits. If it cannot reproduce
 deterministically, it halts and states exactly what artifact or access it needs. It never
 commits a fix it isn't confident in, and never expands a patch into a design change — that's

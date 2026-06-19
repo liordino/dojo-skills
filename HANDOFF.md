@@ -117,3 +117,11 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   not invented.
 - Refactor assessment — when a wave ends, the assessment is *brief + one
   decision*. Avoid overproducing ceremony.
+- `scripts/dojo-lint.sh` R4 false-positives on ADR filenames — the regex
+  `\b(dojo|kata|hajime)-[a-z][a-z-]*[a-z]\b` matches ADR file names like
+  `0001-dojo-check-source-of-truth.md` as if they were skill directories.
+  Hit during Wave 1's refactor step when `DOJO-MANUAL.md` referenced the
+  ADR by full filename. Fix candidates: tighten the regex to require the
+  matched token to be an existing directory; or add ADR paths to R4's
+  whitelist. Defer — current workaround is to reference ADRs by number
+  only ("see ADR 0001 in `docs/adr/`").
