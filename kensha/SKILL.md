@@ -1,5 +1,6 @@
 ---
 name: kensha
+disable-model-invocation: true
 description: >
   Audit an incoming contribution (pull request) or a batch of recently merged changes. Use
   when reviewing a contributor's PR, or after a long session / several merges, to catch dead
@@ -27,6 +28,7 @@ summary.
 ## Mode A — Single PR review
 
 Audit the diff against:
+
 - **Does it make sense?** Does it do what it claims, correctly?
 - **Regressions?** Could it break existing behavior; are existing tests still valid and green?
 - **Quality drop?** dojo-principles violations (DRY, negative space, purity, naming,

@@ -1,4 +1,5 @@
 ---
+# invocation: session-invoked — see ADR 0002
 name: dojo-conduct
 description: >
   How the Dojo agent conducts itself — operational rules, not engineering rules. Load at session

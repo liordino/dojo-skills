@@ -1,4 +1,5 @@
 ---
+# invocation: session-invoked — see ADR 0002
 name: dojo-principles
 description: >
   Cross-cutting engineering principles for the code itself. Load at session start alongside

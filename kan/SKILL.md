@@ -1,5 +1,6 @@
 ---
 name: kan
+disable-model-invocation: true
 description: >
   Disciplined diagnosis loop for hard bugs and performance regressions. Use when something is
   broken and the cause is not obvious. Triggers on: /kan, or automatically from hajime-bugfix's
@@ -31,6 +32,7 @@ give up. This is the skill; the rest is procedure.
 ## The loop
 
 ### 1. Reproduce
+
 A deterministic pass/fail signal for the *exact* reported bug — not a nearby failure. Cheapest
 harness that reaches it: a failing test at whatever seam works (unit/integration/e2e) · a
 curl/HTTP script against a dev server · a CLI invocation with a fixture, diffing stdout
@@ -43,24 +45,29 @@ Cannot reproduce → stop. Do not hypothesise blind. Supervised: ask for a captu
 log to findings.md what's needed. Do not guess.
 
 ### 2. Minimise
+
 Shrink to the smallest form that still triggers it. A one-line repro points almost directly at
 the cause.
 
 ### 3. Hypothesise
+
 Specific and falsifiable — "the parser drops the last token when input has no trailing
 newline," never "something's wrong with the parser." Rank by likelihood.
 
 ### 4. Instrument
+
 Test each hypothesis against the signal — logging, asserts, breakpoints. The signal decides,
 not intuition. Eliminate until one stands.
 
 ### 5. Fix
+
 Fix the cause, not the symptom — the **smallest change that fixes the cause, reusing what's
 there**. If the proper fix genuinely requires more than a targeted change, that's a divergence
 (below), not license to widen scope. The fix itself runs in the kata cycle: kan identifies and
 confirms; kata-green implements.
 
 ### 6. Regression-test
+
 The reproduction from step 1 *is* the regression test: fails now, must pass after the fix.
 Hand it to kata-red as the wave's failing test.
 

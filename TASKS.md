@@ -4,7 +4,7 @@ intent: raise the quality of the Dojo skill set to the standard set by `writing-
 
 ## Wave 1 — dojo-check is single-sourced
 
-status: pending
+status: done
 The dojo-check template's source-of-truth split is implemented: `dojo-principles` carries the proof-contract invariant, `scripts/dojo-check.sh` is the per-project stack executor with the content-repo's three stack commands, hajime's inline block is illustrative and points at `dojo-principles`, and lint R6 is retired and replaced by an R that verifies each surface references the same proof-contract identifiers. ADR 0001 already written; wave ships the implementation. Verified by: `./scripts/dojo-lint.sh` passes; `./scripts/dojo-check.sh` still produces a valid proof; the hajime block, the manual block, the script, and the PowerShell reference all reference `check-proof`/`output_sha256`/`check-output.log`.
 
 ## Wave 2 — every skill declares its invocation type

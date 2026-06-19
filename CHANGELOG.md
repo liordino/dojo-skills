@@ -5,6 +5,7 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 ## [Unreleased]
 
 ### Added
+
 - **`tanren` skill** (鍛錬 — "forge by iteration") — an optional, gated iterative-optimization
   loop (propose → score → keep-or-revert) for algorithm problems that have a *measurable
   fitness metric*, not merely binary correctness. Inspired by the propose/score/keep-or-revert
@@ -35,6 +36,30 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   recurring context cost (same pattern as `dojo-principles/reference/ast-grep.md`).
 - `dojo-lint.sh` R8 — checks the PowerShell reference exists and still contains the proof
   contract markers.
+- **`docs/adr/`** — architecture decision records. Three ADRs ship with this cycle:
+  `0001-dojo-check-source-of-truth` (the proof-contract SoT split), `0002-skill-invocation-rule`
+  (model- vs user- vs session-invoked), `0003-meta-skill-bridge-not-fork` (the meta-skill is a
+  bridge to upstream `writing-great-skills`, not a fork).
+- **`TASKS.md`** — the multi-wave plan. Surfaced by the audit-driven randori: 10 waves ordered
+  by risk and dependency, each a single verifiable outcome.
+- **`dojo-lint.sh` R10** — replaces the retired R6 byte-equality check. Asserts every
+  normative surface (dojo-principles, scripts/dojo-check.sh, hajime, DOJO-MANUAL, the
+  PowerShell reference) references the same proof-contract identifiers (`check-proof`,
+  `output_sha256`, `check-output.log`). Structural equivalence, not byte-equality.
+- **Skill-writing vocabulary adopted from `writing-great-skills` (Matt Pocock, MIT).** New
+  glossary entries in CONTEXT.md: `leading word`, `branch`, `router skill`, `single source of
+  truth`, plus the leading words `_enforce_` and `_proof_`. Bridge, not fork; ADRs cite the
+  upstream; the meta-skill (Wave 10) carries the attribution.
+
+### Changed
+- **dojo-check template source-of-truth split** (Wave 1 of 10). The proof-contract invariant
+  is normative in `dojo-principles → Enforce Over Instruct — the Proof Contract`; per-project
+  stack commands live in `scripts/dojo-check.sh`; hajime's inline block and DOJO-MANUAL's
+  mirror are illustrative examples that point at the principle. Surfaces can diverge in prose
+  so long as they reference the same identifiers (R10 enforces agreement).
+- **`dojo-lint.sh` R6 retired.** Byte-equality between hajime's bash block and the manual's
+  block is no longer the contract; R10 (structural-equivalence via identifier presence) replaces
+  it. The new check matches what the wave's goal actually claims.
 
 ## [1.1.0] — 2026-06-12
 
@@ -43,6 +68,7 @@ purely normative (terse rules); rationale lives in DOJO-MANUAL.md. Recurring per
 cost dropped ~36% with no rule removed.
 
 ### Fixed
+
 - **The wave loop now has an iterator.** randori writes `TASKS.md` (every wave a verifiable
   outcome with `status: pending|done|invalidated`); kata-commit marks waves done and advances
   the next pending goal into `dojo-session.md`. Previously no skill created the plan or
@@ -71,6 +97,7 @@ cost dropped ~36% with no rule removed.
 - **Plan-file split-brain:** the secondary plan filename is gone; `TASKS.md` everywhere.
 
 ### Changed
+
 - **`mode` split into `mode` (supervised|autonomous) and `rigor` (real|poc)** — orthogonal
   axes; PoC sessions now have defined gating, and kata-refactor gained a PoC branch
   (formatter only).
@@ -91,6 +118,7 @@ cost dropped ~36% with no rule removed.
   stack/language tooling specifics retained by design.
 
 ### Added
+
 - **Gate density** (`full|standard|light`, dojo-conduct): fewer supervised stops, same
   content, with the engagement note suggesting lighter density on reflexive approvals.
 - **Configurable wave ceiling** + **RESUME.md**: autonomous runs pause at a clean checkpoint

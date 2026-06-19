@@ -1,5 +1,6 @@
 ---
 name: tanren
+disable-model-invocation: true
 description: >
   Iteratively forge a better algorithm by propose → score → keep-or-revert, when a problem has a
   measurable fitness metric to optimize (performance, approximation quality, a tuned heuristic) —
@@ -106,6 +107,7 @@ tanren never depends on routing.
 ## Stopping criteria — the loop is never open-ended
 
 Stop and exit at the first of (all limits read from the frozen `run.json`):
+
 - **Budget reached** — `max_iterations`, or the token/wallclock budget the human set. Hard cap.
 - **Target met** — the metric reached the human's acceptance threshold.
 - **Stagnation** — no improvement past the threshold for N consecutive iterations (default 3).

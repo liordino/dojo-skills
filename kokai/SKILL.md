@@ -1,5 +1,6 @@
 ---
 name: kokai
+disable-model-invocation: true
 description: >
   Set up the release and distribution lifecycle — the post-code stage that turns committed
   code into something a stranger can install, trust, and update. Use when a project is ready
@@ -37,6 +38,7 @@ Confirm the one-sentence problem statement with the human before proceeding.
 
 Offer several paths; never force a full toolchain just to try the tool. Detect language/type
 and propose relevant channels:
+
 - **Always the lowest common denominator:** a prebuilt binary/artifact (tarball on PATH for
   CLIs; platform installer for desktop).
 - **Language-native:** `cargo install` · `pip install`/`pipx` · `npm install` · `go install` ·

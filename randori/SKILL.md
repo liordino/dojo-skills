@@ -1,5 +1,6 @@
 ---
 name: randori
+disable-model-invocation: true
 description: >
   Relentless interview-driven design session. Use when defining a feature or stress-testing a
   plan against the project's existing domain language. Triggers on: /randori, or automatically
@@ -43,6 +44,7 @@ design-grill run consumes the answers as its starting point: scope → gather �
 
 Establish *what actually needs building* before *how*. Work through these with the human,
 exploring the codebase/graph to answer what you can yourself:
+
 1. **What already exists** — in the codebase, environment, or upstream — that provides part of
    this?
 2. **What is the true minimal delta**, starting from existing data/artifacts/seams?
@@ -74,6 +76,7 @@ outcome: cut redundant work, never necessary work.
 
 CONTEXT.md holds **exactly three sections, nothing else** (no implementation detail, no spec,
 no scratch pad):
+
 - **Glossary** — canonical domain terms and meanings. The highest-leverage output: code,
   conversation, and docs all derive from one model.
 - **Non-Goals** — the confirmed boundary of what this project deliberately isn't.
@@ -111,6 +114,7 @@ check that proves it? It's two waves. The stuck protocol catching an oversized w
 expensive way to learn this.
 
 **Write TASKS.md whenever the work spans more than one wave** (single-wave work skips it):
+
 ```markdown
 # Tasks — [project name]
 intent: [the one sentence]
@@ -121,6 +125,7 @@ status: pending
 ## Wave 2 — [verifiable outcome]
 status: pending
 ```
+
 `status:` is one of `pending | done | invalidated`. kata-commit marks waves done and advances;
 kaizen rewrites this file when reality changes. Order waves by dependency.
 

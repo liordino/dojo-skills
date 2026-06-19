@@ -1,4 +1,5 @@
 ---
+# invocation: session-invoked — see ADR 0002
 name: dojo-project
 description: >
   Project-level principles: how a project is structured, documented, configured, distributed, and

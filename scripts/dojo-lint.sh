@@ -107,6 +107,78 @@ else
 	done
 fi
 
+# R11 — every skill declares its invocation type per ADR 0002.
+# Three categories (model-, user-, session-invoked); each skill is in exactly one.
+# Model-invoked: must NOT carry `disable-model-invocation: true`.
+# User-invoked: must carry `disable-model-invocation: true`.
+# Session-invoked: must NOT carry the flag AND must carry a YAML comment of the form
+#   `# invocation: session-invoked — see ADR 0002`
+# above the `name:` field. The exact wording matches the grep regex below; if you
+# change it here, update the regex.
+#
+# Single source of truth: R11_CLASSIFY below. If you add a new skill, add one entry.
+R11_CLASSIFY='randori:user kaizen:user kan:user waza:user tanren:user kensha:user kokai:user dojo-principles:session dojo-project:session dojo-conduct:session kata-red:model kata-green:model kata-refactor:model kata-commit:model kata-stuck:model hajime:model hajime-bugfix:model'
+# Helper: print just the YAML front-matter (between the two --- fences).
+R11_fm() {
+	awk 'BEGIN{fm=0} /^---$/{if(fm==0){fm=1; next} else {exit}} fm==1{print}' "$1"
+}
+# Helper: look up a skill's category in R11_CLASSIFY; echoes user|session|model or "" if absent.
+R11_category() {
+	local name="$1"
+	local match
+	match=$(echo "$R11_CLASSIFY" | grep -oE "(^| )${name}:(user|session|model)( |$)" | head -1)
+	if [ -z "$match" ]; then
+		echo ""
+	else
+		echo "$match" | grep -oE ':(user|session|model)' | head -1 | tr -d ':'
+	fi
+}
+R11_FAIL=0
+for sf in */SKILL.md; do
+	name=$(basename "$(dirname "$sf")")
+	fm=$(R11_fm "$sf")
+	if echo "$fm" | grep -qE '^disable-model-invocation:[[:space:]]*true'; then
+		has_dmi=yes
+	else
+		has_dmi=no
+	fi
+	if echo "$fm" | grep -qE '^#[[:space:]]*invocation:[[:space:]]*session-invoked'; then
+		has_inv=yes
+	else
+		has_inv=no
+	fi
+	category=$(R11_category "$name")
+	case "$category" in
+	user)
+		[ "$has_dmi" = yes ] || {
+			err "R11: $sf is user-invoked per ADR 0002 but lacks 'disable-model-invocation: true'"
+			R11_FAIL=1
+		}
+		;;
+	session)
+		[ "$has_dmi" = no ] || {
+			err "R11: $sf is session-invoked per ADR 0002 but carries 'disable-model-invocation: true'"
+			R11_FAIL=1
+		}
+		[ "$has_inv" = yes ] || {
+			err "R11: $sf is session-invoked per ADR 0002 but lacks the '# invocation: session-invoked — see ADR 0002' rationale comment"
+			R11_FAIL=1
+		}
+		;;
+	model)
+		[ "$has_dmi" = no ] || {
+			err "R11: $sf is model-invoked per ADR 0002 but carries 'disable-model-invocation: true'"
+			R11_FAIL=1
+		}
+		;;
+	*)
+		err "R11: $sf is not classified in R11_CLASSIFY — add '<name>:<user|session|model>' to the table above"
+		R11_FAIL=1
+		;;
+	esac
+done
+[ "$R11_FAIL" -eq 0 ] || err "R11: skill invocation rule (ADR 0002) is not satisfied"
+
 if [ "$FAIL" -eq 0 ]; then
 	say "dojo-lint: PASS — all consistency checks green."
 	exit 0

@@ -1,5 +1,6 @@
 ---
 name: kaizen
+disable-model-invocation: true
 description: >
   Re-grill and update a project in light of new circumstances, discoveries, or pivots. Use
   when something must change mid-project, a discovery invalidates the plan, you're extending a
@@ -38,6 +39,7 @@ change?). Use the Glossary's language.
 ## 3. Assess impact on the plan — honestly
 
 Present explicitly:
+
 - **Completed waves affected** — if a committed wave's assumptions no longer hold, name it; an
   invalidated wave may need a corrective wave. Never silently treat undermined code as
   still-correct.
@@ -68,9 +70,11 @@ Summarize: the change and why · waves added/modified/removed · the next wave.
 
 **Normal between-waves change:** "Plan updated. Run **/kata-red** when ready."
 **Autonomous-run halt resolution:** ask explicitly —
+
 ```
 How should I proceed?
   1. Continue autonomous — resume from the revised plan
   2. Switch to supervised — wave-by-wave gates
 ```
+
 Write the chosen `mode:` to dojo-session.md and hand off accordingly.

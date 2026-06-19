@@ -31,12 +31,12 @@ dojo-skills/
 ├── learning-log.md             # per-wave briefs and debriefs (append-only)
 ├── progress.md                 # terse per-wave log (append-only)
 ├── findings.md                 # discoveries + halt diagnostics (append-only)
-├── TASKS.md                    # optional plan; absent by design in this repo
+├── TASKS.md                    # the plan: 10 waves, every wave a verifiable outcome
 ├── docs/
 │   ├── index.html              # static landing page (GitHub Pages-friendly)
-│   └── adr/                    # architecture decision records (lazy)
+│   └── adr/                    # architecture decision records (lazy; 0001-0003 as of Wave 1)
 ├── scripts/
-│   ├── dojo-lint.sh            # static consistency checker for the package
+│   ├── dojo-lint.sh            # static consistency checker (R1–R10; R10 replaces retired R6)
 │   └── dojo-check.sh           # wave gate (lint + mechanics-eval + proof artifact)
 ├── evals/
 │   ├── run-mechanics.sh        # automated mechanics eval; deterministic
@@ -55,7 +55,7 @@ dojo-skills/
 ├── kokai/
 ├── kensha/
 ├── kaizen/
-├── dojo-principles/
+├── dojo-principles/             # normative home of the dojo-check proof contract (Wave 1)
 ├── dojo-project/
 └── dojo-conduct/
 ```
@@ -71,7 +71,7 @@ across updates.
 Append one line per committed wave. Format: `YYYY-MM-DD | wave N | <one-line outcome>`.
 Most recent first.
 
-<!-- future entries -->
+2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
 
 ## Key Concepts
 
@@ -87,21 +87,27 @@ Most recent first.
 - **Build once, repackage many:** the compiled artifact is the product; every
   distribution format wraps it. Applied here as: the skill directories are the
   product; `npx skills add` is one of several wrapper formats.
-- **Plan-less-by-design** (this repo): TASKS.md is absent. New work enters via
-  `/kaizen` when needs emerge; `/randori` writes a plan only if the work spans
-  multiple waves.
+- **Proof contract, single-sourced (Wave 1):** the proof-contract invariant (what
+  `.dojo/check-proof` must contain) is normative in `dojo-principles`; the per-project
+  stack executor lives in `scripts/dojo-check.sh`; hajime and DOJO-MANUAL carry
+  illustrative examples that point at the principle. Lint R10 enforces structural
+  equivalence (every surface references the same identifiers), not byte-equality.
+- **Skill-writing vocabulary (Wave 1):** adopted from Matt Pocock's
+  `writing-great-skills` (MIT). New glossary entries: `leading word`, `branch`,
+  `router skill`, `single source of truth`, plus the leading words `_enforce_` and
+  `_proof_`. Three ADRs (0001–0003) document the design decisions; Wave 4 will
+  retire the English phrases in favour of the leading words.
 
 ## Current State
 
 - Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
   next set of additions.
-- Most recent commit: see `git log -1`.
-- Working tree: clean (verified at session start).
-- `dojo-check` gate: **not yet established** (this turn scaffolds it).
-- Living artifacts: `CONTEXT.md` and `HANDOFF.md` exist as of this session;
-  `learning-log.md` / `progress.md` / `findings.md` to be created when content
-  warrants them (lazy per hajime §3).
-- Design plan (`TASKS.md`): absent by design for this repo.
+- Most recent commit: c9355b4 (`refactor(check): single-source the dojo-check template via dojo-principles`).
+- Working tree: clean as of Wave 1 commit.
+- `dojo-check` gate: **established and passing** — lint R1–R10, mechanics eval 12/12, fresh proof.
+- Plan: TASKS.md present with 10 waves; Wave 1 done; Wave 2 (invocation rule) is the next.
+- ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule), 0003 (meta-skill as bridge) committed with Wave 1.
+- Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
 
 ## Improvement Backlog
 

@@ -1,5 +1,6 @@
 ---
 name: waza
+disable-model-invocation: true
 description: >
   Recognize and handle algorithmic problems — when to use a known algorithm, when to derive a
   new one, and when to deliberately approximate. Triggers when about to write non-trivial logic
@@ -47,6 +48,7 @@ Not exclusive — a derivation may end in an approximation.
 ## Step 2 — Execute the mode
 
 ### Mode A — Recognition
+
 Name the canonical problem; state the established algorithm(s), their complexity, and the
 tradeoff (time vs space, simplicity vs speed, worst vs average); recommend one and why.
 **The DP check (most-missed recognition):** optimal substructure? overlapping subproblems?
@@ -54,6 +56,7 @@ Both → it's DP; memoize or tabulate. This is the most common "O(exponential) w
 O(polynomial) exists" — always run it when writing a recursive solution.
 
 ### Mode B — Derivation (work the moves in order)
+
 1. **Reduction, always first.** Map the unknown problem onto a known one, solve, map back.
    Most novel problems reduce.
 2. **Paradigm checklist:** divide & conquer (independent subproblems, combine) · DP (Mode A
@@ -68,8 +71,10 @@ O(polynomial) exists" — always run it when writing a recursive solution.
    to find breaks before committing.
 
 ### Mode C — Approximation
+
 The discipline is approximating *deliberately*, never accidentally (much of graphics/geometry
 is the deliberate art of good-enough). Required for any approximation:
+
 - **State the method** (heuristic, approximation algorithm with proven ratio, sampling,
   iterative refinement, domain approximation like LOD/perceptual).
 - **State the error tolerance explicitly** — how far from exact, in what metric.
@@ -94,6 +99,7 @@ returns a winning implementation for kata-red to ratify; it does not replace Ste
 ## Step 3 — Produce the test-first artifact (hand to kata-red)
 
 Every mode hands the testable contract to kata-red *before* implementation:
+
 - **Recognition / Derivation → property-based tests:** the properties the algorithm must
   satisfy for all inputs — optimality where provable, invariants (sorted/valid/in-bounds),
   round-trips, algebraic laws. The properties are often clearer than the algorithm and guide
