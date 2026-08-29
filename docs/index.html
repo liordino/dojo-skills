@@ -475,7 +475,7 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#principles">Principles</a></li>
       <li><a href="#install">Install</a></li>
-      <li><a href="https://codeberg.org/liordino/dojo-skills" target="_blank" rel="noopener">Codeberg ↗</a></li>
+      <li><a href="https://github.com/liordino/dojo-skills" target="_blank" rel="noopener">GitHub ↗</a></li>
     </ul>
   </div>
 </nav>
@@ -498,7 +498,7 @@
     </p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#install">Get started</a>
-      <a class="btn btn-ghost" href="https://codeberg.org/liordino/dojo-skills" target="_blank" rel="noopener">View on Codeberg ↗</a>
+      <a class="btn btn-ghost" href="https://github.com/liordino/dojo-skills" target="_blank" rel="noopener">View on GitHub ↗</a>
     </div>
   </header>
 
@@ -580,15 +580,6 @@
         </div>
       </div>
 
-      <div class="kata-arrow" aria-hidden="true">›</div>
-
-      <div class="kata-step" role="listitem">
-        <div class="kata-step-inner">
-          <div class="kata-label">Refactor</div>
-          <div class="kata-cmd">/kata-refactor</div>
-          <div class="kata-desc">Clean without changing behavior. Tests stay green throughout</div>
-        </div>
-      </div>
 
       <div class="kata-arrow" aria-hidden="true">›</div>
 
@@ -608,7 +599,7 @@
 
   <!-- ── SKILLS ── -->
   <section id="skills">
-    <p class="eyebrow">17 skills</p>
+    <p class="eyebrow">12 skills</p>
     <h2>The skill set</h2>
     <p class="skills-intro">Each skill is a <code>SKILL.md</code> file — terse normative rules the agent loads. Rationale and walkthroughs live in the manual, which the agent never loads.</p>
 
@@ -635,11 +626,7 @@
       <div class="skills-grid">
         <div class="skill-card">
           <div class="skill-card-name">hajime</div>
-          <div class="skill-card-role">Feature session start — asks rigor (real/PoC) and mode (supervised/autonomous), scaffolds the project, runs the design grill</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-name">hajime-bugfix</div>
-          <div class="skill-card-role">Bugfix session start — same scaffolding, kan diagnosis instead of randori, regression-test-first wave goal</div>
+          <div class="skill-card-role">Session start (feature or bugfix) — asks rigor (real/PoC) and mode, scaffolds the project, runs the design grill; bugfix branch routes to kan diagnosis</div>
         </div>
       </div>
     </div>
@@ -649,23 +636,15 @@
       <div class="skills-grid">
         <div class="skill-card">
           <div class="skill-card-name">kata-red</div>
-          <div class="skill-card-role">Write the failing check — invariant-based, property-first strategy ladder, non-automatable wave handling</div>
+          <div class="skill-card-role">Write the failing check — invariant-based, property-first strategy ladder; the algorithm-approach discipline lives here</div>
         </div>
         <div class="skill-card">
           <div class="skill-card-name">kata-green</div>
-          <div class="skill-card-role">Minimum implementation — YAGNI, idempotency, explicit types, error propagation, two-attempt stuck protocol</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-name">kata-refactor</div>
-          <div class="skill-card-role">Clean without changing behavior — SRP, naming, structural DRY, formatter, framework-detected UI pass</div>
+          <div class="skill-card-role">Minimum implementation — YAGNI, idempotency, explicit types, error propagation; includes the refactor step and the two-attempt stuck branch inline</div>
         </div>
         <div class="skill-card">
           <div class="skill-card-name">kata-commit</div>
           <div class="skill-card-role">Commit the wave — proof-verified gate, explicit staging with denylist, debrief, TASKS.md advancement, wave ceiling</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-name">kata-stuck</div>
-          <div class="skill-card-role">Surface a blocker after two failed attempts — structured diagnostic, adjusted approaches, route forward</div>
         </div>
       </div>
     </div>
@@ -682,10 +661,6 @@
           <div class="skill-card-role">Disciplined diagnosis — reproduce → minimise → hypothesise → instrument → fix → regression-test</div>
         </div>
         <div class="skill-card">
-          <div class="skill-card-name">waza</div>
-          <div class="skill-card-role">Algorithmic technique — classify as recognition, derivation, or approximation; produce a test-first contract</div>
-        </div>
-        <div class="skill-card">
           <div class="skill-card-name">tanren</div>
           <div class="skill-card-role">Iterative optimization — forge a better algorithm by propose → score → keep-or-revert, gated on a measurable metric and a frozen scorer</div>
         </div>
@@ -696,10 +671,6 @@
         <div class="skill-card">
           <div class="skill-card-name">kokai</div>
           <div class="skill-card-role">Release and distribution — install surface, CI, tag-triggered release, changelog</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-card-name">kensha</div>
-          <div class="skill-card-role">PR audit — correctness, regressions, quality, coverage, doc sync. Advises; human decides</div>
         </div>
       </div>
     </div>
@@ -816,9 +787,9 @@
     <h2>Install</h2>
     <div class="install-block">
       <span class="install-comment"># everything</span>
-      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add https://codeberg.org/liordino/dojo-skills.git</span>
+      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add liordino/dojo-skills</span>
       <span class="install-comment"># be selective</span>
-      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add https://codeberg.org/liordino/dojo-skills.git --skill hajime --skill kata-red</span>
+      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add https://github.com/liordino/dojo-skills --skill hajime --skill kata-red</span>
     </div>
     <p style="color:var(--stone); font-size:0.92rem;">Or copy the skill directories manually — each is a folder containing a <code>SKILL.md</code>. Then run <code>/hajime</code> on a new project; it scaffolds everything else.</p>
 
@@ -847,10 +818,8 @@
       <span class="name-term">hajime 始め</span><span class="name-def">"Begin" — the session entry command</span>
       <span class="name-term">randori 乱取り</span><span class="name-def">Freeform sparring — interview-driven design</span>
       <span class="name-term">kan 看</span><span class="name-def">Perception — disciplined diagnosis</span>
-      <span class="name-term">waza 技</span><span class="name-def">Technique — algorithmic classification</span>
       <span class="name-term">kaizen 改善</span><span class="name-def">Continuous improvement — plan revision</span>
       <span class="name-term">kokai 公開</span><span class="name-def">Publication — release and distribution</span>
-      <span class="name-term">kensha 検査</span><span class="name-def">Inspection — PR audit</span>
     </div>
   </section>
 
@@ -861,9 +830,9 @@
     <div class="footer-inner">
       <span class="footer-mark">Dojo<span>道場</span></span>
       <ul class="footer-links">
-        <li><a href="https://codeberg.org/liordino/dojo-skills" target="_blank" rel="noopener">Codeberg</a></li>
-        <li><a href="https://codeberg.org/liordino/dojo-skills/blob/main/DOJO-MANUAL.md" target="_blank" rel="noopener">Manual</a></li>
-        <li><a href="https://codeberg.org/liordino/dojo-skills/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
+        <li><a href="https://github.com/liordino/dojo-skills" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/liordino/dojo-skills/blob/main/DOJO-MANUAL.md" target="_blank" rel="noopener">Manual</a></li>
+        <li><a href="https://github.com/liordino/dojo-skills/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
       </ul>
     </div>
     <p class="footer-copy">MIT License — built for my own work, shared freely.</p>
