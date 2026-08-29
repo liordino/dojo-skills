@@ -43,7 +43,7 @@ engagement note that says so when you stop deciding.
 A **dojo** (道場) is the training hall — the place and practice where discipline is built. A
 **kata** (型) is a form practiced within it until internalized. Dojo is the system; the kata is
 the wave cycle performed inside it (the `kata-*` steps); the named techniques (hajime, randori,
-kan, kaizen, kokai, kensha) are moves practiced in the hall. The prefix tells you what a
+kan, kaizen, kokai) are moves practiced in the hall. The prefix tells you what a
 skill is: `dojo-*` governs the whole hall, `kata-*` is a step in the form, a bare name is a
 technique.
 
@@ -101,7 +101,6 @@ rather than blocking.
 | `kata-green` | Minimum implementation, refactor step, and stuck branch inline (the cycle is red → green → commit) |
 | `kata-commit` | Commit + living docs + wave advancement + compaction |
 | `kokai` | Release & distribution — install surface, CI, tag-release, changelog |
-| `kensha` | Audit an incoming PR or batch of merged changes (advise; human decides) |
 | `kaizen` | Re-grill and update the plan on discoveries or pivots |
 
 ## Engineering principles (where they live)

@@ -13,7 +13,7 @@ Closed the loop on the Wave-2 commit (4168c6e): the durable-artifact updates and
 
 Runnable wave plan for the Akita-inspired trim. Each wave leaves the lint gate green and the deleted-skill names absent from actively-followed prose (CHANGELOG and dated ADR/history notes are exempt) — that's the non-negotiable check on each.
 
-**The hard constraint that dictates ordering:** four files get deleted (the algorithm-classification absorbed, kensha absorbed, and the two absorbed into kata-green by Wave 5) and one merged (`hajime-bugfix`). References to them live in ~15 places (other skills, `dojo-lint.sh` R11/R12, ADR 0002, evals, README, HANDOFF, DOJO-MANUAL). **Every reference must be rewritten before its target is deleted, or lint fails mid-trim.** Each wave below is self-contained: it moves the surviving content, rewrites the references, updates lint/docs, and verifies green — no wave leaves a dangling pointer.
+**The hard constraint that dictates ordering:** four files get deleted (the algorithm-classification absorbed, the contribution-review absorbed, and the two absorbed into kata-green by Wave 5) and one merged (`hajime-bugfix`). References to them live in ~15 places (other skills, `dojo-lint.sh` R11/R12, ADR 0002, evals, README, HANDOFF, DOJO-MANUAL). **Every reference must be rewritten before its target is deleted, or lint fails mid-trim.** Each wave below is self-contained: it moves the surviving content, rewrites the references, updates lint/docs, and verifies green — no wave leaves a dangling pointer.
 
 **Ordering rationale:** absorptions before deletions; lint-table + ADR + doc updates *in the same wave* as the deletion that necessitates them, never after.
 
@@ -38,11 +38,20 @@ HANDOFF were rewritten. Verified by: the gate name is absent from actively-follo
 (CHANGELOG and the dated ADR note are exempt); lint R1–R14 + mechanics 12/12 pass. Skill
 count 15 → 14.
 
-## Wave 6 — absorb kensha into a dojo-conduct principle
+## Wave 6 — absorb the contribution-review discipline into dojo-conduct
 
-status: pending
+status: done
 blocked-by: 5
-kensha's transferable core — *don't trust the PR description, read the diff; run the gate (necessary, not sufficient)* — becomes a short principle in dojo-conduct. The rest (the review checklist) is dojo-principles violations the model already checks. Note for a later wave (not here): the fable-judge self-verification idea (constraints proposal Part C) may subsume even this stub — flagged, not built. Delete: `kensha/`. Rewrite references: kokai ("For reviewing incoming contributions use /kensha" → "...see the review principle in dojo-conduct"); `dojo-lint.sh` R11 + R12; ADR 0002 (including the "flip only kensha and kokai" rejected-alternative note — reword to past tense, it's history); README; DOJO-MANUAL; HANDOFF backlog items that name kensha's quality pass. Verified by: dojo-conduct carries the read-the-diff review principle; `rg 'kensha'` clean outside CHANGELOG/history; lint + mechanics green. Count 14 → 13.
+The transferable core — *don't trust the PR description, read the diff; run the gate
+(necessary, not sufficient)* — became a short principle in dojo-conduct ("Reviewing Code —
+Read the Diff, Not the Description"). The rest of the prior skill (the review checklist) was
+dojo-principles violations the model already checks. The directory was deleted; references
+in kokai (pointing to the review principle in dojo-conduct), `scripts/dojo-lint.sh`
+R11_CLASSIFY (dropping the user-invoked entry) and R12_SKILLS, ADR 0002 (dated absorption
+note in the user-invoked enumeration), README, DOJO-MANUAL, HANDOFF Improvement Backlog —
+all rewritten. Verified by: dojo-conduct carries the read-the-diff review principle; the
+absorbed skill's name is absent from actively-followed prose (CHANGELOG and the dated ADR
+note are exempt); lint R1–R14 + mechanics 12/12 pass. Skill count 14 → 13.
 
 ## Wave 7 — merge hajime-bugfix into hajime
 
@@ -53,7 +62,7 @@ hajime-bugfix is ~70% back-references to hajime (§1 "identical", §3 "same item
 ## Wave 8 — stub kokai
 
 status: pending
-Cut kokai from 5.5k to a thin standalone: keep only the Dojo-specific bits the model won't reconstitute on its own — problem-first README, build-once-repackage-many, CI-mirrors-dojo-check, the bin/deploy contract name — and drop the generic release-engineering playbook (install channels, signing specifics, changelog mechanics) the model already knows. Stays user-invoked (`/kokai`), just thin. No deletion, no dangling references (kokai keeps its name and trigger). Rewrite: the kensha cross-ref already handled in Wave 6. Verified by: kokai/SKILL.md carries the four Dojo-specific principles + a pointer, under ~1.5k; `/kokai` still invocable; lint + mechanics green. Count unchanged (12).
+Cut kokai from 5.5k to a thin standalone: keep only the Dojo-specific bits the model won't reconstitute on its own — problem-first README, build-once-repackage-many, CI-mirrors-dojo-check, the bin/deploy contract name — and drop the generic release-engineering playbook (install channels, signing specifics, changelog mechanics) the model already knows. Stays user-invoked (`/kokai`), just thin. No deletion, no dangling references (kokai keeps its name and trigger). Rewrite: the contribution-review cross-ref already handled in Wave 6. Verified by: kokai/SKILL.md carries the four Dojo-specific principles + a pointer, under ~1.5k; `/kokai` still invocable; lint + mechanics green. Count unchanged (12).
 
 ## Wave 9 — slim tanren
 
@@ -70,7 +79,7 @@ Add the conceptual-exclusion rule to randori's CONTEXT.md/Glossary handling: pin
 - **The red/green/commit spine, kaizen, kan, the trio** — kept as-is (kan may gain one line noting it's reachable from green's stuck branch; that's in Wave 4).
 - **Within-file diets flagged but not done here** — the ECS block and log-sink detail in the trio, noted for a possible later round.
 - **The constraints/effect-last/ergonomics proposal** — separate plan, separate runs. Trim first (smaller surface to add into), then that.
-- **fable-judge self-verification** — still Part C of the other proposal; Wave 6 notes it may subsume the kensha stub, but it is not built here.
+- **fable-judge self-verification** — still Part C of the other proposal; Wave 6 notes it may subsume the contribution-review stub, but it is not built here.
 
 ---
 

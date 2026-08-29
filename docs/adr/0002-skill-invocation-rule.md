@@ -38,9 +38,12 @@ A three-bucket rule, applied per skill:
 2. **User-invoked** (`disable-model-invocation: true`) — the human types the
    name; the agent does not reach the skill on its own. Used for periodic,
    named-technique skills that fire from explicit user instruction. In Dojo
-   today: `randori`, `kaizen`, `kan`, `tanren`, `kensha`, `kokai`. The
+   today: `randori`, `kaizen`, `kan`, `tanren`, `kokai`. The
    router skill (`dojo/SKILL.md`) carries the indexing that lets the agent find
    these when relevant without paying the per-skill context cost. (Trim
+   Wave 7 / 2026-08-29: the contribution-review discipline was absorbed into
+   dojo-conduct ("Reviewing Code — Read the Diff, Not the Description"); the
+   previously-named `kensha` no longer exists as a separate skill. Trim
    Wave 6 / 2026-08-29: the algorithm-classification discipline was absorbed into
    kata-red; the previously-named `waza` no longer exists as a separate skill.)
 

@@ -8,7 +8,7 @@ description: >
   a release", "publish this", "set up releases", "make this installable". Covers problem-first
   README, installation surface, CI, tag-triggered releases, changelog, and the bin/deploy
   contract. Supervised by default — distribution choices are human decisions. For reviewing
-  incoming contributions use /kensha.
+  incoming contributions, see "Reviewing Code" in dojo-conduct.
 ---
 
 # Kōkai — Release and Distribution (公開)

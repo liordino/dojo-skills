@@ -70,6 +70,18 @@ detects consecutive rubber-stamp approvals, suggest a lighter density or autonom
 - Exempt: the pedagogical layer (wave briefs, concepts lists, debriefs, randori's grilling) —
   already lean by design: pointers to research, not lectures.
 
+## Reviewing Code — Read the Diff, Not the Description
+
+When auditing a contribution (a PR, or a batch of recent merges), the description says what the
+author *thinks* they did — **don't trust it; read the diff.** The value is the real code, not a
+summary of the author's summary. Audit against: does it do what it claims, correctly ·
+regressions (existing tests still valid and green) · quality drop (dojo-principles violations,
+magic values, tangled boundaries) · coverage on the changed surface · docs in sync. Run
+`scripts/dojo-check.sh` for the deterministic signal — **necessary, not sufficient**; the
+judgment items still need the read. The agent audits and advises with specifics + file
+references; **merging, rejecting, and sign-off are always the human's.** A directed fix runs
+through the normal kata cycle; a systemic finding goes to HANDOFF → Improvement Backlog.
+
 ## Tools Dojo Pairs Well With (acknowledgments, not dependencies)
 
 - **ast-grep / ripgrep** — structural and text code search (rules in dojo-principles).

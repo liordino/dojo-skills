@@ -99,7 +99,7 @@ the form.
                           │
               green's stuck branch ←── from kata-green after 2 failures
 
-   On demand: /tanren (optimize) · /kaizen (plan change) · /kokai (release) · /kensha (PR audit)
+   On demand: /tanren (optimize) · /kaizen (plan change) · /kokai (release)
 ```
 
 ### The State Spine: dojo-session.md
@@ -133,9 +133,9 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 
 ## 3. First-Time Setup
 
-**Core Dojo skills (15, self-contained — no external dependencies; trim Wave 5 absorbed two skills into kata-green):** dojo-principles ·
+**Core Dojo skills (14, self-contained — no external dependencies; trim Waves 5–7 absorbed three skills into kata-green / kata-red / dojo-conduct):** dojo-principles ·
 dojo-project · dojo-conduct · hajime · hajime-bugfix · randori · kan · tanren · kokai ·
-kensha · kaizen · kata-red · kata-green · kata-commit.
+kaizen · kata-red · kata-green · kata-commit.
 
 **Tools Dojo pairs well with (acknowledgments, not dependencies — dojo-conduct):** ast-grep
 (falls back to ripgrep) · graphify (the one tool with active suggestions) · caveman (its terse
@@ -469,10 +469,11 @@ tag-triggered idempotent releases, Keep-a-Changelog flow, the `bin/deploy` contr
 Supervised by default — channels, signing, deploy targets are human calls. Normative:
 `kokai/SKILL.md`.
 
-**kensha** — `/kensha`. Contribution inspection: audit the code, not the description. Single-PR
-mode (correctness, regressions, quality, coverage, doc sync) or batch mode (dead code,
-duplication, magic values, stale docs). Runs the gate, delivers an assessment + recommendation;
-merging and sign-off are always the human's. Normative: `kensha/SKILL.md`.
+(Trim Wave 7: the contribution-review discipline that previously lived in the deleted
+absorbed skill — audit the code not the description, single-PR vs batch mode, gate is
+necessary not sufficient, human decides — is now the "Reviewing Code" section in
+dojo-conduct. Invoking the discipline is now an ordinary check during kata-green's refactor
+step, not a separate skill invocation.)
 
 ---
 
@@ -687,7 +688,6 @@ autonomous mode when your approvals have become reflexive; the choice is always 
 | `/tanren` | Optimize an algorithm against a measurable metric (gated; from kata-red's algorithm check) |
 | `/kaizen` | Re-grill and rewrite the plan (pivots, divergence halts) |
 | `/kokai` | Release & distribution setup |
-| `/kensha` | Audit a PR or a batch of merges |
 
 ### Session Flow
 

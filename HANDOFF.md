@@ -50,7 +50,6 @@ dojo-skills/
 ├── kata-green/                  # absorbs the refactor step + stuck branch as of Wave 5
 ├── kata-commit/
 ├── kokai/
-├── kensha/
 ├── kaizen/
 ├── dojo-principles/             # normative home of the dojo-check proof contract (Wave 1)
 ├── dojo-project/
@@ -100,8 +99,8 @@ Most recent first.
   `_proof_`. Three ADRs (0001–0003) document the design decisions; Wave 4 will
   retire the English phrases in favour of the leading words.
 - **Skill invocation rule (Wave 2):** every SKILL.md is classified as model-,
-  user-, or session-invoked per ADR 0002. The 6 user-invoked skills
-  (randori, kaizen, kan, tanren, kensha, kokai) carry
+  user-, or session-invoked per ADR 0002. The 5 user-invoked skills
+  (randori, kaizen, kan, tanren, kokai) carry
   `disable-model-invocation: true`; their descriptions no longer load every
   turn (~480 words off the always-on context tax). The 3 session-invoked
   skills (dojo-principles, dojo-project, dojo-conduct) carry a YAML rationale
@@ -138,7 +137,7 @@ Most recent first.
 - Working tree: clean as of Wave 6 commit.
 - `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
 - Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Waves 4–6 done) + 7 surviving-old waves (11–17) = 11 pending + 3 done. Wave 6 = trim Wave 2 (algorithm-classification). The predecessor writing-great-skills plan is preserved as an appendix for traceability.
-- Skill count: 14 (was 17 after Wave 3); trim target 12 after Wave 8 (kensha absorbed, hajime-bugfix merged).
+- Skill count: 14 (was 17 after Wave 3); trim target 12 after Wave 8 (hajime-bugfix merged into hajime).
 - ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
 - Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
 - `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-absorption.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
@@ -192,7 +191,7 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   name, duplicated code, feature envy, data clumps, primitive obsession,
   speculative generality, message chains, middle man), ~10 lines, strong
   reported results upstream;
-  (b) kensha review as two *named* axes — standards conformance (AGENTS.md /
+  (b) review as two *named* axes — standards conformance (AGENTS.md /
   principles) vs spec fidelity (the TASKS.md wave goal);
   (c) randori scoping mode: type each catalogued unknown
   (ask-human / research / prototype / task) with blocking order and a
