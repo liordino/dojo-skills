@@ -15,3 +15,5 @@ Format: `YYYY-MM-DD | wave N | step | one-line outcome`
 2026-08-29 | wave 6 | refactor | absorb the algorithm-classification discipline into kata-red; delete the directory; rewrite ~12 cross-references | the model-known taxonomy is cut; the discipline (stop, property/tolerance/golden, tanren gate) lives in kata-red at the right moment | 15 → 14 skills; sets the pattern for the remaining deletion waves | ca3e112
 
 2026-08-29 | wave 7 | refactor | absorb the contribution-review discipline into dojo-conduct (new "Reviewing Code" section); delete the directory; rewrite ~9 cross-references | the discipline (read the diff, gate is necessary not sufficient, human decides) lives in conduct; the checklist was already in principles | 14 → 13 skills; one trim wave left | 8707329
+
+2026-08-29 | wave 8 | refactor | merge the bugfix entry into hajime as a "feature or bugfix?" fork; delete the directory; rewrite ~12 cross-references | the regression-test-first discipline survives in the bugfix branch; type: bugfix + diagnosis + reproduction fields | 13 → 12 skills; **the trim is complete**; surviving-old waves 9–15 run on the trimmed surface | c424507

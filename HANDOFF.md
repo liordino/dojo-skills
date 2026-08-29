@@ -41,7 +41,7 @@ dojo-skills/
 ├── evals/
 │   ├── run-mechanics.sh        # automated mechanics eval; deterministic
 │   └── scenarios/              # agent-replay scenarios with assertion scripts
-├── hajime/                     # the 13 skills (dojo-*, kata-*, bare-named); trim plan drops to 12
+├── hajime/                     # the 12 skills (dojo-*, kata-*, bare-named); trim target reached
 ├── randori/
 ├── kan/
 ├── tanren/
@@ -73,6 +73,7 @@ Most recent first.
 2026-08-29 | wave 5 | absorb two deleted skills into kata-green; the cycle is now red → green → commit; directories deleted | ~15 cross-references rewritten; the trim draft's hard constraint met | 17 → 15 skills; trim pattern established for waves 6–8 | d097c6f
 2026-08-29 | wave 6 | absorb the algorithm-classification discipline into kata-red; directory deleted | ~12 cross-references rewritten | 15 → 14 skills | ca3e112
 2026-08-29 | wave 7 | absorb the contribution-review discipline into dojo-conduct (new "Reviewing Code" section); directory deleted | ~9 cross-references rewritten | 14 → 13 skills | 8707329
+2026-08-29 | wave 8 | merge the bugfix entry into hajime as a "feature or bugfix?" fork; directory deleted | ~12 cross-references rewritten; regression-test-first discipline preserved; **trim complete** | 13 → 12 skills | c424507
 
 ## Key Concepts
 
@@ -133,11 +134,11 @@ Most recent first.
 
 - Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
   next set of additions.
-- Most recent commit: 8707329 (`refactor(skills): absorb contribution-review discipline into dojo-conduct`).
-- Working tree: clean as of Wave 7 commit.
+- Most recent commit: c424507 (`refactor(skills): merge bugfix entry into hajime as 'feature or bugfix?' fork`).
+- Working tree: clean as of Wave 8 commit.
 - `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
-- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Waves 4–7 done) + 7 surviving-old waves (11–17) = 10 pending + 4 done. Wave 7 = trim Wave 3 (contribution-review). The predecessor writing-great-skills plan is preserved as an appendix for traceability.
-- Skill count: 13 (was 17 after Wave 3); trim target 12 after Wave 8 (hajime-bugfix merged into hajime as a "feature or bugfix?" fork).
+- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Waves 4–8 done; **trim complete**) + 7 surviving-old waves (11–17) = 9 pending + 5 done. Wave 8 = trim Wave 5 (bugfix entry merged into hajime). The predecessor writing-great-skills plan is preserved as an appendix for traceability.
+- Skill count: **12** (was 17 after Wave 3); trim target reached.
 - ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
 - Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
 - `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-absorption.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
