@@ -16,7 +16,8 @@
   `dojo-principles`; the three stack commands are per-project in `scripts/dojo-check.sh`;
   `hajime/SKILL.md`'s inline block is illustrative.
 - **dojo-lint** — `scripts/dojo-lint.sh`; static internal-consistency checker for this
-  package (R1–R9). Dev-time tooling, not a wave gate.
+  package. The numbered R-rule set lives in the script itself (retired numbers are not
+  reused). Dev-time tooling, not a wave gate.
 - **eval** — automated scenario under `evals/`; deterministic, no agent required. Honest
   split: judgment isn't testable, artifacts are.
 - **author / package owner** — the human who develops Dojo on their own harness and
@@ -91,8 +92,9 @@
   Glossary/Non-Goals/Decisions; ADRs in `docs/adr/` for non-obvious decisions.
 - **Content-repo gate.** `dojo-check` for this repo composes `dojo-lint` (static) +
   `evals/run-mechanics.sh` (proof-contract behavior). No fabricated compile/test step;
-  the canonical proof-artifact contract from `hajime/SKILL.md` is preserved verbatim
-  (lint R6 enforces the upstream canonical-template equivalence independently).
+  the proof-contract invariant from `dojo-principles` is preserved (lint R10 verifies
+  identifier agreement across all surfaces — see the dojo-check source-of-truth split
+  decision below and ADR 0001).
 - **Mode / rigor default for sessions in this repo.** `real` / `supervised` /
   `gate_density: standard` (declared by the human at hajime start; recorded in
   `dojo-session.md` per wave). Plan-less by design: features are added via `/kaizen`

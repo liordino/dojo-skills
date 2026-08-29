@@ -50,8 +50,30 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   glossary entries in CONTEXT.md: `leading word`, `branch`, `router skill`, `single source of
   truth`, plus the leading words `_enforce_` and `_proof_`. Bridge, not fork; ADRs cite the
   upstream; the meta-skill (Wave 10) carries the attribution.
+- **hajime Gate 0** (§0) — the first response in a session is the rigor and mode questions,
+  nothing else; no source exploration, scaffolding, or implementation before they're answered.
+  A design document, starting prompt, or file path passed as the argument is *input to the
+  process* (it feeds the plan step), never a substitute for running it. Closes the observed
+  skip-to-implementation failure.
+- **randori: facts vs decisions + end-of-grill confirmation gate.** "Explore before asking"
+  upgraded to the leading words *facts are found; decisions are made* (never grill yourself);
+  the hand-off now states **do not begin implementation until the human confirms shared
+  understanding** — a finished plan is a hand-off, not a starting gun. Same failure family as
+  Gate 0, other two doors.
+- **kata-commit durable-artifact item 4: CONTEXT.md** — waves that invalidate an existing
+  Glossary or Decisions entry must correct it at commit time (kaizen owns new decisions;
+  kata-commit owns keeping existing ones true). Closes the staleness class found in this
+  repo's own CONTEXT.md.
+- **`.gitattributes`** — in-repo LF normalization (`* text=auto`, `*.sh eol=lf`,
+  `*.ps1 eol=crlf`); CRLF in a shell shebang is fatal on Linux.
+- **`dojo-lint.sh` R12–R14** — R12: every `skill → Section` cross-reference must resolve to a
+  real heading in that skill (the eaten-heading class, prose-anchor analog of R4). R13: no CR
+  in tracked file content (index-side backstop behind `.gitattributes`). R14: repo scripts must
+  be executable in the git index (failure message carries the `git update-index --chmod=+x`
+  fix). All three regression-tested by recreating their bug and watching them fail.
 
 ### Changed
+
 - **dojo-check template source-of-truth split** (Wave 1 of 10). The proof-contract invariant
   is normative in `dojo-principles → Enforce Over Instruct — the Proof Contract`; per-project
   stack commands live in `scripts/dojo-check.sh`; hajime's inline block and DOJO-MANUAL's
@@ -60,6 +82,43 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 - **`dojo-lint.sh` R6 retired.** Byte-equality between hajime's bash block and the manual's
   block is no longer the contract; R10 (structural-equivalence via identifier presence) replaces
   it. The new check matches what the wave's goal actually claims.
+- **`dojo-lint.sh` R11** — enforces ADR 0002's three-bucket invocation rule across all 17
+  SKILL.md files. Uses a single `R11_CLASSIFY` table as the source of truth (one entry per
+  skill, one of `user|session|model`). Future skill additions classify themselves by adding
+  one entry to the table — anything else fails the gate at PR time.
+- **Skill invocation rule is now enforced** (Wave 2 of 10). Per ADR 0002:
+  - 7 user-invoked skills (`randori`, `kaizen`, `kan`, `waza`, `tanren`, `kensha`, `kokai`)
+    now carry `disable-model-invocation: true` in their YAML front-matter. Their descriptions
+    no longer load every turn (~480 words off the always-on context tax).
+  - 3 session-invoked skills (`dojo-principles`, `dojo-project`, `dojo-conduct`) carry a YAML
+    rationale comment (`# invocation: session-invoked — see ADR 0002`) above the `name:`
+    field. The YAML flag is binary; the comment is what distinguishes them from model-invoked
+    to humans reading the front-matter.
+  - 7 model-invoked skills (`kata-red`, `kata-green`, `kata-refactor`, `kata-commit`,
+    `kata-stuck`, `hajime`, `hajime-bugfix`) unchanged in YAML form — they continue to rely on
+    the default model-invocation. The session-invoked rationale comment is what distinguishes
+    the three `dojo-*` governance files from the four wave-cycle kata-* files in prose.
+
+### Fixed
+
+- **Wave 1 regression: the Logging section was eaten.** The new proof-contract H2 in
+  `dojo-principles` replaced `## Logging — Structured, at the Boundary` instead of preceding
+  it — seven logging rules dangled inside the proof-contract section, and hajime §4b's
+  `dojo-principles → Logging` cross-reference pointed at nothing. Heading restored; the class
+  is now lint-enforced (R12).
+- **Uncommitted `.gitignore` CRLF pollution reverted** (editor line-ending conversion). Modern
+  git tolerates CR in `.gitignore` patterns, so ignores still worked — but the class is real
+  for shell scripts (CRLF shebang fails on Linux). `.gitattributes` added; R13 backstops.
+  `graphify-out/` added to `.gitignore` as a regenerable local artifact.
+- **Script exec bits.** All repo scripts were committed mode 100644 (Windows
+  `core.filemode=false`); Linux/mac clones couldn't run `./scripts/dojo-lint.sh` as
+  documented. Flipped to 100755 in the index; R14 enforces from now on. One-time fix on
+  existing clones: `git update-index --chmod=+x scripts/*.sh evals/run-mechanics.sh
+  evals/scenarios/*.sh`.
+- **CONTEXT.md contradiction.** The scaffold-era Content-repo-gate Decision still claimed
+  "lint R6 enforces" after ADR 0001 retired R6; the dojo-lint glossary entry still said
+  "(R1–R9)". Both corrected to reference the R10 identifier-agreement check and the script as
+  the rule-set home.
 
 ## [1.1.0] — 2026-06-12
 

@@ -179,6 +179,49 @@ for sf in */SKILL.md; do
 done
 [ "$R11_FAIL" -eq 0 ] || err "R11: skill invocation rule (ADR 0002) is not satisfied"
 
+# R12 — "skill → Section" cross-references must resolve to a real heading in that skill.
+# Catches the eaten-heading class: an edit deletes/renames an H2 that other files point at
+# (the bug class R3 was born from, now enforced for prose anchors). Substring match against
+# H2/H3 lines, so a reference may name a heading's distinctive prefix.
+R12_SKILLS='dojo-principles|dojo-project|dojo-conduct|hajime-bugfix|hajime|randori|kan|waza|tanren|kaizen|kokai|kensha|kata-red|kata-green|kata-refactor|kata-commit|kata-stuck'
+refs=$(grep -rhoE "($R12_SKILLS) → [A-Za-z][A-Za-z0-9 '/-]*" $FILES | sort -u)
+while IFS= read -r ref; do
+	[ -z "$ref" ] && continue
+	skill=${ref%% → *}
+	section=$(printf '%s' "${ref#* → }" | sed 's/[[:space:]]*$//')
+	[ -f "$skill/SKILL.md" ] || continue
+	grep -E '^##+ ' "$skill/SKILL.md" | grep -qF -- "$section" ||
+		err "R12: dangling cross-reference '$skill → $section' — no matching heading in $skill/SKILL.md"
+done <<R12EOF
+$refs
+R12EOF
+
+# R13 — no CR (\r) in tracked text content. CRLF in a shell script's shebang breaks execution
+# on Linux ('/usr/bin/env: bash\r: No such file'); .gitattributes prevents the class at add
+# time, this is the backstop for anything that slips past it. Checks the index (what will be
+# committed), so Windows working-tree checkouts don't false-positive.
+#
+# Implementation note: Git Bash's command substitution ($()) mangles output when the search
+# pattern is CR — `crlf=$(git grep ... $'\r' ...)` returns every file as a false positive.
+# Pipe directly to `grep -q .` instead. The pipe boundary keeps Git's CR handling intact.
+if git rev-parse --git-dir >/dev/null 2>&1; then
+	if git grep --cached -Il $'\r' -- . 2>/dev/null | grep -q .; then
+		crlf=$(git ls-files -z | xargs -0 grep -l $'\r' 2>/dev/null || true)
+		err "R13: CR (\\r) in tracked file content:"$'\n'"$crlf"
+	fi
+fi
+
+# R14 — repo scripts must be executable in the git index. Windows (core.filemode=false) cannot
+# set this by chmod on the file; the fix is: git update-index --chmod=+x <file>
+if git rev-parse --git-dir >/dev/null 2>&1; then
+	for f in scripts/dojo-check.sh scripts/dojo-lint.sh evals/run-mechanics.sh evals/scenarios/*.sh; do
+		[ -f "$f" ] || continue
+		mode=$(git ls-files -s -- "$f" | awk '{print $1}')
+		[ -z "$mode" ] && continue
+		[ "$mode" = "100755" ] || err "R14: $f not executable in index (mode $mode) — run: git update-index --chmod=+x $f"
+	done
+fi
+
 if [ "$FAIL" -eq 0 ]; then
 	say "dojo-lint: PASS — all consistency checks green."
 	exit 0

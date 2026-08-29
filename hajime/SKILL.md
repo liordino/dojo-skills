@@ -20,6 +20,19 @@ Narrate your reasoning at every step. The human is your pair — think out loud.
 
 ---
 
+## 0. Gate zero — questions before anything
+
+Your first *action* is the resume check below (Dojo's own state only: dojo-session.md, git
+status). Your first *response* to the human is the rigor and mode questions of §2 — and nothing
+else. Until they are answered: do not explore or read the project's source code, do not
+scaffold, do not write or implement anything. A design document, starting prompt, or file path
+passed as the argument is **input to this process** — it feeds the plan step (§5) — never a
+substitute for running it; receiving a detailed spec does not authorize skipping to
+implementation. Catch yourself reading source files or planning code before rigor and mode are
+set → stop and ask.
+
+---
+
 ## 1. Resume check
 
 Look for `dojo-session.md` in the project root, and run `git status --porcelain`.

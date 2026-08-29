@@ -72,6 +72,8 @@ Append one line per committed wave. Format: `YYYY-MM-DD | wave N | <one-line out
 Most recent first.
 
 2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
+2026-06-19 | wave 2 | classify every skill per invocation rule (ADR 0002); 7 user-invoked + 3 session-invoked; R11 single-table classifier | commit 4168c6e
+2026-08-29 | wave 3 | land Wave-2 review fixes + repair R13 grep; Gate 0 in hajime, facts-vs-decisions in randori, kata-commit item 4 (CONTEXT.md), R12–R14 in dojo-lint, exec-bit index mode flipped for 6 scripts, `## Logging` heading restored in dojo-principles | dirty tree from interrupted kata-commit cleared; clean green baseline ready for the trim plan in `docs/proposals/` | next: Wave 4 promotes the trim plan into TASKS.md as the active plan (supersedes pending Wave 5 of the writing-great-skills plan)
 
 ## Key Concepts
 
@@ -97,17 +99,56 @@ Most recent first.
   `router skill`, `single source of truth`, plus the leading words `_enforce_` and
   `_proof_`. Three ADRs (0001–0003) document the design decisions; Wave 4 will
   retire the English phrases in favour of the leading words.
+- **Skill invocation rule (Wave 2):** every SKILL.md is classified as model-,
+  user-, or session-invoked per ADR 0002. The 7 user-invoked skills
+  (randori, kaizen, kan, waza, tanren, kensha, kokai) carry
+  `disable-model-invocation: true`; their descriptions no longer load every
+  turn (~480 words off the always-on context tax). The 3 session-invoked
+  skills (dojo-principles, dojo-project, dojo-conduct) carry a YAML rationale
+  comment above the `name:` field (the YAML flag is binary; the comment is
+  what distinguishes them from model-invoked in prose). Lint R11 enforces
+  the rule via a single `R11_CLASSIFY` table.
+- **Skip-to-implementation failure family (Wave 3):** the closed loop hajime
+  Gate 0 → randori facts-vs-decisions → randori end-of-grill confirmation gate.
+  Same root cause (the agent skips the planning phase when given a detailed
+  starting prompt), three independent doors, one fix family. Gate 0 makes the
+  first response to a human be the rigor+mode questions; facts-vs-decisions
+  stops the agent from grilling itself on a question answerable from the repo;
+  end-of-grill confirmation makes a finished plan a hand-off, not a starting
+  gun.
+- **Stale-decisions class (Wave 3):** waves that invalidate a Glossary or
+  Decisions entry (rename a rule, retire a mechanism, change a recorded choice)
+  must correct that entry at commit time — `kata-commit` durable-artifact item 4
+  now owns this. kaizen owns *new* decisions; kata-commit owns keeping existing
+  ones true. Closes the staleness class found in this repo's own CONTEXT.md
+  (R10 references contradicted R6's retirement).
+- **Lint R12–R14 (Wave 3):** R12 — `skill → Section` cross-references resolve to
+  a real heading (eaten-heading class, prose-anchor analog of R4). R13 — no CR
+  in tracked file content; the script uses `git grep | grep -q .` not
+  `crlf=$(git grep ...)` because Git Bash's command substitution mangles output
+  when the search pattern is CR. R14 — repo scripts executable in the git
+  index (Windows `core.filemode=false` makes worktree `chmod +x` invisible to
+  the index; the fix is `git update-index --chmod=+x`).
 
 ## Current State
 
 - Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
   next set of additions.
-- Most recent commit: c9355b4 (`refactor(check): single-source the dojo-check template via dojo-principles`).
-- Working tree: clean as of Wave 1 commit.
-- `dojo-check` gate: **established and passing** — lint R1–R10, mechanics eval 12/12, fresh proof.
-- Plan: TASKS.md present with 10 waves; Wave 1 done; Wave 2 (invocation rule) is the next.
-- ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule), 0003 (meta-skill as bridge) committed with Wave 1.
-- Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
+- Most recent commit: Wave 3 lands after this section is updated (housekeeping
+  - Wave-2 review fixes); recorded in Wave History above.
+- Working tree: clean as of Wave 3 commit (Gate 0, facts-vs-decisions, item 4,
+  R12–R14, exec-bit flips, Logging-section restoration, durable-artifact
+  updates all landed).
+- `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval
+  12/12, fresh proof.
+- Plan: TASKS.md currently holds the 10-wave writing-great-skills plan (Waves
+  1–2 done, 8 pending). The trim plan lives in `docs/proposals/trim.TASKS.md`
+  (untracked) and will be promoted into TASKS.md at Wave 4, replacing the
+  pending list with 14 waves: 7 trim + 7 surviving-old.
+- ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented
+  in Wave 2), 0003 (meta-skill as bridge) committed.
+- Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`,
+  `findings.md`, `TASKS.md`, `docs/adr/` all current.
 
 ## Improvement Backlog
 
@@ -131,3 +172,35 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   matched token to be an existing directory; or add ADR paths to R4's
   whitelist. Defer — current workaround is to reference ADRs by number
   only ("see ADR 0001 in `docs/adr/`").
+- Wave 3 design note (from external review, 2026-07-10) — when the router lands
+  and the 9 inline governance banners come out, keep a one-line inline
+  *imperative* ("Load `dojo-principles`, `dojo-project`, `dojo-conduct` now —
+  index: `/dojo`") rather than a pure pointer to the router. A pointer chain
+  (skill → router → governance) is the exact may-not-follow unpredictability
+  ADR 0002 quotes, applied to the most load-bearing directive in the system.
+  Also: ship Wave 3 soon — since Wave 2, the 7 user-invoked skills have hidden
+  descriptions and no index yet.
+- Wave 4 counter-proposal (from external review, 2026-07-10) — the sigil tokens
+  `_enforce_` / `_proof_` / `_bound_` contradict the glossary's own definition
+  of a leading word ("recruiting priors the model already holds"): sigils have
+  no priors. Keep the natural phrases canonical ("enforce over instruct",
+  "proof artifact"), define each once in the glossary, and lint *variant drift*
+  instead (ban "check artifact", "verification file", etc.). First known drift
+  to fix under that rule: kata-red says "failing check", other files say
+  "failing test" — pick the canonical and enforce it.
+- Wave 8 pushback (from external review, 2026-07-10) — per-H2 rationale footers
+  fail the deletion test the plan champions: ~14 always-loaded lines whose only
+  consumer is a human who owns the manual, agent behavior unchanged, and the
+  per-file "Rationale lives in DOJO-MANUAL.md" pointer already exists. Drop, or
+  invert into a manual-side index.
+- Post-Wave-10 kaizen candidates (from external review, 2026-07-10):
+  (a) Fowler smells as leading words in kata-refactor's cleanup list and
+  kensha's quality pass — prior-rich terms (mysterious name, duplicated code,
+  feature envy, data clumps, primitive obsession, speculative generality,
+  message chains, middle man), ~10 lines, strong reported results upstream;
+  (b) kensha review as two *named* axes — standards conformance (AGENTS.md /
+  principles) vs spec fidelity (the TASKS.md wave goal);
+  (c) randori scoping mode: type each catalogued unknown
+  (ask-human / research / prototype / task) with blocking order and a
+  one-session-size requirement in scoping-questions.md — the Wayfinder essence,
+  kept file-based and solo-first.

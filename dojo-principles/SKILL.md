@@ -125,6 +125,8 @@ must reference `check-proof`, `output_sha256`, and `check-output.log` to keep ag
 
 When in doubt about the contract, change it here — the proof rule is one place.
 
+## Logging — Structured, at the Boundary
+
 - Logging is a side effect: the shell logs; the pure core stays silent (propagate outward as a
   value if something deep is worth logging).
 - Structured, never interpolated prose: machine-parseable key/value events.

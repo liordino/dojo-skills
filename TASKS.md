@@ -9,7 +9,7 @@ The dojo-check template's source-of-truth split is implemented: `dojo-principles
 
 ## Wave 2 — every skill declares its invocation type
 
-status: pending
+status: done
 Every SKILL.md in the package carries either `disable-model-invocation: true` (user-invoked) or its absence (model-invoked) per the rule in ADR 0002; the three `dojo-*` session-invoked skills carry a one-line rationale comment in their YAML front-matter. Per-skill rationale is recorded. Verified by: a new lint rule enumerates every SKILL.md and asserts the flag is present (true or absent-with-rationale-comment) and that the per-skill rationale comment matches the rule's table; lint passes.
 
 ## Wave 3 — `dojo/SKILL.md` router ships and the 9-site banner duplication is retired

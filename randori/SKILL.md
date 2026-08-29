@@ -63,8 +63,10 @@ outcome: cut redundant work, never necessary work.
   next. Never batch.
 - **Every question carries your recommended answer** — "I'd recommend Y because [reason]. Your
   call." Confirmation or correction, never blank-page invention.
-- **Explore before asking.** If the codebase or graph can answer it (rg/sg/graphify), read
-  instead of asking.
+- **Facts are found; decisions are made.** If the codebase, graph, or docs can answer it
+  (rg/sg/graphify), it is a *fact* — read it, never ask it. A *decision* (a trade-off, a
+  boundary, a name, a tolerance) belongs to the human — never make one for them, and never
+  grill yourself: a question you could answer from the repo was a fact, not a decision.
 - **Keep going until every question material to the plan is resolved** — not before.
 - **Elicit the non-goals.** Suggest candidate non-goals and confirm each: "Should this also
   handle X? I'd make that an explicit non-goal because [reason] — agree?" Record confirmed
@@ -136,4 +138,6 @@ kaizen rewrites this file when reality changes. Order waves by dependency.
 Summarize: shared understanding reached, CONTEXT.md terms added/sharpened, non-goals confirmed,
 ADRs written, the intent line, and the plan (TASKS.md or the single wave goal). Confirm wave 1
 with the human, then hand back to the calling context (usually hajime §6) ready for
-`/kata-red`.
+`/kata-red`. **Do not begin implementation until the human confirms shared understanding** —
+the grill ends in an explicit confirmation, never by drifting into building. A finished plan
+is a hand-off, not a starting gun.

@@ -8,3 +8,5 @@ dojo-session.md
 !progress.md
 !AGENTS.md
 !CLAUDE.md
+# Regenerable local artifacts (graphify structural cache)
+graphify-out/
