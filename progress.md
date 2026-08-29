@@ -19,3 +19,5 @@ Format: `YYYY-MM-DD | wave N | step | one-line outcome`
 2026-08-29 | wave 8 | refactor | merge the bugfix entry into hajime as a "feature or bugfix?" fork; delete the directory; rewrite ~12 cross-references | the regression-test-first discipline survives in the bugfix branch; type: bugfix + diagnosis + reproduction fields | 13 → 12 skills; **the trim is complete**; surviving-old waves 9–15 run on the trimmed surface | c424507
 
 2026-08-29 | wave 9 | refactor | stub kokai to four Dojo-specific principles + pointer | dropped 5559 → 3478 bytes (38%); kokai stays user-invoked; trim complete minus 2 waves | 12 skills; two trim waves remain (slim tanren, randori glossary pin) | 4b68454
+
+2026-08-29 | wave 10 | refactor | slim tanren to entry gate, freeze rule, hand-back invariant; mechanics → reference | 9609 → 5494 bytes (43%); discipline stays in body, mechanics on-demand | 12 skills; one trim wave remains (randori glossary pin) | f81bf85

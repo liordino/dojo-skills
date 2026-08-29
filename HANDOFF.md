@@ -75,6 +75,7 @@ Most recent first.
 2026-08-29 | wave 7 | absorb the contribution-review discipline into dojo-conduct (new "Reviewing Code" section); directory deleted | ~9 cross-references rewritten | 14 → 13 skills | 8707329
 2026-08-29 | wave 8 | merge the bugfix entry into hajime as a "feature or bugfix?" fork; directory deleted | ~12 cross-references rewritten; regression-test-first discipline preserved; **trim complete** | 13 → 12 skills | c424507
 2026-08-29 | wave 9 | stub kokai to four Dojo-specific principles + pointer | body 5559 → 3478 bytes (38% reduction); kokai stays user-invoked | 12 skills; two trim waves remain (slim tanren, randori glossary pin) | 4b68454
+2026-08-29 | wave 10 | slim tanren to entry gate, freeze rule, hand-back invariant; mechanics → reference | 9609 → 5494 bytes (43%); discipline in body, mechanics on-demand | 12 skills; one trim wave remains (randori glossary pin) | f81bf85
 
 ## Key Concepts
 
@@ -135,11 +136,11 @@ Most recent first.
 
 - Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
   next set of additions.
-- Most recent commit: 4b68454 (`refactor(kokai): stub to four Dojo-specific principles + pointer`).
-- Working tree: clean as of Wave 9 commit.
+- Most recent commit: f81bf85 (`refactor(tanren): slim to entry gate, freeze rule, hand-back invariant; reference for mechanics`).
+- Working tree: clean as of Wave 10 commit.
 - `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
-- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Waves 4–9 done) + 7 surviving-old waves (11–17) = 8 pending + 6 done. Wave 9 = trim Wave 6 (stub kokai). The predecessor writing-great-skills plan is preserved as an appendix for traceability.
-- Skill count: 12 (trim target reached); two trim waves remain (slim tanren, randori glossary pin).
+- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Waves 4–10 done) + 7 surviving-old waves (11–17) = 7 pending + 7 done. Wave 10 = trim Wave 7 (slim tanren). One trim wave remains (randori glossary pin, TASKS.md Wave 10).
+- Skill count: 12 (trim target reached).
 - ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
 - Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
 - `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-absorption.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
