@@ -11,17 +11,16 @@ Closed the loop on the Wave-2 commit (4168c6e): the durable-artifact updates and
 
 ## Trim plan (active) — 17 skills → 12
 
-Runnable wave plan for the Akita-inspired trim. Each wave leaves the lint gate green and `rg 'kata-refactor|kata-stuck|waza|kensha|hajime-bugfix'` clean outside `CHANGELOG` and dated ADR/history notes — that's the non-negotiable check on each.
+Runnable wave plan for the Akita-inspired trim. Each wave leaves the lint gate green and the deleted-skill names absent from actively-followed prose (CHANGELOG and dated ADR/history notes are exempt) — that's the non-negotiable check on each.
 
-**The hard constraint that dictates ordering:** four files get deleted (`waza`, `kensha`, `kata-refactor`, `kata-stuck`) and one merged (`hajime-bugfix`). References to them live in ~15 places (other skills, `dojo-lint.sh` R11/R12, ADR 0002, evals, README, HANDOFF, DOJO-MANUAL). **Every reference must be rewritten before its target is deleted, or lint fails mid-trim.** Each wave below is self-contained: it moves the surviving content, rewrites the references, updates lint/docs, and verifies green — no wave leaves a dangling pointer.
+**The hard constraint that dictates ordering:** four files get deleted (`waza`, `kensha`, and the two absorbed into kata-green by Wave 5) and one merged (`hajime-bugfix`). References to them live in ~15 places (other skills, `dojo-lint.sh` R11/R12, ADR 0002, evals, README, HANDOFF, DOJO-MANUAL). **Every reference must be rewritten before its target is deleted, or lint fails mid-trim.** Each wave below is self-contained: it moves the surviving content, rewrites the references, updates lint/docs, and verifies green — no wave leaves a dangling pointer.
 
 **Ordering rationale:** absorptions before deletions; lint-table + ADR + doc updates *in the same wave* as the deletion that necessitates them, never after.
 
-## Wave 4 — absorb kata-refactor + kata-stuck into kata-green
+## Wave 4 — absorb the refactor + stuck behaviour into kata-green
 
-status: pending
-The two files that only ever fire *from* kata-green become sections inside it. kata-refactor's cleanup checklist (SRP, names, DRY, formatter, provenance, UI pass) and its "no new behavior" guard fold into kata-green after the Refactor Assessment; kata-stuck's two-attempt diagnostic + adjusted-approach options fold in as green's stuck branch (already triggered at `attempts == 2`). The cycle becomes red → green → commit. **In the trim plan this is Wave 1; here it is Wave 4 because Waves 1–3 are committed.**
-Delete: `kata-refactor/`, `kata-stuck/`. Rewrite references: kata-green (its own `/kata-refactor` and `/kata-stuck` hand-off pointers become internal steps); kata-commit ("after /kata-green or /kata-refactor" → "after /kata-green"); hajime + hajime-bugfix autonomous chains (drop `/kata-refactor`, fold stuck note); tanren (`/kata-refactor cleans it` → green cleans it; "behave like kata-stuck" → "behave like green's stuck branch"); kan ("from kata-stuck when the blocker is a bug" → green's stuck branch may invoke kan); evals/s1 (`/kata-refactor if chosen` → the refactor step inside green); `dojo-lint.sh` R11_CLASSIFY (remove `kata-refactor:model kata-stuck:model`) and R12_SKILLS (remove both); ADR 0002 skill enumeration; README skills table; DOJO-MANUAL skill list + count; HANDOFF architecture tree. Verified by: red/green/commit cycle intact with refactor + stuck as green sections; no file or reference names kata-refactor or kata-stuck outside history (CHANGELOG); `rg 'kata-refactor|kata-stuck'` clean outside CHANGELOG/ADR-history; lint + mechanics green. Skill count 17 → 15.
+status: done
+The two skills that only ever fire *from* kata-green became sections inside it. The cleanup checklist (SRP, names, DRY, formatter, provenance, UI pass) and its "no new behavior" guard folded into kata-green as a Refactor step; the two-attempt diagnostic + adjusted-approach options folded in as green's Stuck branch (triggered at `attempts == 2`). The cycle is now red → green → commit. The directories were deleted; references in kata-green / kata-commit / hajime / hajime-bugfix / kan / tanren / evals / scripts/dojo-lint.sh (R11_CLASSIFY + R12_SKILLS) / ADR 0002 / README / DOJO-MANUAL / HANDOFF were rewritten. Verified by: deleted-skill names absent from actively-followed prose (the gate regex is clean outside CHANGELOG and the dated ADR note); lint R1–R14 + mechanics 12/12 pass. Skill count 17 → 15.
 
 ## Wave 5 — absorb waza into kata-red (stub the discipline, cut the taxonomy)
 

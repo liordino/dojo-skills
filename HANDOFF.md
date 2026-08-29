@@ -41,17 +41,15 @@ dojo-skills/
 ├── evals/
 │   ├── run-mechanics.sh        # automated mechanics eval; deterministic
 │   └── scenarios/              # agent-replay scenarios with assertion scripts
-├── hajime/                     # the 17 skills (dojo-*, kata-*, bare-named); trim plan drops to 12
+├── hajime/                     # the 15 skills (dojo-*, kata-*, bare-named); trim plan drops to 12
 ├── hajime-bugfix/
 ├── randori/
 ├── kan/
 ├── waza/
 ├── tanren/
 ├── kata-red/
-├── kata-green/
-├── kata-refactor/
+├── kata-green/                  # absorbs the refactor step + stuck branch as of Wave 5
 ├── kata-commit/
-├── kata-stuck/
 ├── kokai/
 ├── kensha/
 ├── kaizen/
@@ -74,7 +72,7 @@ Most recent first.
 2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
 2026-06-19 | wave 2 | classify every skill per invocation rule (ADR 0002); 7 user-invoked + 3 session-invoked; R11 single-table classifier | commit 4168c6e
 2026-08-29 | wave 3 | land Wave-2 review fixes + repair R13 grep; Gate 0 in hajime, facts-vs-decisions in randori, kata-commit item 4 (CONTEXT.md), R12–R14 in dojo-lint, exec-bit index mode flipped for 6 scripts, `## Logging` heading restored in dojo-principles | dirty tree from interrupted kata-commit cleared; clean green baseline ready for the trim plan in `docs/proposals/` | fa5fcee
-2026-08-29 | wave 4 | promote trim plan into TASKS.md as the active plan; 7 trim waves (4–10) + 7 surviving-old waves (11–17); predecessor writing-great-skills plan preserved as appendix | two-plan confusion resolved; single active plan | unlocks Wave 5 (first trim wave: absorb kata-refactor + kata-stuck into kata-green) | c11bdfa
+2026-08-29 | wave 4 | promote trim plan into TASKS.md as the active plan; 7 trim waves (4–10) + 7 surviving-old waves (11–17); predecessor writing-great-skills plan preserved as appendix | two-plan confusion resolved; single active plan | unlocks Wave 5 (first trim wave: absorb two deleted skills into kata-green) | c11bdfa
 
 ## Key Concepts
 
@@ -187,10 +185,11 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   per-file "Rationale lives in DOJO-MANUAL.md" pointer already exists. Drop, or
   invert into a manual-side index.
 - Post-Wave-10 kaizen candidates (from external review, 2026-07-10):
-  (a) Fowler smells as leading words in kata-refactor's cleanup list and
-  kensha's quality pass — prior-rich terms (mysterious name, duplicated code,
-  feature envy, data clumps, primitive obsession, speculative generality,
-  message chains, middle man), ~10 lines, strong reported results upstream;
+  (a) Fowler smells as leading words in green's refactor step cleanup list
+  and the review principle in dojo-conduct — prior-rich terms (mysterious
+  name, duplicated code, feature envy, data clumps, primitive obsession,
+  speculative generality, message chains, middle man), ~10 lines, strong
+  reported results upstream;
   (b) kensha review as two *named* axes — standards conformance (AGENTS.md /
   principles) vs spec fidelity (the TASKS.md wave goal);
   (c) randori scoping mode: type each catalogued unknown

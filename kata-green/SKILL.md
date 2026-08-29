@@ -5,7 +5,8 @@ description: >
   Triggers on: /kata-green, "green step", "implement", "make it pass".
   Reads dojo-session.md for goal, mode, rigor, gate density. Applies YAGNI, idempotency,
   explicit types, and error rules. Runs dojo-check — no new failures allowed. Two-attempt stuck
-  protocol. Ends with the refactor assessment. Supervised: stops per gate density.
+  branch and the refactor step inline (the cycle is now red → green → commit; refactor and
+  stuck are sections inside green, not separate skills). Supervised: stops per gate density.
 ---
 
 # Dojo Green — Minimum Implementation
@@ -85,10 +86,72 @@ dojo-principles/reference/ast-grep.md.)
    failures allowed** — everything green except `pre_existing_failures`. **rigor: poc:** the
    gate is compile + lint; tests only if the PoC wrote one.
 3. **On failure:** increment `attempts` in dojo-session.md. `attempts < 2` → diagnose, adjust,
-   re-run, narrating what changed and why. `attempts == 2` → do not try a third time; trigger
-   `/kata-stuck`.
+   re-run, narrating what changed and why. `attempts == 2` → do not try a third time — enter
+   the **Stuck** branch below.
 4. **On pass:** update dojo-session.md: `step: REFACTOR`, `test_status: passing ✓`,
    `attempts: 0`.
+
+---
+
+## Refactor (in-place — no longer a separate step)
+
+If the human takes the refactor (supervised) or always (autonomous), clean the code just
+written. **The constraint: no new behavior.** Something worth adding → note it for the next
+wave. Behavior added here skips RED and has no check — the exact failure mode the cycle
+prevents. **rigor: poc:** run the formatter only.
+
+Clean in priority order:
+1. **Small units + SRP** — functions > 20 lines: extract. Files > 300 lines: split by
+   responsibility. "and" in the description: split.
+2. **Names** — `rg "name" .` > 5 relevant hits → rename more specifically; names off the
+   CONTEXT.md glossary → rename to match. Verify structurally with `sg -p 'oldName($$$)'`.
+3. **DRY** — structural duplicates via `sg` (text grep misses same-shape/different-names);
+   any pattern twice gets extracted now. `sg -p 'old' -r 'new'` for safe rewrites;
+   dojo-check after.
+4. **Formatting** — the project formatter decides; no debates.
+5. **Comment provenance** — add the *why* for non-obvious GREEN decisions; delete comments
+   restating code; update docstrings if the public interface changed.
+6. **Specialized UI pass** — UI touched → detect the framework, invoke whatever UI skill
+   is installed; none → general principles. (dojo-conduct pairs-well-with.)
+
+Run `dojo-check` after each meaningful change (`dojo-check-fast` inner loop; full before
+hand-off). A test breaks → the refactor changed behavior: revert that change and reassess.
+**Autonomous:** apply the assessment, re-run; still green → commit; broken → revert the
+refactor entirely, keep the working GREEN, log to progress.md, add the opportunity to HANDOFF
+Improvement Backlog, proceed. Never commit a broken refactor — minimal working beats clean
+broken.
+
+Set `step: COMMIT` when done (or immediately if refactor declined).
+
+---
+
+### Stuck — two attempts, then surface (no third pass)
+
+`attempts == 2` → **stop. Do not attempt a third implementation pass.** Set `step: STUCK` in
+dojo-session.md (resume checks recognize it as mid-flight). XP norm: don't grind — grinding
+burns tokens, accumulates bad state, destroys the reasoning trail.
+
+Present a structured diagnostic, no omissions:
+- **What was attempted** — each attempt: approach, change, the *raw* dojo-check output
+  (not summarized — the human needs the real signal).
+- **Root cause hypothesis** — specific; "I don't know" is not one. Uncertain → 2–3
+  candidates with confidence levels.
+- **What would resolve it** — the specific thing: environment access, a domain
+  clarification, permission to instrument, a different check formulation.
+
+Offer 2–3 concrete adjusted approaches (what changes / the risk / what it unblocks). Standard
+candidates:
+1. **Reframe the check** — it may specify internals rather than observable outcome → back
+   to `/kata-red` (`step: RED`).
+2. **Descope the wave** — a smaller first wave that passes → `/kaizen` to split it in
+   TASKS.md.
+3. **Investigate first** — run `/kan` on the specific failure before another attempt.
+
+**Supervised:** present everything, STOP: "Which direction?" Route per the choice (new
+approach → back into green with `attempts: 0`; human investigates → write findings.md, end
+cleanly leaving `step: STUCK`). **Autonomous:** attempt option 1 (least risky) once. Passes
+→ continue. Fails → HALT: full diagnostic to findings.md, log "halted at STUCK after [N]
+attempts — human review required," commit nothing.
 
 ---
 
@@ -112,5 +175,5 @@ Want to refactor?
 At `light` density: don't stop here — auto-apply the assessment and carry diff + assessment +
 refactor summary to the commit gate.
 
-**Autonomous:** log diff and assessment to `progress.md`; proceed to `/kata-refactor` with the
-opportunities as its scope.
+**Autonomous:** apply the refactor assessment inline (the Refactor section above), run
+dojo-check, then proceed to `/kata-commit`.

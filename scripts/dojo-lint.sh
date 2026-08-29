@@ -117,7 +117,7 @@ fi
 # change it here, update the regex.
 #
 # Single source of truth: R11_CLASSIFY below. If you add a new skill, add one entry.
-R11_CLASSIFY='randori:user kaizen:user kan:user waza:user tanren:user kensha:user kokai:user dojo-principles:session dojo-project:session dojo-conduct:session kata-red:model kata-green:model kata-refactor:model kata-commit:model kata-stuck:model hajime:model hajime-bugfix:model'
+R11_CLASSIFY='randori:user kaizen:user kan:user waza:user tanren:user kensha:user kokai:user dojo-principles:session dojo-project:session dojo-conduct:session kata-red:model kata-green:model kata-commit:model hajime:model hajime-bugfix:model'
 # Helper: print just the YAML front-matter (between the two --- fences).
 R11_fm() {
 	awk 'BEGIN{fm=0} /^---$/{if(fm==0){fm=1; next} else {exit}} fm==1{print}' "$1"
@@ -183,7 +183,7 @@ done
 # Catches the eaten-heading class: an edit deletes/renames an H2 that other files point at
 # (the bug class R3 was born from, now enforced for prose anchors). Substring match against
 # H2/H3 lines, so a reference may name a heading's distinctive prefix.
-R12_SKILLS='dojo-principles|dojo-project|dojo-conduct|hajime-bugfix|hajime|randori|kan|waza|tanren|kaizen|kokai|kensha|kata-red|kata-green|kata-refactor|kata-commit|kata-stuck'
+R12_SKILLS='dojo-principles|dojo-project|dojo-conduct|hajime-bugfix|hajime|randori|kan|waza|tanren|kaizen|kokai|kensha|kata-red|kata-green|kata-commit'
 refs=$(grep -rhoE "($R12_SKILLS) → [A-Za-z][A-Za-z0-9 '/-]*" $FILES | sort -u)
 while IFS= read -r ref; do
 	[ -z "$ref" ] && continue

@@ -112,8 +112,8 @@ Stop and exit at the first of (all limits read from the frozen `run.json`):
 - **Target met** — the metric reached the human's acceptance threshold.
 - **Stagnation** — no improvement past the threshold for N consecutive iterations (default 3).
 - **Stuck** — an irrecoverable error or a blocker the loop can't get past. Do not grind: write
-  the full diagnostic to findings.md and behave like kata-stuck — surface to the human
-  (autonomous: halt and report; never silently burn the rest of the budget).
+  the full diagnostic to findings.md and behave like green's stuck branch — surface to the
+  human (autonomous: halt and report; never silently burn the rest of the budget).
 
 On any stop, write the run summary (best metric, how many attempts, what worked and what didn't)
 to learning-log.md and HANDOFF.md → Improvement Backlog. Keep `.dojo/tanren/` for inspection; it
@@ -138,7 +138,8 @@ genuinely red and the durable test proves it has teeth.
    lives in the repo forever; the tanren scorer and ledger are scratch and do not.
 3. `/kata-green` integrates the winner from scratch into the tracked source — the algorithm is
    already designed and proven, so GREEN is the *integration*, not fresh problem-solving — which
-   turns the check green. `/kata-refactor` cleans it; `/kata-commit` commits the integrated
+   turns the check green. Green's refactor step cleans it; `/kata-commit` commits the
+   integrated
    winner **only** — never the dead-end candidates or the untracked ledger. Record the chosen
    approach and its metric in the commit body and CONTEXT.md → Decisions (write an ADR if the
    choice was a real, surprising trade-off).

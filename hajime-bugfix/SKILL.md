@@ -93,8 +93,7 @@ Summarize: root cause, reproduction confirmed, wave goal, baseline state, mode.
 
 **Supervised:** "Diagnosis complete. Ready to write the regression test. Run **/kata-red**."
 
-**Autonomous:** `/kata-red` (regression test first) → `/kata-green` (fix) → `/kata-refactor`
-→ `/kata-commit`. HALT and recommend `/kaizen` if the fix reveals a different root cause than
-diagnosed, or the bug needs a design change rather than a patch — never expand scope
-autonomously. The stuck protocol halts after its one adjusted attempt. Never commit a broken
-fix.
+**Autonomous:** `/kata-red` (regression test first) → `/kata-green` (fix) → `/kata-commit`.
+HALT and recommend `/kaizen` if the fix reveals a different root cause than diagnosed, or the
+bug needs a design change rather than a patch — never expand scope autonomously. Green's
+stuck branch halts after its one adjusted attempt. Never commit a broken fix.

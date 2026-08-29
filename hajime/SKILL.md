@@ -289,13 +289,13 @@ Summarize: what was learned (if grilled), the wave 1 goal, baseline status, mode
 
 **Supervised:** "Ready to write the failing test. Run **/kata-red** when you're ready."
 
-**Autonomous:** begin `/kata-red` → `/kata-green` → `/kata-refactor` → `/kata-commit`, looping
-per wave; kata-commit advances the goal from TASKS.md between waves. HALT at a clean point,
+**Autonomous:** begin `/kata-red` → `/kata-green` → `/kata-commit`, looping per wave;
+kata-commit advances the goal from TASKS.md between waves. HALT at a clean point,
 write to findings.md and HANDOFF.md, and recommend `/kaizen` whenever: reality diverges from
 the plan (false assumption, invalidated wave, needed pivot); work heads toward a declared
 non-goal (CONTEXT.md); or a probabilistic approach is about to replace a plausible
-deterministic one. Never rewrite the plan autonomously. The stuck protocol (kata-stuck) halts
-after its one adjusted attempt. At the wave ceiling, kata-commit pauses at a clean checkpoint
+deterministic one. Never rewrite the plan autonomously. Green's stuck branch halts after
+its one adjusted attempt. At the wave ceiling, kata-commit pauses at a clean checkpoint
 and writes RESUME.md.
 
 During the run, accumulate (never act mid-run): **preference candidates** (durable about-you

@@ -1,8 +1,8 @@
 ---
 name: kata-commit
 description: >
-  Commit the completed wave. Use after /kata-green or /kata-refactor. Triggers on: /kata-commit,
-  "commit", "let's commit". Verifies the dojo-check proof, generates the commit message in the
+  Commit the completed wave. Use after /kata-green. Triggers on: /kata-commit, "commit",
+  "let's commit". Verifies the dojo-check proof, generates the commit message in the
   session's style, stages explicitly (never blind add -A), commits, updates the living docs,
   advances to the next TASKS.md wave, and manages the compaction cycle and wave ceiling.
   Supervised: human approves the commit. Autonomous: commits and continues or pauses at the

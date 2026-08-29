@@ -75,7 +75,7 @@ detects consecutive rubber-stamp approvals, suggest a lighter density or autonom
 - **ast-grep / ripgrep** — structural and text code search (rules in dojo-principles).
 - **caveman** — output token compression; its *principle* (terse output) is internalized above.
 - **Specialized UI skills** — whatever is installed for the project's UI framework;
-  kata-refactor detects and invokes it, falling back to general principles.
+  green's refactor step detects and invokes it, falling back to general principles.
 
 **The one exception — graphify gets active treatment.** If installed: hajime offers to build
 the cache when there is existing code (skips silently when the cache exists; skips entirely on

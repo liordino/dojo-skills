@@ -99,10 +99,8 @@ rather than blocking.
 | `waza` | Algorithmic technique — recognize, derive, or approximate |
 | `tanren` | Iterative optimization loop — forge a better algorithm against a measurable metric |
 | `kata-red` | Write the failing check (test-first) |
-| `kata-green` | Minimum implementation to pass |
-| `kata-refactor` | Clean without changing behavior |
+| `kata-green` | Minimum implementation, refactor step, and stuck branch inline (the cycle is red → green → commit) |
 | `kata-commit` | Commit + living docs + wave advancement + compaction |
-| `kata-stuck` | Surface a blocker after two failed attempts |
 | `kokai` | Release & distribution — install surface, CI, tag-release, changelog |
 | `kensha` | Audit an incoming PR or batch of merged changes (advise; human decides) |
 | `kaizen` | Re-grill and update the plan on discoveries or pivots |
@@ -119,8 +117,7 @@ hierarchical AGENTS.md · versioned-example/ignored-real config · build-once-re
 standardized entrypoints · the global preferences store.
 
 Step-specific, in the `kata-*` skills: invariant-based engineering (kata-red) · YAGNI,
-idempotency, explicit types, error propagation (kata-green) · SRP, naming, formatting
-(kata-refactor).
+idempotency, explicit types, error propagation, refactor step, stuck branch (kata-green).
 
 ## Living artifacts
 
@@ -140,8 +137,9 @@ Dojo is self-contained — these pair well with it but are never required:
   active treatment: Dojo suggests refreshing its map exactly when the code structure changes.
 - **caveman** — output token compression; its *principle* (terse output) is internalized in
   dojo-conduct, so the standalone tool is optional.
-- **A specialized UI skill for your framework** — kata-refactor detects the UI framework and
-  invokes whatever matching skill you have installed, falling back to general principles.
+- **A specialized UI skill for your framework** — the refactor step in kata-green detects
+  the UI framework and invokes whatever matching skill you have installed, falling back to
+  general principles.
 
 ## Updating Dojo
 

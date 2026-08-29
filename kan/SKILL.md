@@ -4,10 +4,10 @@ disable-model-invocation: true
 description: >
   Disciplined diagnosis loop for hard bugs and performance regressions. Use when something is
   broken and the cause is not obvious. Triggers on: /kan, or automatically from hajime-bugfix's
-  diagnose phase, or from kata-stuck when the blocker is a bug. Follows reproduce → minimise →
-  hypothesise → instrument → fix → regression-test. The reproduction becomes the kata-red
-  regression test. Respects supervised/autonomous mode and divergence detection. Feeds findings
-  into findings.md.
+  diagnose phase, or from green's stuck branch when the blocker is a bug. Follows reproduce
+  → minimise → hypothesise → instrument → fix → regression-test. The reproduction becomes the
+  kata-red regression test. Respects supervised/autonomous mode and divergence detection.
+  Feeds findings into findings.md.
 ---
 
 # Kan — Disciplined Diagnosis

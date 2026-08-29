@@ -92,12 +92,12 @@ the form.
                     WAVE CYCLE
               ┌───────────┼───────────┐
               │           │           │
-          /kata-red   /kata-green  /kata-refactor
+          /kata-red   /kata-green  (refactor step + stuck branch inline)
               └───────────┴───────────┘
                           │
                     /kata-commit ──▶ advances TASKS.md, next wave
                           │
-              /kata-stuck ←── from kata-green after 2 failures
+              green's stuck branch ←── from kata-green after 2 failures
 
    On demand: /waza (algorithms) · /tanren (optimize) · /kaizen (plan change) · /kokai (release) · /kensha (PR audit)
 ```
@@ -123,20 +123,20 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 | Skill | Called from | Purpose |
 |---|---|---|
 | `randori` | `hajime` | Interview-driven design, domain language, ADRs, TASKS.md |
-| `kan` | `hajime-bugfix`, `kata-stuck` | Disciplined diagnosis loop |
+| `kan` | `hajime-bugfix`, `kata-green` stuck branch | Disciplined diagnosis loop |
 | `waza` | `kata-red`, `kata-green` | Algorithm recognition, derivation, approximation |
 | `tanren` | `waza` | Iterative optimization against a measurable metric (gated) |
 | `kaizen` | divergence halts, pivots | Re-grill; rewrite the plan |
 | graphify (optional tool) | `hajime`, `kata-commit` | Codebase knowledge graph, refreshed on structural delta |
-| specialized UI skill (optional) | `kata-refactor` | Framework-detected UI quality pass |
+| specialized UI skill (optional) | `kata-green` refactor step | Framework-detected UI quality pass |
 
 ---
 
 ## 3. First-Time Setup
 
-**Core Dojo skills (all 17, self-contained — no external dependencies):** dojo-principles ·
+**Core Dojo skills (15, self-contained — no external dependencies; trim Wave 5 absorbed two skills into kata-green):** dojo-principles ·
 dojo-project · dojo-conduct · hajime · hajime-bugfix · randori · kan · waza · tanren · kokai ·
-kensha · kaizen · kata-red · kata-green · kata-refactor · kata-commit · kata-stuck.
+kensha · kaizen · kata-red · kata-green · kata-commit.
 
 **Tools Dojo pairs well with (acknowledgments, not dependencies — dojo-conduct):** ast-grep
 (falls back to ripgrep) · graphify (the one tool with active suggestions) · caveman (its terse
@@ -209,7 +209,7 @@ goal:                       # the current wave's verifiable outcome
 commit_style: conventional  # terse | conventional | detailed | narrative | custom
 test_written:               # populated by kata-red (or "manual: ..." for non-automatable waves)
 test_status:                # failing ✓ | passing ✓
-attempts: 0                 # failed dojo-check runs this GREEN; 2 triggers kata-stuck
+attempts: 0                 # failed dojo-check runs this GREEN; 2 triggers green's stuck branch
 pre_existing_failures:      # baseline failures tracked, not owned, by this session
 
 # Bugfix-only
@@ -223,12 +223,12 @@ reproduction:               # minimal reproduction steps
 the ceiling. Set by hajime; editable mid-session (see §9).
 **rigor** — `poc` loosens tests/pedagogy/ceremony and tightens scope; orthogonal to mode (an
 autonomous PoC spike is valid).
-**step** — current position; each skill updates it on exit. `STUCK` is written by kata-stuck
-so resume checks recognize an interrupted blocker.
+**step** — current position; each skill updates it on exit. `STUCK` is written by
+kata-green's stuck branch so resume checks recognize an interrupted blocker.
 **gate_density** — how many stops a supervised wave has (defined in dojo-conduct): full = 6,
 standard = 4, light = 2. Content is never skipped, only batched.
 **attempts** — incremented by kata-green per failed run; reset to 0 by kata-green on pass (or
-by you, to grant more tries); at 2, kata-stuck fires.
+by you, to grant more tries); at 2, green's stuck branch fires.
 **pre_existing_failures** — which failures predate the session, so the agent knows what it is
 and isn't responsible for. Used by both feature and bugfix sessions.
 
@@ -418,11 +418,11 @@ trade-off; outputs the intent line and **TASKS.md** (multi-wave) or the single w
 Scoping mode outputs `scoping-questions.md` when answers live with other people. Normative:
 `randori/SKILL.md`.
 
-**kan** — `/kan`, or from hajime-bugfix / kata-stuck. Reproduce → minimise → hypothesise →
-instrument → fix → regression-test. Will not proceed without a deterministic, agent-runnable
-pass/fail signal for the exact bug; the reproduction becomes kata-red's regression test;
-prevention notes go to the backlog; design-change discoveries are divergences. Normative:
-`kan/SKILL.md`.
+**kan** — `/kan`, or from hajime-bugfix / kata-green's stuck branch. Reproduce → minimise
+→ hypothesise → instrument → fix → regression-test. Will not proceed without a deterministic,
+agent-runnable pass/fail signal for the exact bug; the reproduction becomes kata-red's
+regression test; prevention notes go to the backlog; design-change discoveries are divergences.
+Normative: `kan/SKILL.md`.
 
 **waza** — `/waza`, or auto from kata-red/kata-green. Classify, then: Recognition (name the
 canonical problem; the DP check), Derivation (reduction → paradigm checklist →
@@ -445,23 +445,17 @@ non-automatable waves explicitly, confirms red-for-the-right-reason. Normative:
 `kata-red/SKILL.md`.
 
 **kata-green** — minimum implementation: YAGNI, idempotency, explicit types, error rules,
-structural navigation first, the determinism gate, two-attempt stuck protocol, and the
-**refactor assessment** presented at its gate. Normative: `kata-green/SKILL.md`.
-
-**kata-refactor** — clean without changing behavior: SRP/size, names (rg + sg verification),
-structural DRY, formatter, provenance comments, framework-detected UI skill pass. Skippable
-supervised; mandatory autonomous (with full revert on any breakage). Normative:
-`kata-refactor/SKILL.md`.
+structural navigation first, the determinism gate, two-attempt stuck protocol (Stuck branch
+inline — the diagnostic, the 2–3 adjusted approaches, the halt-or-continue rule), and the
+**refactor step** presented at its gate (clean without changing behavior: SRP/size, names,
+structural DRY, formatter, provenance, framework-detected UI skill pass). The cycle is now
+red → green → commit; refactor and stuck are sections inside green, not separate skills.
+Normative: `kata-green/SKILL.md`.
 
 **kata-commit** — the wave close: proof-verified final gate, message in the session style,
 **explicit staging with a secrets denylist** (never `git add -A`), the debrief + engagement
 note, durable-artifact updates, **TASKS.md advancement to the next wave**, graphify delta
 check, wave ceiling / RESUME.md, context release. Normative: `kata-commit/SKILL.md`.
-
-**kata-stuck** — after two failed attempts: sets `step: STUCK`, presents the full diagnostic
-(attempts, raw output, ranked hypotheses, what would resolve it) and 2–3 adjusted approaches;
-supervised asks for direction, autonomous tries the least-risky option once then halts.
-Normative: `kata-stuck/SKILL.md`.
 
 **kaizen** — `/kaizen`, always supervised. Reads current reality, grills the change, assesses
 impact honestly (including invalidated committed waves), rewrites TASKS.md, updates CONTEXT.md
@@ -622,9 +616,9 @@ each with a recommended answer; explores the codebase/graph instead of asking wh
 answer. Output: CONTEXT.md entries, ADRs, the intent line, and TASKS.md — the domain
 vocabulary then names everything (tests, variables, commits) for the whole session.
 
-**kan (diagnosis)** — called by hajime-bugfix, and by kata-stuck when the blocker is a bug.
-Will not move past reproduce without a deterministic signal; the reproduction *is* the
-regression test kata-red writes.
+**kan (diagnosis)** — called by hajime-bugfix, and by kata-green's stuck branch when the
+blocker is a bug. Will not move past reproduce without a deterministic signal; the
+reproduction *is* the regression test kata-red writes.
 
 **tanren (optimization)** — called by waza, and only when the gate is met: a scalar fitness
 metric, a frozen deterministic scorer, and a human-approved metric + budget. It runs an
@@ -642,11 +636,11 @@ sessions. Absent it, navigation falls back to rg/sg.
 that may span waves or sessions; randori writes `TASKS.md`. These survive context resets: a
 resumed session reads them (plus HANDOFF.md) and is oriented without re-exploring.
 
-**Specialized UI skills (optional)** — invoked by kata-refactor when a wave touched UI: it
-detects the framework and runs whatever matching skill you have installed, with the right lens
-(visual polish where the framework has aesthetics to polish; structural/binding correctness
-where it doesn't). None installed → general refactor principles apply. Irrelevant for
-backend/CLI/daemon work.
+**Specialized UI skills (optional)** — invoked by kata-green's refactor step when a wave
+touched UI: it detects the framework and runs whatever matching skill you have installed,
+with the right lens (visual polish where the framework has aesthetics to polish;
+structural/binding correctness where it doesn't). None installed → general refactor
+principles apply. Irrelevant for backend/CLI/daemon work.
 
 **caveman (optional)** — its principle, terse operational output, is internalized in
 dojo-conduct; the standalone tool adds multi-mode compression on top if you want it.
@@ -683,10 +677,8 @@ autonomous mode when your approvals have become reflexive; the choice is always 
 | `/hajime [description]` | Start a feature session (asks rigor, mode, design) |
 | `/hajime-bugfix [description]` | Start a bugfix session (asks mode) |
 | `/kata-red` | Write the failing check (after the goal is defined) |
-| `/kata-green` | Implement minimally (after RED) |
-| `/kata-refactor` | Clean up (skippable supervised; mandatory autonomous) |
+| `/kata-green` | Implement minimally, refactor step, stuck branch (after RED; the cycle is red → green → commit) |
 | `/kata-commit` | Verify proof, commit, update docs, advance the plan |
-| `/kata-stuck` | Surface a blocker (auto after 2 failed attempts) |
 | `/randori` | Design grill / scoping reconnaissance (auto from hajime) |
 | `/kan` | Disciplined diagnosis (auto from hajime-bugfix) |
 | `/waza` | Algorithm: recognize / derive / approximate (auto from red/green) |
@@ -704,10 +696,10 @@ autonomous mode when your approvals have become reflexive; the choice is always 
         ▼
  randori (feature) | kan (bugfix)  ──▶  TASKS.md + dojo-session.md
         ▼
- /kata-red ─▶ /kata-green ──▶ pass? ──NO(×2)──▶ /kata-stuck
+ /kata-red ─▶ /kata-green ──▶ pass? ──NO(×2)──▶ green's stuck branch
         ▲            │ YES
         │            ▼
-        │     /kata-refactor (per decision/mode)
+        │     refactor step (per decision/mode; inline in green)
         │            ▼
         │      /kata-commit ── proof fresh? ──NO──▶ re-run / upgrade script
         │            │ YES
