@@ -78,17 +78,17 @@ count 13 → 12.
 
 ## Wave 8 — stub kokai
 
-status: pending
+status: done  # completed in code (git); status flag corrected post-run
 Cut kokai from 5.5k to a thin standalone: keep only the Dojo-specific bits the model won't reconstitute on its own — problem-first README, build-once-repackage-many, CI-mirrors-dojo-check, the bin/deploy contract name — and drop the generic release-engineering playbook (install channels, signing specifics, changelog mechanics) the model already knows. Stays user-invoked (`/kokai`), just thin. No deletion, no dangling references (kokai keeps its name and trigger). Rewrite: the contribution-review cross-ref already handled in Wave 6. Verified by: kokai/SKILL.md carries the four Dojo-specific principles + a pointer, under ~1.5k; `/kokai` still invocable; lint + mechanics green. Count unchanged (12).
 
 ## Wave 9 — slim tanren
 
-status: pending
+status: done  # completed in code (git); status flag corrected post-run
 tanren's 9.5k SKILL.md duplicates mechanics already in `tanren/reference/tanren-loop.md`. Shrink the skill to the entry gate (the three refuse-unless conditions), the freeze-the-scorer/held-out-cases anti-gaming rule, and the hand-back-to-kata invariant — everything else points to the reference. The discipline (which the model won't self-supply) stays; the mechanics move behind the existing pointer. No deletion. Rewrite of the algorithm-classification reference already handled in Wave 5. Verified by: tanren/SKILL.md under ~4k, carries entry gate + freeze rule + ratify invariant; the reference file still holds the loop mechanics; lint R9 (tanren reference markers) still passes; lint + mechanics green.
 
 ## Wave 10 — randori: pin what a term ISN'T
 
-status: pending
+status: done  # completed in code (git); status flag corrected post-run
 Add the conceptual-exclusion rule to randori's CONTEXT.md/Glossary handling: pin what each term explicitly *excludes* or is-confused-with, not only what it means ("when we say X we do not mean Y" — e.g. "score" in music ≠ a test grade). This is a Glossary concern, distinct from Non-Goals (scope). Sharpens the highest-leverage output. No deletion, no reference changes. Verified by: randori's CONTEXT.md section states the pin-the-exclusion rule for Glossary terms; lint + mechanics green.
 
 ### What the trim plan does NOT touch (deliberately)
@@ -104,6 +104,14 @@ Add the conceptual-exclusion rule to randori's CONTEXT.md/Glossary handling: pin
 
 Waves from the predecessor writing-great-skills plan that are not superseded by the trim. They run after the trim completes (Wave 11 onward). All additive; no deletions; references to trim-deleted skills are inert by then.
 
+>> Re-judgment note (2026-08-29, post-trim): the surviving-old waves 11–17 were
+>> reviewed against the trimmed surface and the Akita "smallest conscious surface"
+>> principle. **Pending (worth doing):** 11 router (stronger post-trim — the
+>> cognitive-load cure now that only ~5 skills are user-invoked), 13 kan desc
+>> cleanup, 14 cross-ref removal (both trimming). **Invalidated (re-inflation):**
+>> 12 sigils, 15 rationale footers, 16 dojo-diagnose, 17 dojo-write-skill — reasons
+>> inline. Do not autonomously execute invalidated waves.
+
 ## Wave 11 — `dojo/SKILL.md` router ships and the 9-site banner duplication is retired
 
 status: pending
@@ -112,7 +120,7 @@ The router skill exists at `dojo/SKILL.md`, user-invoked (per ADR 0002), carryin
 
 ## Wave 12 — `_enforce_` and `_proof_` become leading words across the package
 
-status: pending
+status: invalidated  # re-judged post-trim 2026-08-29: contradicts the glossary's own definition of a leading word (recruits priors the model already holds — sigils have none). Natural phrases stay canonical.
 blocked-by: 11
 The English phrases "enforce over instruct", "proof artifact", "fresh proof", "proof contract" are retired from prose and replaced by the leading words `_enforce_` and `_proof_`. Each leading word's definition lives once, in the relevant glossary entry in `CONTEXT.md`. `_non-goal_` keeps its noun form; the leading word for the *behaviour* (currently `_bound_` provisional) is picked during the wave and recorded in CONTEXT.md. Verified by: `rg -i "enforce.over.instruct|fresh proof|proof artifact"` returns zero hits outside the glossary entries and the ADRs that define them; `rg "_enforce_|_proof_"` returns hits across the skills where the phrases used to be; the lint rules from prior waves still pass.
 
@@ -132,7 +140,7 @@ blocked-by: 13
 
 ## Wave 15 — each `dojo-*` rule carries a `> Rationale: DOJO-MANUAL.md §X` footer pointer
 
-status: pending
+status: invalidated  # re-judged post-trim 2026-08-29: fails the deletion test — ~14 always-loaded lines whose only consumer is a human who owns the manual; agent behaviour unchanged. Ceremony the trim exists to prevent.
 blocked-by: 14
 Every H2-bounded rule section in `dojo-principles/SKILL.md`, `dojo-project/SKILL.md`, and `dojo-conduct/SKILL.md` ends with a single-line footer of the form `> Rationale: DOJO-MANUAL.md §[Section Name]` pointing at the matching section in the manual. Convention recorded in `dojo-project → Project Structure and Observability` as the standard format. Verified by: a new lint rule asserts every H2 in the three `dojo-*` skill files is followed (before the next H2 or EOF) by a footer matching the pattern; lint passes.
 
@@ -140,13 +148,13 @@ Every H2-bounded rule section in `dojo-principles/SKILL.md`, `dojo-project/SKILL
 
 ## Wave 16 — `dojo-diagnose/SKILL.md` exists with the five failure modes
 
-status: pending
+status: invalidated  # re-judged post-trim 2026-08-29: a NEW skill right after cutting five to shrink surface; a skill-file-audit checklist reached for ~never. Fails 'would I remember to invoke this?'. 'Premature completion' is better served by fable-judge self-verification if ever built.
 blocked-by: 15
 `dojo-diagnose/SKILL.md` exists at the package root (or under `dojo-diagnose/`), user-invoked per ADR 0002, with the five failure modes from the upstream guide (premature completion, duplication, sediment, sprawl, no-op) — 1–2 Dojo-specific symptoms per mode, with no-op and sediment named as related-but-distinct (no-op = the diagnosis; sediment = the cause). Each symptom carries a one-line "diagnostic question" the agent can ask itself. No lint rule; checklist-only initially. Verified by: `rg "premature completion|duplication|sediment|sprawl|no-op"` in `dojo-diagnose/SKILL.md` returns at least one body hit per mode; total skill body under 300 words; lint from prior waves still passes.
 
 ## Wave 17 — `dojo-write-skill/SKILL.md` exists as the bridge
 
-status: pending
+status: invalidated  # re-judged post-trim 2026-08-29: a permanent dependency-bridge to Pocock's writing-great-skills — the exact external-source-chasing deliberately ended this session. Also blocked-by 16 (invalidated).
 blocked-by: 16
 The meta-skill ships per ADR 0003: ~250 words, user-invoked per ADR 0002, opens with explicit attribution to upstream `writing-great-skills` (MIT), carries only the Dojo-specific bridge content (kanji leading-word scheme interaction, glossary integration, lint enforcement, invocation rule). Points at the upstream by path for the bulk of the framework. Completion criterion: the skill passes its own checklist — verified by running `dojo-diagnose/SKILL.md`'s checks against the meta-skill itself and noting the result in the wave's debrief. Verified by: the meta-skill exists, is under 300 words, opens with attribution, and references `writing-great-skills` by path; the lint from prior waves still passes.
 

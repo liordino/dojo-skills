@@ -19,7 +19,7 @@ Run `/hajime (autonomous)` to continue.
 
 **Surviving-old plan** (TASKS.md Waves 11–17) — additive waves on the trimmed surface:
 
-- Wave 11: `dojo/SKILL.md` router (cognitive-load cure for the 5 user-invoked skills)
+- Wave 11 (router skill) — the only substantive pending wave. Waves 12/15/16/17 were invalidated post-trim (see TASKS.md re-judgment note); 13/14 are trivial cleanups.
 - Wave 12: `_enforce_` / `_proof_` leading words (or the natural-phrase counter-proposal —
   decision deferred to randori at wave time per HANDOFF Improvement Backlog)
 - Wave 13: `kan` description cleanup (no orphaned "performance regression" mention)
@@ -39,7 +39,7 @@ The fresh session reloads from:
 - `learning-log.md` (per-wave briefs and debriefs; the trim's 7 waves have both)
 - `findings.md` (R13 grep-bug discovery from Wave 3; durable)
 
-Start `/hajime` (autonomous) reading TASKS.md Wave 11 (router skill) — the natural next
+Start `/hajime` (autonomous) reading TASKS.md Wave 11 (router skill) — the only substantive pending wave. Waves 12/15/16/17 were invalidated post-trim (see TASKS.md re-judgment note); 13/14 are trivial cleanups.
 step. Run the kata cycle on it; commit; advance.
 
 ## Promotion candidates (4 accumulated)
