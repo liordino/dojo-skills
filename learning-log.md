@@ -161,3 +161,19 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** skill count still 12. One trim wave left (randori glossary pin).
 - **Promotion candidates:** none new.
 - **Engagement note:** sixth autonomous-mode wave. Pattern holds.
+
+## Wave 11 — Opening Brief
+
+- **What:** add the conceptual-exclusion rule to randori's CONTEXT.md/Glossary handling. For every term, pin what it explicitly excludes or is confused with — "when we say X we do not mean Y". Distinct from Non-Goals (scope, not term meaning).
+- **Why:** conceptual exclusions are the highest-leverage glossary line. They prevent the most expensive downstream confusion — a team that thinks a term means what it means in *their* prior context, and ships accordingly. The trim plan gives the example: "score" in music ≠ a test grade; "wave" in this project ≠ an electromagnetic wave. This sharpens Glossary — the highest-leverage output of randori — without changing the other two sections.
+- **Concepts to explore:** *sharpening by exclusion* (the canonical meaning is "what it is"; the conceptual exclusion is "what it isn't" — together they're a fence around the term), *scope vs meaning* (Non-Goals bound what the project does; Glossary exclusions bound what the terms mean — distinct fences), *interview discipline* (call out confusions explicitly during the grill: "is this the X you mean, or the Y-other-domain X?" — the question itself is the contribution).
+- **Bigger picture:** Wave 11 of 17 (TASKS.md Wave 10). Last trim wave. After this, surviving-old waves (router, leading words, kan description, dojo-* cross-ref cleanup, rationale footers, diagnose, meta-skill) run on the trimmed surface.
+
+## Wave 11 — Closing Debrief
+
+- **What was done:** updated randori's CONTEXT.md Glossary handling paragraph to add the conceptual-exclusion rule. The Glossary bullet now leads with: "For every term, pin what it explicitly excludes or is confused with, not only what it means — 'when we say X we do not mean Y' — e.g. 'score' in music ≠ a test grade; 'wave' in this project ≠ an electromagnetic wave. Conceptual exclusions are the highest-leverage glossary line — they prevent the most expensive downstream confusion (a team that thinks a term means what it means in *their* prior context, and ships accordingly). Distinct from Non-Goals (which are scope, not term meaning)." The interview-discipline list also gains "pin confusions ('is this the X you mean, or the Y-other-domain X?')". `bash scripts/dojo-check.sh` passes.
+- **Why the approach works:** the conceptual-exclusion rule targets the highest-leverage glossary line. Settled glossary entries that say both *what it is* and *what it isn't* are harder to misinterpret downstream. The distinction from Non-Goals is explicit so the interview doesn't conflate them. The interview discipline line is added at the same point as the existing "call out term conflicts / replace vague terms / stress-test relationships" — same surface, same moment in the grill.
+- **Systemic improvement opportunities:** the discipline generalizes to any glossary — the *positive* definition plus the *exclusion* is more useful than the positive alone. Future glossary curation (in this repo or any project adopting Dojo) follows the same pattern.
+- **Bigger picture status:** **the trim is complete.** Skill count is 12. All 7 trim waves done. Surviving-old waves (router, leading words, kan description, dojo-* cross-ref cleanup, rationale footers, diagnose, meta-skill) run on the trimmed surface next.
+- **Promotion candidates:** none new.
+- **Engagement note:** seventh autonomous-mode wave. Pattern holds.

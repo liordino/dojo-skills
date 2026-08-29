@@ -80,16 +80,23 @@ CONTEXT.md holds **exactly three sections, nothing else** (no implementation det
 no scratch pad):
 
 - **Glossary** — canonical domain terms and meanings. The highest-leverage output: code,
-  conversation, and docs all derive from one model.
+  conversation, and docs all derive from one model. **For every term, pin what it explicitly
+  excludes or is confused with, not only what it means** — *"when we say X we do not mean Y"* —
+  e.g. "score" in music ≠ a test grade; "wave" in this project ≠ an electromagnetic wave.
+  Conceptual exclusions are the highest-leverage glossary line — they prevent the most
+  expensive downstream confusion (a team that thinks a term means what it means in *their*
+  prior context, and ships accordingly). Distinct from Non-Goals (which are scope, not term
+  meaning).
 - **Non-Goals** — the confirmed boundary of what this project deliberately isn't.
 - **Decisions** — durable recorded choices (log sink, etc.) with one-line rationale; anything
   with a real trade-off also gets an ADR.
 
-During the interview: call out term **conflicts** with the glossary immediately; replace
-**vague** terms with precise canonical ones; stress-test **relationships** with concrete
-scenarios ("If a Customer cancels mid-cycle, what happens to the open Invoice?"). Update
-inline as terms crystallize. Mark genuinely unsettled terms `(provisional)` and challenge them
-in later sessions — settled glossary outranks memory, but provisional means provisional.
+During the interview: call out term **conflicts** with the glossary immediately; pin
+**confusions** ("is this the X you mean, or the Y-other-domain X?"); replace **vague** terms
+with precise canonical ones; stress-test **relationships** with concrete scenarios ("If a
+Customer cancels mid-cycle, what happens to the open Invoice?"). Update inline as terms
+crystallize. Mark genuinely unsettled terms `(provisional)` and challenge them in later
+sessions — settled glossary outranks memory, but provisional means provisional.
 
 ---
 
