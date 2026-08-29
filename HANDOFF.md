@@ -76,6 +76,7 @@ Most recent first.
 2026-08-29 | wave 8 | merge the bugfix entry into hajime as a "feature or bugfix?" fork; directory deleted | ~12 cross-references rewritten; regression-test-first discipline preserved; **trim complete** | 13 → 12 skills | c424507
 2026-08-29 | wave 9 | stub kokai to four Dojo-specific principles + pointer | body 5559 → 3478 bytes (38% reduction); kokai stays user-invoked | 12 skills; two trim waves remain (slim tanren, randori glossary pin) | 4b68454
 2026-08-29 | wave 10 | slim tanren to entry gate, freeze rule, hand-back invariant; mechanics → reference | 9609 → 5494 bytes (43%); discipline in body, mechanics on-demand | 12 skills; one trim wave remains (randori glossary pin) | f81bf85
+2026-08-29 | wave 11 | add conceptual-exclusion rule to randori's Glossary handling (pin what each term isn't, distinct from Non-Goals) | **trim complete** (all 7 trim waves landed) | 12 skills; surviving-old waves 12–18 on the trimmed surface | b4a9fac
 
 ## Key Concepts
 
@@ -136,10 +137,10 @@ Most recent first.
 
 - Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
   next set of additions.
-- Most recent commit: f81bf85 (`refactor(tanren): slim to entry gate, freeze rule, hand-back invariant; reference for mechanics`).
-- Working tree: clean as of Wave 10 commit.
+- Most recent commit: b4a9fac (`refactor(randori): pin conceptual-exclusion rule in Glossary handling`).
+- Working tree: clean as of Wave 11 commit.
 - `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
-- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Waves 4–10 done) + 7 surviving-old waves (11–17) = 7 pending + 7 done. Wave 10 = trim Wave 7 (slim tanren). One trim wave remains (randori glossary pin, TASKS.md Wave 10).
+- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; all done; **trim complete**) + 7 surviving-old waves (11–17) = 7 pending + 7 done. Wave 11 = trim Wave 7 (randori glossary pin, last trim wave). Surviving-old waves (router, leading words, kan description, dojo-* cross-ref cleanup, rationale footers, diagnose, meta-skill) run on the trimmed surface next.
 - Skill count: 12 (trim target reached).
 - ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
 - Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.

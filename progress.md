@@ -21,3 +21,5 @@ Format: `YYYY-MM-DD | wave N | step | one-line outcome`
 2026-08-29 | wave 9 | refactor | stub kokai to four Dojo-specific principles + pointer | dropped 5559 → 3478 bytes (38%); kokai stays user-invoked; trim complete minus 2 waves | 12 skills; two trim waves remain (slim tanren, randori glossary pin) | 4b68454
 
 2026-08-29 | wave 10 | refactor | slim tanren to entry gate, freeze rule, hand-back invariant; mechanics → reference | 9609 → 5494 bytes (43%); discipline stays in body, mechanics on-demand | 12 skills; one trim wave remains (randori glossary pin) | f81bf85
+
+2026-08-29 | wave 11 | refactor | add conceptual-exclusion rule to randori's Glossary handling (pin what each term isn't, distinct from Non-Goals) | the trim is complete (all 7 trim waves landed) | 12 skills; surviving-old waves 12–18 (router, leading words, kan, dojo-* cleanup, footers, diagnose, meta-skill) on the trimmed surface | b4a9fac
