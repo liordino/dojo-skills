@@ -31,7 +31,7 @@ dojo-skills/
 ├── learning-log.md             # per-wave briefs and debriefs (append-only)
 ├── progress.md                 # terse per-wave log (append-only)
 ├── findings.md                 # discoveries + halt diagnostics (append-only)
-├── TASKS.md                    # the plan: 10 waves, every wave a verifiable outcome
+├── TASKS.md                    # the plan: 14 pending + 1 done (trim absorbs the deletions; surviving-old carries the additive waves)
 ├── docs/
 │   ├── index.html              # static landing page (GitHub Pages-friendly)
 │   └── adr/                    # architecture decision records (lazy; 0001-0003 as of Wave 1)
@@ -41,7 +41,7 @@ dojo-skills/
 ├── evals/
 │   ├── run-mechanics.sh        # automated mechanics eval; deterministic
 │   └── scenarios/              # agent-replay scenarios with assertion scripts
-├── hajime/                     # the 16 skills (dojo-*, kata-*, bare-named)
+├── hajime/                     # the 17 skills (dojo-*, kata-*, bare-named); trim plan drops to 12
 ├── hajime-bugfix/
 ├── randori/
 ├── kan/
@@ -73,7 +73,8 @@ Most recent first.
 
 2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
 2026-06-19 | wave 2 | classify every skill per invocation rule (ADR 0002); 7 user-invoked + 3 session-invoked; R11 single-table classifier | commit 4168c6e
-2026-08-29 | wave 3 | land Wave-2 review fixes + repair R13 grep; Gate 0 in hajime, facts-vs-decisions in randori, kata-commit item 4 (CONTEXT.md), R12–R14 in dojo-lint, exec-bit index mode flipped for 6 scripts, `## Logging` heading restored in dojo-principles | dirty tree from interrupted kata-commit cleared; clean green baseline ready for the trim plan in `docs/proposals/` | next: Wave 4 promotes the trim plan into TASKS.md as the active plan (supersedes pending Wave 5 of the writing-great-skills plan)
+2026-08-29 | wave 3 | land Wave-2 review fixes + repair R13 grep; Gate 0 in hajime, facts-vs-decisions in randori, kata-commit item 4 (CONTEXT.md), R12–R14 in dojo-lint, exec-bit index mode flipped for 6 scripts, `## Logging` heading restored in dojo-principles | dirty tree from interrupted kata-commit cleared; clean green baseline ready for the trim plan in `docs/proposals/` | fa5fcee
+2026-08-29 | wave 4 | promote trim plan into TASKS.md as the active plan; 7 trim waves (4–10) + 7 surviving-old waves (11–17); predecessor writing-great-skills plan preserved as appendix | two-plan confusion resolved; single active plan | unlocks Wave 5 (first trim wave: absorb kata-refactor + kata-stuck into kata-green) | c11bdfa
 
 ## Key Concepts
 
@@ -134,21 +135,13 @@ Most recent first.
 
 - Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
   next set of additions.
-- Most recent commit: Wave 3 lands after this section is updated (housekeeping
-  - Wave-2 review fixes); recorded in Wave History above.
-- Working tree: clean as of Wave 3 commit (Gate 0, facts-vs-decisions, item 4,
-  R12–R14, exec-bit flips, Logging-section restoration, durable-artifact
-  updates all landed).
-- `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval
-  12/12, fresh proof.
-- Plan: TASKS.md currently holds the 10-wave writing-great-skills plan (Waves
-  1–2 done, 8 pending). The trim plan lives in `docs/proposals/trim.TASKS.md`
-  (untracked) and will be promoted into TASKS.md at Wave 4, replacing the
-  pending list with 14 waves: 7 trim + 7 surviving-old.
-- ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented
-  in Wave 2), 0003 (meta-skill as bridge) committed.
-- Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`,
-  `findings.md`, `TASKS.md`, `docs/adr/` all current.
+- Most recent commit: c11bdfa (`docs(tasks): promote trim plan to active; preserve writing-great-skills as appendix`).
+- Working tree: clean as of Wave 4 commit.
+- `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
+- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10) + 7 surviving-old waves (11–17) = 14 pending + 1 done = 15 wave entries. The predecessor writing-great-skills plan is preserved as an appendix for traceability.
+- ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
+- Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
+- `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-waza-kensha.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
 
 ## Improvement Backlog
 
