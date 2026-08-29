@@ -145,3 +145,19 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** skill count still 12. Two trim waves left (slim tanren, randori glossary pin), then the trim completes. Surviving-old waves (router, leading words, kan description, dojo-* cross-ref cleanup, rationale footers, diagnose, meta-skill) run on the trimmed surface.
 - **Promotion candidates:** none new.
 - **Engagement note:** fifth autonomous-mode wave. The pattern holds.
+
+## Wave 10 — Opening Brief
+
+- **What:** slim tanren — keep only the entry gate (the three refuse-unless conditions), the freeze-the-scorer/held-out-cases anti-gaming rule, and the hand-back-to-kata invariant. Move the loop mechanics (state schema, propose/score/keep-or-revert per iteration, stopping criteria, worked example) behind the existing `tanren/reference/tanren-loop.md` pointer. Body should drop from ~9.5k toward ~4k.
+- **Why:** the discipline (entry gate, freeze rule, hand-back invariant) is what the model won't self-supply; the loop mechanics (state schema, per-iteration steps, stopping criteria) are mechanics — they're worth a reference file but not the trigger-loaded front matter.
+- **Concepts to explore:** *front-matter vs reference* (the discipline lives in the front matter; the mechanics live in `reference/` and load on demand — same pattern as dojo-principles's ast-grep reference), *anti-gaming rule is non-negotiable* (the freeze-scorer rule stays in the front matter because it's the canonical failure mode — putting it in a reference lets it slide), *hand-back invariant is the honesty contract* (the winner is not integrated until RED — this rule is the whole reason tanren doesn't commit from inside the loop).
+- **Bigger picture:** Wave 10 of 17 (TASKS.md Wave 9, slim tanren). One trim wave left after this (randori glossary pin); then surviving-old waves.
+
+## Wave 10 — Closing Debrief
+
+- **What was done:** rewrote tanren/SKILL.md to its slim form. The new body has four sections: the entry gate (the three refuse-unless conditions, unchanged), the freeze-the-scorer anti-gaming rule (with the held-out cases invariant — kept because it's the canonical failure mode and putting it in reference would let it slide), the hand-back-to-kata invariant (the winner is not integrated until RED), and the hand-off (supervised vs autonomous). The loop mechanics (state schema, per-iteration propose/score/keep-or-revert, stopping criteria, worked example) are behind the existing `tanren/reference/tanren-loop.md` pointer at the end of the file. Body dropped from 9609 to 5494 bytes (43% reduction; the trim draft's "~4k" target was approximate — the discipline needs at least this much to stay useful). `bash scripts/dojo-check.sh` passes; lint R9 (tanren reference markers) still passes — the reference file's safety markers (`held-out`, `FROZEN`, `results.tsv`, `gaming`) are still present.
+- **Why the approach works:** the discipline (entry gate, freeze rule, hand-back invariant) is preserved in the trigger-loaded body; the mechanics (state schema, per-iteration steps) move to the reference where they belong. The anti-gaming rule is the most important single rule in tanren — putting it in a reference would let it slide on trigger. The hand-back invariant is the honesty contract (no commit from inside the loop) — it stays because it's the whole reason tanren doesn't cheat its own gate.
+- **Systemic improvement opportunities:** the slim pattern (discipline in body, mechanics in reference) is a template for any future skill slim. A future candidate would identify which paragraphs are *the model won't self-supply this* (keep) vs *the model already knows this* (drop or move to reference).
+- **Bigger picture status:** skill count still 12. One trim wave left (randori glossary pin).
+- **Promotion candidates:** none new.
+- **Engagement note:** sixth autonomous-mode wave. Pattern holds.
