@@ -72,13 +72,46 @@ NDEBUG) · C# `throw new InvalidOperationException` (Debug.Assert stripped in Re
 
 ---
 
-## Algorithm check (waza trigger)
+## Algorithm check (when the approach matters)
 
-If this wave involves an algorithmic problem — naive complexity where better exists; graphs,
-trees, search, optimization, geometry, scheduling, parsing; or inventing a procedure rather
-than wiring known pieces — **invoke `/waza` first.** It classifies (recognition / derivation /
-approximation) and returns the properties or tolerances the algorithm must satisfy; write the
-checks against that contract. Plain wiring, CRUD, glue: skip waza.
+If this wave crosses from wiring known pieces into genuine algorithm territory —
+naive complexity where better exists (O(n²) where O(n log n) does; recursion
+recomputing subproblems); graphs, trees, search, optimization, geometry,
+scheduling, parsing; or inventing a procedure rather than composing known ones —
+**stop and pick the approach before writing the check.** Plain wiring, CRUD,
+glue: skip this.
+
+Three moves, in order:
+- **Recognize.** Most novel-looking problems are a textbook problem in disguise —
+  shortest path, interval scheduling, topological sort, matching. Name it; use the
+  known algorithm. The most-missed one: optimal substructure + overlapping
+  subproblems → it's DP, memoize (this is the usual "exponential where polynomial
+  exists").
+- **Derive** (nothing fits) — reduce to a known problem first; else pick the
+  paradigm (D&C, DP, greedy *only* with an exchange argument, backtracking) and
+  build around a stated invariant.
+- **Approximate** (exact is intractable or unnecessary) — state the method, the
+  **error tolerance** (in what metric), and why exact isn't needed. **Supervised:
+  the tolerance needs human sign-off** — "how approximate is acceptable" is a
+  product decision. STOP for it.
+
+**Write the check against the approach, test-first:**
+- Recognition/derivation → **property-based tests**: the properties the algorithm
+  must satisfy for all inputs (optimality where provable; invariants
+  sorted/valid/in-bounds; round-trips; algebraic laws). The properties are often
+  clearer than the algorithm and guide it.
+- Approximation → **tolerance + necessary properties + golden reference**: you
+  can't property-test "optimal" without an oracle. Assert within-tolerance of a
+  known reference; assert necessary properties that hold even when not optimal (a
+  TSP heuristic still yields a valid tour). Golden reference under the reference
+  rule below — never fabricate one.
+
+**Optimizing a measurable metric, not just reaching correct?** If — and only if —
+a scalar fitness metric exists (runtime, memory, approximation error, accuracy, a
+domain score) and you want to *improve* it rather than just be correct, hand to
+`/tanren` (hard entry gate: frozen scorer + human-approved metric and budget; it
+returns a winner for kata-red to ratify). Pure correctness has nothing to
+hill-climb — stay here.
 
 ---
 

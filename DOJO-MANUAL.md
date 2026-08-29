@@ -99,7 +99,7 @@ the form.
                           │
               green's stuck branch ←── from kata-green after 2 failures
 
-   On demand: /waza (algorithms) · /tanren (optimize) · /kaizen (plan change) · /kokai (release) · /kensha (PR audit)
+   On demand: /tanren (optimize) · /kaizen (plan change) · /kokai (release) · /kensha (PR audit)
 ```
 
 ### The State Spine: dojo-session.md
@@ -124,8 +124,7 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 |---|---|---|
 | `randori` | `hajime` | Interview-driven design, domain language, ADRs, TASKS.md |
 | `kan` | `hajime-bugfix`, `kata-green` stuck branch | Disciplined diagnosis loop |
-| `waza` | `kata-red`, `kata-green` | Algorithm recognition, derivation, approximation |
-| `tanren` | `waza` | Iterative optimization against a measurable metric (gated) |
+| `tanren` | `kata-red` | Iterative optimization against a measurable metric (gated) |
 | `kaizen` | divergence halts, pivots | Re-grill; rewrite the plan |
 | graphify (optional tool) | `hajime`, `kata-commit` | Codebase knowledge graph, refreshed on structural delta |
 | specialized UI skill (optional) | `kata-green` refactor step | Framework-detected UI quality pass |
@@ -135,7 +134,7 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 ## 3. First-Time Setup
 
 **Core Dojo skills (15, self-contained — no external dependencies; trim Wave 5 absorbed two skills into kata-green):** dojo-principles ·
-dojo-project · dojo-conduct · hajime · hajime-bugfix · randori · kan · waza · tanren · kokai ·
+dojo-project · dojo-conduct · hajime · hajime-bugfix · randori · kan · tanren · kokai ·
 kensha · kaizen · kata-red · kata-green · kata-commit.
 
 **Tools Dojo pairs well with (acknowledgments, not dependencies — dojo-conduct):** ast-grep
@@ -424,13 +423,8 @@ agent-runnable pass/fail signal for the exact bug; the reproduction becomes kata
 regression test; prevention notes go to the backlog; design-change discoveries are divergences.
 Normative: `kan/SKILL.md`.
 
-**waza** — `/waza`, or auto from kata-red/kata-green. Classify, then: Recognition (name the
-canonical problem; the DP check), Derivation (reduction → paradigm checklist →
-correct-by-construction → symbolic trace), or Approximation (method + explicit tolerance +
-why; tolerance is a product decision needing sign-off when supervised). Always hands kata-red
-a test-first contract. Normative: `waza/SKILL.md`.
-
-**tanren** — `/tanren`, or from waza when the goal is optimizing a measurable metric. Hard entry
+**tanren** — `/tanren`, or from kata-red's algorithm check when the goal is optimizing a
+measurable metric. Hard entry
 gate: a scalar fitness metric, a fixed/fast/deterministic scorer, and a human-approved metric +
 budget (required even when autonomous — defining "better" is a design decision). Freezes the
 scorer and scores on held-out cases (anti-gaming); runs propose → score → keep-or-revert in
@@ -438,6 +432,13 @@ scorer and scores on held-out cases (anti-gaming); runs propose → score → ke
 implementation to kata-red to ratify with a real test and commits the winner only. Not a kata
 wave — it produces a decision; the cycle ratifies it. Normative: `tanren/SKILL.md`; mechanics:
 `tanren/reference/tanren-loop.md`.
+
+(Trim Wave 6: the algorithm-classification discipline that previously lived in
+the deleted absorbed skill — Recognition / Derivation / Approximation, the
+property/tolerance/golden reference ladder, the test-first contract handoff —
+is now the "Algorithm check (when the approach matters)" section inside
+kata-red. Tanren is reachable from there when the goal is to optimize a
+measurable metric rather than reach a single correct answer.)
 
 **kata-red** — write the failing check: reloads context from disk, delivers the wave brief,
 applies invariant rules and the strategy ladder (property-based → golden → example), handles
@@ -620,12 +621,14 @@ vocabulary then names everything (tests, variables, commits) for the whole sessi
 blocker is a bug. Will not move past reproduce without a deterministic signal; the
 reproduction *is* the regression test kata-red writes.
 
-**tanren (optimization)** — called by waza, and only when the gate is met: a scalar fitness
-metric, a frozen deterministic scorer, and a human-approved metric + budget. It runs an
-isolated propose → score → keep-or-revert loop in `.dojo/tanren/` and never touches the main
-spine until its winner is ratified by a normal kata wave. It is the one place the shelved
+**tanren (optimization)** — called from kata-red's algorithm check when the goal is to
+optimize a measurable metric, and only when the gate is met: a scalar fitness metric, a
+frozen deterministic scorer, and a human-approved metric + budget. It runs an isolated
+propose → score → keep-or-revert loop in `.dojo/tanren/` and never touches the main spine
+until its winner is ratified by a normal kata wave. It is the one place the shelved
 model-routing idea would pay off most (cheap inner loop, strong steer), but it depends on no
-such thing. Irrelevant to pure-correctness problems — those end at waza Step 3.
+such thing. Irrelevant to pure-correctness problems — those end at the algorithm check's
+property/tolerance contract.
 
 **graphify (optional)** — offered by hajime when existing code has no cache (skipped entirely
 on greenfield); refreshed by kata-commit only on structural delta. Replaces expensive
@@ -681,8 +684,7 @@ autonomous mode when your approvals have become reflexive; the choice is always 
 | `/kata-commit` | Verify proof, commit, update docs, advance the plan |
 | `/randori` | Design grill / scoping reconnaissance (auto from hajime) |
 | `/kan` | Disciplined diagnosis (auto from hajime-bugfix) |
-| `/waza` | Algorithm: recognize / derive / approximate (auto from red/green) |
-| `/tanren` | Optimize an algorithm against a measurable metric (gated; from waza) |
+| `/tanren` | Optimize an algorithm against a measurable metric (gated; from kata-red's algorithm check) |
 | `/kaizen` | Re-grill and rewrite the plan (pivots, divergence halts) |
 | `/kokai` | Release & distribution setup |
 | `/kensha` | Audit a PR or a batch of merges |

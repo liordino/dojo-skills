@@ -24,8 +24,8 @@ don't exist, no "we might need this later" — later has its own wave. Catch you
 an unrequired abstraction → stop, delete it.
 
 **Algorithm moment mid-implementation** (secretly-exponential loop, genuinely unclear
-approach) → invoke `/waza` before hand-rolling; route any new properties back through the
-failing-check-first discipline.
+approach) → stop and pick the approach (kata-red's algorithm check); route any new properties
+back through the failing-check-first discipline.
 
 **Determinism gate** (dojo-principles): about to introduce an LLM/model/non-deterministic
 component where a deterministic solution plausibly exists → present both + tradeoffs and let

@@ -13,7 +13,7 @@ Closed the loop on the Wave-2 commit (4168c6e): the durable-artifact updates and
 
 Runnable wave plan for the Akita-inspired trim. Each wave leaves the lint gate green and the deleted-skill names absent from actively-followed prose (CHANGELOG and dated ADR/history notes are exempt) — that's the non-negotiable check on each.
 
-**The hard constraint that dictates ordering:** four files get deleted (`waza`, `kensha`, and the two absorbed into kata-green by Wave 5) and one merged (`hajime-bugfix`). References to them live in ~15 places (other skills, `dojo-lint.sh` R11/R12, ADR 0002, evals, README, HANDOFF, DOJO-MANUAL). **Every reference must be rewritten before its target is deleted, or lint fails mid-trim.** Each wave below is self-contained: it moves the surviving content, rewrites the references, updates lint/docs, and verifies green — no wave leaves a dangling pointer.
+**The hard constraint that dictates ordering:** four files get deleted (the algorithm-classification absorbed, kensha absorbed, and the two absorbed into kata-green by Wave 5) and one merged (`hajime-bugfix`). References to them live in ~15 places (other skills, `dojo-lint.sh` R11/R12, ADR 0002, evals, README, HANDOFF, DOJO-MANUAL). **Every reference must be rewritten before its target is deleted, or lint fails mid-trim.** Each wave below is self-contained: it moves the surviving content, rewrites the references, updates lint/docs, and verifies green — no wave leaves a dangling pointer.
 
 **Ordering rationale:** absorptions before deletions; lint-table + ADR + doc updates *in the same wave* as the deletion that necessitates them, never after.
 
@@ -22,11 +22,21 @@ Runnable wave plan for the Akita-inspired trim. Each wave leaves the lint gate g
 status: done
 The two skills that only ever fire *from* kata-green became sections inside it. The cleanup checklist (SRP, names, DRY, formatter, provenance, UI pass) and its "no new behavior" guard folded into kata-green as a Refactor step; the two-attempt diagnostic + adjusted-approach options folded in as green's Stuck branch (triggered at `attempts == 2`). The cycle is now red → green → commit. The directories were deleted; references in kata-green / kata-commit / hajime / hajime-bugfix / kan / tanren / evals / scripts/dojo-lint.sh (R11_CLASSIFY + R12_SKILLS) / ADR 0002 / README / DOJO-MANUAL / HANDOFF were rewritten. Verified by: deleted-skill names absent from actively-followed prose (the gate regex is clean outside CHANGELOG and the dated ADR note); lint R1–R14 + mechanics 12/12 pass. Skill count 17 → 15.
 
-## Wave 5 — absorb waza into kata-red (stub the discipline, cut the taxonomy)
+## Wave 5 — absorb the algorithm-classification discipline into kata-red
 
-status: pending
+status: done
 blocked-by: 4
-waza's 6.6k of algorithm-classification taxonomy is cut. The surviving discipline — *when the approach matters, write the property-based test first; hand to tanren only if a scalar metric exists* — moves into kata-red's existing "Algorithm check (waza trigger)" section, which already fires at the right moment. The test-first artifact rule (property tests / tolerance+golden) folds into kata-red's "Choosing the strategy," where it largely already lives. Delete: `waza/`. Rewrite references: kata-red (the "invoke /waza first" section becomes the inline discipline + tanren pointer); kata-green ("invoke /waza before hand-rolling" → the inline rule); tanren (`/tanren, or from waza when...` → from kata-red; "return to the normal waza/kata flow" → kata flow; "plain waza, not tanren" → reword; "waza Step 3" → the property/tolerance contract in kata-red); `dojo-lint.sh` R11_CLASSIFY (remove `waza:user`) + R12_SKILLS; ADR 0002 (remove waza from the user-invoked list); README; DOJO-MANUAL; HANDOFF tree. Verified by: kata-red carries the test-first-then-tanren discipline; tanren's entry references kata-red not waza; `rg 'waza'` clean outside CHANGELOG/history; lint + mechanics green. Count 15 → 14.
+The 6.6k of Mode A/B/C classification taxonomy was cut. The surviving discipline — *when
+the approach matters, write the property-based test first; hand to tanren only if a scalar
+metric exists* — moved into kata-red's existing algorithm-check section (now titled
+"Algorithm check (when the approach matters)"), which already fires at the right moment.
+The test-first artifact rule (property tests / tolerance+golden) is part of the same
+section, structured as a ladder under each of the three moves (Recognize / Derive /
+Approximate). The directory was deleted; references in kata-red / kata-green / tanren /
+dojo-conduct (one mention) / ADR 0002 (dated absorption note) / README / DOJO-MANUAL /
+HANDOFF were rewritten. Verified by: the gate name is absent from actively-followed prose
+(CHANGELOG and the dated ADR note are exempt); lint R1–R14 + mechanics 12/12 pass. Skill
+count 15 → 14.
 
 ## Wave 6 — absorb kensha into a dojo-conduct principle
 
@@ -48,7 +58,7 @@ Cut kokai from 5.5k to a thin standalone: keep only the Dojo-specific bits the m
 ## Wave 9 — slim tanren
 
 status: pending
-tanren's 9.5k SKILL.md duplicates mechanics already in `tanren/reference/tanren-loop.md`. Shrink the skill to the entry gate (the three refuse-unless conditions), the freeze-the-scorer/held-out-cases anti-gaming rule, and the hand-back-to-kata invariant — everything else points to the reference. The discipline (which the model won't self-supply) stays; the mechanics move behind the existing pointer. No deletion. Rewrite the waza reference already handled in Wave 5. Verified by: tanren/SKILL.md under ~4k, carries entry gate + freeze rule + ratify invariant; the reference file still holds the loop mechanics; lint R9 (tanren reference markers) still passes; lint + mechanics green.
+tanren's 9.5k SKILL.md duplicates mechanics already in `tanren/reference/tanren-loop.md`. Shrink the skill to the entry gate (the three refuse-unless conditions), the freeze-the-scorer/held-out-cases anti-gaming rule, and the hand-back-to-kata invariant — everything else points to the reference. The discipline (which the model won't self-supply) stays; the mechanics move behind the existing pointer. No deletion. Rewrite of the algorithm-classification reference already handled in Wave 5. Verified by: tanren/SKILL.md under ~4k, carries entry gate + freeze rule + ratify invariant; the reference file still holds the loop mechanics; lint R9 (tanren reference markers) still passes; lint + mechanics green.
 
 ## Wave 10 — randori: pin what a term ISN'T
 

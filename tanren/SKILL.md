@@ -4,8 +4,8 @@ disable-model-invocation: true
 description: >
   Iteratively forge a better algorithm by propose → score → keep-or-revert, when a problem has a
   measurable fitness metric to optimize (performance, approximation quality, a tuned heuristic) —
-  not merely binary correctness. Triggers on: /tanren, or from waza when classification finds a
-  scalar metric to optimize rather than a single correct answer. Hard entry gate: a fixed,
+  not merely binary correctness. Triggers on: /tanren, or from kata-red's algorithm check when
+  a scalar metric is the goal rather than a single correct answer. Hard entry gate: a fixed,
   fast, deterministic scorer and a human-approved metric + budget must exist first. Runs the
   loop in an isolated scratch area, then hands the winning implementation back to the kata
   cycle to ratify with a real test. Never edits its own scorer; never invents what "better" means.
@@ -30,11 +30,12 @@ Narrate your reasoning throughout.
 ## Entry gate — refuse unless ALL hold
 
 Tanren is expensive and easy to misuse. Do not enter the loop unless every one of these is true;
-if any fails, say which and return to the normal waza/kata flow.
+if any fails, say which and return to the normal kata flow.
 
 1. **There is a scalar fitness metric.** "Better" is a number you can compute — runtime, memory,
    allocation count, approximation error, accuracy/F1, a domain score. If the goal is only
-   "correct vs incorrect," there is nothing to hill-climb: this is plain waza, not tanren.
+   "correct vs incorrect," there is nothing to hill-climb: this is plain correctness work,
+   not tanren.
 2. **A fixed, fast, deterministic scorer exists** (or is built first, in this step). It runs
    headless, returns the metric the same way every time, and is cheap enough to run many times.
 3. **The human approved the metric and the budget.** *What counts as better* is a design
@@ -131,11 +132,12 @@ genuinely red and the durable test proves it has teeth.
 1. The winner stays in `.dojo/tanren/` as the chosen design. The tracked source is left at the
    pre-tanren baseline — do not commit the winner from inside the loop, and do not leave it
    sitting integrated before kata-red runs.
-2. `/kata-red` writes the durable contract that pins it — the property/regression tests from
-   waza Step 3 (necessary properties always; for approximation, within-tolerance of the agreed
-   reference) — against that baseline. It is genuinely RED: the tracked source doesn't carry the
-   winner yet, or still has the slower/old version a performance-bound assertion fails. This test
-   lives in the repo forever; the tanren scorer and ledger are scratch and do not.
+2. `/kata-red` writes the durable contract that pins it — the property/tolerance contract
+   from the algorithm check (necessary properties always; for approximation, within-tolerance
+   of the agreed reference) — against that baseline. It is genuinely RED: the tracked source
+   doesn't carry the winner yet, or still has the slower/old version a performance-bound
+   assertion fails. This test lives in the repo forever; the tanren scorer and ledger are
+   scratch and do not.
 3. `/kata-green` integrates the winner from scratch into the tracked source — the algorithm is
    already designed and proven, so GREEN is the *integration*, not fresh problem-solving — which
    turns the check green. Green's refactor step cleans it; `/kata-commit` commits the

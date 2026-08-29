@@ -45,7 +45,6 @@ dojo-skills/
 ├── hajime-bugfix/
 ├── randori/
 ├── kan/
-├── waza/
 ├── tanren/
 ├── kata-red/
 ├── kata-green/                  # absorbs the refactor step + stuck branch as of Wave 5
@@ -100,8 +99,8 @@ Most recent first.
   `_proof_`. Three ADRs (0001–0003) document the design decisions; Wave 4 will
   retire the English phrases in favour of the leading words.
 - **Skill invocation rule (Wave 2):** every SKILL.md is classified as model-,
-  user-, or session-invoked per ADR 0002. The 7 user-invoked skills
-  (randori, kaizen, kan, waza, tanren, kensha, kokai) carry
+  user-, or session-invoked per ADR 0002. The 6 user-invoked skills
+  (randori, kaizen, kan, tanren, kensha, kokai) carry
   `disable-model-invocation: true`; their descriptions no longer load every
   turn (~480 words off the always-on context tax). The 3 session-invoked
   skills (dojo-principles, dojo-project, dojo-conduct) carry a YAML rationale
@@ -138,10 +137,10 @@ Most recent first.
 - Working tree: clean as of Wave 5 commit.
 - `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
 - Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; Wave 4 done) + 7 surviving-old waves (11–17) = 13 pending + 2 done. Wave 5 = trim Wave 1 (the absorbed pair). The predecessor writing-great-skills plan is preserved as an appendix for traceability.
-- Skill count: 15 (was 17 after Wave 3); trim target 12 after Wave 8 (waza, kensha, hajime-bugfix all removed/absorbed).
+- Skill count: 15 (was 17 after Wave 3); trim target 12 after Wave 8 (the algorithm-classification absorbed skill, the PR-audit absorbed skill, and hajime-bugfix all removed/absorbed).
 - ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
 - Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
-- `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-waza-kensha.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
+- `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-absorption.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
 
 ## Improvement Backlog
 
