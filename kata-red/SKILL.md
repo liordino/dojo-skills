@@ -1,7 +1,7 @@
 ---
 name: kata-red
 description: >
-  Write the failing check for the current wave. Use after /hajime or /hajime-bugfix has defined
+  Write the failing check for the current wave. Use after /hajime has defined
   the wave goal. Triggers on: /kata-red, "write the test", "red step".
   Reads dojo-session.md for goal, mode, rigor, and gate density. Applies invariant-based
   engineering and the test-strategy rules; runs dojo-check to confirm the new check fails for
@@ -15,6 +15,7 @@ description: >
 ## Reload working context from disk
 
 A fresh wave reloads from durable files, never from prior-wave conversation:
+
 1. `dojo-session.md` — goal, **intent** (keep it in mind for every micro-decision), mode,
    rigor, gate_density, commit style.
 2. `progress.md` — what previous waves built and expose.
@@ -36,6 +37,7 @@ Narrate what you're testing and why before writing any code.
 ## Wave Opening Brief
 
 Frame the wave, lean — point, don't lecture:
+
 - **What:** the specific types/files/behaviours this wave builds. 1–2 sentences.
 - **Why:** why it exists and why now; what it enables. 1–2 sentences.
 - **Concepts to explore:** a bare list, by name only (e.g. "functional core, imperative
@@ -66,6 +68,7 @@ processOrder(order):
 calculateTax(order):
     assert(order.items.length > 0, "calculateTax: order " + order.id + " has no items") // invariant
 ```
+
 Production-safe assertion per language: C/C++ custom macro or `abort()` (assert is stripped by
 NDEBUG) · C# `throw new InvalidOperationException` (Debug.Assert stripped in Release) · Go
 `panic` · Rust `assert!`/`panic!`/`unreachable!` · JS/TS `node:assert` or `throw`.
@@ -82,6 +85,7 @@ scheduling, parsing; or inventing a procedure rather than composing known ones �
 glue: skip this.
 
 Three moves, in order:
+
 - **Recognize.** Most novel-looking problems are a textbook problem in disguise —
   shortest path, interval scheduling, topological sort, matching. Name it; use the
   known algorithm. The most-missed one: optimal substructure + overlapping
@@ -96,6 +100,7 @@ Three moves, in order:
   product decision. STOP for it.
 
 **Write the check against the approach, test-first:**
+
 - Recognition/derivation → **property-based tests**: the properties the algorithm
   must satisfy for all inputs (optimality where provable; invariants
   sorted/valid/in-bounds; round-trips; algebraic laws). The properties are often

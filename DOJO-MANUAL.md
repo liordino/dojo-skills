@@ -70,7 +70,7 @@ the form.
 
 ## 2. System Architecture
 
-### The 17 Skills
+### The 12 Skills (after trim)
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -80,24 +80,23 @@ the form.
                           │
           ┌───────────────┴───────────────┐
           │                               │
-    FEATURE ENTRY                   BUGFIX ENTRY
-          │                               │
-         /hajime                      /hajime-bugfix
- (asks rigor + sup/auto)           (asks sup/auto)
-          │                               │
-     randori (design)               kan (diagnosis)
-          │                               │
-          └───────────────┬───────────────┘
-                          │
-                    WAVE CYCLE
-              ┌───────────┼───────────┐
-              │           │           │
-          /kata-red   /kata-green  (refactor step + stuck branch inline)
-              └───────────┴───────────┘
-                          │
-                    /kata-commit ──▶ advances TASKS.md, next wave
-                          │
-              green's stuck branch ←── from kata-green after 2 failures
+    FEATURE / BUGFIX ENTRY                  │
+          │                                  │
+         /hajime                           (asks rigor + sup/auto)
+          │                                  │
+     feature? ──NO──▶ /kan (diagnosis)     randori (design)
+          │            │                     │
+          └────────────┴─────────────┐      │
+                                   │      │
+                            WAVE CYCLE      │
+                      ┌───────────┼───────┐ │
+                      │           │       │ │
+                  /kata-red /kata-green (refactor + stuck inline)
+                      └───────────┴───────┘ │
+                              │             │
+                        /kata-commit ──▶ advances TASKS.md, next wave
+                              │
+                  green's stuck branch ←── from kata-green after 2 failures
 
    On demand: /tanren (optimize) · /kaizen (plan change) · /kokai (release)
 ```
@@ -123,7 +122,7 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 | Skill | Called from | Purpose |
 |---|---|---|
 | `randori` | `hajime` | Interview-driven design, domain language, ADRs, TASKS.md |
-| `kan` | `hajime-bugfix`, `kata-green` stuck branch | Disciplined diagnosis loop |
+| `kan` | `hajime` bugfix fork, `kata-green` stuck branch | Disciplined diagnosis loop |
 | `tanren` | `kata-red` | Iterative optimization against a measurable metric (gated) |
 | `kaizen` | divergence halts, pivots | Re-grill; rewrite the plan |
 | graphify (optional tool) | `hajime`, `kata-commit` | Codebase knowledge graph, refreshed on structural delta |
@@ -134,7 +133,7 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 ## 3. First-Time Setup
 
 **Core Dojo skills (14, self-contained — no external dependencies; trim Waves 5–7 absorbed three skills into kata-green / kata-red / dojo-conduct):** dojo-principles ·
-dojo-project · dojo-conduct · hajime · hajime-bugfix · randori · kan · tanren · kokai ·
+dojo-project · dojo-conduct · hajime · randori · kan · tanren · kokai ·
 kaizen · kata-red · kata-green · kata-commit.
 
 **Tools Dojo pairs well with (acknowledgments, not dependencies — dojo-conduct):** ast-grep
@@ -400,15 +399,18 @@ preferences-vs-insights promotion rule. Normative text: `dojo-project/SKILL.md`.
 not claims), gate design and **gate density**, concise operational output, and the optional
 tools (graphify's active treatment defined here). Normative text: `dojo-conduct/SKILL.md`.
 
-**hajime** — `/hajime [optional feature description]`. Feature entry: resume/crash check,
-preferences, rigor (real/PoC) + mode + design questions, the scaffolding checklist (CONTEXT.md,
-canonical dojo-check + proof, gitignore, graphify offer, HANDOFF/learning-log), brownfield
-baseline handling, commit-style and log-sink questions, plan audit or randori, session init,
-hand-off (autonomous: divergence rules, candidates batches). Normative: `hajime/SKILL.md`.
+**hajime** — `/hajime [description]`. Session entry (feature or bugfix — bugfix is a fork,
+not a separate skill): resume/crash check, preferences, rigor (real/PoC) + mode + "feature or
+bugfix?" questions, the scaffolding checklist (CONTEXT.md, canonical dojo-check + proof,
+gitignore, graphify offer, HANDOFF/learning-log), brownfield baseline handling, commit-style
+and log-sink questions, plan audit or randori (features) or kan diagnosis (bugfixes), session
+init, hand-off (autonomous: divergence rules, candidates batches). Normative: `hajime/SKILL.md`.
 
-**hajime-bugfix** — `/hajime-bugfix [bug description]`. Bugfix entry: same checklist via the
-same canonical templates, kan diagnosis instead of randori, regression-test-first wave goal,
-bugfix fields in the session file. Normative: `hajime-bugfix/SKILL.md`.
+(Trim Wave 8: the bugfix entry that previously lived in the deleted absorbed skill is now
+a fork inside hajime — after rigor and mode are set, "feature or bugfix?" routes the
+session to /kan for diagnosis instead of randori, sets a regression-shaped wave goal, and
+adds `type: bugfix` / `diagnosis` / `reproduction` fields to dojo-session.md. Bugfix is
+`rigor: real`; no PoC fork.)
 
 **randori** — `/randori`, or from hajime. Always supervised. Scope-and-leverage gate first;
 one-question-at-a-time grill with recommendations; builds CONTEXT.md (Glossary / Non-Goals /
@@ -417,7 +419,7 @@ trade-off; outputs the intent line and **TASKS.md** (multi-wave) or the single w
 Scoping mode outputs `scoping-questions.md` when answers live with other people. Normative:
 `randori/SKILL.md`.
 
-**kan** — `/kan`, or from hajime-bugfix / kata-green's stuck branch. Reproduce → minimise
+**kan** — `/kan`, or from hajime's bugfix fork / kata-green's stuck branch. Reproduce → minimise
 → hypothesise → instrument → fix → regression-test. Will not proceed without a deterministic,
 agent-runnable pass/fail signal for the exact bug; the reproduction becomes kata-red's
 regression test; prevention notes go to the backlog; design-change discoveries are divergences.
@@ -563,7 +565,7 @@ PaymentMethodExpiredError. Confirm and run /kata-red, or stop here."
 ### 7.2 Supervised Bugfix
 
 ```
-You: /hajime-bugfix Orders get double discounts when the checkout request is retried on a
+You: /hajime Orders get double discounts when the checkout request is retried on a
 network timeout. Line 47 of OrderService.cs.
 ```
 
@@ -600,7 +602,7 @@ for per-item approval.
 ### 7.4 Autonomous Bugfix
 
 ```
-You: /hajime-bugfix (autonomous) The payment webhook fires twice for some orders. Happens on
+You: /hajime (autonomous) The payment webhook fires twice for some orders. Happens on
 retries; order_id is in the payload.
 ```
 
@@ -618,7 +620,7 @@ each with a recommended answer; explores the codebase/graph instead of asking wh
 answer. Output: CONTEXT.md entries, ADRs, the intent line, and TASKS.md — the domain
 vocabulary then names everything (tests, variables, commits) for the whole session.
 
-**kan (diagnosis)** — called by hajime-bugfix, and by kata-green's stuck branch when the
+**kan (diagnosis)** — called by hajime's bugfix fork, and by kata-green's stuck branch when the
 blocker is a bug. Will not move past reproduce without a deterministic signal; the
 reproduction *is* the regression test kata-red writes.
 
@@ -678,13 +680,12 @@ autonomous mode when your approvals have become reflexive; the choice is always 
 
 | Command | When |
 |---|---|
-| `/hajime [description]` | Start a feature session (asks rigor, mode, design) |
-| `/hajime-bugfix [description]` | Start a bugfix session (asks mode) |
+| `/hajime [description]` | Start a session (feature or bugfix; bugfix routes through /kan) |
 | `/kata-red` | Write the failing check (after the goal is defined) |
 | `/kata-green` | Implement minimally, refactor step, stuck branch (after RED; the cycle is red → green → commit) |
 | `/kata-commit` | Verify proof, commit, update docs, advance the plan |
 | `/randori` | Design grill / scoping reconnaissance (auto from hajime) |
-| `/kan` | Disciplined diagnosis (auto from hajime-bugfix) |
+| `/kan` | Disciplined diagnosis (auto from hajime's bugfix fork) |
 | `/tanren` | Optimize an algorithm against a measurable metric (gated; from kata-red's algorithm check) |
 | `/kaizen` | Re-grill and rewrite the plan (pivots, divergence halts) |
 | `/kokai` | Release & distribution setup |
@@ -692,7 +693,7 @@ autonomous mode when your approvals have become reflexive; the choice is always 
 ### Session Flow
 
 ```
-/hajime | /hajime-bugfix
+/hajime (feature or bugfix? — bugfix routes through kan instead of randori)
         ▼
  checklist ── baseline: green, or failures recorded (no NEW failures from here on)
         ▼

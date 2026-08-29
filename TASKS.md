@@ -20,7 +20,7 @@ Runnable wave plan for the Akita-inspired trim. Each wave leaves the lint gate g
 ## Wave 4 — absorb the refactor + stuck behaviour into kata-green
 
 status: done
-The two skills that only ever fire *from* kata-green became sections inside it. The cleanup checklist (SRP, names, DRY, formatter, provenance, UI pass) and its "no new behavior" guard folded into kata-green as a Refactor step; the two-attempt diagnostic + adjusted-approach options folded in as green's Stuck branch (triggered at `attempts == 2`). The cycle is now red → green → commit. The directories were deleted; references in kata-green / kata-commit / hajime / hajime-bugfix / kan / tanren / evals / scripts/dojo-lint.sh (R11_CLASSIFY + R12_SKILLS) / ADR 0002 / README / DOJO-MANUAL / HANDOFF were rewritten. Verified by: deleted-skill names absent from actively-followed prose (the gate regex is clean outside CHANGELOG and the dated ADR note); lint R1–R14 + mechanics 12/12 pass. Skill count 17 → 15.
+The two skills that only ever fire *from* kata-green became sections inside it. The cleanup checklist (SRP, names, DRY, formatter, provenance, UI pass) and its "no new behavior" guard folded into kata-green as a Refactor step; the two-attempt diagnostic + adjusted-approach options folded in as green's Stuck branch (triggered at `attempts == 2`). The cycle is now red → green → commit. The directories were deleted; references in kata-green / kata-commit / hajime / kan / tanren / evals / scripts/dojo-lint.sh (R11_CLASSIFY + R12_SKILLS) / ADR 0002 / README / DOJO-MANUAL / HANDOFF were rewritten. Verified by: deleted-skill names absent from actively-followed prose (the gate regex is clean outside CHANGELOG and the dated ADR note); lint R1–R14 + mechanics 12/12 pass. Skill count 17 → 15.
 
 ## Wave 5 — absorb the algorithm-classification discipline into kata-red
 
@@ -53,11 +53,28 @@ all rewritten. Verified by: dojo-conduct carries the read-the-diff review princi
 absorbed skill's name is absent from actively-followed prose (CHANGELOG and the dated ADR
 note are exempt); lint R1–R14 + mechanics 12/12 pass. Skill count 14 → 13.
 
-## Wave 7 — merge hajime-bugfix into hajime
+## Wave 7 — merge the bugfix entry into hajime as a "feature or bugfix?" fork
 
-status: pending
+status: done
 blocked-by: 6
-hajime-bugfix is ~70% back-references to hajime (§1 "identical", §3 "same items", §4 "options in /hajime §4"). Fold it into hajime as a fork: after rigor/mode, "feature or bugfix?" — bugfix routes to `/kan` for diagnosis and sets the regression-shaped wave goal ("[Bug] no longer occurs. Proven by a regression test that fails now and passes after the fix."). One conscious entry point instead of two (feature-vs-bugfix is a parameter, not a different door). Delete: `hajime-bugfix/`. Rewrite references: hajime (add the bugfix fork + kan invocation + regression goal shape + `type: bugfix` session fields); kata-red ("after /hajime or /hajime-bugfix" → "after /hajime"); kan ("automatically from hajime-bugfix's diagnose phase" → "from hajime's bugfix branch"); `dojo-lint.sh` R11 (remove `hajime-bugfix:model`) + R12; ADR 0002; README (install line "/hajime-bugfix to fix a bug" → hajime asks); DOJO-MANUAL; HANDOFF tree. Verified by: `/hajime` handles both feature and bugfix; the regression-test-first discipline survives in the bugfix branch; `rg 'hajime-bugfix'` clean outside CHANGELOG/history; lint + mechanics green. Count 13 → 12.
+The bugfix skill was ~70% back-references to hajime (§1 "identical", §3 "same items", §4
+"options in /hajime §4"). It was folded into hajime as a fork: after rigor and mode, a
+"feature or bugfix?" question routes bugfix sessions to `/kan` for diagnosis and sets the
+regression-shaped wave goal ("[Bug] no longer occurs. Proven by a regression test that
+fails now and passes after the fix."). One conscious entry point instead of two
+(feature-vs-bugfix is a parameter, not a different door). The directory was deleted;
+references in hajime (added bugfix fork, kan invocation, regression goal shape, `type:
+bugfix` session fields), kata-red (description updated — bugfix now lives in the same skill),
+kan (frontmatter "from hajime's bugfix fork"), `scripts/dojo-lint.sh` R11_CLASSIFY (dropped
+the merged model-invoked entry) and R12_SKILLS (dropped the merged entry), ADR 0002 (dated
+absorption note in the model-invoked enumeration), README (install line + skills table),
+DOJO-MANUAL (the skills diagram, supporting-skills table, skill list, hajime entry, kan
+entry, kan integration, two example sessions, invocation cheat sheet, session-flow diagram),
+HANDOFF architecture tree — all rewritten. Verified by:
+`/hajime` handles both feature and bugfix; the regression-test-first discipline survives in
+the bugfix branch; the absorbed skill's name is absent from actively-followed prose
+(CHANGELOG and the dated ADR note are exempt); lint R1–R14 + mechanics 12/12 pass. Skill
+count 13 → 12.
 
 ## Wave 8 — stub kokai
 

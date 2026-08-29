@@ -3,6 +3,7 @@
 **Setup:** empty scratch repo (`git init`), any stack your agent can scaffold.
 
 **Replay:**
+
 1. `/hajime Build a tiny CLI greeter: 'greet NAME' prints 'Hello, NAME'; later, '--shout' uppercases it.`
 2. Answer: rigor → real · mode → supervised · design → not done.
 3. Confirm the scaffolded dojo-check when shown. Let randori grill; steer it to a 2-wave plan

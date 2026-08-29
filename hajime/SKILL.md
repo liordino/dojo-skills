@@ -1,12 +1,15 @@
 ---
 name: hajime
 description: >
-  Start a feature development session. Use when beginning new feature work.
-  Triggers on: /hajime, "let's start", "new feature", "I want to build".
-  Asks rigor (real or PoC) and mode (supervised or autonomous), then whether the design is done.
-  Runs the session-start checklist (scaffolds CONTEXT.md, dojo-check with proof artifact,
-  HANDOFF.md), grills via randori if needed (always supervised; produces TASKS.md for multi-wave
-  work), and initializes dojo-session.md. For bugfixes use /hajime-bugfix.
+  Start a development session. Use when beginning new feature work or fixing a bug.
+  Triggers on: /hajime, "let's start", "new feature", "I want to build", "there's a bug",
+  "fix this", "something is broken". Asks rigor (real or PoC) and mode (supervised or
+  autonomous); then whether the work is feature or bugfix. Bugfix sessions route through /kan
+  for diagnosis and shape the wave goal as a regression test (the bug is reproducible, fails
+  now, passes after the fix). Feature sessions ask whether the design is done. Runs the
+  session-start checklist (scaffolds CONTEXT.md, dojo-check with proof artifact, HANDOFF.md),
+  grills via randori if needed (always supervised; produces TASKS.md for multi-wave work), and
+  initializes dojo-session.md.
 ---
 
 **Before anything else: load and apply `dojo-principles`, `dojo-project`, and `dojo-conduct` now.**
@@ -85,6 +88,18 @@ Is the design already done — is there a TASKS.md or equivalent plan to execute
 ```
 
 Grilling is always supervised. Autonomy begins only after the plan is set and confirmed.
+
+**Feature or bugfix?** (Ask *after* rigor + mode are set, before the plan step.)
+
+```
+What kind of work is this?
+  1. Feature — new behaviour, change in scope. Routes to §3 (checklist) then §5 (randori / plan audit).
+  2. Bugfix — something is broken; the goal is a regression test that fails now and passes after the fix.
+     Routes to §3 (checklist, same), §5b (kan diagnosis, replaces randori), then §6 (bugfix fields).
+```
+
+Bugfixes are `rigor: real` (a throwaway experiment is /hajime PoC, not a bugfix). The rest of
+this skill is feature-oriented; bugfix forks are noted in §3, §5b, and §6 inline.
 
 ---
 
@@ -255,6 +270,24 @@ outcome with `status:` fields) whenever the work spans more than one wave. Alway
 
 ---
 
+## 5b. The plan (bugfix fork — replaces §5's randori)
+
+*The most important step. Do not skip or rush it.*
+
+Bugfix sessions skip randori and go straight to `/kan`: **reproduce → minimise → hypothesise →
+instrument → fix → regression-test**. Its central discipline: a fast, deterministic,
+agent-runnable pass/fail signal for the exact bug before anything else. Kan writes findings to
+findings.md and feeds its reproduction to kata-red as the regression test.
+
+**Supervised:** kan presents findings; you approve the diagnosis before the fix begins.
+**Autonomous:** kan logs findings and proceeds — unless it cannot reproduce, in which case it
+halts and states what artifact or access it needs.
+
+The bugfix wave goal always has this shape: *"[Bug] no longer occurs. Proven by a regression
+test that currently fails and passes after the fix."*
+
+---
+
 ## 6. Initialize the session
 
 Write `dojo-session.md` (wave 1's goal comes from TASKS.md, or from randori for single-wave
@@ -278,6 +311,14 @@ attempts: 0
 pre_existing_failures: [list or "none"]
 ```
 
+**Bugfix fork (replace `type: feature` and add):**
+
+```markdown
+type: bugfix
+diagnosis: [root cause from kan]
+reproduction: [how to reproduce]
+```
+
 Present the goal. Supervised: confirm it. Autonomous: confirm the full plan before any
 autonomy begins.
 
@@ -297,6 +338,12 @@ non-goal (CONTEXT.md); or a probabilistic approach is about to replace a plausib
 deterministic one. Never rewrite the plan autonomously. Green's stuck branch halts after
 its one adjusted attempt. At the wave ceiling, kata-commit pauses at a clean checkpoint
 and writes RESUME.md.
+
+**Bugfix hand-off:** "Diagnosis complete. Ready to write the regression test. Run
+**/kata-red**" (supervised) or `/kata-red` → `/kata-green` → `/kata-commit` (autonomous).
+HALT and recommend `/kaizen` if the fix reveals a different root cause than diagnosed, or the
+bug needs a design change rather than a patch — never expand scope autonomously. Never commit
+a broken fix.
 
 During the run, accumulate (never act mid-run): **preference candidates** (durable about-you
 defaults) and **insight promotion candidates** (per-project insights general enough for

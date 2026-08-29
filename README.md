@@ -53,7 +53,7 @@ technique.
 npx skills add https://codeberg.org/liordino/dojo-skills.git
 ```
 
-Then run `/hajime` to start a feature, or `/hajime-bugfix` to fix a bug.
+Then run `/hajime` to start. It asks rigor, mode, and whether the work is feature or bugfix; bugfix routes through `/kan`.
 
 ## The wave cycle
 
@@ -92,8 +92,7 @@ rather than blocking.
 | `dojo-principles` | Cross-cutting engineering principles (the code), loaded every session |
 | `dojo-project` | Project-level principles (structure, docs, config, distribution, preferences) |
 | `dojo-conduct` | Operational rules (precedence, evidence gates, gate density, concise output, tools) |
-| `hajime` | Feature session entry (asks rigor and mode) |
-| `hajime-bugfix` | Bugfix session entry (asks mode) |
+| `hajime` | Session entry — asks rigor, mode, then feature or bugfix (bugfix routes through `/kan`) |
 | `randori` | Interview-driven design grill — domain language, ADRs, the TASKS.md plan |
 | `kan` | Disciplined diagnosis loop — reproduce → minimise → hypothesise → fix |
 | `tanren` | Iterative optimization loop — forge a better algorithm against a measurable metric |

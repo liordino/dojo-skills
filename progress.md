@@ -10,7 +10,7 @@ Format: `YYYY-MM-DD | wave N | step | one-line outcome`
 
 2026-08-29 | wave 4 | docs | promote trim plan to active in TASKS.md; preserve writing-great-skills plan as appendix | single active plan replaces two-plan confusion; trim absorbs deletion-shaped waves, surviving-old carries additive waves | trims skill count 17 → 12 over 7 waves; 7 surviving-old waves on the trimmed surface | c11bdfa
 
-2026-08-29 | wave 5 | refactor | absorb the two kata-green-fired skills into kata-green; delete both directories; rewrite ~15 cross-references | the cycle is now red → green → commit; the historical record (CHANGELOG + ADR) keeps the names | 17 → 15 skills; sets the pattern for the trim's remaining deletion waves (algorithm-classification absorbed, contribution-review absorbed, hajime-bugfix merged) | d097c6f
+2026-08-29 | wave 5 | refactor | absorb the two kata-green-fired skills into kata-green; delete both directories; rewrite ~15 cross-references | the cycle is now red → green → commit; the historical record (CHANGELOG + ADR) keeps the names | 17 → 15 skills; sets the pattern for the trim's remaining deletion waves (algorithm-classification absorbed, contribution-review absorbed, bugfix entry merged into hajime) | d097c6f
 
 2026-08-29 | wave 6 | refactor | absorb the algorithm-classification discipline into kata-red; delete the directory; rewrite ~12 cross-references | the model-known taxonomy is cut; the discipline (stop, property/tolerance/golden, tanren gate) lives in kata-red at the right moment | 15 → 14 skills; sets the pattern for the remaining deletion waves | ca3e112
 

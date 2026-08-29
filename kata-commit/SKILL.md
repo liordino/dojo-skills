@@ -41,6 +41,7 @@ docs perf ci`. Bugfix bodies state the root cause from the diagnosis.
 ## Wave Closing Debrief
 
 Lean and project-specific — pointers, not lectures:
+
 - **What was done** — the specific types/methods/files, 1–2 lines.
 - **Why the approach works** — and any rejected simpler approach or trade-off, named.
 - **Systemic improvement opportunities** — how this wave's choices constrain or enable future
@@ -72,12 +73,14 @@ denylist: `.env*`, `*.pem`, `*.key`, credential-looking names, files > 1 MB, any
 and report — a leaked secret is unrecoverable).
 
 **Supervised** — present the message and the `git status` summary:
+
 ```
 Suggested commit: [message]
   1. Commit now (git add <files> && git commit)
   2. Edit the message first
   3. I'll commit manually
 ```
+
 Never commit without explicit instruction. **Autonomous** — stage the list, commit, log the
 hash to progress.md.
 
@@ -86,6 +89,7 @@ hash to progress.md.
 ## Update durable artifacts (the compaction write)
 
 After the commit (or the human's manual commit), write everything durable to disk:
+
 1. **progress.md** — append: wave N, type+summary, built, exposes, next dependency, commit hash.
 2. **HANDOFF.md** — incremental, never a rewrite: append Wave History; overwrite Current
    State; update Architecture only on structural change; append Key Concepts only if genuinely
@@ -118,6 +122,7 @@ If installed: diff added/removed files or changed public signatures → suggest
 ## Wave ceiling and fresh sessions (context hygiene)
 
 Count waves completed this session against `wave_ceiling` (dojo-session; default 4).
+
 - **Supervised, ceiling reached or you notice re-reading files you should know:** suggest a
   fresh session — "Everything is committed and on disk; a new /hajime reloads from HANDOFF.md
   and progress.md. Start fresh, or continue?" A suggestion from wave count and the

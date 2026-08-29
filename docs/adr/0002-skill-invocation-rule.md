@@ -29,11 +29,13 @@ A three-bucket rule, applied per skill:
 1. **Model-invoked** (`disable-model-invocation` absent) — the agent reaches the
    skill from prose matching its description. Used when the agent is likely to
    reach for the skill without explicit user instruction. In Dojo today:
-   `kata-red`, `kata-green`, `kata-commit`, `hajime`, `hajime-bugfix`. The wave
-   cycle fires these automatically; the session-start entries must be reachable
-   when the user says "let's start." (Trim Wave 5 / 2026-08-29: `kata-refactor`
-   and `kata-stuck` were absorbed into `kata-green`; they no longer exist as
-   separate model-invoked skills.)
+   `kata-red`, `kata-green`, `kata-commit`, `hajime`. The wave cycle fires
+   these automatically; the session-start entries must be reachable when the
+   user says "let's start" or "fix this." (Trim Wave 5 / 2026-08-29: two
+   skills were absorbed into `kata-green`; they no longer exist as separate
+   model-invoked skills. Trim Wave 8 / 2026-08-29: `hajime-bugfix` was
+   merged into `hajime` as a "feature or bugfix?" fork; it no longer exists
+   as a separate skill.)
 
 2. **User-invoked** (`disable-model-invocation: true`) — the human types the
    name; the agent does not reach the skill on its own. Used for periodic,

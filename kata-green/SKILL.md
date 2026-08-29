@@ -38,6 +38,7 @@ deterministic option → note it, proceed.
 
 Any mutation must be safe against re-execution. Absolute ops (`x = true`) are naturally
 idempotent; relative ops (`count += 1`) need protection:
+
 ```
 // ✗ Fragile            // ✓ State check             // ✓ Idempotency key
 applyDiscount(o):       applyDiscount(o):             charge(id, amt):
@@ -45,6 +46,7 @@ applyDiscount(o):       applyDiscount(o):             charge(id, amt):
                             o.total -= 10                 r = gateway.charge(id, amt)
                             o.applied = true              db.save(id, r); return r
 ```
+
 Prefer immutability — a free idempotency mechanism: C# `record` + `with` · Rust `let` by
 default · Go small structs by value · C/C++ `const` aggressively.
 
@@ -101,6 +103,7 @@ wave. Behavior added here skips RED and has no check — the exact failure mode 
 prevents. **rigor: poc:** run the formatter only.
 
 Clean in priority order:
+
 1. **Small units + SRP** — functions > 20 lines: extract. Files > 300 lines: split by
    responsibility. "and" in the description: split.
 2. **Names** — `rg "name" .` > 5 relevant hits → rename more specifically; names off the
@@ -132,6 +135,7 @@ dojo-session.md (resume checks recognize it as mid-flight). XP norm: don't grind
 burns tokens, accumulates bad state, destroys the reasoning trail.
 
 Present a structured diagnostic, no omissions:
+
 - **What was attempted** — each attempt: approach, change, the *raw* dojo-check output
   (not summarized — the human needs the real signal).
 - **Root cause hypothesis** — specific; "I don't know" is not one. Uncertain → 2–3
@@ -141,6 +145,7 @@ Present a structured diagnostic, no omissions:
 
 Offer 2–3 concrete adjusted approaches (what changes / the risk / what it unblocks). Standard
 candidates:
+
 1. **Reframe the check** — it may specify internals rather than observable outcome → back
    to `/kata-red` (`step: RED`).
 2. **Descope the wave** — a smaller first wave that passes → `/kaizen` to split it in
@@ -166,12 +171,14 @@ function/class/pattern), **why** (the principle violated or risk carried), **imp
 (what concretely gets better). Honest and specific; a clean wave still deserves at least one
 observation, but never invent issues — "nothing significant, because X" is a valid finding.
 Then ask:
+
 ```
 Want to refactor?
   1. Yes — I'll handle the opportunities above
   2. Yes — with these instructions: [you tell me]
   3. No — go straight to /kata-commit
 ```
+
 At `light` density: don't stop here — auto-apply the assessment and carry diff + assessment +
 refactor summary to the commit gate.
 
