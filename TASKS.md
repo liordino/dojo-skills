@@ -106,15 +106,16 @@ Waves from the predecessor writing-great-skills plan that are not superseded by 
 
 >> Re-judgment note (2026-08-29, post-trim): the surviving-old waves 11–17 were
 >> reviewed against the trimmed surface and the Akita "smallest conscious surface"
->> principle. **Pending (worth doing):** 11 router (stronger post-trim — the
->> cognitive-load cure now that only ~5 skills are user-invoked), 13 kan desc
->> cleanup, 14 cross-ref removal (both trimming). **Invalidated (re-inflation):**
+>> principle. **Pending (worth doing):** 13 kan desc
+>> cleanup, 14 cross-ref removal (both trimming). **Invalidated:** 11 router
+>> (index not wanted; governance-load banner dedup done inline via the thin
+>> approach instead — one banner in hajime, assumes-loaded notes elsewhere),
 >> 12 sigils, 15 rationale footers, 16 dojo-diagnose, 17 dojo-write-skill — reasons
 >> inline. Do not autonomously execute invalidated waves.
 
 ## Wave 11 — `dojo/SKILL.md` router ships and the 9-site banner duplication is retired
 
-status: pending
+status: invalidated  # re-judged post-trim 2026-08-31: index not wanted; governance-load dedup done inline via the thin approach instead — one banner in hajime, assumes-loaded notes elsewhere. See docs/proposals/governance-dedup.plan.md.
 blocked-by: 10
 The router skill exists at `dojo/SKILL.md`, user-invoked (per ADR 0002), carrying (a) a table of all skills with invocation type and one-line trigger phrase, (b) the session-start governance directive as its only procedural content (load `dojo-principles`, `dojo-project`, `dojo-conduct`), and (c) a one-line pointer to itself wherever an agent needs the index. The skills that currently carry the "Before anything else…" banner inline lose the inline banner and replace it with a one-line pointer to the router. Verified by: `rg "Before anything else: load and apply"` returns zero hits outside `dojo/SKILL.md`; the router's table covers all skills; the lint from prior waves still passes.
 

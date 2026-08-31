@@ -13,7 +13,7 @@ description: >
 
 # Kaizen — Re-Grill and Update Against New Reality
 
-**Before anything else: load and apply `dojo-principles`, `dojo-project`, and `dojo-conduct` now.**
+*Assumes the governance trio (`dojo-principles`, `dojo-project`, `dojo-conduct`) is loaded — hajime loads it at session start; if you're starting from here, load it first.*
 
 *Always supervised. Updates the plan; never writes code — code changes happen in subsequent
 kata waves.*

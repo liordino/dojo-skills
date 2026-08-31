@@ -14,7 +14,7 @@ description: >
 
 # Randori — Interview-Driven Design
 
-**Before anything else: load and apply `dojo-principles`, `dojo-project`, and `dojo-conduct` now.**
+*Assumes the governance trio (`dojo-principles`, `dojo-project`, `dojo-conduct`) is loaded — hajime loads it at session start; if you're starting from here, load it first.*
 
 *乱取り — freeform sparring, handling whatever comes. Relentless questioning until every branch
 of the design tree is resolved and the language is sharp.*

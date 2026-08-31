@@ -12,7 +12,7 @@ description: >
 
 # Kan — Disciplined Diagnosis
 
-**Before anything else: load and apply `dojo-principles`, `dojo-project`, and `dojo-conduct` now.**
+*Assumes the governance trio (`dojo-principles`, `dojo-project`, `dojo-conduct`) is loaded — hajime loads it at session start; if you're starting from here, load it first.*
 
 Narrate every phase: hypotheses, evidence, elimination.
 
