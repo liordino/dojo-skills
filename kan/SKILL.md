@@ -2,7 +2,7 @@
 name: kan
 disable-model-invocation: true
 description: >
-  Disciplined diagnosis loop for hard bugs and performance regressions. Use when something is
+  Disciplined diagnosis loop for hard bugs. Use when something is
   broken and the cause is not obvious. Triggers on: /kan, or automatically from hajime's
   bugfix fork after "feature or bugfix?", or from green's stuck branch when the blocker is
   a bug. Follows reproduce → minimise → hypothesise → instrument → fix → regression-test. The reproduction becomes the

@@ -105,13 +105,16 @@ Add the conceptual-exclusion rule to randori's CONTEXT.md/Glossary handling: pin
 Waves from the predecessor writing-great-skills plan that are not superseded by the trim. They run after the trim completes (Wave 11 onward). All additive; no deletions; references to trim-deleted skills are inert by then.
 
 >> Re-judgment note (2026-08-29, post-trim): the surviving-old waves 11–17 were
+>> Re-judgment note (2026-08-29, post-trim; closed out 2026-08-31): the surviving-old waves 11–17 were
 >> reviewed against the trimmed surface and the Akita "smallest conscious surface"
->> principle. **Pending (worth doing):** 13 kan desc
->> cleanup, 14 cross-ref removal (both trimming). **Invalidated:** 11 router
+>> principle. **Done:** 13 kan desc cleanup (resolved 2026-08-31 as a pure
+>> claim-cut — no perf branch added). **Invalidated:** 11 router
 >> (index not wanted; governance-load banner dedup done inline via the thin
 >> approach instead — one banner in hajime, assumes-loaded notes elsewhere),
->> 12 sigils, 15 rationale footers, 16 dojo-diagnose, 17 dojo-write-skill — reasons
->> inline. Do not autonomously execute invalidated waves.
+>> 12 sigils, 14 dojo-* cross-ref sentence removal (premise stale on
+>> inspection), 15 rationale footers, 16 dojo-diagnose, 17 dojo-write-skill —
+>> reasons inline. Do not autonomously execute invalidated waves. No pending
+>> waves remain from this plan.
 
 ## Wave 11 — `dojo/SKILL.md` router ships and the 9-site banner duplication is retired
 
@@ -129,14 +132,13 @@ The English phrases "enforce over instruct", "proof artifact", "fresh proof", "p
 
 ## Wave 13 — `kan/SKILL.md` description no longer promises an unearned branch
 
-status: pending
-blocked-by: 12
+status: done  # 2026-08-31: resolved as a pure claim-cut — the description dropped the promise; NO body branch added (kan doesn't do performance work; growing a branch to justify a clause would re-inflate the surface). See docs/proposals/final-waves-13-14.plan.md.
+The two-step: the original either/or below was re-cut against the trimmed surface — the third option (cut the claim, add nothing) is the thin one. Verified by: `rg "performance regression" kan/SKILL.md` returns nothing (the phrase survives nowhere in the file — it was description-only); body unchanged; lint R4 still passes (no broken cross-references); lint + mechanics green.
 Either (a) the description drops "and performance regressions" and the body gains a one-paragraph perf-regression branch that names what changes (different minimization, different "fix" criteria, regression-test shape), or (b) the description keeps the phrase and the body is updated to genuinely cover perf regressions end-to-end. Either way: the description matches the body. Verified by: `rg "performance regression"` in `kan/SKILL.md` returns at least one body hit matching every description hit (no orphan in either direction); lint R4 still passes (no broken cross-references).
 
 ## Wave 14 — three `dojo-*` skills lose their description-duplicating cross-reference sentences
 
-status: pending
-blocked-by: 13
+status: invalidated  # inspection 2026-08-31: premise stale — the cross-refs live only in the descriptions (where they route correctly), not duplicated in the bodies; nothing to trim. See docs/proposals/final-waves-13-14.plan.md.
 `dojo-principles/SKILL.md`, `dojo-project/SKILL.md`, `dojo-conduct/SKILL.md` each drop the sentences at the end of their description that repeat "Code rules live in dojo-principles; operational rules live in dojo-conduct" and equivalents. The cross-reference work is done by the description's own pointer (which is the canonical source per the rule established in Wave 12). Verified by: `rg "Code rules live in|Code-level rules live in|operational rules live in"` returns hits only inside YAML front-matter descriptions, not in skill bodies; lint passes.
 
 ## Wave 15 — each `dojo-*` rule carries a `> Rationale: DOJO-MANUAL.md §X` footer pointer
