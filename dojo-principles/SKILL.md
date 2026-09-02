@@ -129,18 +129,16 @@ When in doubt about the contract, change it here — the proof rule is one place
 
 - Logging is a side effect: the shell logs; the pure core stays silent (propagate outward as a
   value if something deep is worth logging).
-- Structured, never interpolated prose: machine-parseable key/value events.
-- Format: JSON Lines — one object per line; always `ts` (ISO-8601), `level`, `event`
-  (snake_case), plus event-specific keys.
-- Levels with discipline: error = couldn't complete (with actionable context); warn =
-  recovered/degraded; info = significant lifecycle, kept lean; debug = dev tracing, off in prod.
+- Structured JSON Lines — one object per line: `ts` (ISO-8601), `level`, `event`
+  (snake_case), plus event-specific keys. Levels are the standard four (error = couldn't
+  complete, with context · warn = recovered/degraded · info = significant lifecycle, lean ·
+  debug = dev tracing, off in prod).
 - Context in every line: what, where, and the identifying ids needed to trace it.
-- **Never log secrets or PII** — no passwords, tokens, keys, auth headers, bodies that may
+  **Never log secrets or PII** — no passwords, tokens, keys, auth headers, bodies that may
   contain them. Hard rule.
 - Sink is an injected `LogSink.write(event)` interface, chosen per project and recorded in
-  CONTEXT.md → Decisions. Code depends on the interface, never the destination.
-- Any remote sink degrades to a local JSONL file when unreachable; a logging failure never
-  propagates as an application failure.
+  CONTEXT.md → Decisions. Any remote sink degrades to a local JSONL file when unreachable; a
+  logging failure never propagates as an application failure.
 
 ## Errors as Values vs Exceptions
 
@@ -180,8 +178,8 @@ When in doubt about the contract, change it here — the proof rule is one place
 Apply only when **all** hold: a tick/update loop drives the system; entities are numerous and
 compositionally varied; data-oriented / cache-friendly layout is a concrete requirement; strict
 state/behavior separation is a correctness need. Never for REST APIs, CLIs, daemons, scripts,
-pipelines, or frontend trees. Entities = IDs only; components = pure data; systems = stateless
-functions. Legacy escape hatch: maintain existing OOP consistency unless explicitly instructed.
+pipelines, or frontend trees. The entity/component/system rules and the legacy escape hatch:
+`dojo-principles/reference/ecs.md` (load on demand).
 
 ## Promoted (local)
 

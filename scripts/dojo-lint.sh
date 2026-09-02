@@ -32,12 +32,6 @@ done
 
 # R3 — dangling section: a bold-only line whose next non-blank line is '---' or EOF
 for f in $FILES; do
-	awk -v file="$f" '
-    /^\*\*[^*]+\*\*$/ { pend=$0; pline=NR; next }
-    pend && /^[[:space:]]*$/ { next }
-    pend { if ($0 ~ /^---[-]*$/) printf "FAILROW %s:%d: dangling bold section: %s\n", file, pline, pend; pend="" }
-    END { if (pend) printf "FAILROW %s:%d: dangling bold section at EOF: %s\n", file, pline, pend }
-  ' "$f" | while read -r row; do :; done
 	rows=$(awk '
     /^\*\*[^*]+\*\*$/ { pend=$0; pline=NR; next }
     pend && /^[[:space:]]*$/ { next }
@@ -219,6 +213,17 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
 		mode=$(git ls-files -s -- "$f" | awk '{print $1}')
 		[ -z "$mode" ] && continue
 		[ "$mode" = "100755" ] || err "R14: $f not executable in index (mode $mode) — run: git update-index --chmod=+x $f"
+	done
+fi
+
+# R15 — CONTEXT.md carries exactly the randori contract: the three H2 sections
+# (Glossary / Non-Goals / Decisions) and nothing else. Dogfoods the contract the
+# skills teach; randori owns the contract, hajime verifies it at scaffold.
+if [ -f CONTEXT.md ]; then
+	h2s=$(grep -cE '^## ' CONTEXT.md)
+	[ "$h2s" -eq 3 ] || err "R15: CONTEXT.md must have exactly 3 H2 sections (Glossary/Non-Goals/Decisions); found $h2s"
+	for s in 'Glossary' 'Non-Goals' 'Decisions'; do
+		grep -qE "^## $s" CONTEXT.md || err "R15: CONTEXT.md missing '## $s'"
 	done
 fi
 

@@ -15,7 +15,7 @@ description: >
 
 *Assumes the governance trio (`dojo-principles`, `dojo-project`, `dojo-conduct`) is loaded — hajime loads it at session start; if you're starting from here, load it first.*
 
-*Always supervised. Updates the plan; never writes code — code changes happen in subsequent
+*Updates the plan; never writes code — code changes happen in subsequent
 kata waves.*
 
 Narrate throughout — you are helping the human think through what changed and what it means.

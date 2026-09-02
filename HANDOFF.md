@@ -36,7 +36,7 @@ dojo-skills/
 │   ├── index.html              # static landing page (GitHub Pages-friendly)
 │   └── adr/                    # architecture decision records (lazy; 0001-0003 as of Wave 1)
 ├── scripts/
-│   ├── dojo-lint.sh            # static consistency checker (R1–R10; R10 replaces retired R6)
+│   ├── dojo-lint.sh            # static consistency checker (R1–R15; R10 replaces retired R6; R15 dogfoods the CONTEXT.md contract)
 │   └── dojo-check.sh           # wave gate (lint + mechanics-eval + proof artifact)
 ├── evals/
 │   ├── run-mechanics.sh        # automated mechanics eval; deterministic
@@ -66,7 +66,7 @@ across updates.
 Append one line per committed wave. Format: `YYYY-MM-DD | wave N | <one-line outcome>`.
 Most recent first.
 
-2026-08-31 | closeout | durable surfaces reconciled: CONTEXT.md (router/sigil drift closed; anti-inflation charter), ADR 0002 invalidation note, RESUME.md one-line, DOJO-MANUAL §3 count + §5b re-measure, CHANGELOG v1.2.0, kata-commit item-4 clause (duty attaches to the commit, whatever commissioned it) | stale-decisions class closed by rule + cleanup | (this commit)
+2026-08-31 | closeout | durable surfaces reconciled: CONTEXT.md (router/sigil drift closed; anti-inflation charter), ADR 0002 invalidation note, RESUME.md one-line, DOJO-MANUAL §3 count + §5b re-measure, CHANGELOG v1.2.0, kata-commit item-4 clause (duty attaches to the commit, whatever commissioned it) | stale-decisions class closed by rule + cleanup | c11e992
 2026-08-31 | waves-13-14 | kan description claim-cut (no perf branch existed — description-only phrase); Wave 14 invalidated on inspection (cross-refs are routing pointers in descriptions, not body duplication); inherited plan queue emptied | chat-scoped plan executed outside the cycle; reconciled by the closeout | ebfe42b
 2026-08-31 | banner-dedup | governance-load banner dedup — one banner in hajime, assumes-loaded notes in kaizen/kan/randori; Wave 11 (router) invalidated | chat-scoped plan executed outside the cycle; reconciled by the closeout | 9f33b18
 2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
@@ -148,7 +148,7 @@ Most recent first.
 ## Current State
 
 - Package version: 1.2.0 (cut 2026-08-31 — CHANGELOG carries the full trim + closeout record).
-- Working tree: clean; `dojo-check` gate **passing** — lint R1–R14, mechanics eval 12/12,
+- Working tree: clean; `dojo-check` gate **passing** — lint R1–R15, mechanics eval 12/12,
   fresh proof.
 - Plan: **nothing pending.** Trim plan (Waves 4–10) done; surviving-old plan fully
   resolved — Wave 13 done (kan claim-cut), Waves 11/12/14/15/16/17 invalidated with
@@ -198,6 +198,10 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   cheap/fast model (glm-5.3-flash, medium thinking) and small local models; the
   algorithm taxonomy is deliberate scaffolding (structure rescues weak models). Revisit
   only with a receipt showing the deployed model self-supplies it.
+- dojo-lint.sh shellcheck advisories (SC2035/SC2086 on the `$FILES` loops) — pre-existing,
+  intentional word-splitting over the file list; advisory-only, script is green. Rewrite
+  to arrays/find -print0 only if the script is refactored for another reason.
+  (noted 2026-08-31)
 - Post-Wave-10 kaizen candidates (from external review, 2026-07-10):
   (a) Fowler smells as leading words in green's refactor step cleanup list
   and the review principle in dojo-conduct — prior-rich terms (mysterious

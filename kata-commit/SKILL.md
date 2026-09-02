@@ -57,7 +57,7 @@ inline. Autonomous: log only. rigor: poc: skip the debrief; append lessons to `p
 instead (what worked, what didn't, what the real build should do differently).
 
 **Engagement note (supervised):** if every gate this wave was approved without modification,
-record "approved without modification" in the log entry — visibility, not a scold. Several
+record "approved without modification" in the log entry — visibility, not a scold. Three
 consecutive such waves → name it: "Supervised mode may not be adding much right now — continue,
 lower the gate density, or switch to autonomous and review at the end?" Reflexive approval is
 autonomous mode wearing supervised's clothes; say so and let the human choose.

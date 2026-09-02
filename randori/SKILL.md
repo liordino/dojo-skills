@@ -96,7 +96,9 @@ During the interview: call out term **conflicts** with the glossary immediately;
 with precise canonical ones; stress-test **relationships** with concrete scenarios ("If a
 Customer cancels mid-cycle, what happens to the open Invoice?"). Update inline as terms
 crystallize. Mark genuinely unsettled terms `(provisional)` and challenge them in later
-sessions — settled glossary outranks memory, but provisional means provisional.
+sessions — settled glossary outranks memory, but provisional means provisional. The
+three-section contract is enforced, not remembered: this repo's lint asserts it (R15), and
+hajime verifies it at scaffold in projects.
 
 ---
 

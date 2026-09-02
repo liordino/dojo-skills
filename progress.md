@@ -23,3 +23,6 @@ Format: `YYYY-MM-DD | wave N | step | one-line outcome`
 2026-08-29 | wave 10 | refactor | slim tanren to entry gate, freeze rule, hand-back invariant; mechanics → reference | 9609 → 5494 bytes (43%); discipline stays in body, mechanics on-demand | 12 skills; one trim wave remains (randori glossary pin) | f81bf85
 
 2026-08-29 | wave 11 | refactor | add conceptual-exclusion rule to randori's Glossary handling (pin what each term isn't, distinct from Non-Goals) | the trim is complete (all 7 trim waves landed) | 12 skills; surviving-old waves 12–18 (router, leading words, kan, dojo-* cleanup, footers, diagnose, meta-skill) on the trimmed surface | b4a9fac
+
+2026-08-31 | closeout | docs | durable surfaces reconciled: CONTEXT.md (router/sigils + anti-inflation charter), ADR 0002 addendum, HANDOFF, MANUAL §3+§5b, RESUME.md one-line, CHANGELOG v1.2.0, kata-commit item-4 clause | stale-decisions class closed by rule + cleanup | c11e992
+2026-08-31 | friction-trim | refactor | hajime express-start (packaging confirm block; route decisions stay deliberate), kata-green idempotency example → prose, principles ECS → reference + logging compress, kaizen supervision dedupe, kata-commit threshold "three consecutive", randori contract line + lint R15 + R3 dead code removed | net byte-negative; lint R1–R15 | (this commit)

@@ -37,15 +37,8 @@ deterministic option → note it, proceed.
 ## State idempotency
 
 Any mutation must be safe against re-execution. Absolute ops (`x = true`) are naturally
-idempotent; relative ops (`count += 1`) need protection:
-
-```
-// ✗ Fragile            // ✓ State check             // ✓ Idempotency key
-applyDiscount(o):       applyDiscount(o):             charge(id, amt):
-    o.total -= 10           if o.applied: return          if db.has(id): return db.get(id)
-                            o.total -= 10                 r = gateway.charge(id, amt)
-                            o.applied = true              db.save(id, r); return r
-```
+idempotent; relative ops (`count += 1`) need protection: a state check (`if o.applied:
+return`) or an idempotency key (`charge(id, amt)` deduped on `id`) before the mutation.
 
 Prefer immutability — a free idempotency mechanism: C# `record` + `with` · Rust `let` by
 default · Go small structs by value · C/C++ `const` aggressively.

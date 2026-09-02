@@ -177,3 +177,12 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** **the trim is complete.** Skill count is 12. All 7 trim waves done. Surviving-old waves (router, leading words, kan description, dojo-* cross-ref cleanup, rationale footers, diagnose, meta-skill) run on the trimmed surface next.
 - **Promotion candidates:** none new.
 - **Engagement note:** seventh autonomous-mode wave. Pattern holds.
+
+## 2026-08-31 session — Closing Debrief (consolidated: closeout, banner-dedup, waves-13-14)
+
+- **What was done / why:** four changes in one run, all deletion- or correction-shaped. The bookkeeping closeout reconciled every durable surface to reality (CONTEXT.md router/sigil drift closed; anti-inflation charter added as five conditional non-goals; RESUME.md restored to one line; ADR 0002 invalidation note; CHANGELOG v1.2.0; kata-commit item 4 now explicitly covers changes commissioned outside a running session). Before that: the governance-banner dedup (one banner in hajime, assumes-loaded notes elsewhere; router wave invalidated) and the kan claim-cut (Wave 13) + Wave 14 invalidation.
+- **Why the approach works:** the stale-decisions class that Wave 3's item 4 was built to close had reopened because chat-scoped plans touched TASKS.md without reconciling the other surfaces. The fix is both cleanup (done) and rule (the item-4 clause), so the class stays closed regardless of who commissions the change — the discipline attaches to the commit, not the channel.
+- **Systemic or promotion:** the friction-trim wave (hajime packaging confirm block; ECS → reference; logging compress; threshold "three consecutive"; lint R15 dogfooding the CONTEXT.md contract; R3 dead code removed) is net byte-negative — removals with one enforcement addition. The system's own cut rule (model-already-checks vs needs-told) was applied to the review's own suggestions before anything was cut; kata-red's slim was declined on it (design target is a cheap model).
+- **Bigger picture:** no pending waves anywhere; the anti-inflation charter is binding; the repo is plan-less by design again.
+- **Promotion candidates:** none new this run.
+- **Engagement note:** all four 2026-08-31 changes were human-approved in chat before execution (plan → agreement → execute); no rubber-stamping involved.

@@ -26,8 +26,9 @@ Narrate your reasoning at every step. The human is your pair — think out loud.
 ## 0. Gate zero — questions before anything
 
 Your first *action* is the resume check below (Dojo's own state only: dojo-session.md, git
-status). Your first *response* to the human is the rigor and mode questions of §2 — and nothing
-else. Until they are answered: do not explore or read the project's source code, do not
+status). Your first *response* to the human is the §2 route questions (rigor, mode, design,
+feature-or-bugfix) — plus, in the same message, the packaging confirm block from §2 when the
+preferences store answers it — and nothing else. Until they are answered: do not explore or read the project's source code, do not
 scaffold, do not write or implement anything. A design document, starting prompt, or file path
 passed as the argument is **input to this process** — it feeds the plan step (§5) — never a
 substitute for running it; receiving a detailed spec does not authorize skipping to
@@ -101,6 +102,20 @@ What kind of work is this?
 Bugfixes are `rigor: real` (a throwaway experiment is /hajime PoC, not a bugfix). The rest of
 this skill is feature-oriented; bugfix forks are noted in §3, §5b, and §6 inline.
 
+**Packaging — one confirm block, not separate stops.** When the preferences store answers
+them, present together: `gate_density` · `commit_style` · log-sink (only if CONTEXT.md →
+Decisions lacks one). Each line carries its one-line consequence — a decision with content,
+not assent:
+
+```text
+Defaults from your preferences — density: standard · commits: conventional · log sink:
+text-file JSONL. [confirm, or name the ones to change]
+```
+
+Confirmed here, §4 and §4b are answered — no separate stops. With no preferences stored,
+§4/§4b ask cold as written. Route decisions (rigor, mode, design, feature-or-bugfix) are
+never batched into assent — they change what the session does, not how it talks.
+
 ---
 
 ## 2b. PoC adjustments (rigor: poc)
@@ -135,6 +150,9 @@ If missing, create with exactly this skeleton (contract in randori; listed in do
 ## Non-Goals
 ## Decisions
 ```
+
+Exactly three H2 sections — more is contract drift; fix before proceeding (randori owns
+the contract).
 
 `docs/adr/` is created lazily on the first ADR.
 
@@ -219,9 +237,10 @@ and `findings.md` now (kata-commit and the halt protocols append to them).
 
 ## 4. Commit style (skip if rigor: poc)
 
-Ask once per session; store as `commit_style`. If a preference exists, confirm it instead of
-asking cold; if the human states a new lasting preference, propose saving it (consent rule in
-dojo-project).
+**If confirmed in §2's packaging block, skip.** Ask once per session; store as
+`commit_style`. If a preference exists but wasn't confirmed there, confirm it instead of
+asking cold; if the human states a new lasting preference, propose saving it (consent rule
+in dojo-project).
 
 ```
 How do you like your commit messages?
@@ -234,7 +253,8 @@ How do you like your commit messages?
 
 ## 4b. Log sink (skip if rigor: poc; ask once per project)
 
-If CONTEXT.md → Decisions already records a log sink: skip silently. Otherwise ask once, record
+**If confirmed in §2's packaging block, skip.** If CONTEXT.md → Decisions already records a
+log sink: skip silently. Otherwise ask once, record
 the answer there, and write an ADR (it's architectural):
 
 ```
