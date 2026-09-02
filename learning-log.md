@@ -186,3 +186,9 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture:** no pending waves anywhere; the anti-inflation charter is binding; the repo is plan-less by design again.
 - **Promotion candidates:** none new this run.
 - **Engagement note:** all four 2026-08-31 changes were human-approved in chat before execution (plan → agreement → execute); no rubber-stamping involved.
+
+## Artifact diet (2026-08-31) — Closing Debrief
+
+- **What was done, and why it works:** progress.md is now the single per-wave log; HANDOFF's Wave History migrated into it and the section became a pointer — HANDOFF is a snapshot that never grows with wave count. Briefs are supervised-only; debriefs collapse to three fields (this entry is the first in the new format). ADR 0004 records the decision; s1-assert was rewritten in the same wave because it asserted the old HANDOFF sections.
+- **Systemic or promotion:** the same-wave rule (rewrite the reference in the wave that breaks it) caught the eval dependency before it could rot — the exact lesson the trim's hard constraint taught, now applied to evals. Candidate: the general form is already promotion candidate #2 (cross-ref lint + rewrite in the same wave); no new promotion needed.
+- **Bigger picture:** per-wave write targets drop ~8 → 5; the compaction promise is unchanged.

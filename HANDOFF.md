@@ -27,7 +27,7 @@ dojo-skills/
 ├── CHANGELOG.md                # package-wide Keep a Changelog format
 ├── LICENSE                     # MIT
 ├── CONTEXT.md                  # Glossary / Non-Goals / Decisions
-├── HANDOFF.md                  # this file — living resume surface
+├── HANDOFF.md                  # this file — snapshot resume surface (per-wave log: progress.md, ADR 0004)
 ├── learning-log.md             # per-wave briefs and debriefs (append-only)
 ├── progress.md                 # terse per-wave log (append-only)
 ├── findings.md                 # discoveries + halt diagnostics (append-only)
@@ -63,23 +63,8 @@ across updates.
 
 ## Wave History
 
-Append one line per committed wave. Format: `YYYY-MM-DD | wave N | <one-line outcome>`.
-Most recent first.
-
-2026-08-31 | closeout | durable surfaces reconciled: CONTEXT.md (router/sigil drift closed; anti-inflation charter), ADR 0002 invalidation note, RESUME.md one-line, DOJO-MANUAL §3 count + §5b re-measure, CHANGELOG v1.2.0, kata-commit item-4 clause (duty attaches to the commit, whatever commissioned it) | stale-decisions class closed by rule + cleanup | c11e992
-2026-08-31 | waves-13-14 | kan description claim-cut (no perf branch existed — description-only phrase); Wave 14 invalidated on inspection (cross-refs are routing pointers in descriptions, not body duplication); inherited plan queue emptied | chat-scoped plan executed outside the cycle; reconciled by the closeout | ebfe42b
-2026-08-31 | banner-dedup | governance-load banner dedup — one banner in hajime, assumes-loaded notes in kaizen/kan/randori; Wave 11 (router) invalidated | chat-scoped plan executed outside the cycle; reconciled by the closeout | 9f33b18
-2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
-2026-06-19 | wave 2 | classify every skill per invocation rule (ADR 0002); 7 user-invoked + 3 session-invoked; R11 single-table classifier | commit 4168c6e
-2026-08-29 | wave 3 | land Wave-2 review fixes + repair R13 grep; Gate 0 in hajime, facts-vs-decisions in randori, kata-commit item 4 (CONTEXT.md), R12–R14 in dojo-lint, exec-bit index mode flipped for 6 scripts, `## Logging` heading restored in dojo-principles | dirty tree from interrupted kata-commit cleared; clean green baseline ready for the trim plan in `docs/proposals/` | fa5fcee
-2026-08-29 | wave 4 | promote trim plan into TASKS.md as the active plan; 7 trim waves (4–10) + 7 surviving-old waves (11–17); predecessor writing-great-skills plan preserved as appendix | two-plan confusion resolved; single active plan | unlocks Wave 5 (first trim wave: absorb two deleted skills into kata-green) | c11bdfa
-2026-08-29 | wave 5 | absorb two deleted skills into kata-green; the cycle is now red → green → commit; directories deleted | ~15 cross-references rewritten; the trim draft's hard constraint met | 17 → 15 skills; trim pattern established for waves 6–8 | d097c6f
-2026-08-29 | wave 6 | absorb the algorithm-classification discipline into kata-red; directory deleted | ~12 cross-references rewritten | 15 → 14 skills | ca3e112
-2026-08-29 | wave 7 | absorb the contribution-review discipline into dojo-conduct (new "Reviewing Code" section); directory deleted | ~9 cross-references rewritten | 14 → 13 skills | 8707329
-2026-08-29 | wave 8 | merge the bugfix entry into hajime as a "feature or bugfix?" fork; directory deleted | ~12 cross-references rewritten; regression-test-first discipline preserved; **trim complete** | 13 → 12 skills | c424507
-2026-08-29 | wave 9 | stub kokai to four Dojo-specific principles + pointer | body 5559 → 3478 bytes (38% reduction); kokai stays user-invoked | 12 skills; two trim waves remain (slim tanren, randori glossary pin) | 4b68454
-2026-08-29 | wave 10 | slim tanren to entry gate, freeze rule, hand-back invariant; mechanics → reference | 9609 → 5494 bytes (43%); discipline in body, mechanics on-demand | 12 skills; one trim wave remains (randori glossary pin) | f81bf85
-2026-08-29 | wave 11 | add conceptual-exclusion rule to randori's Glossary handling (pin what each term isn't, distinct from Non-Goals) | **trim complete** (all 7 trim waves landed) | 12 skills; surviving-old waves 12–18 on the trimmed surface | b4a9fac
+Moved to `progress.md` — the single append-only per-wave log (ADR 0004). HANDOFF stays a
+snapshot: Overview, Architecture, Key Concepts, Current State, Improvement Backlog.
 
 ## Key Concepts
 
@@ -198,10 +183,10 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   cheap/fast model (glm-5.3-flash, medium thinking) and small local models; the
   algorithm taxonomy is deliberate scaffolding (structure rescues weak models). Revisit
   only with a receipt showing the deployed model self-supplies it.
-- dojo-lint.sh shellcheck advisories (SC2035/SC2086 on the `$FILES` loops) — pre-existing,
-  intentional word-splitting over the file list; advisory-only, script is green. Rewrite
-  to arrays/find -print0 only if the script is refactored for another reason.
-  (noted 2026-08-31)
+- evals assert-script shellcheck advisories — dojo-lint.sh (SC2035/SC2086 on the `$FILES`
+  loops) and s1/s2/s3-assert.sh (SC2015 on the `&& ok || die` idiom): pre-existing,
+  intentional style across the scripts; advisory-only, all green. Rewrite only if a script
+  is refactored for another reason. (noted 2026-08-31)
 - Post-Wave-10 kaizen candidates (from external review, 2026-07-10):
   (a) Fowler smells as leading words in green's refactor step cleanup list
   and the review principle in dojo-conduct — prior-rich terms (mysterious

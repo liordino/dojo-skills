@@ -120,8 +120,8 @@ idempotency, explicit types, error propagation, refactor step, stuck branch (kat
 
 - `dojo-session.md` — current wave state (gitignored; per-machine)
 - `TASKS.md` — the plan: every wave a verifiable outcome with a status
-- `HANDOFF.md` — living project document (always current; the resume surface)
-- `learning-log.md` — per-wave briefs and debriefs · `progress.md` — terse per-wave log
+- `HANDOFF.md` — snapshot project document (always current; the resume surface)
+- `progress.md` — the single terse per-wave log · `learning-log.md` — per-wave debriefs (briefs in supervised sessions)
 - `CONTEXT.md` — Glossary, Non-Goals, Decisions · `docs/adr/` — decision records
 - `findings.md` — discoveries and halt diagnostics · `RESUME.md` — autonomous-pause pointer
 

@@ -42,15 +42,14 @@ docs perf ci`. Bugfix bodies state the root cause from the diagnosis.
 
 Lean and project-specific — pointers, not lectures:
 
-- **What was done** — the specific types/methods/files, 1–2 lines.
-- **Why the approach works** — and any rejected simpler approach or trade-off, named.
-- **Systemic improvement opportunities** — how this wave's choices constrain or enable future
-  waves (the local code-level items were already handled in the GREEN assessment; anything not
-  acted on is in the backlog — don't repeat them).
-- **Bigger picture status** — what is newly possible; the next dependency that unlocks.
-- **Promotion candidates** — an insight that feels general beyond this project → flag for
-  promotion into dojo-principles → Promoted. Supervised: raise it here. Autonomous: add to the
-  end-of-run batch. Always a human-approved edit; never silent.
+- **What was done, and why it works** — the specific types/methods/files (1–2 lines), the
+  approach's why, and any rejected simpler approach or trade-off, named.
+- **Systemic or promotion note** — how this wave's choices constrain or enable future waves;
+  an insight general beyond this project → flag for promotion into dojo-principles →
+  Promoted. Supervised: raise it here. Autonomous: add to the end-of-run batch. Always a
+  human-approved edit; never silent. Anything unacted-on is already in the backlog — don't
+  repeat it.
+- **Bigger picture** — one line: what is newly possible; the next dependency that unlocks.
 
 Append to `learning-log.md` under `## Wave [N] — Closing Debrief`. Supervised: also present
 inline. Autonomous: log only. rigor: poc: skip the debrief; append lessons to `poc-lessons.md`
@@ -91,9 +90,10 @@ hash to progress.md.
 After the commit (or the human's manual commit), write everything durable to disk:
 
 1. **progress.md** — append: wave N, type+summary, built, exposes, next dependency, commit hash.
-2. **HANDOFF.md** — incremental, never a rewrite: append Wave History; overwrite Current
-   State; update Architecture only on structural change; append Key Concepts only if genuinely
-   new; append unacted opportunities and any reverted refactor to Improvement Backlog.
+2. **HANDOFF.md** — incremental, never a rewrite: overwrite Current State; update
+   Architecture only on structural change; append Key Concepts only if genuinely new;
+   append unacted opportunities and any reverted refactor to Improvement Backlog. (The
+   per-wave log lives in progress.md — one history, no double bookkeeping; ADR 0004.)
 3. **Owning AGENTS.md** — only if the wave changed a subtree's structure, contracts, or
    footguns (dojo-project → Local Agent Contracts). Delete stale text immediately.
 4. **CONTEXT.md** — only if the wave invalidated an existing Glossary or Decisions entry

@@ -316,9 +316,9 @@ files; the context holds only the current wave.
 |---|---|---|---|
 | `dojo-session.md` | Current wave | Every step | Working state (gitignored, per-machine) |
 | `TASKS.md` | Whole plan | randori, kata-commit, kaizen | Every wave as a verifiable outcome + status |
-| `progress.md` | Per wave | Each commit | Terse log: built, exposes, next dependency |
-| `learning-log.md` | Per wave | Each wave | Briefs (concepts to explore) + debriefs |
-| `HANDOFF.md` | Whole project | Each commit | Living document — pick the project up cold |
+| `progress.md` | Per wave | Each commit | The single terse per-wave log: built, exposes, next dependency, hash |
+| `learning-log.md` | Per wave | Each commit | Debriefs; briefs in supervised sessions |
+| `HANDOFF.md` | Whole project | Each commit | Snapshot document — pick the project up cold |
 | `CONTEXT.md` | Whole project | randori, kaizen | Glossary · Non-Goals · Decisions |
 | `docs/adr/` | Whole project | As decided | Decision records with rationale |
 | `findings.md` | As needed | Diagnosis, halts | Discoveries and halt diagnostics |
@@ -331,9 +331,9 @@ files; the context holds only the current wave.
 
 Updated incrementally at each wave's close, never rewritten. A fresh agent or returning human
 reads it and is oriented without replaying history. Stable skeleton: Project Overview (once,
-from CONTEXT.md) · Architecture (as structure grows) · Wave History (appended) · Key Concepts
-(appended when new) · Current State (overwritten) · Improvement Backlog (accumulated).
-Walking away mid-project costs nothing.
+from CONTEXT.md) · Architecture (as structure grows) · Key Concepts (appended when new) ·
+Current State (overwritten) · Improvement Backlog (accumulated). Per-wave history lives in
+progress.md — one log, no double bookkeeping (ADR 0004). Walking away mid-project costs nothing.
 
 ### The compaction cycle
 
@@ -378,9 +378,9 @@ changes that don't move the graph.
 
 ### Where pedagogy goes
 
-Wave briefs (kata-red) and debriefs (kata-commit) always land in `learning-log.md`. Supervised
-they're also presented inline; autonomous they go to the log only — lean context for the
-agent, full learning record for you.
+Debriefs always land in `learning-log.md`; briefs are supervised-only — an autonomous wave
+carries its what/why in the commit body and the progress log, since there is no researching
+human in the moment.
 
 ---
 

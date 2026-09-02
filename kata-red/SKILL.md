@@ -44,11 +44,11 @@ Frame the wave, lean — point, don't lecture:
   shell"), for the human to research. Explain inline only if the human set that preference.
 - **Bigger picture:** one sentence — what precedes, what follows, what breaks without it.
 
-Append to `learning-log.md` under `## Wave [N] — Opening Brief`.
-
-**Supervised:** at `full` density, present and STOP before writing the check; at
+**Supervised:** present the brief and append it to `learning-log.md` under
+`## Wave [N] — Opening Brief`; at `full` density, STOP before writing the check; at
 `standard`/`light`, present the brief together with the failing check at this step's single
-stop. **Autonomous:** write to the log only. **rigor: poc:** skip the brief; write a check
+stop. **Autonomous:** skip the brief — the commit body and the progress log carry what/why;
+briefs exist for the researching human. **rigor: poc:** skip the brief; write a check
 only for the single risky core claim, else go straight to a minimal spike in kata-green.
 
 ---

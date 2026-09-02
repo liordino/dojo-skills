@@ -63,8 +63,7 @@ confirm-or-override instead of cold questions. It is a convenience; never depend
 **Rigor — real work or throwaway?**
 
 ```
-What are we building?
-  1. Real software — full discipline (tests, durable docs, the works)
+What are we building? — full discipline (tests, durable docs, the works)
   2. Proof of concept — a throwaway experiment to answer one question fast
 ```
 
@@ -83,7 +82,7 @@ Sets `mode`. In supervised mode also set `gate_density` from preferences (defaul
 **Design:**
 
 ```
-Is the design already done — is there a TASKS.md or equivalent plan to execute?
+Is the design already done
   1. Yes — I'll audit and work from the existing plan
   2. No — we'll grill it out first (always supervised, even for an autonomous run)
 ```
@@ -93,8 +92,7 @@ Grilling is always supervised. Autonomy begins only after the plan is set and co
 **Feature or bugfix?** (Ask *after* rigor + mode are set, before the plan step.)
 
 ```
-What kind of work is this?
-  1. Feature — new behaviour, change in scope. Routes to §3 (checklist) then §5 (randori / plan audit).
+What kind of work is this? — new behaviour, change in scope. Routes to §3 (checklist) then §5 (randori / plan audit).
   2. Bugfix — something is broken; the goal is a regression test that fails now and passes after the fix.
      Routes to §3 (checklist, same), §5b (kan diagnosis, replaces randori), then §6 (bugfix fields).
 ```
@@ -158,7 +156,7 @@ the contract).
 
 ### dojo-check (the scaffolded gate)
 
-```
+```text
 [ ] scripts/dojo-check.sh exists and is executable
 ```
 
@@ -218,20 +216,23 @@ so the grill is informed by real structure.
 
 ### Living artifacts
 
-Create if absent: **HANDOFF.md** (skeleton below, Project Overview synthesized from CONTEXT.md)
-and **learning-log.md** (header: "# Learning Log — [project]. Wave briefs and debriefs.
-Append-only."). If the work may span multiple waves or sessions, also initialize `progress.md`
-and `findings.md` now (kata-commit and the halt protocols append to them).
+Create if absent: **HANDOFF.md** (skeleton below, Project Overview synthesized from CONTEXT.md —
+a snapshot; per-wave history lives in progress.md), **learning-log.md** (header: "# Learning
+Log — [project]. Debriefs; briefs in supervised sessions. Append-only."), and always
+**progress.md** (the single per-wave log) plus **findings.md** (discoveries and halt
+diagnostics — kata-commit and the halt protocols append to them).
 
 ```markdown
 # Project Handoff — [project name]
 ## Project Overview
 ## Architecture
-## Wave History
 ## Key Concepts
 ## Current State
 ## Improvement Backlog
 ```
+
+Per-wave history lives in `progress.md` (the single append-only log); HANDOFF stays a
+snapshot (ADR 0004).
 
 ---
 

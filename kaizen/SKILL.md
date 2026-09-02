@@ -59,8 +59,8 @@ the real picture.
    for: update the Non-Goals section explicitly and write an ADR for it.
 3. **docs/adr/** — an ADR for the pivot itself: what changed, why, what was decided, the
    alternatives. Provenance for the turn.
-4. **HANDOFF.md** — Current State, Architecture, a Wave History note marking the pivot, any
-   new backlog items.
+4. **HANDOFF.md** — Current State, Architecture (if structural), any new backlog items;
+   the pivot itself is a progress.md log line (ADR 0004).
 5. **dojo-session.md** — `goal:` and `wave:` point at the next wave under the new plan;
    `step: RED`.
 
