@@ -68,7 +68,8 @@ snapshot: Overview, Architecture, Key Concepts, Current State, Improvement Backl
 
 ## Key Concepts
 
-- **Wave cycle:** `DEFINE → RED → GREEN → REFACTOR → COMMIT`. Each step is a skill;
+- **Wave cycle:** `red → green → commit` — refactor inline in green; the DEFINE phase
+  (hajime/randori/kan planning) precedes step one. Each step is a skill;
   the agent stops for a decision between steps in supervised mode.
 - **Gate density** (supervised only): `full` / `standard` / `light` — fewer stops,
   same content, engagement note suggests lighter density on reflexive approvals.
@@ -132,7 +133,7 @@ snapshot: Overview, Architecture, Key Concepts, Current State, Improvement Backl
 
 ## Current State
 
-- Package version: 1.2.0 (cut 2026-08-31 — CHANGELOG carries the full trim + closeout record).
+- Package version: 1.3.0 (cut 2026-08-31 — friction/artifact-diet/site-parity wave; CHANGELOG carries the record).
 - Working tree: clean; `dojo-check` gate **passing** — lint R1–R15, mechanics eval 12/12,
   fresh proof.
 - Plan: **nothing pending.** Trim plan (Waves 4–10) done; surviving-old plan fully

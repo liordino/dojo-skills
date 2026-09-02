@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dojo — a disciplined development system for AI coding agents: XP pair programming, TDD in approval-gated waves, a shared domain language, and living project docs.">
 <title>Dojo — A Disciplined Development System for AI Agents</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -750,7 +751,7 @@
       </li>
       <li class="artifact-item">
         <div class="artifact-name">HANDOFF.md</div>
-        <div class="artifact-desc">Living project document — always current; the resume surface. Pick the project up cold from here</div>
+        <div class="artifact-desc">Snapshot project document — always current; the resume surface. Pick the project up cold from here. Per-wave history lives in progress.md</div>
       </li>
       <li class="artifact-item">
         <div class="artifact-name">dojo-session.md</div>
@@ -762,11 +763,15 @@
       </li>
       <li class="artifact-item">
         <div class="artifact-name">learning-log.md</div>
-        <div class="artifact-desc">Per-wave briefs (concepts to explore) and debriefs. Append-only</div>
+        <div class="artifact-desc">Per-wave debriefs (briefs in supervised sessions). Append-only</div>
       </li>
       <li class="artifact-item">
         <div class="artifact-name">progress.md</div>
-        <div class="artifact-desc">Terse per-wave log — built, exposes, next dependency, commit hash</div>
+        <div class="artifact-desc">The single terse per-wave log — built, exposes, next dependency, commit hash</div>
+      </li>
+      <li class="artifact-item">
+        <div class="artifact-name">findings.md</div>
+        <div class="artifact-desc">Discoveries and halt diagnostics. Append-only</div>
       </li>
       <li class="artifact-item">
         <div class="artifact-name">.dojo/check-proof</div>
@@ -789,7 +794,7 @@
       <span class="install-comment"># everything</span>
       <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add liordino/dojo-skills</span>
       <span class="install-comment"># be selective</span>
-      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add https://github.com/liordino/dojo-skills --skill hajime --skill kata-red</span>
+      <span class="install-cmd"><span class="prompt">$ </span><span class="cmd-kw">npx</span> skills add liordino/dojo-skills --skill hajime --skill kata-red</span>
     </div>
     <p style="color:var(--stone); font-size:0.92rem;">Or copy the skill directories manually — each is a folder containing a <code>SKILL.md</code>. Then run <code>/hajime</code> on a new project; it scaffolds everything else.</p>
 
@@ -814,7 +819,7 @@
 
     <div class="name-grid">
       <span class="name-term">dojo 道場</span><span class="name-def">Training hall — the system itself</span>
-      <span class="name-term">kata 型</span><span class="name-def">The wave form — RED → GREEN → REFACTOR → COMMIT</span>
+      <span class="name-term">kata 型</span><span class="name-def">The wave form — red → green → commit, refactor inline in green</span>
       <span class="name-term">hajime 始め</span><span class="name-def">"Begin" — the session entry command</span>
       <span class="name-term">randori 乱取り</span><span class="name-def">Freeform sparring — interview-driven design</span>
       <span class="name-term">kan 看</span><span class="name-def">Perception — disciplined diagnosis</span>

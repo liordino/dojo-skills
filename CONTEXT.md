@@ -9,7 +9,8 @@
   optional `reference/` and `examples/` subdirectories. The agent loads `SKILL.md` at the
   named trigger; references are loaded on demand for zero recurring context cost.
 - **wave** — one verifiable outcome in `TASKS.md`; one trip through the
-  `DEFINE → RED → GREEN → REFACTOR → COMMIT` cycle.
+  red → green → commit kata (refactor inline in green; the DEFINE phase —
+  hajime/randori/kan planning — precedes step one).
 - **dojo-check** — the canonical gate script. Always produces `.dojo/check-proof` as
   evidence; `kata-commit` hard-gates on it. *Source-of-truth split (see Decisions):* the
   proof-contract invariant (what `.dojo/check-proof` must contain) is normative in

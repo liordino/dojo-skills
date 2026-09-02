@@ -355,14 +355,14 @@ clean-checkpoint fact — never the agent self-assessing its own degradation, wh
 ### The cost of the system itself (and how it's kept down)
 
 Discipline isn't free: the skills themselves occupy context. As of the 2026-08-31
-re-measurement the standing load is roughly — governance trio (always loaded): ~21 KB ≈
-5.2k tokens; the three kata step files across one wave: ~25 KB ≈ 6.2k tokens; total
-recurring ≈ 11.4k tokens per wave, plus ~15 KB (~3.7k tokens) for hajime once at entry.
-Three mechanisms keep it down: skills are normative-only (rationale lives in this manual,
-which the agent never loads); detail moves to on-demand reference files (e.g.
-`dojo-principles/reference/ast-grep.md`); and the compaction cycle ensures the *project's*
-context stays small so the system's share stays affordable. If you trim further, trim
-prose, never rules.
+re-measurement (post-dedup, post-diet) the standing load is roughly — governance trio
+(always loaded): ~20.4 KB ≈ 5.1k tokens; the three kata step files across one wave:
+~24.7 KB ≈ 6.2k tokens; total recurring ≈ 45.1 KB ≈ 11.3k tokens per wave, plus ~15.7 KB
+(~3.9k tokens) for hajime once at entry. Three mechanisms keep it down: skills are
+normative-only (rationale lives in this manual, which the agent never loads); detail moves
+to on-demand reference files (e.g. `dojo-principles/reference/ast-grep.md`,
+`reference/ecs.md`); and the compaction cycle ensures the *project's* context stays small
+so the system's share stays affordable. If you trim further, trim prose, never rules.
 
 One self-application note: when Dojo edits itself, lint and evals verify the edited files
 immediately — but a running session completes under the governance copies it loaded at

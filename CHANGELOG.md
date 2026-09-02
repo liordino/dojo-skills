@@ -2,6 +2,43 @@
 
 All notable changes to the Dojo skill package. Format: [Keep a Changelog](https://keepachangelog.com); versioning is package-wide.
 
+## [Unreleased]
+
+- (nothing yet)
+
+## [1.3.0] — 2026-08-31
+
+Friction and artifact diet: fewer stops at session start, fewer per-wave writes, one
+canonical cycle rendering. Standing recurring context ~45 KB ≈ 11.3k tokens per wave
+(hajime ~15.7 KB ≈ 3.9k once at entry).
+
+### Changed
+
+- **hajime express-start:** the packaging preferences (gate density, commit style, log
+  sink) confirm in one block inside the first message, each line carrying its one-line
+  consequence — a decision with content, not assent. The route decisions (rigor, mode,
+  design, feature-or-bugfix) stay deliberate questions: decisions that change the route
+  are never batched into assent.
+- **Artifact diet (ADR 0004):** `progress.md` is the single per-wave log (HANDOFF's Wave
+  History migrated into it, the section now a pointer); HANDOFF is a snapshot that stops
+  growing with wave count; learning-log briefs are supervised-only; debriefs collapse to
+  three fields. Per-wave write targets drop from ~8 to 5.
+- **dojo-principles:** the ECS rules moved to `reference/ecs.md` (on-demand; the body
+  keeps the opt-in gate); logging compressed to the discipline. `kata-green`'s
+  idempotency code example became one prose line — rules untouched.
+- **kata-commit:** the engagement-note rubber-stamp threshold is now concrete ("three
+  consecutive waves").
+- **Lint R15:** `CONTEXT.md` carries exactly Glossary / Non-Goals / Decisions — the
+  randori contract, dogfooded by the repo's own lint. R3's dead code removed.
+- **Canonical cycle rendering:** red → green → commit, refactor inline in green —
+  README, landing page, CONTEXT glossary, manual, and HANDOFF now agree.
+
+### Fixed
+
+- Landing page: the kata name-grid line matched the trimmed cycle; install command
+  forms unified on the shorthand; site/README artifact lists merged; README links the
+  live site; meta description added.
+
 ## [1.2.0] — 2026-08-31
 
 The skill-quality pass (Waves 1–3), the Akita-inspired trim (Waves 4–10,

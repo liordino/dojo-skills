@@ -192,3 +192,9 @@ Wave briefs and debriefs. Append-only.
 - **What was done, and why it works:** progress.md is now the single per-wave log; HANDOFF's Wave History migrated into it and the section became a pointer — HANDOFF is a snapshot that never grows with wave count. Briefs are supervised-only; debriefs collapse to three fields (this entry is the first in the new format). ADR 0004 records the decision; s1-assert was rewritten in the same wave because it asserted the old HANDOFF sections.
 - **Systemic or promotion:** the same-wave rule (rewrite the reference in the wave that breaks it) caught the eval dependency before it could rot — the exact lesson the trim's hard constraint taught, now applied to evals. Candidate: the general form is already promotion candidate #2 (cross-ref lint + rewrite in the same wave); no new promotion needed.
 - **Bigger picture:** per-wave write targets drop ~8 → 5; the compaction promise is unchanged.
+
+## Site parity + canonical rendering (2026-08-31) — Closing Debrief
+
+- **What was done, and why it works:** one canonical cycle rendering — red → green → commit, refactor inline in green — across README, landing page, CONTEXT glossary, manual, and HANDOFF (the three-way rendering conflict from the review is gone); site install commands unified on the shorthand; site/README artifact lists merged onto the post-ADR-0004 set; README links the live Pages site; meta description added; §5b re-measured post-diet (~45.1 KB ≈ 11.3k tokens/wave recurring).
+- **Systemic or promotion:** the canonical-rendering fix is a glossary-discipline instance, not a new rule — one term, one rendering, five surfaces. Nothing to promote beyond what's recorded.
+- **Bigger picture:** the four-wave revision run is complete; the package sits at v1.3.0 with an emptied queue and binding charter.

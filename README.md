@@ -9,7 +9,8 @@
 Dojo turns an AI coding agent into a disciplined pair-programming partner. It enforces
 test-driven development in approval-gated waves, builds a shared domain language, maintains
 living project documentation, keeps long sessions sharp through a context-compaction cycle,
-and carries a project from idea to shipped, installable release.
+and carries a project from idea to shipped, installable release. Landing page:
+[liordino.github.io/dojo-skills](https://liordino.github.io/dojo-skills/).
 
 Built for headless agent harnesses with tool calling; language-agnostic. Developed against my
 own harness (the Pi Coding Agent) — the `/command` and auto-trigger semantics vary between
@@ -57,13 +58,13 @@ Then run `/hajime` to start. It asks rigor, mode, and whether the work is featur
 
 ## The wave cycle
 
-```
-DEFINE → RED → GREEN → REFACTOR → COMMIT → (next wave)
+```text
+define → red → green (refactor inline) → commit → (next wave)
 ```
 
-Each step is a skill. The agent stops for your decision between steps (supervised mode — with
-a configurable gate density: full, standard, or light) or runs to completion (autonomous mode),
-with mandatory human gates when reality diverges from the plan. Multi-wave work lives in
+Each step is a skill (refactor runs inside green). The agent stops for your decision between
+steps (supervised mode — with a configurable gate density: full, standard, or light) or runs to
+completion (autonomous mode), with mandatory human gates when reality diverges from the plan. Multi-wave work lives in
 `TASKS.md` (written by randori, advanced by kata-commit, rewritten by kaizen), so the cycle
 always knows what the next wave is.
 
