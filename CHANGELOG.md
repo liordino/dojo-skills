@@ -2,7 +2,13 @@
 
 All notable changes to the Dojo skill package. Format: [Keep a Changelog](https://keepachangelog.com); versioning is package-wide.
 
-## [Unreleased]
+## [1.2.0] — 2026-08-31
+
+The skill-quality pass (Waves 1–3), the Akita-inspired trim (Waves 4–10,
+**17 → 12 skills**; the kata cycle is now red → green → commit), and the post-trim
+closeout (banner dedup, kan claim-cut, inherited plan emptied). Recurring per-wave
+context cost dropped with every round; the standing load is ~11.4k tokens per wave
+plus ~3.7k for hajime at entry.
 
 ### Added
 
@@ -98,6 +104,25 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
     `kata-stuck`, `hajime`, `hajime-bugfix`) unchanged in YAML form — they continue to rely on
     the default model-invocation. The session-invoked rationale comment is what distinguishes
     the three `dojo-*` governance files from the four wave-cycle kata-* files in prose.
+- **The trim (TASKS.md Waves 4–10, 2026-08-29):** two skills absorbed into `kata-green`
+  (the refactor step and the stuck branch — the cycle is now red → green → commit);
+  the algorithm-classification discipline absorbed into `kata-red` (the algorithm check);
+  the contribution-review discipline absorbed into `dojo-conduct` ("Reviewing Code");
+  the bugfix entry merged into `hajime` as the "feature or bugfix?" fork. ~48
+  cross-references rewritten in the same waves as the deletions.
+- **Post-trim closeout (2026-08-31):** the governance-load banner deduplicated — one
+  banner in `hajime`, assumes-loaded notes in `kaizen`/`kan`/`randori` (the router wave
+  was invalidated; the index is not wanted). `kan`'s description claim-cut: "and
+  performance regressions" removed — the body never had a perf branch. The surviving-old
+  plan closed out: Wave 13 done; Waves 11/12/14/15/16/17 invalidated with reasons in
+  TASKS.md. No pending waves remain.
+- **kata-commit durable-artifact item 4** now also covers changes commissioned outside a
+  running session (chat-scoped plans, hand edits) — the reconciliation duty attaches to
+  the commit, not to how the change arrived.
+- **Anti-inflation charter** added to `CONTEXT.md → Non-Goals` (conditional non-goals
+  guarding against re-inflation: no router past ~7 user-invoked skills, no new skill
+  without a surviving failure mode, no capability claim without a body branch, no
+  spec-first flow, never cut the XP skeleton for tokens).
 
 ### Fixed
 
@@ -119,6 +144,13 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   "lint R6 enforces" after ADR 0001 retired R6; the dojo-lint glossary entry still said
   "(R1–R9)". Both corrected to reference the R10 identifier-agreement check and the script as
   the rule-set home.
+- **Stale-context closeout (2026-08-31).** CONTEXT.md glossary corrected: the router
+  entry now records the invalidation instead of asserting `dojo/SKILL.md` exists; the
+  invalidated `_enforce_`/`_proof_`/`_bound_` sigil vocabulary retired from the glossary.
+  RESUME.md restored to its one-line spec form (it still announced seven pending waves
+  that did not exist). DOJO-MANUAL §3 skill count corrected (14 → 12). HANDOFF Current
+  State refreshed; forward-looking wave references unified on TASKS.md numbering.
+  ADR 0002 gained a dated invalidation note for the router.
 
 ## [1.1.0] — 2026-06-12
 

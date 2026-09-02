@@ -96,3 +96,14 @@ always-on cost.
 - **Add a third YAML flag for session-invoked.** Rejected as out of scope
   (the flag would be harness-specific, not a Dojo decision). Noted as a
   future proposal; not blocking this ADR.
+
+## Invalidation note (2026-08-31)
+
+The router skill was never built. The surviving-old plan's router wave
+(Wave 11) was invalidated — the index is not wanted, and the
+governance-load banner was deduplicated inline instead: one banner in
+`hajime`, assumes-loaded notes in `kaizen`/`kan`/`randori`. See
+`docs/proposals/governance-dedup.plan.md` and the anti-inflation charter
+in `CONTEXT.md → Non-Goals`. The pile-up bound this ADR described is
+handled by keeping the technique count small (five user-invoked skills as
+of this note), not by a router.

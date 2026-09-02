@@ -97,9 +97,11 @@ After the commit (or the human's manual commit), write everything durable to dis
 3. **Owning AGENTS.md** — only if the wave changed a subtree's structure, contracts, or
    footguns (dojo-project → Local Agent Contracts). Delete stale text immediately.
 4. **CONTEXT.md** — only if the wave invalidated an existing Glossary or Decisions entry
-   (renamed a rule, retired a mechanism, changed a recorded choice): correct that entry now.
-   Stale entries are drift — kaizen owns *new* decisions; kata-commit owns keeping existing
-   ones true.
+   (renamed a rule, retired a mechanism, changed a recorded choice, invalidated a plan
+   wave): correct that entry now. The duty attaches to the commit, not to how the change
+   was commissioned — session waves, chat-scoped plans, and hand edits owe the same
+   reconciliation. Stale entries are drift — kaizen owns *new* decisions; kata-commit
+   owns keeping existing ones true.
 5. **TASKS.md** (if present) — mark this wave `status: done`.
 
 If this update is interrupted, the resume check (hajime §1) detects `step: DONE` + dirty Dojo

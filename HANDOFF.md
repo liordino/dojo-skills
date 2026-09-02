@@ -31,7 +31,7 @@ dojo-skills/
 ├── learning-log.md             # per-wave briefs and debriefs (append-only)
 ├── progress.md                 # terse per-wave log (append-only)
 ├── findings.md                 # discoveries + halt diagnostics (append-only)
-├── TASKS.md                    # the plan: 14 pending + 1 done (trim absorbs the deletions; surviving-old carries the additive waves)
+├── TASKS.md                    # resolved plan archive — trim (4–10) done; surviving-old (11–17) done or invalidated; this repo is plan-less by design (CONTEXT.md → Decisions)
 ├── docs/
 │   ├── index.html              # static landing page (GitHub Pages-friendly)
 │   └── adr/                    # architecture decision records (lazy; 0001-0003 as of Wave 1)
@@ -66,6 +66,9 @@ across updates.
 Append one line per committed wave. Format: `YYYY-MM-DD | wave N | <one-line outcome>`.
 Most recent first.
 
+2026-08-31 | closeout | durable surfaces reconciled: CONTEXT.md (router/sigil drift closed; anti-inflation charter), ADR 0002 invalidation note, RESUME.md one-line, DOJO-MANUAL §3 count + §5b re-measure, CHANGELOG v1.2.0, kata-commit item-4 clause (duty attaches to the commit, whatever commissioned it) | stale-decisions class closed by rule + cleanup | (this commit)
+2026-08-31 | waves-13-14 | kan description claim-cut (no perf branch existed — description-only phrase); Wave 14 invalidated on inspection (cross-refs are routing pointers in descriptions, not body duplication); inherited plan queue emptied | chat-scoped plan executed outside the cycle; reconciled by the closeout | ebfe42b
+2026-08-31 | banner-dedup | governance-load banner dedup — one banner in hajime, assumes-loaded notes in kaizen/kan/randori; Wave 11 (router) invalidated | chat-scoped plan executed outside the cycle; reconciled by the closeout | 9f33b18
 2026-06-19 | wave 1 | single-source dojo-check template via dojo-principles (R10 replaces retired R6; ADRs 0001/0002/0003 + TASKS.md land with the wave) | commit c9355b4
 2026-06-19 | wave 2 | classify every skill per invocation rule (ADR 0002); 7 user-invoked + 3 session-invoked; R11 single-table classifier | commit 4168c6e
 2026-08-29 | wave 3 | land Wave-2 review fixes + repair R13 grep; Gate 0 in hajime, facts-vs-decisions in randori, kata-commit item 4 (CONTEXT.md), R12–R14 in dojo-lint, exec-bit index mode flipped for 6 scripts, `## Logging` heading restored in dojo-principles | dirty tree from interrupted kata-commit cleared; clean green baseline ready for the trim plan in `docs/proposals/` | fa5fcee
@@ -98,10 +101,19 @@ Most recent first.
   illustrative examples that point at the principle. Lint R10 enforces structural
   equivalence (every surface references the same identifiers), not byte-equality.
 - **Skill-writing vocabulary (Wave 1):** adopted from Matt Pocock's
-  `writing-great-skills` (MIT). New glossary entries: `leading word`, `branch`,
-  `router skill`, `single source of truth`, plus the leading words `_enforce_` and
-  `_proof_`. Three ADRs (0001–0003) document the design decisions; Wave 4 will
-  retire the English phrases in favour of the leading words.
+  `writing-great-skills` (MIT). Glossary terms: `leading word`, `branch`,
+  `router skill` (term kept; the skill was never built — Wave 11 invalidated),
+  `single source of truth`. The sigil proposal (`_enforce_`/`_proof_`/`_bound_`)
+  was invalidated post-trim; natural phrases stay canonical. Three ADRs
+  (0001–0003) document the design decisions.
+- **Anti-inflation charter (2026-08-31):** binding non-goals in CONTEXT.md — no router
+  (until user-invoked > ~7), no new skill without a surviving failure mode, no
+  capability claim without a body branch, no spec-first flow, never cut the XP skeleton
+  (red-first, proof+freshness, stuck-at-two, divergence halts, engagement note) for
+  tokens — trim prose, never rules.
+- **Wave numbering:** TASKS.md wave numbers are canonical for plan work;
+  dojo-session.md counts its own waves (off by one during the trim: TASKS Wave 4 =
+  session Wave 5). Plan-less work is logged by change name, not number (progress.md).
 - **Skill invocation rule (Wave 2):** every SKILL.md is classified as model-,
   user-, or session-invoked per ADR 0002. The 5 user-invoked skills
   (randori, kaizen, kan, tanren, kokai) carry
@@ -135,16 +147,20 @@ Most recent first.
 
 ## Current State
 
-- Package version: 1.1.0 (see `CHANGELOG.md`); `[Unreleased]` accumulates the
-  next set of additions.
-- Most recent commit: b4a9fac (`refactor(randori): pin conceptual-exclusion rule in Glossary handling`).
-- Working tree: clean as of Wave 11 commit.
-- `dojo-check` gate: **established and passing** — lint R1–R14, mechanics eval 12/12, fresh proof.
-- Plan: TASKS.md holds the active plan: Wave 3 (housekeeping, done) + 7 trim waves (4–10; all done; **trim complete**) + 7 surviving-old waves (11–17) = 7 pending + 7 done. Wave 11 = trim Wave 7 (randori glossary pin, last trim wave). Surviving-old waves (router, leading words, kan description, dojo-* cross-ref cleanup, rationale footers, diagnose, meta-skill) run on the trimmed surface next.
-- Skill count: 12 (trim target reached).
-- ADRs: 0001 (proof-contract SoT), 0002 (skill-invocation rule — implemented in Wave 2), 0003 (meta-skill as bridge) committed.
-- Living artifacts: `CONTEXT.md`, `HANDOFF.md`, `learning-log.md`, `progress.md`, `findings.md`, `TASKS.md`, `docs/adr/` all current.
-- `docs/proposals/`: untracked drafts of the trim plan (now promoted to TASKS.md) and the per-wave absorption drafts (`wave1-kata-green-absorption.md`, `wave2-3-absorption.md`). Kept as historical record of how the trim plan was derived; safe to delete after Wave 10 lands or keep indefinitely.
+- Package version: 1.2.0 (cut 2026-08-31 — CHANGELOG carries the full trim + closeout record).
+- Working tree: clean; `dojo-check` gate **passing** — lint R1–R14, mechanics eval 12/12,
+  fresh proof.
+- Plan: **nothing pending.** Trim plan (Waves 4–10) done; surviving-old plan fully
+  resolved — Wave 13 done (kan claim-cut), Waves 11/12/14/15/16/17 invalidated with
+  reasons in TASKS.md. This repo is plan-less by design (CONTEXT.md → Decisions): new
+  work arrives via `/kaizen` as needs emerge, not via a pre-baked TASKS.md.
+- Skill count: 12. ADRs: 0001–0003 (0002 carries the 2026-08-31 router invalidation
+  note; 0003's meta-skill wave was invalidated — the ADR stays as vocabulary provenance).
+- Living artifacts: current — CONTEXT.md reconciled (router/sigil drift closed,
+  anti-inflation charter added); RESUME.md restored to the one-line spec form.
+- `docs/proposals/`: two executed plan files are tracked (`governance-dedup.plan.md`,
+  `final-waves-13-14.plan.md`); `trim-edits/` and `trim.TASKS.md` remain untracked
+  historical drafts.
 
 ## Improvement Backlog
 
@@ -168,27 +184,20 @@ not a `TASKS.md`. Promote into a wave via `/kaizen` when the moment is right.
   matched token to be an existing directory; or add ADR paths to R4's
   whitelist. Defer — current workaround is to reference ADRs by number
   only ("see ADR 0001 in `docs/adr/`").
-- Wave 3 design note (from external review, 2026-07-10) — when the router lands
-  and the 9 inline governance banners come out, keep a one-line inline
-  *imperative* ("Load `dojo-principles`, `dojo-project`, `dojo-conduct` now —
-  index: `/dojo`") rather than a pure pointer to the router. A pointer chain
-  (skill → router → governance) is the exact may-not-follow unpredictability
-  ADR 0002 quotes, applied to the most load-bearing directive in the system.
-  Also: ship Wave 3 soon — since Wave 2, the 7 user-invoked skills have hidden
-  descriptions and no index yet.
-- Wave 4 counter-proposal (from external review, 2026-07-10) — the sigil tokens
-  `_enforce_` / `_proof_` / `_bound_` contradict the glossary's own definition
-  of a leading word ("recruiting priors the model already holds"): sigils have
-  no priors. Keep the natural phrases canonical ("enforce over instruct",
-  "proof artifact"), define each once in the glossary, and lint *variant drift*
-  instead (ban "check artifact", "verification file", etc.). First known drift
-  to fix under that rule: kata-red says "failing check", other files say
-  "failing test" — pick the canonical and enforce it.
-- Wave 8 pushback (from external review, 2026-07-10) — per-H2 rationale footers
-  fail the deletion test the plan champions: ~14 always-loaded lines whose only
-  consumer is a human who owns the manual, agent behavior unchanged, and the
-  per-file "Rationale lives in DOJO-MANUAL.md" pointer already exists. Drop, or
-  invert into a manual-side index.
+- Wave 3 design note (from external review, 2026-07-10) — **resolved 2026-08-31, without
+  the router:** the router wave was invalidated; the banner dedup kept the inline
+  imperative (one banner in hajime) rather than a pointer chain — the note's warning
+  about pointer chains is what the assumes-loaded notes implement.
+- Wave 4 counter-proposal (from external review, 2026-07-10) — **resolved 2026-08-29:**
+  the sigil tokens were invalidated post-trim; natural phrases stay canonical. Remaining
+  micro-item: kata-red says "failing check", other files say "failing test" — pick the
+  canonical when touching those files (not worth a lint rule).
+- Wave 8 pushback (from external review, 2026-07-10) — **resolved 2026-08-29:** the
+  rationale-footer wave was invalidated post-trim.
+- kata-red algorithm-check slim — **declined 2026-08-31:** the design target is a
+  cheap/fast model (glm-5.3-flash, medium thinking) and small local models; the
+  algorithm taxonomy is deliberate scaffolding (structure rescues weak models). Revisit
+  only with a receipt showing the deployed model self-supplies it.
 - Post-Wave-10 kaizen candidates (from external review, 2026-07-10):
   (a) Fowler smells as leading words in green's refactor step cleanup list
   and the review principle in dojo-conduct — prior-rich terms (mysterious

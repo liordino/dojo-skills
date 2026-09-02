@@ -30,25 +30,24 @@
 - **branch** — a distinct way a skill is invoked; different runs taking different paths
   through it. Each branch earns its own trigger phrase in the description; collapsing
   synonyms to one branch keeps context load honest. Source: same.
-- **router skill** — a user-invoked skill whose body is an index of other skills by
-  name and trigger, used when user-invoked skills have piled up past what the human can
-  remember. `dojo/SKILL.md` is Dojo's router. Source: same.
+- **router skill** — (Pocock vocabulary) a user-invoked skill whose body is an index of
+  other skills by name and trigger, for when user-invoked skills pile up past what the
+  human can remember. Dojo deliberately has none: the router wave was invalidated
+  (2026-08-31) — five user-invoked skills are within human memory, and the
+  governance-banner dedup was done inline instead. See Non-Goals (anti-inflation charter).
 - **single source of truth (SoT)** — for any given meaning, one authoritative place;
   changing behaviour is a one-place edit. Where a meaning must appear in multiple
   places, the secondary sites are pointers and (where possible) lint-enforced
   equivalences. Source: same.
-- **enforce-over-instruct** — the leading word `_enforce_`. When a rule can be enforced
-  by a script (a hook, a generated artifact, a state check), prefer that to prompting.
-  Dojo's existing tokens for this idea: lint R1–R9, the dojo-check proof artifact, the
-  freshness rule in kata-commit.
-- **proof artifact** — the leading word `_proof_`. The `.dojo/check-proof` file
-  (sha256'd pass/fail with `ts`/`exit`/`output_sha256`) written by a green run; the
-  concrete evidence that gates a commit. "Tests passed" is prose; the proof is evidence.
+- **enforce-over-instruct** — when a rule can be enforced by a script (a hook, a generated
+  artifact, a state check), prefer that to prompting. Dojo's mechanisms for it: lint
+  R1–R14, the dojo-check proof artifact, the freshness rule in kata-commit.
+- **proof artifact** — the `.dojo/check-proof` file (sha256'd pass/fail with
+  `ts`/`exit`/`output_sha256`) written by a green run; the concrete evidence that gates
+  a commit. "Tests passed" is prose; the proof is evidence.
 - **non-goal** — a deliberate, recorded boundary. Items in `## Non-Goals` bind every
   future session and autonomous run; crossing the line is a scope change handled by
-  `/kaizen` with an ADR. The noun is preserved (it is the artefact the project edits);
-  a separate leading word for the *behaviour* (currently `_bound_` provisional) is used
-  in prose.
+  `/kaizen` with an ADR. The noun is the artefact the project edits.
 - **session-invoked** — a skill pre-loaded at session start (the three `dojo-*` files),
   neither model-invoked (the agent reaches it from prose matching) nor user-invoked
   (the human types the name). The YAML flag is binary; these stay model-invoked for
@@ -60,10 +59,7 @@
   workflow. Other harnesses / stacks are tolerated where they don't add cost, but Dojo will
   not grow to be "framework-agnostic" or "stack-agnostic" for its own sake.
 - **Not a teaching platform.** The skill files are terse rules (rationale in `DOJO-MANUAL.md`).
-  No tutorials, no exhaustive prose. *Concrete for the audit domain:* the meta-skill
-  `dojo-write-skill/SKILL.md` is a *bridge* to upstream `writing-great-skills` (Matt
-  Pocock, MIT), not a fork, course, or guide. We do not turn Dojo into a skill-writing
-  framework.
+  No tutorials, no exhaustive prose.
 - **Not a curated marketplace.** We don't take contributions lightly; quality and cohesion
   of the system outweigh adding skills. New techniques require a clear gap (decision in
   randori, not bolt-on).
@@ -71,10 +67,20 @@
   not assent. Dojo never silently rubber-stamps.
 - **Not testing "AI judgment" via evals.** The evals test *artifacts* and *deterministic
   protocol guarantees* — never whether the agent made a "good" decision.
-- **The wave cycle is not in scope for this round of work.** The
-  `DEFINE → RED → GREEN → REFACTOR → COMMIT` cycle, gate density, and the meaning of the
-  proof artifact are settled. Every wave in `TASKS.md` may touch skills; none may redefine
-  the cycle. Cross this line only via `/kaizen` with an ADR.
+- **The wave cycle is settled.** The red → green → commit loop (refactor inline in
+  green), gate density, and the meaning of the proof artifact are not re-litigated by
+  ordinary waves; none may redefine them. Cross this line only via `/kaizen` with an ADR.
+- **Anti-inflation charter (2026-08-31 review; binding on future sessions and autonomous
+  runs):**
+  - No router skill — until user-invoked skills exceed ~7 (ADR 0002's own threshold) or
+    prove unfindable without one. Crossing: `/kaizen` with an ADR.
+  - No new skill — unless a documented failure mode survives every existing technique.
+  - No capability claim in a description without a matching body branch — the fix is
+    cutting the claim (kan, 2026-08-31), never growing a body to match stale marketing.
+  - No spec-first flow — TASKS.md waves stay verifiable outcomes; a finished plan is a
+    hand-off, not a starting gun.
+  - Never cut red-first, proof+freshness, stuck-at-two, divergence halts, or the
+    engagement note for token savings — trim prose, never rules.
 
 ## Decisions
 

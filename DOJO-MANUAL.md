@@ -132,7 +132,7 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 
 ## 3. First-Time Setup
 
-**Core Dojo skills (14, self-contained — no external dependencies; trim Waves 5–7 absorbed three skills into kata-green / kata-red / dojo-conduct):** dojo-principles ·
+**Core Dojo skills (12, self-contained — no external dependencies; trim Waves 5–8 absorbed four skills into kata-green / kata-red / dojo-conduct / hajime):** dojo-principles ·
 dojo-project · dojo-conduct · hajime · randori · kan · tanren · kokai ·
 kaizen · kata-red · kata-green · kata-commit.
 
@@ -354,14 +354,20 @@ clean-checkpoint fact — never the agent self-assessing its own degradation, wh
 
 ### The cost of the system itself (and how it's kept down)
 
-Discipline isn't free: the skills themselves occupy context. As of v1.1 the standing load is
-roughly — governance trio (always loaded): ~18 KB ≈ 4.5k tokens; the four kata step files
-across one wave: ~22 KB ≈ 5.6k tokens; total recurring ≈ 10k tokens per wave (about 36% less
-than v1.0), plus ~11 KB for hajime once at entry. Three mechanisms keep it down: skills are
-normative-only (rationale lives in this manual, which the agent never loads); detail moves to
-on-demand reference files (e.g. `dojo-principles/reference/ast-grep.md`); and the compaction
-cycle ensures the *project's* context stays small so the system's share stays affordable. If
-you trim further, trim prose, never rules.
+Discipline isn't free: the skills themselves occupy context. As of the 2026-08-31
+re-measurement the standing load is roughly — governance trio (always loaded): ~21 KB ≈
+5.2k tokens; the three kata step files across one wave: ~25 KB ≈ 6.2k tokens; total
+recurring ≈ 11.4k tokens per wave, plus ~15 KB (~3.7k tokens) for hajime once at entry.
+Three mechanisms keep it down: skills are normative-only (rationale lives in this manual,
+which the agent never loads); detail moves to on-demand reference files (e.g.
+`dojo-principles/reference/ast-grep.md`); and the compaction cycle ensures the *project's*
+context stays small so the system's share stays affordable. If you trim further, trim
+prose, never rules.
+
+One self-application note: when Dojo edits itself, lint and evals verify the edited files
+immediately — but a running session completes under the governance copies it loaded at
+start. Behavioral edits take effect the next session; the edit wave's own gates still run
+against the working copy.
 
 ### graphify update cadence
 
