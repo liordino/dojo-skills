@@ -186,4 +186,10 @@ pipelines, or frontend trees. The entity/component/system rules and the legacy e
 Insights promoted from project learning-logs by explicit human approval (see dojo-project).
 This section is yours; preserve it across Dojo updates.
 
-(none yet)
+- **Names describe function; configuration describes policy.** Never bake a policy choice
+  (what is ignored, shared, or deployed where) into an identifier, file, or folder name —
+  names must survive every policy change without renaming. The policy lives in its own
+  surface, presented with each option's consequence, applied by the human; and the
+  *effective* policy is verified against recorded intent (evidence, e.g.
+  `git check-ignore -v`) rather than assumed from file contents. (dojo-skills consolidation,
+  2026-09-03; ADR 0005)
