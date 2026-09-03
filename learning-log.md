@@ -225,3 +225,12 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** no pending waves; backlog items unchanged besides the conflict note.
 - **Promotion candidates:** none new.
 - **Engagement note:** G1's assert was refined at GREEN (its sed range depended on wording that the edit itself changed — asserts should grep stable tokens, not prose ranges).
+
+## R16 parity-gate debrief (2026-09-03) — Closing Debrief
+
+- **What was done:** the two renderings of one artifact (README.md narrative, docs/index.html visual) now share a gate: lint R16 asserts the skill catalogue covers the real skill directories completely on both surfaces (grid == table == dirs — completeness, which R4's existence check doesn't provide), the canonical cycle string, the install command fragments, and every README artifact name appears on the site. RED surfaced a genuine gap: docs/adr/ had no artifact card on the landing page; fixed on the CONTEXT card in the same wave. The install check strips the HTML-span fragmentation problem by comparing tolerant fragments ('skills add' + the repo slug), not the literal one-line command.
+- **Why the approach works:** the user's single-sourcing instinct was right about the data and wrong about the files — README prose and site visuals have different jobs, but the facts they render (catalogue, cycle, install, artifacts) are one dataset. Gate the dataset's agreement, keep the renderings free-hand. The two hand-maintained surfaces survive; the drift is mechanized.
+- **Systemic improvement opportunities:** when two surfaces render shared data, decide explicitly whether to unify the source (generator machinery — decays, as the Codeberg premise showed) or gate the parity (cheap, keeps both editable). Gate-the-parity is the thin move when the shared set is small and enumerable.
+- **Bigger picture status:** no pending waves; backlog at three items.
+- **Promotion candidates:** none new.
+- **Engagement note:** RED caught two real parity gaps (adr card missing, install fragmented) before the rule existed — writing the asserts first found the bugs the rule was being written to catch. Asserts refined twice at GREEN, both toward stable tokens.

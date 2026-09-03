@@ -244,3 +244,25 @@ else
 	say "dojo-lint: FAIL — fix the findings above."
 	exit 1
 fi
+
+# R16 — README ↔ landing-page fact parity: the two surfaces render the same shared
+# facts (skill catalogue, canonical cycle, install command, artifact names). Each
+# surface keeps its own prose job; only the shared data is gated. The real skill
+# directories are the source of truth; both renderings must cover them completely
+# (R4 checks existence of referenced names — this checks catalogue completeness).
+if [ -f README.md ] && [ -f docs/index.html ]; then
+	dirs=$(ls -d */SKILL.md 2>/dev/null | cut -d/ -f1 | sort)
+	grid=$(grep -oE 'skill-card-name">[a-z-]+' docs/index.html | cut -d'>' -f2 | sort -u)
+	table=$(sed -n '/^## Skills/,/^## [^S]/p' README.md | grep -oE '^\| `[a-z-]+`' | tr -d '|` ' | sort -u)
+	[ "$dirs" = "$grid" ] || err "R16: site skill grid != skill directories:"$'\n'"$(diff <(echo "$dirs") <(echo "$grid") | sed 's/^/  /')"
+	[ "$dirs" = "$table" ] || err "R16: README skills table != skill directories:"$'\n'"$(diff <(echo "$dirs") <(echo "$table") | sed 's/^/  /')"
+	grep -q 'red → green → commit' README.md && grep -q 'red → green → commit' docs/index.html \
+		|| err "R16: canonical cycle string must appear in README and docs/index.html"
+	for tok in 'skills add' 'liordino/dojo-skills'; do
+		grep -q -- "$tok" README.md && grep -q -- "$tok" docs/index.html \
+			|| err "R16: install command fragment '$tok' must appear in README and docs/index.html"
+	done
+	for a in dojo-session.md TASKS.md progress.md learning-log.md CONTEXT.md findings.md RESUME.md check-proof docs/adr; do
+		grep -q -- "$a" docs/index.html || err "R16: README artifact '$a' missing from the landing page"
+	done
+fi
