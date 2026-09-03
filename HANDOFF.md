@@ -144,9 +144,9 @@ snapshot: Overview, Architecture, Key Concepts, Current State, Improvement Backl
   note; 0003's meta-skill wave was invalidated — the ADR stays as vocabulary provenance).
 - Living artifacts: current — CONTEXT.md reconciled (router/sigil drift closed,
   anti-inflation charter added); RESUME.md restored to the one-line spec form.
-- `docs/proposals/`: two executed plan files are tracked (`governance-dedup.plan.md`,
-  `final-waves-13-14.plan.md`); `trim-edits/` and `trim.TASKS.md` remain untracked
-  historical drafts.
+- The executed-plans directory under `docs/` was deleted (2026-09-xx wave): both plan
+  files were executed or invalidated; their outcomes are durably recorded in progress.md,
+  CHANGELOG, and the TASKS tombstone ledger. Plans are disposable by design.
 
 ## Improvement Backlog
 

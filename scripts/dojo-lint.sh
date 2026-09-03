@@ -81,7 +81,10 @@ done
 bad=$(grep -rhE '^\s*(mode|rigor): ' */SKILL.md | grep -v '\[' | grep -vE ': (supervised|autonomous|real|poc)\b' || true)
 [ -n "$bad" ] && err "mode/rigor value outside enum:"$'\n'"$bad"
 
-# R8 — PowerShell dojo-check reference exists and still carries the proof contract
+# R8 — PowerShell dojo-check reference exists, still carries the proof contract, and its
+# proof-contract field names match the canonical template in hajime/SKILL.md — extracted
+# live (same awk run-mechanics.sh uses), so template or ps1 drift fails loudly instead of
+# relying on a "keep in sync" comment.
 PS1=hajime/reference/dojo-check.ps1
 if [ ! -f "$PS1" ]; then
 	err "missing $PS1"
@@ -89,6 +92,13 @@ else
 	for marker in 'check-proof' 'output_sha256' 'check-output.log'; do
 		grep -q -- "$marker" "$PS1" || err "$PS1 missing marker '$marker'"
 	done
+	canon_fields=$(awk '/^```bash$/{b=1;buf="";next} /^```$/{if(b){if(buf ~ /check-proof/){printf "%s", buf; exit}};b=0;next} b{buf=buf $0 "\n"}' hajime/SKILL.md \
+		| grep -oE '"[a-z_0-9]+=' | tr -d '"=' | sort -u)
+	ps1_fields=$(grep -oE '"[a-z_0-9]+=' "$PS1" | tr -d '"' | sed 's/=$//' | sort -u)
+	if [ "$canon_fields" != "$ps1_fields" ]; then
+		err "$PS1 proof-contract fields diverge from canonical template: canonical=[$canon_fields] ps1=[$ps1_fields]"
+	fi
+	grep -q '"exit=0"' "$PS1" || err "$PS1 missing literal 'exit=0' (proof written only on green)"
 fi
 
 # R9 — tanren reference exists and still carries its safety-critical markers

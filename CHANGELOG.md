@@ -4,7 +4,18 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 ## [Unreleased]
 
-- (nothing yet)
+### Changed
+
+- **TASKS.md dieted to the open-wave surface** — closed waves compress to a tombstone
+  ledger (what + how resolved + commit); per-wave verification prose lives only in
+  progress.md per ADR 0004. 21 KB → 2.3 KB. Historical appendix deleted (git history is
+  the record).
+- **docs/proposals/ deleted** — both plan files were executed or invalidated; outcomes
+  durably recorded in progress.md/CHANGELOG/tombstones. Plans are disposable by design.
+- **dojo-lint R8 strengthened** — the PowerShell dojo-check reference's proof-contract
+  field names are now compared against the canonical template extracted live from
+  hajime/SKILL.md (same extraction run-mechanics.sh uses); drift fails lint instead of
+  relying on a "keep in sync" comment.
 
 ## [1.3.0] — 2026-08-31
 
