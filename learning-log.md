@@ -216,3 +216,12 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** no pending waves. Durable surfaces: README, CONTEXT.md, TASKS.md (+backlog), progress.md, learning-log.md, findings.md, RESUME.md (autonomous-pause only), CHANGELOG, ADRs. One fewer always-current document to maintain per wave (kata-commit write targets 5 → 4).
 - **Promotion candidates:** none new.
 - **Engagement note:** second supervised wave this session; asserts refined twice at GREEN (D2's live-reference filter) — each refinement tightened the check against records-about-the-change vs. live dependencies.
+
+## v1.4.0 closeout debrief (2026-09-03) — Closing Debrief
+
+- **What was done:** three small follow-ups from the post-wave review, one wave. CHANGELOG bumped to 1.4.0 (both waves recorded, Unreleased emptied; site carries no version string to sync — verified). `.gitattributes` upgraded from `* text=auto` to `* text=auto eol=lf` — the autocrlf commit warnings were caused by text files without an explicit eol; ps1 keeps eol=crlf (Windows-only, and R13 still guards the shell scripts). TASKS backlog landing-page item gained a re-pull-conflict note: the HANDOFF card edit here is ahead of the upstream pages repo; the next re-pull must be preceded by an upstream patch or it resurrects the deleted card.
+- **Why the approach works:** each fix converts a recurring cost into a one-time one — the CRLF noise disappears for every future commit; the conflict note converts a silent regression risk into a flagged backlog item.
+- **Systemic improvement opportunities:** when a hand-edit diverges from an external source of truth, record the divergence *at the divergence point* (the backlog item), not in memory. Line-ending policy belongs in `.gitattributes`, not in each contributor's `core.autocrlf`.
+- **Bigger picture status:** no pending waves; backlog items unchanged besides the conflict note.
+- **Promotion candidates:** none new.
+- **Engagement note:** G1's assert was refined at GREEN (its sed range depended on wording that the edit itself changed — asserts should grep stable tokens, not prose ranges).

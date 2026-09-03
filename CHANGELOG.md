@@ -4,6 +4,13 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 ## [Unreleased]
 
+- (nothing yet)
+
+## [1.4.0] — 2026-09-03
+
+Deletion and mechanization wave pair: TASKS diet + proposals cleanup; HANDOFF surface
+retired; ps1 sync mechanized.
+
 ### Changed
 
 - **TASKS.md dieted to the open-wave surface** — closed waves compress to a tombstone

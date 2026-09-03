@@ -43,6 +43,9 @@ not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is righ
 
 - Landing page (`docs/index.html`) — last regenerated from an external pages
   repo; the source of truth for visuals lives elsewhere. Re-pull as needed.
+  **Re-pull conflict (2026-09-03):** the HANDOFF.md artifact card was hand-replaced
+  here with the no-snapshot-document note; the upstream pages repo still carries the
+  old card. Patch upstream (or expect the re-pull to resurrect it) before the next pull.
 - Eval coverage — three scenarios exist (greenfield supervised, brownfield,
   autonomous-ceiling). Coverage is honest (artifact assertions only); expand
   only when a real protocol gap appears, not for its own sake.
