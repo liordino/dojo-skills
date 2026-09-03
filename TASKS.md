@@ -66,9 +66,12 @@ not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is righ
   imperative (one banner in hajime) rather than a pointer chain — the note's warning
   about pointer chains is what the assumes-loaded notes implement.
 - Wave 4 counter-proposal (from external review, 2026-07-10) — **resolved 2026-08-29:**
-  the sigil tokens were invalidated post-trim; natural phrases stay canonical. Remaining
-  micro-item: kata-red says "failing check", other files say "failing test" — pick the
-  canonical when touching those files (not worth a lint rule).
+  the sigil tokens were invalidated post-trim; natural phrases stay canonical.
+- **"failing check" vs "failing test"** — **resolved 2026-09-03:** census showed the
+  normative surfaces (README philosophy, DOJO-MANUAL, kata-red/kata-green) already used
+  "failing check"; the five outliers (dojo-conduct ×2, hajime, kan ×2) normalized. Canonical:
+  "failing check" — broader than "test" (the RED artifact need not be a test-suite test) and
+  it recruits the dojo-check gate concept. Literal test-fixture prose keeps "test".
 - HANDOFF surface (2026-09-02) — **resolved in the same wave it was raised:** deleted;
   the backlog moved here. A cold reader orients from README + CONTEXT.md + TASKS.md +
   progress.md + git log (ADR 0004 addendum).

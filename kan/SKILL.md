@@ -34,7 +34,7 @@ give up. This is the skill; the rest is procedure.
 ### 1. Reproduce
 
 A deterministic pass/fail signal for the *exact* reported bug — not a nearby failure. Cheapest
-harness that reaches it: a failing test at whatever seam works (unit/integration/e2e) · a
+harness that reaches it: a failing check at whatever seam works (unit/integration/e2e) · a
 curl/HTTP script against a dev server · a CLI invocation with a fixture, diffing stdout
 against known-good · a headless browser script asserting on DOM/console/network · replaying a
 captured trace through the code path in isolation · a throwaway harness (minimal subsystem,
@@ -69,7 +69,7 @@ confirms; kata-green implements.
 ### 6. Regression-test
 
 The reproduction from step 1 *is* the regression test: fails now, must pass after the fix.
-Hand it to kata-red as the wave's failing test.
+Hand it to kata-red as the wave's failing check.
 
 ---
 

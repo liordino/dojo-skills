@@ -336,7 +336,7 @@ autonomy begins.
 
 Summarize: what was learned (if grilled), the wave 1 goal, baseline status, mode and density.
 
-**Supervised:** "Ready to write the failing test. Run **/kata-red** when you're ready."
+**Supervised:** "Ready to write the failing check. Run **/kata-red** when you're ready."
 
 **Autonomous:** begin `/kata-red` → `/kata-green` → `/kata-commit`, looping per wave;
 kata-commit advances the goal from TASKS.md between waves. HALT at a clean point,

@@ -52,9 +52,9 @@ dojo-session.md. It controls how many stops a wave has — never *what* is prese
 
 - **full** — every stop: after the brief; after the test; after the GREEN diff; refactor
   decision; after refactor; commit gate.
-- **standard** (default) — four stops: brief + failing test together; GREEN diff + refactor
+- **standard** (default) — four stops: brief + failing check together; GREEN diff + refactor
   assessment + decision together; after refactor; commit gate.
-- **light** — two stops: brief + failing test together; then GREEN → auto-apply the refactor
+- **light** — two stops: brief + failing check together; then GREEN → auto-apply the refactor
   assessment → one commit gate presenting the diff, the assessment, what was refactored, and
   the message.
 
