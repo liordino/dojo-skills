@@ -256,11 +256,11 @@ if [ -f README.md ] && [ -f docs/index.html ]; then
 	table=$(sed -n '/^## Skills/,/^## [^S]/p' README.md | grep -oE '^\| `[a-z-]+`' | tr -d '|` ' | sort -u)
 	[ "$dirs" = "$grid" ] || err "R16: site skill grid != skill directories:"$'\n'"$(diff <(echo "$dirs") <(echo "$grid") | sed 's/^/  /')"
 	[ "$dirs" = "$table" ] || err "R16: README skills table != skill directories:"$'\n'"$(diff <(echo "$dirs") <(echo "$table") | sed 's/^/  /')"
-	grep -q 'red → green → commit' README.md && grep -q 'red → green → commit' docs/index.html \
-		|| err "R16: canonical cycle string must appear in README and docs/index.html"
+	grep -q 'red → green → commit' README.md && grep -q 'red → green → commit' docs/index.html ||
+		err "R16: canonical cycle string must appear in README and docs/index.html"
 	for tok in 'skills add' 'liordino/dojo-skills'; do
-		grep -q -- "$tok" README.md && grep -q -- "$tok" docs/index.html \
-			|| err "R16: install command fragment '$tok' must appear in README and docs/index.html"
+		grep -q -- "$tok" README.md && grep -q -- "$tok" docs/index.html ||
+			err "R16: install command fragment '$tok' must appear in README and docs/index.html"
 	done
 	for a in dojo-session.md TASKS.md progress.md learning-log.md CONTEXT.md findings.md RESUME.md check-proof docs/adr; do
 		grep -q -- "$a" docs/index.html || err "R16: README artifact '$a' missing from the landing page"
