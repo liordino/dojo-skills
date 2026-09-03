@@ -82,6 +82,9 @@
     hand-off, not a starting gun.
   - Never cut red-first, proof+freshness, stuck-at-two, divergence halts, or the
     engagement note for token savings — trim prose, never rules.
+- **No memory daemon replaces protocol files (2026-09-02 evaluation).** Auto-capture
+  memory systems (e.g. akitaonrails/ai-memory) run as sidecars at most; session/protocol
+  state lives only in Dojo's own artifacts. Crossing: `/kaizen` with an ADR.
 
 ## Decisions
 
@@ -134,3 +137,13 @@
   from `writing-great-skills` (MIT) at the randori that produced `TASKS.md`. New glossary
   entries above; reversion is via `/kaizen` with an ADR if a wave finds a term doesn't
   earn its place.
+- **External memory tooling evaluated — not adopted (2026-09-02).** Evaluated
+  akitaonrails' "AI-MEMORY 2.0" (OKF wiki, local embeddings, cross-agent/multi-user
+  memory server) against Dojo's markdown artifacts + graphify. Verdict: no replacement.
+  Dojo's files are active protocol state written at gates, not passive downstream capture;
+  Dojo already follows the markdown-in-git thesis; 2.0's headline features (cross-harness
+  handoff, multi-machine, multi-user) solve problems this single-human, single-project
+  repo doesn't have. Graphify is structural code intelligence, not memory — ai-memory's
+  own docs say to run structural tools beside it. If cross-harness or cross-repo episodic
+  recall ever becomes a real pain, ai-memory may run as a sidecar — never as source of
+  truth for protocol state.
