@@ -215,7 +215,7 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
      the discipline stays private). The record is machine-local; a fresh clone starts cold, and
      deleting the footprint means starting fresh — the posture is also the backup policy: any
      posture that tracks the record gets its history for free; hide-all declines deliberately.
-   - **hide-ephemeral** — the durable record travels in git; `session/`, `proof/`, `tanren/`,
+  - **hide-ephemeral** — the durable record travels in git; `session/`, `proof/`, `tanren/`,
      and graphify's regenerable cache stay local. Default for solo repos.
 - **track-all** — everything travels, run state included; concurrent mid-wave edits on two
      machines conflict at pull, and the human picks one machine's truth.
@@ -228,6 +228,7 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
    `git check-ignore -v` and report the file:line doing the ignoring; divergence from the
    recorded posture is surfaced, never assumed away. Backstop: kata-commit's denylist keeps
    ephemeral files unstaged regardless of ignore state.
+
 1. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
    stack?" Do not proceed until confirmed.
 2. Run it to establish the **baseline**:
