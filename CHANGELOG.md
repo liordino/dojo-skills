@@ -6,6 +6,39 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 - (nothing yet)
 
+## [1.5.0] — 2026-09-03
+
+One-folder footprint: all Dojo artifacts consolidated under `.dojo/` (ADR 0005); the
+sharing boundary made explicit.
+
+### Changed
+
+- **Artifact layout (ADR 0005)** — the durable record moved to `.dojo/`'s root (CONTEXT,
+  TASKS, progress, learning-log, findings, DOJO-MANUAL); ADRs to `.dojo/adr/`; the live run
+  to `.dojo/session/` (`dojo-session.md`, `resume.md` — RESUME.md joins the ephemeral tier;
+  `scoping-questions.md`); gate evidence to `.dojo/proof/` (`check-proof`,
+  `check-output.log`); tanren's workspace unchanged at `.dojo/tanren/`; `graphify-out/`
+  stays at the repo root (tool-homed exception; tracked here per the recorded posture). ~35
+  surfaces rewritten in lockstep; lint
+  **R17** now enforces the canonical artifact map (path + tier, stale-path ban on living
+  surfaces, denylist agreement, posture verification).
+- **The sharing boundary (dojo-conduct)** — named principle: the agent does the work; the
+  human owns what is shared, committed, or published (ignore files, history, remotes, CI,
+  license) and what commits say about tooling (attribution opt-in, soft default: none).
+- **Tracking posture** — hajime presents the posture question at scaffold (hide-all /
+  hide-ephemeral / track-all) with a location menu (`.git/info/exclude` first for anonymous
+  use); the decision is recorded in CONTEXT.md → Decisions, applied by the human in
+  whichever ignore surface they keep, and verified with `git check-ignore`. hajime never
+  edits ignore files. This repo records `track-all`.
+- **Migration offer** — hajime's resume check detects pre-consolidation artifacts at the
+  repo root and offers a one-time move into `.dojo/`.
+
+### Fixed
+
+- **lint R16 was unreachable** — the block sat after the script's exit and never ran
+  (wave-asserts P5 had been passing via R4, not R16); it now lives before the verdict.
+- **lint R4** no longer false-positives on ADR filename slugs (long-standing backlog item).
+
 ## [1.4.0] — 2026-09-03
 
 Deletion and mechanization wave pair: TASKS diet + proposals cleanup; HANDOFF surface

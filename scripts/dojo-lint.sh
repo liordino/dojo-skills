@@ -11,7 +11,7 @@ err() {
 
 FILES=$(
 	ls */SKILL.md 2>/dev/null
-	ls README.md DOJO-MANUAL.md 2>/dev/null
+	ls README.md .dojo/DOJO-MANUAL.md 2>/dev/null
 )
 [ -z "$FILES" ] && {
 	say "dojo-lint: run from the package root."
@@ -43,7 +43,9 @@ done
 
 # R4 — referenced skill names must exist as directories (artifact names whitelisted)
 WHITELIST="dojo-check dojo-check-fast dojo-session dojo-lint dojo-skills"
-refs=$(sed 's/(#[a-z0-9-]*)//g' $FILES | grep -hoE '\b(dojo|kata|hajime)-[a-z][a-z-]*[a-z]\b' | sort -u)
+# ADR filename slugs (adr/NNNN-…) name files, not directories — strip them before the
+# scan so R4 stops false-positiving on ADR references (long-standing backlog item).
+refs=$(sed 's/(#[a-z0-9-]*)//g; s|adr/[0-9]\{4\}-[a-z][a-z-]*||g' $FILES | grep -hoE '\b(dojo|kata|hajime)-[a-z][a-z-]*[a-z]\b' | sort -u)
 for r in $refs; do
 	case " $WHITELIST " in *" $r "*) continue ;; esac
 	[ -d "$r" ] || err "reference to non-existent skill '$r'"
@@ -60,7 +62,7 @@ done
 # (ADR 0001 — proof contract is single-sourced in dojo-principles; every other surface
 # references the same identifiers). Replaces the R6 byte-equality check after Wave 1.
 R10_FAIL=0
-R10_SURFACES='dojo-principles/SKILL.md scripts/dojo-check.sh hajime/SKILL.md DOJO-MANUAL.md hajime/reference/dojo-check.ps1'
+R10_SURFACES='dojo-principles/SKILL.md scripts/dojo-check.sh hajime/SKILL.md .dojo/DOJO-MANUAL.md hajime/reference/dojo-check.ps1'
 R10_MARKERS='check-proof output_sha256 check-output.log'
 for sf in $R10_SURFACES; do
 	if [ ! -f "$sf" ]; then
@@ -229,20 +231,12 @@ fi
 # R15 — CONTEXT.md carries exactly the randori contract: the three H2 sections
 # (Glossary / Non-Goals / Decisions) and nothing else. Dogfoods the contract the
 # skills teach; randori owns the contract, hajime verifies it at scaffold.
-if [ -f CONTEXT.md ]; then
-	h2s=$(grep -cE '^## ' CONTEXT.md)
-	[ "$h2s" -eq 3 ] || err "R15: CONTEXT.md must have exactly 3 H2 sections (Glossary/Non-Goals/Decisions); found $h2s"
+if [ -f .dojo/CONTEXT.md ]; then
+	h2s=$(grep -cE '^## ' .dojo/CONTEXT.md)
+	[ "$h2s" -eq 3 ] || err "R15: .dojo/CONTEXT.md must have exactly 3 H2 sections (Glossary/Non-Goals/Decisions); found $h2s"
 	for s in 'Glossary' 'Non-Goals' 'Decisions'; do
-		grep -qE "^## $s" CONTEXT.md || err "R15: CONTEXT.md missing '## $s'"
+		grep -qE "^## $s" .dojo/CONTEXT.md || err "R15: .dojo/CONTEXT.md missing '## $s'"
 	done
-fi
-
-if [ "$FAIL" -eq 0 ]; then
-	say "dojo-lint: PASS — all consistency checks green."
-	exit 0
-else
-	say "dojo-lint: FAIL — fix the findings above."
-	exit 1
 fi
 
 # R16 — README ↔ landing-page fact parity: the two surfaces render the same shared
@@ -250,6 +244,8 @@ fi
 # surface keeps its own prose job; only the shared data is gated. The real skill
 # directories are the source of truth; both renderings must cover them completely
 # (R4 checks existence of referenced names — this checks catalogue completeness).
+# Note: this block previously sat AFTER the script's exit and never ran; it now lives
+# before the PASS/FAIL verdict like every other rule.
 if [ -f README.md ] && [ -f docs/index.html ]; then
 	dirs=$(ls -d */SKILL.md 2>/dev/null | cut -d/ -f1 | sort)
 	grid=$(grep -oE 'skill-card-name">[a-z-]+' docs/index.html | cut -d'>' -f2 | sort -u)
@@ -262,7 +258,106 @@ if [ -f README.md ] && [ -f docs/index.html ]; then
 		grep -q -- "$tok" README.md && grep -q -- "$tok" docs/index.html ||
 			err "R16: install command fragment '$tok' must appear in README and docs/index.html"
 	done
-	for a in dojo-session.md TASKS.md progress.md learning-log.md CONTEXT.md findings.md RESUME.md check-proof docs/adr; do
-		grep -q -- "$a" docs/index.html || err "R16: README artifact '$a' missing from the landing page"
+	for a in '.dojo/session/dojo-session.md' '.dojo/TASKS.md' '.dojo/progress.md' '.dojo/learning-log.md' '.dojo/CONTEXT.md' '.dojo/findings.md' '.dojo/session/resume.md' 'check-proof' '.dojo/adr'; do
+		grep -q -- "$a" docs/index.html || err "R16: artifact '$a' missing from the landing page"
 	done
+fi
+
+# R17 — the artifact map (ADR 0005): one table, one source of truth for where Dojo
+# artifacts live. Names describe function; the ignore file describes policy; this map
+# is the layout's machine-checked home. Tier: durable (the record — stageable) |
+# ephemeral (run-scoped working state). The three history surfaces (CHANGELOG,
+# progress, learning-log) and this file are excluded: history legitimately reads old
+# names, and the rules below carry the patterns themselves.
+R17_DURABLE='.dojo/CONTEXT.md .dojo/TASKS.md .dojo/progress.md .dojo/learning-log.md .dojo/findings.md .dojo/DOJO-MANUAL.md'
+R17_EPHEMERAL='.dojo/session .dojo/proof .dojo/tanren'
+R17_SCAN=$(
+	ls */SKILL.md 2>/dev/null
+	ls README.md docs/index.html evals/README.md evals/run-mechanics.sh evals/scenarios/*.sh evals/scenarios/*.md hajime/reference/dojo-check.ps1 scripts/dojo-check.sh .dojo/DOJO-MANUAL.md .dojo/CONTEXT.md .dojo/TASKS.md .dojo/adr/*.md 2>/dev/null
+)
+for f in $R17_DURABLE; do
+	[ -f "$f" ] || err "R17: mapped artifact '$f' missing — see the artifact map (ADR 0005)"
+done
+[ -d .dojo/adr ] || err "R17: .dojo/adr/ missing"
+[ -d .dojo/session ] || err "R17: .dojo/session/ missing"
+[ -d .dojo/proof ] || err "R17: .dojo/proof/ missing"
+for f in CONTEXT.md TASKS.md progress.md learning-log.md findings.md DOJO-MANUAL.md RESUME.md dojo-session.md docs/adr .dojo/check-proof .dojo/check-output.log; do
+	[ ! -e "$f" ] || err "R17: legacy location '$f' still exists — every artifact has one .dojo/ home"
+done
+# Every artifact reference on a living surface is path-qualified: occurrences of the
+# stem must equal occurrences of its mapped path (equality ⇒ zero bare mentions).
+r17_qualified() {
+	local tot qual
+	tot=$(cat $R17_SCAN 2>/dev/null | grep -oE -- "$1" | wc -l)
+	qual=$(cat $R17_SCAN 2>/dev/null | grep -oF -- "$2" | wc -l)
+	[ "$tot" -eq "$qual" ] || err "R17: $((tot - qual)) unqualified '$1' reference(s) on a living surface — use '$2'"
+}
+r17_qualified 'CONTEXT\.md' '.dojo/CONTEXT.md'
+r17_qualified 'TASKS\.md' '.dojo/TASKS.md'
+r17_qualified 'progress\.md' '.dojo/progress.md'
+r17_qualified 'learning-log\.md' '.dojo/learning-log.md'
+r17_qualified 'findings\.md' '.dojo/findings.md'
+r17_qualified 'DOJO-MANUAL\.md' '.dojo/DOJO-MANUAL.md'
+r17_qualified 'dojo-session' '.dojo/session/dojo-session'
+r17_qualified 'scoping-questions' '.dojo/session/scoping-questions'
+r17_qualified 'poc-lessons' '.dojo/poc-lessons'
+r17_ban() {
+	local hits
+	hits=$(cat $R17_SCAN 2>/dev/null | grep -nF -- "$1" | head -5)
+	[ -n "$hits" ] && err "R17: stale path '$1' on a living surface:"$'\n'"$hits"
+	return 0
+}
+r17_ban 'docs/adr'
+r17_ban 'RESUME.md'
+r17_ban '.dojo/check-proof'
+r17_ban '.dojo/check-output.log'
+# kata-commit's staging denylist must cover exactly the ephemeral tier (ADR 0005)
+for d in $R17_EPHEMERAL; do
+	grep -q -- "$d" kata-commit/SKILL.md || err "R17: kata-commit denylist does not cover ephemeral folder '$d'"
+done
+# The sharing boundary is explicit (ADR 0005): conduct section, hajime posture
+# question, glossary terms, and the repo-governance non-goal.
+grep -q '^## The Sharing Boundary' dojo-conduct/SKILL.md || err "R17: dojo-conduct lacks '## The Sharing Boundary'"
+grep -q 'tracking posture' hajime/SKILL.md || err "R17: hajime lacks the tracking-posture question"
+for term in 'artifact map' 'tracking posture' 'sharing boundary'; do
+	grep -q -- "$term" .dojo/CONTEXT.md || err "R17: .dojo/CONTEXT.md lacks the '$term' entry"
+done
+grep -q 'Not a repo-governance owner' .dojo/CONTEXT.md || err "R17: Non-Goals lack the repo-governance boundary"
+# The recorded tracking posture is verified against git's actual behavior —
+# evidence, not file-content guessing (ADR 0005).
+if git rev-parse --git-dir >/dev/null 2>&1; then
+	posture=$(grep -ioE 'tracking posture[^:]*:[[:space:]]*\**[[:space:]]*(hide-all|hide-ephemeral|track-all)' .dojo/CONTEXT.md 2>/dev/null | grep -ioE '(hide-all|hide-ephemeral|track-all)' | head -1)
+	[ -n "$posture" ] || err "R17: .dojo/CONTEXT.md → Decisions records no 'tracking posture: <hide-all|hide-ephemeral|track-all>'"
+	case "$posture" in
+	track-all)
+		git check-ignore -q .dojo/CONTEXT.md && err "R17: posture 'track-all' but git ignores .dojo/CONTEXT.md — reconcile the ignore surfaces"
+		# the tool-homed cache follows the posture too: track-all stages it (ADR 0005)
+		if [ -d graphify-out ]; then
+			git check-ignore -q graphify-out/x && err "R17: posture 'track-all' but git ignores graphify-out/ — the recorded posture stages the tool-homed cache"
+		fi
+		;;
+	hide-ephemeral)
+		for d in $R17_EPHEMERAL; do
+			git check-ignore -q "$d/x" || err "R17: posture 'hide-ephemeral' but git does not ignore $d"
+		done
+		git check-ignore -q .dojo/CONTEXT.md && err "R17: posture 'hide-ephemeral' but git ignores the durable record"
+		if [ -d graphify-out ]; then
+			git check-ignore -q graphify-out/x || err "R17: posture 'hide-ephemeral' but git does not ignore graphify-out/ (regenerable tool cache)"
+		fi
+		;;
+	hide-all)
+		git check-ignore -q .dojo/CONTEXT.md || err "R17: posture 'hide-all' but git does not ignore .dojo/ — invisible mode is not in effect"
+		if [ -d graphify-out ]; then
+			git check-ignore -q graphify-out/x || err "R17: posture 'hide-all' but git does not ignore graphify-out/"
+		fi
+		;;
+	esac
+fi
+
+if [ "$FAIL" -eq 0 ]; then
+	say "dojo-lint: PASS — all consistency checks green."
+	exit 0
+else
+	say "dojo-lint: FAIL — fix the findings above."
+	exit 1
 fi

@@ -2,17 +2,17 @@
 
 - **Status:** accepted
 - **Date:** 2026-06-19
-- **Context:** the randori that produced `TASKS.md` (skill-quality pass)
+- **Context:** the randori that produced `.dojo/TASKS.md` (skill-quality pass)
 
 ## Context
 
 The canonical dojo-check template — the bash block that runs the three stack
-commands and writes `.dojo/check-proof` with `ts`/`exit`/`output_sha256` — appears
+commands and writes `.dojo/proof/check-proof` with `ts`/`exit`/`output_sha256` — appears
 in three places today:
 
 - `hajime/SKILL.md` §3 (inline fenced bash block, loaded into every agent's context
   when hajime fires)
-- `DOJO-MANUAL.md` (the same block, mirrored for human readers)
+- `.dojo/DOJO-MANUAL.md` (the same block, mirrored for human readers)
 - `scripts/dojo-check.sh` (this repo's actual implementation; stack commands differ
   because this is a content repo with no compile step)
 
@@ -29,14 +29,14 @@ sees cargo commands even when the project is a Node shop.
 
 Three sources, each normative for a distinct layer:
 
-1. **Proof-contract invariant** — what `.dojo/check-proof` must contain, and what
+1. **Proof-contract invariant** — what `.dojo/proof/check-proof` must contain, and what
    the sha256 covers — lives in `dojo-principles` (the Enforce Over Instruct
    section). This is the layer that scales across every project: every `dojo-check`
    in any repo writes the same shape of proof.
 2. **Three stack commands** — `cargo build / clippy / test`, or whatever the
    project's stack requires — live in the per-project `scripts/dojo-check.sh`. Each
    project's stack is its own choice; the proof contract stays portable.
-3. **Illustrative block** in `hajime/SKILL.md` and `DOJO-MANUAL.md` — a cargo-shaped
+3. **Illustrative block** in `hajime/SKILL.md` and `.dojo/DOJO-MANUAL.md` — a cargo-shaped
    example, clearly labelled as illustrative, that points at `dojo-principles` for
    the contract. Human readers learn the shape; agents that need the rule load
    `dojo-principles`.

@@ -14,7 +14,7 @@ description: >
 
 # Dojo Principles — Cross-Cutting Engineering Rules
 
-Rules only. Rationale and examples live in DOJO-MANUAL.md.
+Rules only. Rationale and examples live in .dojo/DOJO-MANUAL.md.
 
 ## Code Navigation — rg and ast-grep
 
@@ -45,7 +45,7 @@ Rules only. Rationale and examples live in DOJO-MANUAL.md.
 ## Define the Non-Goals
 
 - State explicitly what someone might reasonably expect this to do that it won't. Record them in
-  CONTEXT.md → Non-Goals.
+  .dojo/CONTEXT.md → Non-Goals.
 - Non-goals are a commitment: never drift across the line, never suggest building one; treat an
   attempt as a scope violation.
 - Crossing the line is deliberate and recorded — via /kaizen with an ADR, never silent creep.
@@ -96,19 +96,19 @@ Strongest first:
 This is the canonical home of the **dojo-check proof contract**. Anything that defines what
 a green run proves lives here; nothing else restates it.
 
-The artifact: `.dojo/check-proof` — written by `scripts/dojo-check.sh` after a fully green
+The artifact: `.dojo/proof/check-proof` — written by `scripts/dojo-check.sh` after a fully green
 run (`set -e` + `set -o pipefail` reaches the proof block only on success). It contains
 exactly three lines:
 
 ```
 ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 exit=0
-output_sha256=$(sha .dojo/check-output.log | awk '{print $1}')
+output_sha256=$(sha .dojo/proof/check-output.log | awk '{print $1}')
 ```
 
 - `ts` is the wall-clock time the proof was written (ISO-8601 UTC).
 - `exit=0` records that every check passed; a non-zero run never rewrites the file.
-- `output_sha256` is the sha256 of `.dojo/check-output.log` — the full stdout/stderr of the
+- `output_sha256` is the sha256 of `.dojo/proof/check-output.log` — the full stdout/stderr of the
   check run. The log is the *input*; the proof is the *seal*.
 
 The **freshness invariant** is part of the contract: the proof's `ts` must be newer than
@@ -117,7 +117,7 @@ cannot pass the gate. Edit anything after the run, the proof is no longer fresh;
 dojo-check.
 
 **Where the contract is referenced from:** `scripts/dojo-check.sh` writes it (the per-project
-stack executor); `hajime/SKILL.md` and `DOJO-MANUAL.md` carry *illustrative* cargo-shaped
+stack executor); `hajime/SKILL.md` and `.dojo/DOJO-MANUAL.md` carry *illustrative* cargo-shaped
 examples that point here; `hajime/reference/dojo-check.ps1` carries the Windows variant
 (same contract, PowerShell). The PowerShell reference and any future per-stack variants
 must reference `check-proof`, `output_sha256`, and `check-output.log` to keep agreement;
@@ -137,7 +137,7 @@ When in doubt about the contract, change it here — the proof rule is one place
   **Never log secrets or PII** — no passwords, tokens, keys, auth headers, bodies that may
   contain them. Hard rule.
 - Sink is an injected `LogSink.write(event)` interface, chosen per project and recorded in
-  CONTEXT.md → Decisions. Any remote sink degrades to a local JSONL file when unreachable; a
+  .dojo/CONTEXT.md → Decisions. Any remote sink degrades to a local JSONL file when unreachable; a
   logging failure never propagates as an application failure.
 
 ## Errors as Values vs Exceptions

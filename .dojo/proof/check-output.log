@@ -1,0 +1,27 @@
+== dojo-lint (static consistency) ==
+dojo-lint: PASS — all consistency checks green.
+== evals/run-mechanics (proof-contract behavior) ==
+== Fixture repo ==
+== Extract canonical template from hajime/SKILL.md ==
+  ok: canonical block extracted
+  ok: three stack commands swapped cleanly
+warning: in the working copy of '.gitignore', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/dojo-check.sh', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app.txt', LF will be replaced by CRLF the next time Git touches it
+== Green run: proof produced and valid ==
+  ok: exit 0 on green
+  ok: proof written
+  ok: proof sha matches output log
+  ok: proof ts parseable
+  ok: freshness rule: fresh right after run
+== Edit after run: rule must flag stale ==
+  ok: freshness rule: edit detected as stale
+== Re-run restores freshness ==
+  ok: re-run restores fresh proof
+== Red run: gate must stay blocked ==
+  ok: exit nonzero on failure
+  ok: proof NOT rewritten on failure
+  ok: freshness rule: commit gate correctly blocked
+
+mechanics eval: 12 ok, 0 failed
+RESULT: PASS

@@ -1,0 +1,39 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "dojo-check.ps1",
+      "file_type": "code",
+      "source_file": "dojo-check.ps1",
+      "source_location": "L1",
+      "id": "dojo_check_ps1",
+      "community": 0,
+      "norm_label": "dojo-check.ps1"
+    },
+    {
+      "label": "Run()",
+      "file_type": "code",
+      "source_file": "dojo-check.ps1",
+      "source_location": "L8",
+      "id": "reference_dojo_check_run",
+      "community": 0,
+      "norm_label": "run()"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "dojo-check.ps1",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "dojo_check_ps1",
+      "target": "reference_dojo_check_run"
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "569f5444825ec8b2e1c44be696f97c8bf4e5e506"
+}

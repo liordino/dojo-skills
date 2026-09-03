@@ -8,14 +8,15 @@ Load on demand. The normative rules live in `tanren/SKILL.md`; this file is the 
 .dojo/tanren/
   run.json         # frozen approved contract: metric (+direction), threshold, budget — written once at entry
   score.sh         # the frozen fitness scorer for this run (scratch; promote to scripts/ only on purpose)
-  results.tsv      # the ledger — append-only, ONE row per attempt, left UNTRACKED by git
+  results.tsv      # the ledger — append-only, ONE row per attempt, run-scoped working state
   best.json        # current champion: metric + snapshot/path of the winning algorithm file
   candidates/      # optional: snapshots of attempts worth keeping for inspection
 ```
 
 Everything here is scratch for the duration of one optimization run. Only the *winner* leaves,
-via the normal kata commit. `.dojo/` is already gitignored by hajime, so the ledger is untracked
-automatically — mirroring Karpathy's autoresearch, where the results file is deliberately not
+via the normal kata commit. Whether the ledger is committed is the recorded tracking posture
+(.dojo/CONTEXT.md → Decisions), not tanren's business — under the default postures it stays
+untracked — mirroring Karpathy's autoresearch, where the results file is deliberately not
 committed and the code history is the research trail.
 
 ## results.tsv schema
@@ -23,12 +24,12 @@ committed and the code history is the research trail.
 Tab-separated, header first. One row per scored attempt, including the baseline as iteration 0.
 
 ```
-iter	hypothesis	metric	props_ok	kept	notes
-0	baseline (current impl)	1840ms	yes	-	starting point
-1	memoize subproblem table	1210ms	yes	yes	clear win, advanced
-2	iterative bottom-up DP	1185ms	yes	yes	small further gain
-3	pack state into bitset	1190ms	yes	no	no improvement, reverted
-4	prune dominated states	0980ms	yes	yes	best so far
+iter hypothesis metric props_ok kept notes
+0 baseline (current impl) 1840ms yes - starting point
+1 memoize subproblem table 1210ms yes yes clear win, advanced
+2 iterative bottom-up DP 1185ms yes yes small further gain
+3 pack state into bitset 1190ms yes no no improvement, reverted
+4 prune dominated states 0980ms yes yes best so far
 ```
 
 `metric` is whatever the frozen scorer prints (lower-is-better or higher-is-better — state which
@@ -39,6 +40,7 @@ disqualified regardless of its metric. `kept` records the advance/revert decisio
 ## Scoring contract (the frozen scorer)
 
 `.dojo/tanren/score.sh` — written/confirmed before iteration 1, then frozen. It must:
+
 - run headless, exit 0 on a successful scoring run;
 - print the metric in a fixed, parseable form (e.g. a single number, or `metric=NNN`);
 - evaluate the algorithm on the **held-out** set for the kept/revert decision;
@@ -73,7 +75,7 @@ the commit (advance), on no-improvement `git reset --hard` back to the prior goo
 to autoresearch, but only use it on a disposable branch you discard after extracting the winner —
 never let exploratory commits reach a working branch.
 
-Either way: **the main branch and the Dojo spine (TASKS.md, dojo-session.md) see nothing until
+Either way: **the main branch and the Dojo spine (.dojo/TASKS.md, .dojo/session/dojo-session.md) see nothing until
 the winner is ratified.** Loop state is not a wave step; do not invent a `running` task status or
 a search state in the step enum.
 
@@ -91,7 +93,7 @@ time. Metric = frame time (lower better); necessary property = SSIM ≥ 0.98 vs 
 4. Stop at the budget (or a stagnation run of 3). Champion: 9.6 ms at SSIM 0.985.
 5. Hand to `/kata-red`: write the durable tests — SSIM-within-tolerance vs the golden set, plus
    "output has correct dimensions and no NaNs." `/kata-green` already passes; commit the winner,
-   record the approximation method + tolerance in CONTEXT.md → Decisions.
+   record the approximation method + tolerance in .dojo/CONTEXT.md → Decisions.
 
 ## Anti-gaming checklist
 

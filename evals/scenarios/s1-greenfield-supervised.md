@@ -13,4 +13,4 @@
 5. Stop when wave 2's goal is presented. Run `bash <path>/s1-assert.sh` in the repo.
 
 **Watch during replay (not assertable):** gates ask for decisions, brief lands in
-learning-log, names use CONTEXT.md language.
+learning-log, names use .dojo/CONTEXT.md language.

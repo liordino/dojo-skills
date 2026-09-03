@@ -15,9 +15,10 @@ and carries a project from idea to shipped, installable release. Landing page:
 Built for headless agent harnesses with tool calling; language-agnostic. Developed against my
 own harness (the Pi Coding Agent) — the `/command` and auto-trigger semantics vary between
 harnesses, but anything that can load `SKILL.md` files and follow them works, with at worst
-degraded auto-triggering. Dojo is also **solo-first**: one human, one agent, one repo.
-`dojo-session.md` is per-machine and gitignored; durable shared state lives in `CONTEXT.md`,
-`TASKS.md`, and `progress.md` — a fresh session reloads from disk.
+degraded auto-triggering. Dojo is also **solo-first**: one human, one agent, one repo. Dojo's
+whole footprint is one folder — `.dojo/` holds every artifact: the durable record at its root,
+the live run in `session/`, gate evidence in `proof/`. What of it is shared is the human's
+*tracking posture* decision, never assumed; a fresh session reloads from disk.
 
 ## Philosophy
 
@@ -66,7 +67,7 @@ define → red → green (refactor inline) → commit → (next wave)
 Each step is a skill (refactor runs inside green). The agent stops for your decision between
 steps (supervised mode — with a configurable gate density: full, standard, or light) or runs to
 completion (autonomous mode), with mandatory human gates when reality diverges from the plan. Multi-wave work lives in
-`TASKS.md` (written by randori, advanced by kata-commit, rewritten by kaizen), so the cycle
+`.dojo/TASKS.md` (written by randori, advanced by kata-commit, rewritten by kaizen), so the cycle
 always knows what the next wave is.
 
 ## Install
@@ -82,7 +83,7 @@ The `skills` CLI reads the GitHub repo directly and copies the skill directories
 agent's skills folder (see github.com/vercel-labs/skills). Prefer manual install? Copy the
 skill directories yourself — each is a directory containing a `SKILL.md`.
 
-On a fresh project `/hajime` scaffolds everything (CONTEXT.md, the proof-writing `dojo-check`)
+On a fresh project `/hajime` scaffolds everything (.dojo/CONTEXT.md, the proof-writing `dojo-check`)
 and runs the design grill. On an existing project it detects what's present and
 resumes — including brownfield projects with pre-existing test failures, which are tracked
 rather than blocking.
@@ -95,7 +96,7 @@ rather than blocking.
 | `dojo-project` | Project-level principles (structure, docs, config, distribution, preferences) |
 | `dojo-conduct` | Operational rules (precedence, evidence gates, gate density, concise output, tools) |
 | `hajime` | Session entry — asks rigor, mode, then feature or bugfix (bugfix routes through `/kan`) |
-| `randori` | Interview-driven design grill — domain language, ADRs, the TASKS.md plan |
+| `randori` | Interview-driven design grill — domain language, ADRs, the .dojo/TASKS.md plan |
 | `kan` | Disciplined diagnosis loop — reproduce → minimise → hypothesise → fix |
 | `tanren` | Iterative optimization loop — forge a better algorithm against a measurable metric |
 | `kata-red` | Write the failing check (test-first) |
@@ -120,11 +121,17 @@ idempotency, explicit types, error propagation, refactor step, stuck branch (kat
 
 ## Living artifacts
 
-- `dojo-session.md` — current wave state (gitignored; per-machine)
-- `TASKS.md` — the plan: every wave a verifiable outcome with a status · Improvement Backlog (revisit items; not a plan)
-- `progress.md` — the single terse per-wave log · `learning-log.md` — per-wave debriefs (briefs in supervised sessions)
-- `CONTEXT.md` — Glossary, Non-Goals, Decisions · `docs/adr/` — decision records
-- `findings.md` — discoveries and halt diagnostics · `RESUME.md` — autonomous-pause pointer
+Every artifact lives under `.dojo/` (the artifact map is lint-enforced, R17/ADR 0005):
+
+- `.dojo/CONTEXT.md` — Glossary, Non-Goals, Decisions · `.dojo/adr/` — decision records
+- `.dojo/TASKS.md` — the plan: every wave a verifiable outcome with a status · Improvement Backlog (revisit items; not a plan)
+- `.dojo/progress.md` — the single terse per-wave log · `.dojo/learning-log.md` — per-wave debriefs (briefs in supervised sessions)
+- `.dojo/findings.md` — discoveries and halt diagnostics
+- `.dojo/session/dojo-session.md` — current wave state, run-scoped · `.dojo/session/resume.md` — autonomous-pause pointer
+- `.dojo/proof/` — gate evidence: `check-proof`, `check-output.log`
+
+What of this is tracked is the repo's tracking posture — a human decision (hide-all /
+hide-ephemeral / track-all), never an agent default.
 
 ## Optional tools
 

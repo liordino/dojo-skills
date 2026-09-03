@@ -1,0 +1,94 @@
+{
+  "C:\\Users\\liord\\src\\dojo-skills\\hajime\\reference\\dojo-check.ps1": {
+    "mtime": 1788463535.8626385,
+    "hash": "0da08730c1911eca6d551ca182788c63"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\CHANGELOG.md": {
+    "mtime": 1788464592.957626,
+    "hash": "ad29a3718487f8887d3302703c0cf1cb"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\README.md": {
+    "mtime": 1788463770.676029,
+    "hash": "400ed7c07d09f93c96f40c46b623ced5"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\docs\\index.html": {
+    "mtime": 1788463973.9872642,
+    "hash": "6d9a48b8ce65637d1bb80958385d3f06"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\dojo-conduct\\SKILL.md": {
+    "mtime": 1788463499.7907586,
+    "hash": "8fc93984385874f6bcf3dfa11778c2ee"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\dojo-principles\\SKILL.md": {
+    "mtime": 1788463344.548128,
+    "hash": "ea5454dd3f60af2f53a31bb02fc91193"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\dojo-principles\\reference\\ast-grep.md": {
+    "mtime": 1781314584.0,
+    "hash": "c6c78d5264bd2042f0421cf736845c4b"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\dojo-principles\\reference\\ecs.md": {
+    "mtime": 1788376169.664591,
+    "hash": "5a635dd7216689a579cb82403329b0b9"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\dojo-project\\SKILL.md": {
+    "mtime": 1788463344.552094,
+    "hash": "64e51de7ad5b2f8d93a403ad1b89c000"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\evals\\README.md": {
+    "mtime": 1788463344.6136098,
+    "hash": "f960f5a020a7dba623dfc70665c650d3"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\evals\\scenarios\\s1-greenfield-supervised.md": {
+    "mtime": 1788463344.6346078,
+    "hash": "644528b94e4a96095478089fb51256f5"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\evals\\scenarios\\s2-brownfield.md": {
+    "mtime": 1788463344.638607,
+    "hash": "6cf481ae4ca697a829789ba7606cfda2"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\evals\\scenarios\\s3-autonomous-ceiling.md": {
+    "mtime": 1788463396.1459396,
+    "hash": "9d5cdb24791124823f303103715356d9"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\hajime\\SKILL.md": {
+    "mtime": 1788464581.7674654,
+    "hash": "1ac4c962b8c160bb98db98385ee57224"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\kaizen\\SKILL.md": {
+    "mtime": 1788463344.5340915,
+    "hash": "49df09fbaf12e747d7bb69f63dfd56f5"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\kan\\SKILL.md": {
+    "mtime": 1788463344.5290866,
+    "hash": "c8c7b9cf88e835ece69a9600df248169"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\kata-commit\\SKILL.md": {
+    "mtime": 1788463487.7298038,
+    "hash": "9c56371b76e6fa76f508ba1dfb957cd5"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\kata-green\\SKILL.md": {
+    "mtime": 1788463344.5151167,
+    "hash": "7681599d2f6963b33ae8e6548fccc3c4"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\kata-red\\SKILL.md": {
+    "mtime": 1788463344.5100873,
+    "hash": "00f462f92ce753770a96c33e13747ac6"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\kokai\\SKILL.md": {
+    "mtime": 1788463344.5380876,
+    "hash": "938dff9ae2f32ebbd819ae64b179669c"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\randori\\SKILL.md": {
+    "mtime": 1788463805.2733238,
+    "hash": "dfe1839b86ea3cd8ea91f8ea45c5d8d9"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\tanren\\SKILL.md": {
+    "mtime": 1788463512.6558168,
+    "hash": "3f7e3abbfb810bc4ce4f3caa5a621e70"
+  },
+  "C:\\Users\\liord\\src\\dojo-skills\\tanren\\reference\\tanren-loop.md": {
+    "mtime": 1788463512.6558168,
+    "hash": "4def397ee954867fbf9c8151e5b29ea0"
+  }
+}

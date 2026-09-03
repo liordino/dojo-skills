@@ -6,9 +6,9 @@ description: >
   when something must change mid-project, a discovery invalidates the plan, you're extending a
   finished project, or an autonomous run halted on a divergence. Triggers on: /kaizen, "the
   plan needs to change", "I discovered something", "let's pivot", "add a feature to this
-  project". Reads current reality (progress.md, TASKS.md, CONTEXT.md, ADRs, git
-  log), grills the change with the human, then rewrites TASKS.md and updates CONTEXT.md, ADRs,
-  and dojo-session.md. Always supervised — grilling is never autonomous.
+  project". Reads current reality (.dojo/progress.md, .dojo/TASKS.md, .dojo/CONTEXT.md, ADRs, git
+  log), grills the change with the human, then rewrites .dojo/TASKS.md and updates .dojo/CONTEXT.md, ADRs,
+  and .dojo/session/dojo-session.md. Always supervised — grilling is never autonomous.
 ---
 
 # Kaizen — Re-Grill and Update Against New Reality
@@ -24,9 +24,9 @@ Narrate throughout — you are helping the human think through what changed and 
 
 ## 1. Read current reality
 
-Ground the conversation in what exists: TASKS.md (the plan, tombstone ledger, and
-Improvement Backlog) · progress.md (what each wave built and exposes) ·
-CONTEXT.md (Glossary, Non-Goals, Decisions) · docs/adr/ · recent git log.
+Ground the conversation in what exists: .dojo/TASKS.md (the plan, tombstone ledger, and
+Improvement Backlog) · .dojo/progress.md (what each wave built and exposes) ·
+.dojo/CONTEXT.md (Glossary, Non-Goals, Decisions) · .dojo/adr/ · recent git log.
 Summarize the current state back in a few lines; confirm the picture is right before grilling.
 
 ## 2. Grill the change
@@ -51,17 +51,17 @@ the real picture.
 
 ## 4. Update the artifacts (after the human confirms the direction)
 
-1. **TASKS.md** — rewrite to the new reality, keeping the randori schema: annotate invalidated
+1. **.dojo/TASKS.md** — rewrite to the new reality, keeping the randori schema: annotate invalidated
    waves (`status: invalidated` — don't delete history), insert new waves, reorder on changed
    dependencies, remove obsolete pending waves, renumber coherently.
-2. **CONTEXT.md** — update the Glossary/Decisions the change affects. Promoting a Non-Goal
+2. **.dojo/CONTEXT.md** — update the Glossary/Decisions the change affects. Promoting a Non-Goal
    into a goal (or adding one) is exactly the deliberate, recorded scope change kaizen exists
    for: update the Non-Goals section explicitly and write an ADR for it.
-3. **docs/adr/** — an ADR for the pivot itself: what changed, why, what was decided, the
+3. **.dojo/adr/** — an ADR for the pivot itself: what changed, why, what was decided, the
    alternatives. Provenance for the turn.
-4. **TASKS.md → Improvement Backlog** — any new revisit items; the pivot itself is a
-   progress.md log line (ADR 0004).
-5. **dojo-session.md** — `goal:` and `wave:` point at the next wave under the new plan;
+4. **.dojo/TASKS.md → Improvement Backlog** — any new revisit items; the pivot itself is a
+   .dojo/progress.md log line (ADR 0004).
+5. **.dojo/session/dojo-session.md** — `goal:` and `wave:` point at the next wave under the new plan;
    `step: RED`.
 
 ## 5. Hand off
@@ -77,4 +77,4 @@ How should I proceed?
   2. Switch to supervised — wave-by-wave gates
 ```
 
-Write the chosen `mode:` to dojo-session.md and hand off accordingly.
+Write the chosen `mode:` to .dojo/session/dojo-session.md and hand off accordingly.

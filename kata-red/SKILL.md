@@ -3,7 +3,7 @@ name: kata-red
 description: >
   Write the failing check for the current wave. Use after /hajime has defined
   the wave goal. Triggers on: /kata-red, "write the test", "red step".
-  Reads dojo-session.md for goal, mode, rigor, and gate density. Applies invariant-based
+  Reads .dojo/session/dojo-session.md for goal, mode, rigor, and gate density. Applies invariant-based
   engineering and the test-strategy rules; runs dojo-check to confirm the new check fails for
   the right reason. Supervised: stops per gate density. Autonomous: proceeds immediately.
 ---
@@ -16,10 +16,10 @@ description: >
 
 A fresh wave reloads from durable files, never from prior-wave conversation:
 
-1. `dojo-session.md` — goal, **intent** (keep it in mind for every micro-decision), mode,
+1. `.dojo/session/dojo-session.md` — goal, **intent** (keep it in mind for every micro-decision), mode,
    rigor, gate_density, commit style.
-2. `progress.md` — what previous waves built and expose.
-3. `CONTEXT.md` — domain language (used in all names) and **Non-Goals** (the divergence check
+2. `.dojo/progress.md` — what previous waves built and expose.
+3. `.dojo/CONTEXT.md` — domain language (used in all names) and **Non-Goals** (the divergence check
    cannot fire without them in context).
 4. The **AGENTS.md chain** for the paths this wave touches (dojo-project → Local Agent
    Contracts).
@@ -43,7 +43,7 @@ Frame the wave, lean — point, don't lecture:
   shell"), for the human to research. Explain inline only if the human set that preference.
 - **Bigger picture:** one sentence — what precedes, what follows, what breaks without it.
 
-**Supervised:** present the brief and append it to `learning-log.md` under
+**Supervised:** present the brief and append it to `.dojo/learning-log.md` under
 `## Wave [N] — Opening Brief`; at `full` density, STOP before writing the check; at
 `standard`/`light`, present the brief together with the failing check at this step's single
 stop. **Autonomous:** skip the brief — the commit body and the progress log carry what/why;
@@ -125,7 +125,7 @@ hill-climb — stay here.
 - **Name describes behavior:** `applyDiscount_isIdempotent_whenCalledTwice`, never
   `testApplyDiscount`.
 - **Don't mock what you don't own** — mock at system boundaries only.
-- **Use CONTEXT.md domain language** in every name and assertion.
+- **Use .dojo/CONTEXT.md domain language** in every name and assertion.
 - **Bugfix:** the regression test goes first and reproduces the *exact* failure mode.
 
 ## Choosing the strategy (preference order)
@@ -160,7 +160,7 @@ confirms it at the gate. Never leave a wave with no defined check at all.
    failures beyond `pre_existing_failures`).
    - Passes immediately → the implementation exists or the check is wrong. Diagnose first.
    - Existing tests broke → you introduced a compile error or conflict. Fix before presenting.
-4. Update dojo-session.md: `step: GREEN`, `test_written: [names]`, `test_status: failing ✓`.
+4. Update .dojo/session/dojo-session.md: `step: GREEN`, `test_written: [names]`, `test_status: failing ✓`.
 
 ---
 
@@ -168,4 +168,4 @@ confirms it at the gate. Never leave a wave with no defined check at all.
 
 **Supervised:** present the check and the failing output; explain what it proves and why it
 fails now. STOP per gate density. Suggest: "Red for the right reason. Run **/kata-green**."
-**Autonomous:** log to `progress.md`; proceed to `/kata-green` immediately.
+**Autonomous:** log to `.dojo/progress.md`; proceed to `/kata-green` immediately.

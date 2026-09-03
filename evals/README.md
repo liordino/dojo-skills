@@ -21,9 +21,9 @@ resulting artifacts. Run the replay in a scratch repo, then run the assert from 
 
 | Scenario | Exercises | Assert |
 |---|---|---|
-| `scenarios/s1-greenfield-supervised.md` | scaffold, randori → TASKS.md, full wave, advancement | `s1-assert.sh` |
+| `scenarios/s1-greenfield-supervised.md` | scaffold, randori → .dojo/TASKS.md, full wave, advancement | `s1-assert.sh` |
 | `scenarios/s2-brownfield.md` | pre-existing failures recorded, no-new-failures gate | `s2-assert.sh` |
-| `scenarios/s3-autonomous-ceiling.md` | autonomous loop, wave ceiling, RESUME.md | `s3-assert.sh` |
+| `scenarios/s3-autonomous-ceiling.md` | autonomous loop, wave ceiling, .dojo/session/resume.md | `s3-assert.sh` |
 
 A failing assert after a skill edit means the edit broke a protocol guarantee. Asserts check
 artifacts only — gate wording, narration quality, and judgment calls still need your eyes

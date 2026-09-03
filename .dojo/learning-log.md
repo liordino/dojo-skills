@@ -234,3 +234,19 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** no pending waves; backlog at three items.
 - **Promotion candidates:** none new.
 - **Engagement note:** RED caught two real parity gaps (adr card missing, install fragmented) before the rule existed — writing the asserts first found the bugs the rule was being written to catch. Asserts refined twice at GREEN, both toward stable tokens.
+
+## Wave — Consolidation + Sharing Boundary (2026-09-03)
+
+- **What+why:** one-folder footprint per ADR 0005 — durable record at .dojo/ root, adr/,
+  session/, proof/ function folders, graphify-out/ tool-homed exception — and the sharing
+  boundary made explicit (conduct section, posture question with location menu, commit-prose
+  default). ~35 surfaces rewritten in lockstep; lint R17 mechanizes the map so stale paths
+  fail lint permanently instead of via a one-time post-rename grep.
+- **Systemic/promotion:** the rule underneath the layout — names describe function, the
+  ignore file describes policy, evidence comes from check-ignore rather than file contents —
+  is general beyond this repo; promotion candidate for dojo-principles → Promoted. Also
+  caught: R16 sat after the lint script's exit and never ran (its "passing" wave-assert was
+  R4's work) — rules appended after a control-flow exit are dead on arrival; restructure
+  before extending.
+- **Bigger picture:** invisible use (anonymous posture via .git/info/exclude) is a
+  first-class option; adoption and removal are single-folder operations.

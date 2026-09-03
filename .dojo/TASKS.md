@@ -1,6 +1,6 @@
 # Tasks — dojo-skills
 
-intent: TASKS is the open-wave surface only. Per ADR 0004, `progress.md` is the single
+intent: TASKS is the open-wave surface only. Per ADR 0004, `.dojo/progress.md` is the single
 per-wave log — closed waves live there (with their verification prose and commit hashes),
 not here. Each line below is a tombstone: what the wave was and how it resolved. There are
 no pending waves; new work starts a new plan section.
@@ -11,7 +11,7 @@ no pending waves; new work starts a new plan section.
   refactor/stuck, algorithm-classification, contribution-review absorbed into kata-green /
   kata-red / dojo-conduct; bugfix merged into hajime's "feature or bugfix?" fork; kokai
   stubbed; tanren slimmed; randori gained the glossary pin-the-exclusion rule. Outcome and
-  per-wave hashes: progress.md; commits fa5fcee…b4a9fac.
+  per-wave hashes: .dojo/progress.md; commits fa5fcee…b4a9fac.
 - **Wave 11 — dojo router** — invalidated 2026-08-31: index not wanted; governance-load
   dedup landed inline (one banner in hajime, assumes-loaded notes elsewhere). Commit 9f33b18.
 - **Wave 12 — `_enforce_`/`_proof_` sigils** — invalidated 2026-08-29: contradicts the
@@ -29,6 +29,13 @@ no pending waves; new work starts a new plan section.
 - **Wave 17 — dojo-write-skill bridge** — invalidated 2026-08-29: permanent dependency-
   bridge to external `writing-great-skills` — the external-source-chasing deliberately
   ended this session.
+- **Wave — artifact consolidation + sharing boundary (ADR 0005)** — done 2026-09-03:
+  one-folder footprint (durable record at `.dojo/` root; `adr/`, `session/`, `proof/`
+  function folders; `graphify-out/` tool-homed exception); the sharing boundary explicit in
+  dojo-conduct; tracking-posture question + location menu + migration offer in hajime; lint
+  R17 (artifact map, stale-path ban, denylist agreement, posture verification); R16 rescued
+  from after the lint exit (was dead code); R4 ADR-slug fix; evals posture-aware. Commit:
+  this wave's closing commit.
 
 ## Open waves
 
@@ -39,7 +46,7 @@ preferred.
 ## Improvement Backlog
 
 Items the author wants to revisit at some point. Not a plan; not a commitment;
-not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is right.
+not a `.dojo/TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is right.
 
 - **Landing page source-of-truth** — **resolved 2026-09-03:** the Codeberg-era premise
   ("generated from an external pages repo") is stale. The site moved to GitHub Pages and
@@ -53,14 +60,9 @@ not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is righ
   not invented.
 - Refactor assessment — when a wave ends, the assessment is *brief + one
   decision*. Avoid overproducing ceremony.
-- `scripts/dojo-lint.sh` R4 false-positives on ADR filenames — the regex
-  `\b(dojo|kata|hajime)-[a-z][a-z-]*[a-z]\b` matches ADR file names like
-  `0001-dojo-check-source-of-truth.md` as if they were skill directories.
-  Hit during Wave 1's refactor step when `DOJO-MANUAL.md` referenced the
-  ADR by full filename. Fix candidates: tighten the regex to require the
-  matched token to be an existing directory; or add ADR paths to R4's
-  whitelist. Defer — current workaround is to reference ADRs by number
-  only ("see ADR 0001 in `docs/adr/`").
+- `scripts/dojo-lint.sh` R4 false-positives on ADR filenames — **resolved 2026-09-03:**
+  R4 now strips `adr/NNNN-…` slugs from the scan before matching, so ADRs may be
+  referenced by full filename again.
 - Wave 3 design note (from external review, 2026-07-10) — **resolved 2026-08-31, without
   the router:** the router wave was invalidated; the banner dedup kept the inline
   imperative (one banner in hajime) rather than a pointer chain — the note's warning
@@ -73,5 +75,5 @@ not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is righ
   "failing check" — broader than "test" (the RED artifact need not be a test-suite test) and
   it recruits the dojo-check gate concept. Literal test-fixture prose keeps "test".
 - HANDOFF surface (2026-09-02) — **resolved in the same wave it was raised:** deleted;
-  the backlog moved here. A cold reader orients from README + CONTEXT.md + TASKS.md +
-  progress.md + git log (ADR 0004 addendum).
+  the backlog moved here. A cold reader orients from README + .dojo/CONTEXT.md + .dojo/TASKS.md +
+  .dojo/progress.md + git log (ADR 0004 addendum).

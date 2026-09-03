@@ -1,12 +1,12 @@
-# Per-machine state (never tracked)
-.dojo/
-dojo-session.md
-
-# Override ~/.gitignore_global for Dojo artifacts that MUST be tracked in this repo
-!CONTEXT.md
-!TASKS.md
-!progress.md
+# Tracking posture for this repo: track-all (recorded in .dojo/CONTEXT.md → Decisions;
+# rationale in .dojo/adr/0005). A human decision — presented at scaffold, applied by the
+# human in whichever ignore surface they keep; never edited by the agent unprompted.
+# Negations below override ~/.gitignore_global name rules (CONTEXT.md, TASKS.md,
+# progress.md, AGENTS.md, CLAUDE.md — and graphify-out/) so this repo tracks its full
+# footprint: the .dojo/ folder and the tool-homed graphify cache alike.
+!.dojo/CONTEXT.md
+!.dojo/TASKS.md
+!.dojo/progress.md
 !AGENTS.md
 !CLAUDE.md
-# Regenerable local artifacts (graphify structural cache)
-graphify-out/
+!graphify-out/

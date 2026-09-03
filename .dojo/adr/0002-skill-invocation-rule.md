@@ -2,7 +2,7 @@
 
 - **Status:** accepted
 - **Date:** 2026-06-19
-- **Context:** the randori that produced `TASKS.md` (skill-quality pass)
+- **Context:** the randori that produced `.dojo/TASKS.md` (skill-quality pass)
 
 ## Context
 
@@ -104,6 +104,6 @@ The router skill was never built. The surviving-old plan's router wave
 governance-load banner was deduplicated inline instead: one banner in
 `hajime`, assumes-loaded notes in `kaizen`/`kan`/`randori`. See
 commit `9f33b18` (the plan file is deleted; the anti-inflation charter
-in `CONTEXT.md → Non-Goals`. The pile-up bound this ADR described is
+in `.dojo/CONTEXT.md → Non-Goals`. The pile-up bound this ADR described is
 handled by keeping the technique count small (five user-invoked skills as
 of this note), not by a router.

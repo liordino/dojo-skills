@@ -2,7 +2,7 @@
 
 - **Status:** accepted
 - **Date:** 2026-06-19
-- **Context:** the randori that produced `TASKS.md` (skill-quality pass)
+- **Context:** the randori that produced `.dojo/TASKS.md` (skill-quality pass)
 
 ## Context
 
@@ -34,7 +34,7 @@ argues against becoming a fork of someone else's content.
   points at the upstream by path and attribution.
 - **Carries only the parts that are Dojo-specific**: how the kanji leading-word
   scheme interacts with the upstream's leading-word concept; how
-  `CONTEXT.md → Glossary` plays into the information-hierarchy decision; how
+  `.dojo/CONTEXT.md → Glossary` plays into the information-hierarchy decision; how
   `scripts/dojo-lint.sh` enforces what the upstream only describes; how the
   Dojo-internal `disable-model-invocation` rule (ADR 0002) maps onto the
   upstream's invocation trade.

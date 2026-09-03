@@ -5,8 +5,8 @@ description: >
   Relentless interview-driven design session. Use when defining a feature or stress-testing a
   plan against the project's existing domain language. Triggers on: /randori, or automatically
   from hajime's DEFINE phase when the design isn't already done. Interviews the human one
-  question at a time, builds the shared domain language and non-goals in CONTEXT.md, writes ADRs
-  for non-obvious decisions, and produces the plan: TASKS.md (every wave a verifiable outcome)
+  question at a time, builds the shared domain language and non-goals in .dojo/CONTEXT.md, writes ADRs
+  for non-obvious decisions, and produces the plan: .dojo/TASKS.md (every wave a verifiable outcome)
   for multi-wave work, plus the intent line and wave 1 goal that feed the kata cycle. Has a
   scoping mode that outputs questions when answers live with other people. Always supervised —
   this is a dialogue, never autonomous.
@@ -33,7 +33,7 @@ hits unknowns only others can resolve.
 **Scoping mode:** run the same probing interview, but when something can't be resolved — not in
 the human's head, not in the codebase, not in the docs — don't guess and don't stall:
 **catalogue it.** Explore the codebase/graph first to answer what you can yourself; collect
-only the genuinely external unknowns. Produce **`scoping-questions.md`**: each unknown phrased
+only the genuinely external unknowns. Produce **`.dojo/session/scoping-questions.md`**: each unknown phrased
 as a clear question, grouped by who/what can resolve it, with *why it matters* (what decision
 it unblocks). Skip Step 0 and the design steps — the question set *is* the output. A later
 design-grill run consumes the answers as its starting point: scope → gather → design.
@@ -70,13 +70,13 @@ outcome: cut redundant work, never necessary work.
 - **Keep going until every question material to the plan is resolved** — not before.
 - **Elicit the non-goals.** Suggest candidate non-goals and confirm each: "Should this also
   handle X? I'd make that an explicit non-goal because [reason] — agree?" Record confirmed
-  non-goals in CONTEXT.md → Non-Goals; they bind every future session and autonomous run.
+  non-goals in .dojo/CONTEXT.md → Non-Goals; they bind every future session and autonomous run.
 
 ---
 
-## CONTEXT.md — the contract
+## .dojo/CONTEXT.md — the contract
 
-CONTEXT.md holds **exactly three sections, nothing else** (no implementation detail, no spec,
+.dojo/CONTEXT.md holds **exactly three sections, nothing else** (no implementation detail, no spec,
 no scratch pad):
 
 - **Glossary** — canonical domain terms and meanings. The highest-leverage output: code,
@@ -106,14 +106,14 @@ hajime verifies it at scaffold in projects.
 
 Write an ADR only when **all three** hold: hard to reverse · surprising without context · the
 result of a real trade-off. Most decisions don't qualify. Write to
-`docs/adr/NNNN-short-title.md` (create the directory lazily).
+`.dojo/adr/NNNN-short-title.md` (create the directory lazily).
 
 ---
 
 ## Produce the plan
 
 **Distill the intent:** one sentence — the problem this solves, and for whom. It goes to
-dojo-session's `intent:` so every later step carries the final objective.
+`.dojo/session/dojo-session.md`'s `intent:` so every later step carries the final objective.
 
 **Express every wave as a verifiable outcome**, in the domain language just sharpened.
 Good: "A Customer with no payment method on file receives PaymentMethodMissingError at
@@ -124,7 +124,7 @@ completable in one focused pass. Needs "and"? Spans unrelated surfaces? Can't na
 check that proves it? It's two waves. The stuck protocol catching an oversized wave is the
 expensive way to learn this.
 
-**Write TASKS.md whenever the work spans more than one wave** (single-wave work skips it):
+**Write .dojo/TASKS.md whenever the work spans more than one wave** (single-wave work skips it):
 
 ```markdown
 # Tasks — [project name]
@@ -144,8 +144,8 @@ kaizen rewrites this file when reality changes. Order waves by dependency.
 
 ## Hand off
 
-Summarize: shared understanding reached, CONTEXT.md terms added/sharpened, non-goals confirmed,
-ADRs written, the intent line, and the plan (TASKS.md or the single wave goal). Confirm wave 1
+Summarize: shared understanding reached, .dojo/CONTEXT.md terms added/sharpened, non-goals confirmed,
+ADRs written, the intent line, and the plan (.dojo/TASKS.md or the single wave goal). Confirm wave 1
 with the human, then hand back to the calling context (usually hajime §6) ready for
 `/kata-red`. **Do not begin implementation until the human confirms shared understanding** —
 the grill ends in an explicit confirmation, never by drifting into building. A finished plan

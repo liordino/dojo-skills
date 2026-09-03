@@ -15,7 +15,7 @@
 1. [Philosophy and Goals](#1-philosophy-and-goals)
 2. [System Architecture](#2-system-architecture)
 3. [Prerequisites and First-Time Setup](#3-first-time-setup)
-4. [The dojo-session.md File](#4-the-dojo-sessionmd-file)
+4. [The Session File](#4-the-session-file)
 5. [The dojo-check Script](#5-the-dojo-check-script)
 5b. [Artifact Hierarchy and Context Management](#5b-artifact-hierarchy-and-context-management)
 6. [Skill Reference](#6-skill-reference)
@@ -54,9 +54,9 @@ briefs point you at concepts worth researching. The agent is a colleague, not a 
 Each file has one job; a rule change touches one file. Rationale lives here in the manual so
 the skills stay terse — which also keeps the agent's per-wave context cost down (see §5b).
 
-**3. Autonomous operation.** Set a goal and let the agent run the cycle. The `dojo-session.md`
-state spine, the deterministic `dojo-check` gate with its proof artifact, the `TASKS.md` plan,
-divergence halts, and the wave ceiling with `RESUME.md` continuation all exist to make that
+**3. Autonomous operation.** Set a goal and let the agent run the cycle. The `.dojo/session/dojo-session.md`
+state spine, the deterministic `dojo-check` gate with its proof artifact, the `.dojo/TASKS.md` plan,
+divergence halts, and the wave ceiling with `.dojo/session/resume.md` continuation all exist to make that
 safe. You control the boundary between supervised and autonomous.
 
 ### What "Dojo" Means
@@ -94,26 +94,28 @@ the form.
                   /kata-red /kata-green (refactor + stuck inline)
                       └───────────┴───────┘ │
                               │             │
-                        /kata-commit ──▶ advances TASKS.md, next wave
+                        /kata-commit ──▶ advances .dojo/TASKS.md, next wave
                               │
                   green's stuck branch ←── from kata-green after 2 failures
 
    On demand: /tanren (optimize) · /kaizen (plan change) · /kokai (release)
 ```
 
-### The State Spine: dojo-session.md
+### The State Spine: the session file
 
-Every skill reads `dojo-session.md` when it loads and writes to it when it exits — the shared
+Every skill reads `.dojo/session/dojo-session.md` when it loads and writes to it when it exits — the shared
 memory of the session. It lets skills pick up exactly where the previous one left off, lets
 autonomous mode resume after a context reset, and lets you inspect or steer the session by
-editing one small file. It is per-machine working state and is **gitignored** (hajime sets
-this up); durable, shared state lives in `CONTEXT.md`, `TASKS.md`, and `progress.md`.
+editing one small file. It is run-scoped working state — the ephemeral tier: whether it is
+tracked is the recorded tracking posture (ADR 0005), not a fixed property; the durable,
+shared record lives at `.dojo/`'s root (`.dojo/CONTEXT.md`, `.dojo/TASKS.md`, and
+`.dojo/progress.md`).
 
 ### The Deterministic Gate: dojo-check
 
 The only fully deterministic mechanism in the system. A script in the project repo running
 compile → lint → test, exiting 0 on full success — and, on success, writing a **proof
-artifact** (`.dojo/check-proof`: timestamp + hash of the run output). The agent reads exit
+artifact** (`.dojo/proof/check-proof`: timestamp + hash of the run output). The agent reads exit
 code, output, and proof; it never drives the compiler or test runner directly, which keeps its
 behavior predictable and stack-agnostic. Gates verify the proof, not the agent's claim.
 
@@ -121,7 +123,7 @@ behavior predictable and stack-agnostic. Gates verify the proof, not the agent's
 
 | Skill | Called from | Purpose |
 |---|---|---|
-| `randori` | `hajime` | Interview-driven design, domain language, ADRs, TASKS.md |
+| `randori` | `hajime` | Interview-driven design, domain language, ADRs, .dojo/TASKS.md |
 | `kan` | `hajime` bugfix fork, `kata-green` stuck branch | Disciplined diagnosis loop |
 | `tanren` | `kata-red` | Iterative optimization against a measurable metric (gated) |
 | `kaizen` | divergence halts, pivots | Re-grill; rewrite the plan |
@@ -144,10 +146,13 @@ principle is internalized) · a specialized UI skill for whatever framework you 
 
 #### Step 1: Nothing to install — Dojo scaffolds itself
 
-On the first `/hajime`, Dojo creates its own structure: `CONTEXT.md` (Glossary / Non-Goals /
-Decisions), `scripts/dojo-check.sh` (with the proof artifact),
-`learning-log.md`, and `.gitignore` entries for `.dojo/` and `dojo-session.md`. `docs/adr/`
-appears lazily with the first ADR; `TASKS.md` appears when randori plans multi-wave work.
+On the first `/hajime`, Dojo creates its own structure under `.dojo/`: `.dojo/CONTEXT.md`
+(Glossary / Non-Goals / Decisions), `scripts/dojo-check.sh` (with the proof artifact in
+`.dojo/proof/`), `.dojo/learning-log.md`, `.dojo/progress.md`, and `.dojo/findings.md`, and
+presents the **tracking posture** question — the human decides what of `.dojo/` is shared
+(hide-all / hide-ephemeral / track-all), applies the ignore patterns themselves in whichever
+surface they keep, and hajime verifies with `git check-ignore`. `.dojo/adr/`
+appears lazily with the first ADR; `.dojo/TASKS.md` appears when randori plans multi-wave work.
 
 #### Step 2: dojo-check — your three commands inside the canonical wrapper
 
@@ -171,24 +176,25 @@ The script lives at `scripts/dojo-check.sh`, is committed, and must be executabl
 
 Run it manually once. All green → ready. No tests yet → the agent adds a trivial passing test
 first. **Pre-existing failures on a brownfield repo do not block Dojo:** they are recorded in
-`dojo-session.md` under `pre_existing_failures`, and every gate then requires *no new
+`.dojo/session/dojo-session.md` under `pre_existing_failures`, and every gate then requires *no new
 failures* — with a recommended "stabilization wave 0" to green the baseline properly.
 
 #### Step 4: Update AGENTS.md
 
 ```
-# Dojo
+# Agent notes (optional — skip entirely to keep the discipline invisible)
+Context/glossary/non-goals/decisions: .dojo/CONTEXT.md
+ADRs: .dojo/adr/        Plan: .dojo/TASKS.md
+Run state: .dojo/session/dojo-session.md (run-scoped; tracked per the recorded posture)
 dojo-check: ./scripts/dojo-check.sh
-Domain glossary + non-goals + decisions: CONTEXT.md
-ADRs: docs/adr/        Plan: TASKS.md
-Session state: dojo-session.md (gitignored)
 ```
 
 ---
 
-## 4. The dojo-session.md File
+## 4. The Session File
 
-Created by the hajime variants, updated by every step skill, gitignored.
+Created by the hajime variants, updated by every step skill; run-scoped working state —
+tracked or not per the recorded tracking posture (ADR 0005).
 
 ### Full Specification
 
@@ -198,7 +204,7 @@ Created by the hajime variants, updated by every step skill, gitignored.
 mode: supervised            # supervised | autonomous
 rigor: real                 # real | poc
 type: feature               # feature | bugfix
-wave: 1                     # advanced by kata-commit from TASKS.md
+wave: 1                     # advanced by kata-commit from .dojo/TASKS.md
 step: RED                   # RED | GREEN | REFACTOR | COMMIT | STUCK | DONE
 gate_density: standard      # full | standard | light (supervised only)
 wave_ceiling: 4             # waves per session before a fresh-session checkpoint
@@ -247,7 +253,7 @@ COMMIT (final gate, proof verified).
 ### The illustrative template
 
 This is the same cargo-shaped example hajime scaffolds. The **proof-contract invariant**
-(what `.dojo/check-proof` must contain, and what it proves) is normative in
+(what `.dojo/proof/check-proof` must contain, and what it proves) is normative in
 `dojo-principles → Enforce Over Instruct — the Proof Contract` — change it there, not
 here. This block shows the shape; swap only the three stack commands:
 
@@ -260,17 +266,17 @@ mkdir -p .dojo
   cargo build 2>&1
   cargo clippy -- -D warnings 2>&1
   cargo test 2>&1
-} | tee .dojo/check-output.log
+} | tee .dojo/proof/check-output.log
 # Reached only if every check passed (set -e + pipefail):
 sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
 {
   echo "ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "exit=0"
-  echo "output_sha256=$(sha .dojo/check-output.log | awk '{print $1}')"
-} > .dojo/check-proof
+  echo "output_sha256=$(sha .dojo/proof/check-output.log | awk '{print $1}')"
+} > .dojo/proof/check-proof
 ```
 
-**Why the proof:** the gate produces *evidence*, not a claim. `.dojo/check-proof` exists fresh
+**Why the proof:** the gate produces *evidence*, not a claim. `.dojo/proof/check-proof` exists fresh
 only after a fully green run; kata-commit verifies freshness (proof newer than every edit)
 before any commit, and upgrades older scripts that predate the template. Doing the real work
 is easier than faking the artifact — which is the honest bar in a harness with shell access.
@@ -283,7 +289,7 @@ no missing environment requirements; consistent parseable output.
 manual, the hajime scaffold, and the PowerShell reference all reference the same
 proof-contract identifiers (`check-proof`, `output_sha256`, `check-output.log`) — the
 *structural* agreement. The surfaces are free to diverge in prose so long as they all
-reference the same identifiers. See ADR 0001 in `docs/adr/` for the rationale and the
+reference the same identifiers. See ADR 0001 in `.dojo/adr/` for the rationale and the
 migration history from the prior byte-equality check.
 
 ### Targeted runs (optional, for large suites)
@@ -314,41 +320,49 @@ files; the context holds only the current wave.
 
 | File | Scope | Updated | Purpose |
 |---|---|---|---|
-| `dojo-session.md` | Current wave | Every step | Working state (gitignored, per-machine) |
-| `TASKS.md` | Whole plan | randori, kata-commit, kaizen | Every wave as a verifiable outcome + status |
-| `progress.md` | Per wave | Each commit | The single terse per-wave log: built, exposes, next dependency, hash |
-| `learning-log.md` | Per wave | Each commit | Debriefs; briefs in supervised sessions |
-| `CONTEXT.md` | Whole project | randori, kaizen | Glossary · Non-Goals · Decisions |
-| `docs/adr/` | Whole project | As decided | Decision records with rationale |
-| `findings.md` | As needed | Diagnosis, halts | Discoveries and halt diagnostics |
-| `.dojo/tanren/` | During optimization | tanren loop | Scratch: candidates + untracked results ledger + champion |
-| `scoping-questions.md` | Pre-design | randori scoping mode | Unknowns to resolve, and with whom |
-| `poc-lessons.md` | PoC only | kata-commit (poc) | What the real build should do differently |
-| `RESUME.md` | Autonomous pause | kata-commit | One-line continuation pointer |
+| `.dojo/session/dojo-session.md` | Current wave | Every step | Run-scoped working state (ephemeral tier) |
+| `.dojo/TASKS.md` | Whole plan | randori, kata-commit, kaizen | Every wave as a verifiable outcome + status |
+| `.dojo/progress.md` | Per wave | Each commit | The single terse per-wave log: built, exposes, next dependency, hash |
+| `.dojo/learning-log.md` | Per wave | Each commit | Debriefs; briefs in supervised sessions |
+| `.dojo/CONTEXT.md` | Whole project | randori, kaizen | Glossary · Non-Goals · Decisions |
+| `.dojo/adr/` | Whole project | As decided | Decision records with rationale |
+| `.dojo/findings.md` | As needed | Diagnosis, halts | Discoveries and halt diagnostics |
+| `.dojo/tanren/` | During optimization | tanren loop | Scratch: candidates + run-scoped results ledger + champion |
+| `.dojo/session/scoping-questions.md` | Pre-design | randori scoping mode | Unknowns to resolve, and with whom |
+| `.dojo/poc-lessons.md` | PoC only | kata-commit (poc) | What the real build should do differently |
+| `.dojo/session/resume.md` | Autonomous pause | kata-commit | One-line continuation pointer |
+
+Every path above is machine-checked: `scripts/dojo-lint.sh` (R17) holds the canonical
+**artifact map** — path + tier (durable/ephemeral) — and asserts every reference on a living
+surface is path-qualified, so the layout cannot drift back. The durable record sits at
+`.dojo/`'s root; the live run in `session/`; gate evidence in `proof/`; tanren's workspace in
+`tanren/`. One tool-homed exception: graphify's cache stays at the project root
+(`graphify-out/`, regenerable, tool-homed — tracked or not per the recorded posture) because
+the tool hardcodes its location (ADR 0005).
 
 ### No snapshot document
 
 There is deliberately no snapshot/handoff document (the former HANDOFF.md was deleted;
 ADR 0004). A cold reader — new agent or returning human — orients from the README, then
-CONTEXT.md (what the project means and refuses), TASKS.md (the plan, tombstone ledger, and
-Improvement Backlog), progress.md (what each wave built), and git log. Each surface has one
+.dojo/CONTEXT.md (what the project means and refuses), .dojo/TASKS.md (the plan, tombstone ledger, and
+Improvement Backlog), .dojo/progress.md (what each wave built), and git log. Each surface has one
 job; none duplicates another.
 
 ### The compaction cycle
 
 `kata-commit` (wave close) writes everything durable to disk — code to git, summary to
-progress.md, pedagogy to learning-log.md, state to CONTEXT.md/TASKS.md — then signals that the wave's
+.dojo/progress.md, pedagogy to .dojo/learning-log.md, state to .dojo/CONTEXT.md/.dojo/TASKS.md — then signals that the wave's
 working context is released. `kata-red` (next wave) reloads from disk and treats prior-wave
 conversation as disposable. Each wave starts lean regardless of how many came before. The
 governance files are never treated as wave context — kata-red reloads them if evicted.
 
-### Wave ceiling, fresh sessions, RESUME.md
+### Wave ceiling, fresh sessions, .dojo/session/resume.md
 
 At each commit, kata-commit counts waves against `wave_ceiling` (default 4, configurable in
 preferences/session). Supervised: it *suggests* a fresh session — all state is on disk, so a
 new `/hajime` loses nothing. Autonomous: it pauses at the clean checkpoint and writes
-`RESUME.md` ("run /hajime autonomous to continue"), so a wrapper or you can relaunch with
-fresh context and the plan continues from TASKS.md. The trigger is wave count and the
+`.dojo/session/resume.md` ("run /hajime autonomous to continue"), so a wrapper or you can relaunch with
+fresh context and the plan continues from .dojo/TASKS.md. The trigger is wave count and the
 clean-checkpoint fact — never the agent self-assessing its own degradation, which is unreliable.
 
 ### The cost of the system itself (and how it's kept down)
@@ -377,7 +391,7 @@ changes that don't move the graph.
 
 ### Where pedagogy goes
 
-Debriefs always land in `learning-log.md`; briefs are supervised-only — an autonomous wave
+Debriefs always land in `.dojo/learning-log.md`; briefs are supervised-only — an autonomous wave
 carries its what/why in the commit body and the progress log, since there is no researching
 human in the moment.
 
@@ -401,27 +415,27 @@ preferences-vs-insights promotion rule. Normative text: `dojo-project/SKILL.md`.
 
 **dojo-conduct** — load at session start. How the agent behaves: the **precedence hierarchy**
 (human > governance > project facts > skill text > memory), enforce-over-instruct (evidence,
-not claims), gate design and **gate density**, concise operational output, and the optional
+not claims), gate design and **gate density**, the sharing boundary, concise operational output, and the optional
 tools (graphify's active treatment defined here). Normative text: `dojo-conduct/SKILL.md`.
 
 **hajime** — `/hajime [description]`. Session entry (feature or bugfix — bugfix is a fork,
 not a separate skill): resume/crash check, preferences, rigor (real/PoC) + mode + "feature or
-bugfix?" questions, the scaffolding checklist (CONTEXT.md, canonical dojo-check + proof,
-gitignore, graphify offer, learning-log), brownfield baseline handling, commit-style
+bugfix?" questions, the scaffolding checklist (.dojo/CONTEXT.md, canonical dojo-check + proof,
+tracking posture, graphify offer, learning-log), brownfield baseline handling, commit-style
 and log-sink questions, plan audit or randori (features) or kan diagnosis (bugfixes), session
 init, hand-off (autonomous: divergence rules, candidates batches). Normative: `hajime/SKILL.md`.
 
 (Trim Wave 8: the bugfix entry that previously lived in the deleted absorbed skill is now
 a fork inside hajime — after rigor and mode are set, "feature or bugfix?" routes the
 session to /kan for diagnosis instead of randori, sets a regression-shaped wave goal, and
-adds `type: bugfix` / `diagnosis` / `reproduction` fields to dojo-session.md. Bugfix is
+adds `type: bugfix` / `diagnosis` / `reproduction` fields to .dojo/session/dojo-session.md. Bugfix is
 `rigor: real`; no PoC fork.)
 
 **randori** — `/randori`, or from hajime. Always supervised. Scope-and-leverage gate first;
-one-question-at-a-time grill with recommendations; builds CONTEXT.md (Glossary / Non-Goals /
+one-question-at-a-time grill with recommendations; builds .dojo/CONTEXT.md (Glossary / Non-Goals /
 Decisions, `(provisional)` markers allowed); ADRs only for hard-to-reverse + surprising + real
-trade-off; outputs the intent line and **TASKS.md** (multi-wave) or the single wave goal.
-Scoping mode outputs `scoping-questions.md` when answers live with other people. Normative:
+trade-off; outputs the intent line and **.dojo/TASKS.md** (multi-wave) or the single wave goal.
+Scoping mode outputs `.dojo/session/scoping-questions.md` when answers live with other people. Normative:
 `randori/SKILL.md`.
 
 **kan** — `/kan`, or from hajime's bugfix fork / kata-green's stuck branch. Reproduce → minimise
@@ -462,12 +476,12 @@ Normative: `kata-green/SKILL.md`.
 
 **kata-commit** — the wave close: proof-verified final gate, message in the session style,
 **explicit staging with a secrets denylist** (never `git add -A`), the debrief + engagement
-note, durable-artifact updates, **TASKS.md advancement to the next wave**, graphify delta
-check, wave ceiling / RESUME.md, context release. Normative: `kata-commit/SKILL.md`.
+note, durable-artifact updates, **.dojo/TASKS.md advancement to the next wave**, graphify delta
+check, wave ceiling / .dojo/session/resume.md, context release. Normative: `kata-commit/SKILL.md`.
 
 **kaizen** — `/kaizen`, always supervised. Reads current reality, grills the change, assesses
-impact honestly (including invalidated committed waves), rewrites TASKS.md, updates CONTEXT.md
-/ ADRs / dojo-session.md, then asks auto-vs-supervised when resolving an
+impact honestly (including invalidated committed waves), rewrites .dojo/TASKS.md, updates .dojo/CONTEXT.md
+/ ADRs / .dojo/session/dojo-session.md, then asks auto-vs-supervised when resolving an
 autonomous halt. Never writes code. Normative: `kaizen/SKILL.md`.
 
 **kokai** — `/kokai`. Release and distribution: problem-first README first, installation
@@ -496,8 +510,8 @@ step, not a separate skill invocation.)
 You: /hajime Add payment method validation to checkout
 ```
 
-The agent: no dojo-session.md → fresh · asks rigor → real · mode → supervised (density
-standard from your preferences) · design → not done · scaffolds/verifies CONTEXT.md and
+The agent: no .dojo/session/dojo-session.md → fresh · asks rigor → real · mode → supervised (density
+standard from your preferences) · design → not done · scaffolds/verifies .dojo/CONTEXT.md and
 dojo-check, baseline green ✓ · offers graphify, you accept · runs randori:
 
 ```
@@ -511,7 +525,7 @@ You: "Yes."
 [... non-goals suggested and confirmed, two more questions ...]
 ```
 
-Randori writes TASKS.md (two waves) and the intent line; hajime writes dojo-session.md:
+Randori writes .dojo/TASKS.md (two waves) and the intent line; hajime writes .dojo/session/dojo-session.md:
 
 ```
 Agent: "Plan: Wave 1 — a checkout attempt with no payment method on file raises
@@ -526,7 +540,7 @@ You: /kata-red
 ```
 
 The agent reloads from disk, then presents together: the wave brief (what/why/concepts:
-"parse-don't-validate", "guard clauses"/bigger picture), the test written in CONTEXT.md
+"parse-don't-validate", "guard clauses"/bigger picture), the test written in .dojo/CONTEXT.md
 language, and the dojo-check output — new test failing for the right reason, 47 existing
 passing. STOP. You approve.
 
@@ -538,7 +552,7 @@ You: /kata-green
 
 ```
 Agent: "Approach: a PaymentMethodMissingError type and one guard at the top of checkout.
-YAGNI: no validation framework. ... All 48 tests pass; fresh .dojo/check-proof written.
+YAGNI: no validation framework. ... All 48 tests pass; fresh .dojo/proof/check-proof written.
 
 Refactor opportunities:
 1. The guard inlines the 'has payment method' predicate — a second caller next wave would
@@ -561,9 +575,9 @@ Suggested commit:
   feat(checkout): raise PaymentMethodMissingError when no payment method on file
   1. Commit now   2. Edit message   3. I'll commit manually"
 You: 1
-Agent: "Wave 1 committed (a1b2c3d). Artifacts updated; TASKS.md wave 1 → done.
-Debrief: [what/why/systemic note/status] (also in learning-log.md).
-Next wave loaded from TASKS.md — Wave 2: expired payment methods are rejected with
+Agent: "Wave 1 committed (a1b2c3d). Artifacts updated; .dojo/TASKS.md wave 1 → done.
+Debrief: [what/why/systemic note/status] (also in .dojo/learning-log.md).
+Next wave loaded from .dojo/TASKS.md — Wave 2: expired payment methods are rejected with
 PaymentMethodExpiredError. Confirm and run /kata-red, or stop here."
 ```
 
@@ -592,12 +606,12 @@ Regression: applyDiscount_isIdempotent_whenCalledTwice
 
 ### 7.3 Autonomous Feature
 
-Choosing autonomous in `/hajime` still runs design supervised: if no TASKS.md exists, randori
+Choosing autonomous in `/hajime` still runs design supervised: if no .dojo/TASKS.md exists, randori
 grills first, you confirm the plan, and only then autonomy begins; if one exists, it is audited
 and gaps are named before the run. During the run the agent loops the cycle, kata-commit
-advancing the goal from TASKS.md. It HALTS — at a clean point, with findings.md written — on divergence (false assumption, invalidated wave, pivot), on approach toward a
+advancing the goal from .dojo/TASKS.md. It HALTS — at a clean point, with .dojo/findings.md written — on divergence (false assumption, invalidated wave, pivot), on approach toward a
 declared non-goal, on a contestable determinism-gate call, or at STUCK after its one adjusted
-attempt. At the wave ceiling it pauses cleanly and writes RESUME.md so a relaunch continues
+attempt. At the wave ceiling it pauses cleanly and writes .dojo/session/resume.md so a relaunch continues
 the plan with fresh context. You resolve divergences with `/kaizen`, which asks whether to
 resume autonomous or switch to supervised. The end-of-run report covers: built, tests,
 decisions, commits, anything needing review, plus preference and promotion candidate batches
@@ -621,7 +635,7 @@ a divergence and a `/kaizen`.
 
 **randori (design)** — called by hajime when the design isn't done. One question at a time,
 each with a recommended answer; explores the codebase/graph instead of asking what code can
-answer. Output: CONTEXT.md entries, ADRs, the intent line, and TASKS.md — the domain
+answer. Output: .dojo/CONTEXT.md entries, ADRs, the intent line, and .dojo/TASKS.md — the domain
 vocabulary then names everything (tests, variables, commits) for the whole session.
 
 **kan (diagnosis)** — called by hajime's bugfix fork, and by kata-green's stuck branch when the
@@ -642,8 +656,8 @@ on greenfield); refreshed by kata-commit only on structural delta. Replaces expe
 exploration with cheap graph queries on large or unfamiliar codebases; cache persists across
 sessions. Absent it, navigation falls back to rg/sg.
 
-**Multi-session persistence** — hajime initializes `progress.md` and `findings.md` for work
-that may span waves or sessions; randori writes `TASKS.md`. These survive context resets: a
+**Multi-session persistence** — hajime initializes `.dojo/progress.md` and `.dojo/findings.md` for work
+that may span waves or sessions; randori writes `.dojo/TASKS.md`. These survive context resets: a
 resumed session reads them and is oriented without re-exploring.
 
 **Specialized UI skills (optional)** — invoked by kata-green's refactor step when a wave
@@ -669,9 +683,9 @@ density batches the same content into fewer stops.
 established · risk is low and the suite is trustworthy · you'd rather review a completed wave
 than sit through it.
 
-**Switching mid-session:** edit `dojo-session.md` (`mode:`, or `gate_density:`) — the next
+**Switching mid-session:** edit `.dojo/session/dojo-session.md` (`mode:`, or `gate_density:`) — the next
 step skill picks it up; this is the human-override layer of the precedence hierarchy. One
-guard: if you flip to autonomous and the plan was never audited (no TASKS.md, or randori never
+guard: if you flip to autonomous and the plan was never audited (no .dojo/TASKS.md, or randori never
 ran), the agent runs hajime's plan audit before autonomy begins — autonomy starts after the
 plan is set, never before. The engagement note may also *suggest* a lighter density or
 autonomous mode when your approvals have become reflexive; the choice is always yours.
@@ -701,7 +715,7 @@ autonomous mode when your approvals have become reflexive; the choice is always 
         ▼
  checklist ── baseline: green, or failures recorded (no NEW failures from here on)
         ▼
- randori (feature) | kan (bugfix)  ──▶  TASKS.md + dojo-session.md
+ randori (feature) | kan (bugfix)  ──▶  .dojo/TASKS.md + .dojo/session/dojo-session.md
         ▼
  /kata-red ─▶ /kata-green ──▶ pass? ──NO(×2)──▶ green's stuck branch
         ▲            │ YES
@@ -711,10 +725,10 @@ autonomous mode when your approvals have become reflexive; the choice is always 
         │      /kata-commit ── proof fresh? ──NO──▶ re-run / upgrade script
         │            │ YES
         │            ▼
-        └── next pending wave from TASKS.md ── none ──▶ DONE (or ceiling ▶ RESUME.md)
+        └── next pending wave from .dojo/TASKS.md ── none ──▶ DONE (or ceiling ▶ .dojo/session/resume.md)
 ```
 
-### dojo-session.md Quick Spec
+### Session Quick Spec
 
 ```markdown
 # Dojo Session

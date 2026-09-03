@@ -7,9 +7,9 @@ description: >
   autonomous); then whether the work is feature or bugfix. Bugfix sessions route through /kan
   for diagnosis and shape the wave goal as a regression test (the bug is reproducible, fails
   now, passes after the fix). Feature sessions ask whether the design is done. Runs the
-  session-start checklist (scaffolds CONTEXT.md, dojo-check with proof artifact),
-  grills via randori if needed (always supervised; produces TASKS.md for multi-wave work), and
-  initializes dojo-session.md.
+  session-start checklist (scaffolds .dojo/CONTEXT.md, dojo-check with proof artifact),
+  grills via randori if needed (always supervised; produces .dojo/TASKS.md for multi-wave work), and
+  initializes .dojo/session/dojo-session.md.
 ---
 
 **Before anything else: load and apply `dojo-principles`, `dojo-project`, and `dojo-conduct` now.**
@@ -25,7 +25,7 @@ Narrate your reasoning at every step. The human is your pair — think out loud.
 
 ## 0. Gate zero — questions before anything
 
-Your first *action* is the resume check below (Dojo's own state only: dojo-session.md, git
+Your first *action* is the resume check below (Dojo's own state only: .dojo/session/dojo-session.md, git
 status). Your first *response* to the human is the §2 route questions (rigor, mode, design,
 feature-or-bugfix) — plus, in the same message, the packaging confirm block from §2 when the
 preferences store answers it — and nothing else. Until they are answered: do not explore or read the project's source code, do not
@@ -39,18 +39,30 @@ set → stop and ask.
 
 ## 1. Resume check
 
-Look for `dojo-session.md` in the project root, and run `git status --porcelain`.
+Look for `.dojo/session/dojo-session.md` in the project root, and run `git status --porcelain`.
 
 - **Found, `step: DONE`, clean tree** — last wave committed cleanly. Starting fresh is safe.
-- **Found, `step: DONE`, dirty Dojo artifacts** (progress/learning-log/TASKS edits uncommitted)
+- **Found, `step: DONE`, dirty durable-artifact edits** (.dojo/progress.md / .dojo/learning-log.md /
+  .dojo/TASKS.md edits uncommitted)
   — a kata-commit was interrupted after the git commit. Finish its artifact updates first, then
   proceed.
 - **Found, any other step** — a wave is mid-flight. If the tree is also dirty, the run may have
   been interrupted: offer (a) resume from [step] as-is, or (b) reset to the last commit
   (`git checkout -- .`) and restart the wave from RED. State the consequence plainly: "Starting
-  fresh overwrites only the in-flight wave's state in dojo-session.md; all project documents
+  fresh overwrites only the in-flight wave's state in .dojo/session/dojo-session.md; all project documents
   and committed code are preserved."
+- **Found a pre-consolidation layout** (Dojo artifacts at the repo root — the durable record as
+  root-level files, ADRs under `docs/`, a root-level session file) — a repo predating the
+  one-folder footprint (ADR 0005). Offer the one-time migration — move each artifact to its
+  `.dojo/` home per the artifact map (lint R17 holds it; the durable record to `.dojo/`'s root,
+  ADRs to `.dojo/adr/`, the session file to `.dojo/session/`) — then run the posture question
+  (§3 item 4). Never migrate without the human's go-ahead.
 - **Not found** — proceed.
+
+Also verify the **tracking posture** (ADR 0005): it is recorded in .dojo/CONTEXT.md → Decisions;
+`git check-ignore -v` on the artifact paths is the evidence of what git actually does. A divergence
+between the recorded posture and observed behavior — tracked state git ignores, or the reverse — is
+surfaced here, never assumed away.
 
 ---
 
@@ -101,7 +113,7 @@ Bugfixes are `rigor: real` (a throwaway experiment is /hajime PoC, not a bugfix)
 this skill is feature-oriented; bugfix forks are noted in §3, §5b, and §6 inline.
 
 **Packaging — one confirm block, not separate stops.** When the preferences store answers
-them, present together: `gate_density` · `commit_style` · log-sink (only if CONTEXT.md →
+them, present together: `gate_density` · `commit_style` · log-sink (only if .dojo/CONTEXT.md →
 Decisions lacks one). Each line carries its one-line consequence — a decision with content,
 not assent:
 
@@ -126,9 +138,9 @@ the commit-style and log-sink questions (defaults).
 prove, and what is the absolute minimum to prove it?" The code is explicitly designed to be
 discarded: no gold-plating, no infrastructure.
 
-**Produces:** `poc-lessons.md` — what was learned, what the real build should do differently.
+**Produces:** `.dojo/poc-lessons.md` — what was learned, what the real build should do differently.
 That file, not the code, is the durable output. When the question is answered, recommend (don't
-force) a fresh `/hajime` feeding poc-lessons.md into randori; advise against building the real
+force) a fresh `/hajime` feeding .dojo/poc-lessons.md into randori; advise against building the real
 thing on top of the prototype. Keep-or-discard is the human's call.
 
 ---
@@ -138,7 +150,7 @@ thing on top of the prototype. Keep-or-discard is the human's call.
 Work through each item; report status. These steps are yours to execute, agent — the only human
 touchpoint is confirming the dojo-check script.
 
-### CONTEXT.md
+### .dojo/CONTEXT.md
 
 If missing, create with exactly this skeleton (contract in randori; listed in dojo-project):
 
@@ -152,7 +164,7 @@ If missing, create with exactly this skeleton (contract in randori; listed in do
 Exactly three H2 sections — more is contract drift; fix before proceeding (randori owns
 the contract).
 
-`docs/adr/` is created lazily on the first ADR.
+`.dojo/adr/` is created lazily on the first ADR.
 
 ### dojo-check (the scaffolded gate)
 
@@ -176,32 +188,53 @@ If missing:
 #!/usr/bin/env bash
 set -e
 set -o pipefail
-mkdir -p .dojo
+mkdir -p .dojo/proof
 {
   cargo build 2>&1
   cargo clippy -- -D warnings 2>&1
   cargo test 2>&1
-} | tee .dojo/check-output.log
+} | tee .dojo/proof/check-output.log
 # Reached only if every check passed (set -e + pipefail):
 sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
 {
   echo "ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "exit=0"
-  echo "output_sha256=$(sha .dojo/check-output.log | awk '{print $1}')"
-} > .dojo/check-proof
+  echo "output_sha256=$(sha .dojo/proof/check-output.log | awk '{print $1}')"
+} > .dojo/proof/check-proof
 ```
 
    The proof is evidence, not a claim — kata-commit verifies it before committing. On Windows,
    run under Git Bash or WSL — or use the PowerShell variant at
    `hajime/reference/dojo-check.ps1` (same contract; swap the same three commands).
-4. Ensure `.gitignore` covers `.dojo/` **and `dojo-session.md`** (per-machine state; durable shared state lives in CONTEXT.md, TASKS.md, and progress.md).
-5. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
+4. **Tracking posture (human-owned — the agent never edits an ignore file).** Dojo's whole
+   footprint is `.dojo/` (plus graphify's tool-homed `graphify-out/` when built). What of it is
+   shared is the human's call, made here once per project and recorded in .dojo/CONTEXT.md →
+   Decisions as the *tracking posture*:
+
+- **hide-all** — invisible mode: nothing of Dojo in shared history (work repos, or anywhere
+     the discipline stays private). The record is machine-local; a fresh clone starts cold, and
+     deleting the footprint means starting fresh — the posture is also the backup policy: any
+     posture that tracks the record gets its history for free; hide-all declines deliberately.
+   - **hide-ephemeral** — the durable record travels in git; `session/`, `proof/`, `tanren/`,
+     and graphify's regenerable cache stay local. Default for solo repos.
+- **track-all** — everything travels, run state included; concurrent mid-wave edits on two
+     machines conflict at pull, and the human picks one machine's truth.
+   Present the ignore patterns for the choice and the *locations* the patterns may live in,
+   each with its consequence — repo `.gitignore` (tracked, shared with collaborators) ·
+   `.git/info/exclude` (per-clone, invisible — the anonymous route; its lifecycle matches the
+   artifacts': both exist exactly where you use Dojo) · a global excludes file (all your
+   machines, all repos) · `.dojo/.gitignore` (travels with the folder; created only on explicit
+   choice). The human applies it — in any of these, never the agent. Then verify with
+   `git check-ignore -v` and report the file:line doing the ignoring; divergence from the
+   recorded posture is surfaced, never assumed away. Backstop: kata-commit's denylist keeps
+   ephemeral files unstaged regardless of ignore state.
+1. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
    stack?" Do not proceed until confirmed.
-6. Run it to establish the **baseline**:
+2. Run it to establish the **baseline**:
 
 - All green → proceed.
 - No tests yet → create a trivial passing test, re-run.
-- **Pre-existing failures** (brownfield) → record them in dojo-session.md under
+- **Pre-existing failures** (brownfield) → record them in .dojo/session/dojo-session.md under
      `pre_existing_failures`, then offer: (a) a **stabilization wave 0** to green the baseline
      first (recommended), or (b) proceed with the rule that every gate requires *no new
      failures* — pre-existing ones are tracked, not fixed silently, not allowed to grow.
@@ -215,11 +248,11 @@ so the grill is informed by real structure.
 
 ### Living artifacts
 
-Create if absent: **learning-log.md** (header: "# Learning
+Create if absent: **.dojo/learning-log.md** (header: "# Learning
 Log — [project]. Debriefs; briefs in supervised sessions. Append-only."), and always
-**progress.md** (the single per-wave log) plus **findings.md** (discoveries and halt
+**.dojo/progress.md** (the single per-wave log) plus **.dojo/findings.md** (discoveries and halt
 diagnostics — kata-commit and the halt protocols append to them). There is no snapshot
-document: a cold reader orients from CONTEXT.md, TASKS.md, progress.md, and git log.
+document: a cold reader orients from .dojo/CONTEXT.md, .dojo/TASKS.md, .dojo/progress.md, and git log.
 
 ---
 
@@ -241,7 +274,7 @@ How do you like your commit messages?
 
 ## 4b. Log sink (skip if rigor: poc; ask once per project)
 
-**If confirmed in §2's packaging block, skip.** If CONTEXT.md → Decisions already records a
+**If confirmed in §2's packaging block, skip.** If .dojo/CONTEXT.md → Decisions already records a
 log sink: skip silently. Otherwise ask once, record
 the answer there, and write an ADR (it's architectural):
 
@@ -260,7 +293,7 @@ require local fallback (dojo-principles → Logging).
 
 ## 5. The plan
 
-**If the design exists:** read TASKS.md and **audit before trusting** — declared done is not
+**If the design exists:** read .dojo/TASKS.md and **audit before trusting** — declared done is not
 verified done, and an autonomous run amplifies vagueness:
 
 - Each wave states a **single verifiable outcome** — you can name the one check that proves it.
@@ -273,7 +306,7 @@ before an autonomous run. The human may proceed as-is, but gaps are named first,
 silently trusted.
 
 **If not:** invoke `/randori`. It interviews one question at a time with recommendations,
-fills CONTEXT.md, writes ADRs, **and writes TASKS.md** (the plan: every wave as a verifiable
+fills .dojo/CONTEXT.md, writes ADRs, **and writes .dojo/TASKS.md** (the plan: every wave as a verifiable
 outcome with `status:` fields) whenever the work spans more than one wave. Always supervised.
 
 ---
@@ -285,7 +318,7 @@ outcome with `status:` fields) whenever the work spans more than one wave. Alway
 Bugfix sessions skip randori and go straight to `/kan`: **reproduce → minimise → hypothesise →
 instrument → fix → regression-test**. Its central discipline: a fast, deterministic,
 agent-runnable pass/fail signal for the exact bug before anything else. Kan writes findings to
-findings.md and feeds its reproduction to kata-red as the regression test.
+.dojo/findings.md and feeds its reproduction to kata-red as the regression test.
 
 **Supervised:** kan presents findings; you approve the diagnosis before the fix begins.
 **Autonomous:** kan logs findings and proceeds — unless it cannot reproduce, in which case it
@@ -298,7 +331,7 @@ test that currently fails and passes after the fix."*
 
 ## 6. Initialize the session
 
-Write `dojo-session.md` (wave 1's goal comes from TASKS.md, or from randori for single-wave
+Write `.dojo/session/dojo-session.md` (wave 1's goal comes from .dojo/TASKS.md, or from randori for single-wave
 work):
 
 ```markdown
@@ -339,13 +372,13 @@ Summarize: what was learned (if grilled), the wave 1 goal, baseline status, mode
 **Supervised:** "Ready to write the failing check. Run **/kata-red** when you're ready."
 
 **Autonomous:** begin `/kata-red` → `/kata-green` → `/kata-commit`, looping per wave;
-kata-commit advances the goal from TASKS.md between waves. HALT at a clean point,
-write to findings.md (and TASKS.md → Improvement Backlog if systemic), and recommend `/kaizen` whenever: reality diverges from
+kata-commit advances the goal from .dojo/TASKS.md between waves. HALT at a clean point,
+write to .dojo/findings.md (and .dojo/TASKS.md → Improvement Backlog if systemic), and recommend `/kaizen` whenever: reality diverges from
 the plan (false assumption, invalidated wave, needed pivot); work heads toward a declared
-non-goal (CONTEXT.md); or a probabilistic approach is about to replace a plausible
+non-goal (.dojo/CONTEXT.md); or a probabilistic approach is about to replace a plausible
 deterministic one. Never rewrite the plan autonomously. Green's stuck branch halts after
 its one adjusted attempt. At the wave ceiling, kata-commit pauses at a clean checkpoint
-and writes RESUME.md.
+and writes .dojo/session/resume.md.
 
 **Bugfix hand-off:** "Diagnosis complete. Ready to write the regression test. Run
 **/kata-red**" (supervised) or `/kata-red` → `/kata-green` → `/kata-commit` (autonomous).

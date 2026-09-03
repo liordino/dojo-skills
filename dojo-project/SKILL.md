@@ -13,7 +13,7 @@ description: >
 
 # Dojo Project — Project-Level Principles
 
-Rules only. Rationale lives in DOJO-MANUAL.md.
+Rules only. Rationale lives in .dojo/DOJO-MANUAL.md.
 
 ## Problem-First Documentation
 
@@ -36,9 +36,9 @@ Rules only. Rationale lives in DOJO-MANUAL.md.
 - `README.md`: architecture, component map, key flows (Mermaid/ASCII). Not a tutorial.
 - `AGENTS.md` / `CLAUDE.md`: imperative bullets only — build/test/lint commands, deviations,
   files not to touch, footguns. Dense; re-read every query.
-- `CONTEXT.md`: exactly three sections — **Glossary**, **Non-Goals**, **Decisions**. Nothing
+- `.dojo/CONTEXT.md`: exactly three sections — **Glossary**, **Non-Goals**, **Decisions**. Nothing
   else (contract defined in randori).
-- `docs/adr/`: decision records; read before touching any module in a decision's area.
+- `.dojo/adr/`: decision records; read before touching any module in a decision's area.
 
 ## Local Agent Contracts (hierarchical AGENTS.md)
 
@@ -76,6 +76,6 @@ Rules only. Rationale lives in DOJO-MANUAL.md.
 ### Preferences vs insights — what may be globalized
 
 - **Preferences** (about you) are safe to globalize: they don't rot or conflict.
-- **Insights** (about a technical situation) stay per-project in learning-log.md. An insight
+- **Insights** (about a technical situation) stay per-project in .dojo/learning-log.md. An insight
   earns global status only by **promotion into dojo-principles → Promoted (local)** — a
   deliberate, human-approved, versioned edit. That section is preserved across Dojo updates.

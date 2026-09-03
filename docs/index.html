@@ -757,14 +757,14 @@
               <div class="kata-cmd">/kata-commit</div>
               <div class="kata-desc">
                 Proof verified, artifacts updated, next wave loaded from
-                TASKS.md
+                .dojo/TASKS.md
               </div>
             </div>
           </div>
         </div>
         <p class="kata-loop">
-          ↺ &nbsp;Repeats per wave until TASKS.md is complete, or the wave
-          ceiling triggers a clean pause with RESUME.md
+          ↺ &nbsp;Repeats per wave until .dojo/TASKS.md is complete, or the wave
+          ceiling triggers a clean pause with .dojo/session/resume.md
         </p>
       </section>
 
@@ -845,7 +845,7 @@
               <div class="skill-card-name">kata-commit</div>
               <div class="skill-card-role">
                 Commit the wave — proof-verified gate, explicit staging with
-                denylist, debrief, TASKS.md advancement, wave ceiling
+                denylist, debrief, .dojo/TASKS.md advancement, wave ceiling
               </div>
             </div>
           </div>
@@ -860,7 +860,7 @@
               <div class="skill-card-name">randori</div>
               <div class="skill-card-role">
                 Interview-driven design grill — domain language, ADRs, the
-                TASKS.md plan. Scoping mode when answers live elsewhere
+                .dojo/TASKS.md plan. Scoping mode when answers live elsewhere
               </div>
             </div>
             <div class="skill-card">
@@ -1006,64 +1006,66 @@
         </p>
         <ul class="artifacts-list">
           <li class="artifact-item">
-            <div class="artifact-name">TASKS.md</div>
+            <div class="artifact-name">.dojo/TASKS.md</div>
             <div class="artifact-desc">
               The plan — every wave a verifiable outcome with a status. Written
               by randori, advanced by kata-commit, rewritten by kaizen
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">TASKS.md · Improvement Backlog</div>
+            <div class="artifact-name">
+              .dojo/TASKS.md · Improvement Backlog
+            </div>
             <div class="artifact-desc">
               Revisit items — not a plan, not a commitment. Promoted into a wave
               via kaizen when the moment is right. There is no snapshot
-              document: a cold reader orients from CONTEXT.md, TASKS.md,
-              progress.md, and git log
+              document: a cold reader orients from .dojo/CONTEXT.md,
+              .dojo/TASKS.md, .dojo/progress.md, and git log
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">dojo-session.md</div>
+            <div class="artifact-name">.dojo/session/dojo-session.md</div>
             <div class="artifact-desc">
               Current wave state — mode, rigor, step, goal, attempts.
               Gitignored; per-machine
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">CONTEXT.md · docs/adr/</div>
+            <div class="artifact-name">.dojo/CONTEXT.md · .dojo/adr/</div>
             <div class="artifact-desc">
               Glossary · Non-Goals · Decisions. Three sections, nothing else.
               The domain contract. Decision records with rationale accumulate
-              under docs/adr/ as they are made
+              under .dojo/adr/ as they are made
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">learning-log.md</div>
+            <div class="artifact-name">.dojo/learning-log.md</div>
             <div class="artifact-desc">
               Per-wave debriefs (briefs in supervised sessions). Append-only
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">progress.md</div>
+            <div class="artifact-name">.dojo/progress.md</div>
             <div class="artifact-desc">
               The single terse per-wave log — built, exposes, next dependency,
               commit hash
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">findings.md</div>
+            <div class="artifact-name">.dojo/findings.md</div>
             <div class="artifact-desc">
               Discoveries and halt diagnostics. Append-only
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">.dojo/check-proof</div>
+            <div class="artifact-name">.dojo/proof/check-proof</div>
             <div class="artifact-desc">
               Evidence the gate actually ran — timestamp, exit 0, output hash.
               Verified by kata-commit before every commit
             </div>
           </li>
           <li class="artifact-item">
-            <div class="artifact-name">RESUME.md</div>
+            <div class="artifact-name">.dojo/session/resume.md</div>
             <div class="artifact-desc">
               One-line continuation pointer written at the autonomous wave
               ceiling
@@ -1167,7 +1169,7 @@
             </li>
             <li>
               <a
-                href="https://github.com/liordino/dojo-skills/blob/main/DOJO-MANUAL.md"
+                href="https://github.com/liordino/dojo-skills/blob/main/.dojo/DOJO-MANUAL.md"
                 target="_blank"
                 rel="noopener"
                 >Manual</a

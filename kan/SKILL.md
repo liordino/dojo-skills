@@ -7,7 +7,7 @@ description: >
   bugfix fork after "feature or bugfix?", or from green's stuck branch when the blocker is
   a bug. Follows reproduce → minimise → hypothesise → instrument → fix → regression-test. The reproduction becomes the
   kata-red regression test. Respects supervised/autonomous mode and divergence detection.
-  Feeds findings into findings.md.
+  Feeds findings into .dojo/findings.md.
 ---
 
 # Kan — Disciplined Diagnosis
@@ -42,7 +42,7 @@ mocked deps, one function call).
 
 Cannot reproduce → stop. Do not hypothesise blind. Supervised: ask for a captured artifact
 (log, HAR, core dump), environment access, or permission to instrument. Autonomous: halt and
-log to findings.md what's needed. Do not guess.
+log to .dojo/findings.md what's needed. Do not guess.
 
 ### 2. Minimise
 
@@ -76,7 +76,7 @@ Hand it to kata-red as the wave's failing check.
 ## After diagnosis: what would have prevented this?
 
 If the answer is structural — no good test seam, tangled callers, hidden coupling — record it
-with specifics in TASKS.md → Improvement Backlog. The bug is a symptom worth recording even
+with specifics in .dojo/TASKS.md → Improvement Backlog. The bug is a symptom worth recording even
 when fixing the structure is a separate wave.
 
 ---
@@ -86,7 +86,7 @@ when fixing the structure is a separate wave.
 Root cause differs from the reported symptom in a way that changes the plan — a deeper design
 problem, or a fix that means design change rather than patch:
 **Supervised:** present what you found; recommend `/kaizen`.
-**Autonomous:** halt, write to findings.md, surface, recommend `/kaizen`.
+**Autonomous:** halt, write to .dojo/findings.md, surface, recommend `/kaizen`.
 Never expand scope autonomously into a design change.
 
 ---

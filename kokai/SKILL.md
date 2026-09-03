@@ -53,7 +53,7 @@ never auto-publish without a deliberately pushed tag.
 
 Summarize: README problem statement + the four principles applied; CI gate mirrors
 dojo-check; release pipeline shape; `bin/deploy` contract. Record durable decisions in
-CONTEXT.md → Decisions; ADR anything with a real tradeoff (channel choice, signing posture).
+.dojo/CONTEXT.md → Decisions; ADR anything with a real tradeoff (channel choice, signing posture).
 Supervised: confirm each major choice before writing pipeline files. Autonomous: set
 conservative defaults (binary + language-native install; CI mirrors dojo-check; tag release;
 Keep-a-Changelog); surface signing, OS-packages, and deploy target for human decision.

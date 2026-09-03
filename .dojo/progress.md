@@ -1,4 +1,4 @@
-# Progress — dojo-skills
+| enables the tracking-posture question + migration offer# Progress — dojo-skills
 
 Terse per-wave log. Append-only. One line per wave.
 Format: `YYYY-MM-DD | wave N | step | one-line outcome`
@@ -37,3 +37,5 @@ Format: `YYYY-MM-DD | wave N | step | one-line outcome`
 2026-09-03 | nano-trio | fix | wording census: 'failing check' canonical, 5 outliers normalized (conduct×2, hajime, kan×2); RESUME.md date-stale parenthetical dropped; scratch .dojo/wave-asserts.sh removed; TASKS backlog micro-item resolved with rationale | three nano-items from the session closeout, zero new surface | lint+mechanics green
 2026-09-03 | site-sot | fix | landing-page backlog item resolved: site is hand-maintained in this repo, published by GitHub Pages on push; Codeberg-era 'external pages repo' premise retired; HANDOFF-card edit is canonical, re-pull concern closed | source of truth flipped to this repo | lint+mechanics green
 2026-09-03 | parity-r16 | fix | lint R16: README<->site fact parity gated — skill catalogue (grid+table==dirs, completeness beyond R4's existence check), canonical cycle string, install fragments, artifact names; site gained docs/adr on the CONTEXT card (parity gap found at RED) | shared data gated, prose jobs preserved | lint+mechanics green
+2026-09-03 | artifact-layout | refactor | one-folder footprint (ADR 0005): durable record to .dojo/ root, adr/ + session/ + proof/ function folders; ~35 surfaces rewritten in lockstep; lint R17 (map, stale-path ban, denylist agreement, posture verification); R16 rescued from after the lint exit (was dead code); R4 ADR-slug fix; evals posture-aware | RESUME.md joins the ephemeral tier; adopt/remove = one folder | enables the tracking-posture question + migration offer | commit: pending
+2026-09-03 | sharing-boundary | docs | The Sharing Boundary in dojo-conduct (files + commit text; the human owns what is shared); glossary (artifact map, tracking posture, sharing boundary); Non-Goal added; hajime posture question + location menu + migration offer; posture recorded (track-all), verified with check-ignore | the philosophy made explicit: harness does the work, human owns the sharing | commit-prose default: no tool attribution

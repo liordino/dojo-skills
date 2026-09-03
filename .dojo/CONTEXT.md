@@ -8,12 +8,12 @@
 - **skill** — a directory containing a `SKILL.md` file (the load-on-trigger contract), plus
   optional `reference/` and `examples/` subdirectories. The agent loads `SKILL.md` at the
   named trigger; references are loaded on demand for zero recurring context cost.
-- **wave** — one verifiable outcome in `TASKS.md`; one trip through the
+- **wave** — one verifiable outcome in `.dojo/TASKS.md`; one trip through the
   red → green → commit kata (refactor inline in green; the DEFINE phase —
   hajime/randori/kan planning — precedes step one).
-- **dojo-check** — the canonical gate script. Always produces `.dojo/check-proof` as
+- **dojo-check** — the canonical gate script. Always produces `.dojo/proof/check-proof` as
   evidence; `kata-commit` hard-gates on it. *Source-of-truth split (see Decisions):* the
-  proof-contract invariant (what `.dojo/check-proof` must contain) is normative in
+  proof-contract invariant (what `.dojo/proof/check-proof` must contain) is normative in
   `dojo-principles`; the three stack commands are per-project in `scripts/dojo-check.sh`;
   `hajime/SKILL.md`'s inline block is illustrative.
 - **dojo-lint** — `scripts/dojo-lint.sh`; static internal-consistency checker for this
@@ -43,12 +43,27 @@
 - **enforce-over-instruct** — when a rule can be enforced by a script (a hook, a generated
   artifact, a state check), prefer that to prompting. Dojo's mechanisms for it: lint
   R1–R14, the dojo-check proof artifact, the freshness rule in kata-commit.
-- **proof artifact** — the `.dojo/check-proof` file (sha256'd pass/fail with
+- **proof artifact** — the `.dojo/proof/check-proof` file (sha256'd pass/fail with
   `ts`/`exit`/`output_sha256`) written by a green run; the concrete evidence that gates
   a commit. "Tests passed" is prose; the proof is evidence.
 - **non-goal** — a deliberate, recorded boundary. Items in `## Non-Goals` bind every
   future session and autonomous run; crossing the line is a scope change handled by
   `/kaizen` with an ADR. The noun is the artefact the project edits.
+- **artifact map** — the canonical artifact → path → tier table for every Dojo artifact,
+  single-sourced in `scripts/dojo-lint.sh` (R17) and asserted across all living surfaces.
+  Names describe function (`adr/`, `session/`, `proof/`, `tanren/`); ignore status is
+  policy and is never encoded in a name. ADR 0005.
+- **tracking posture** — the per-repo, human-owned decision of what part of `.dojo/` is
+  shared: hide-all (invisible mode) / hide-ephemeral (default solo) / track-all. Recorded
+  in Decisions; expressed in whichever ignore surface the human keeps (repo `.gitignore`,
+  `.git/info/exclude`, a global excludes file, `.dojo/.gitignore`); applied by the human,
+  never by the agent; verified against reality with `git check-ignore -v`, never assumed.
+  Also the backup policy: any posture that tracks the record gets its history for free.
+  ADR 0005.
+- **sharing boundary** — the rule that the agent does the work and the human owns what is
+  shared, committed, or published: ignore files, git history, remotes, CI, LICENSE, and
+  what commits say about tooling (attribution is the human's opt-in; default none).
+  dojo-conduct → The Sharing Boundary. ADR 0005.
 - **session-invoked** — a skill pre-loaded at session start (the three `dojo-*` files),
   neither model-invoked (the agent reaches it from prose matching) nor user-invoked
   (the human types the name). The YAML flag is binary; these stay model-invoked for
@@ -59,7 +74,7 @@
 - **Not a general-purpose agent framework.** Dojo is opinionated and specific to one human's
   workflow. Other harnesses / stacks are tolerated where they don't add cost, but Dojo will
   not grow to be "framework-agnostic" or "stack-agnostic" for its own sake.
-- **Not a teaching platform.** The skill files are terse rules (rationale in `DOJO-MANUAL.md`).
+- **Not a teaching platform.** The skill files are terse rules (rationale in `.dojo/DOJO-MANUAL.md`).
   No tutorials, no exhaustive prose.
 - **Not a curated marketplace.** We don't take contributions lightly; quality and cohesion
   of the system outweigh adding skills. New techniques require a clear gap (decision in
@@ -78,13 +93,17 @@
   - No new skill — unless a documented failure mode survives every existing technique.
   - No capability claim in a description without a matching body branch — the fix is
     cutting the claim (kan, 2026-08-31), never growing a body to match stale marketing.
-  - No spec-first flow — TASKS.md waves stay verifiable outcomes; a finished plan is a
+  - No spec-first flow — .dojo/TASKS.md waves stay verifiable outcomes; a finished plan is a
     hand-off, not a starting gun.
   - Never cut red-first, proof+freshness, stuck-at-two, divergence halts, or the
     engagement note for token savings — trim prose, never rules.
 - **No memory daemon replaces protocol files (2026-09-02 evaluation).** Auto-capture
   memory systems (e.g. akitaonrails/ai-memory) run as sidecars at most; session/protocol
   state lives only in Dojo's own artifacts. Crossing: `/kaizen` with an ADR.
+- **Not a repo-governance owner (2026-09-03, ADR 0005).** The agent never edits ignore files,
+  rewrites git history, or changes what is shared or published; it presents the exact change
+  with each option's consequence and the human applies it. Commit messages describe the
+  change in the project's language — tool attribution is the human's opt-in.
 
 ## Decisions
 
@@ -98,8 +117,8 @@
   (preserved across updates by re-applying it after `npx skills add`, or by keeping it
   in a fork).
 - **Documentation split.** Skill files = terse rules only (DOJO-MANUAL holds rationale);
-  README = problem-first; CHANGELOG = Keep a Changelog format; CONTEXT.md = exactly
-  Glossary/Non-Goals/Decisions; ADRs in `docs/adr/` for non-obvious decisions.
+  README = problem-first; CHANGELOG = Keep a Changelog format; .dojo/CONTEXT.md = exactly
+  Glossary/Non-Goals/Decisions; ADRs in `.dojo/adr/` for non-obvious decisions.
 - **Content-repo gate.** `dojo-check` for this repo composes `dojo-lint` (static) +
   `evals/run-mechanics.sh` (proof-contract behavior). No fabricated compile/test step;
   the proof-contract invariant from `dojo-principles` is preserved (lint R10 verifies
@@ -107,34 +126,34 @@
   decision below and ADR 0001).
 - **Mode / rigor default for sessions in this repo.** `real` / `supervised` /
   `gate_density: standard` (declared by the human at hajime start; recorded in
-  `dojo-session.md` per wave). Plan-less by design: features are added via `/kaizen`
-  as needs emerge, not via a pre-baked `TASKS.md`.
+  `.dojo/session/dojo-session.md` per wave). Plan-less by design: features are added via `/kaizen`
+  as needs emerge, not via a pre-baked `.dojo/TASKS.md`.
 - **Commit style.** `conventional` (declared by the human at hajime start; recorded in
-  `dojo-session.md` per wave).
+  `.dojo/session/dojo-session.md` per wave).
 - **Wave ceiling default.** 4 (per dojo-project preference default; recorded in
-  `dojo-session.md` per wave).
+  `.dojo/session/dojo-session.md` per wave).
 - **dojo-check source-of-truth split.** Three sources today, each normative for a
-  distinct layer: the **proof-contract invariant** (what `.dojo/check-proof` must
+  distinct layer: the **proof-contract invariant** (what `.dojo/proof/check-proof` must
   contain) lives in `dojo-principles`; the **three stack commands** live in the
   per-project `scripts/dojo-check.sh`; the inline bash block in `hajime/SKILL.md` is
-  **illustrative**, not normative. `DOJO-MANUAL.md` mirrors the illustrative block for
+  **illustrative**, not normative. `.dojo/DOJO-MANUAL.md` mirrors the illustrative block for
   human readers and references `dojo-principles` for the contract. Lint R6 (byte-equality
   enforcement) is retired and replaced by an R that verifies each surface references the
-  same proof-contract identifiers. ADR: `docs/adr/0001-dojo-check-source-of-truth.md`.
+  same proof-contract identifiers. ADR: `.dojo/adr/0001-dojo-check-source-of-truth.md`.
 - **Skill invocation rule.** Model-invoked (default; YAML `disable-model-invocation`
   absent) when the agent reaches the skill from prose matching. User-invoked (`true`)
   when the skill is reached by the human typing its name. `dojo-*` governance files are
   *session-invoked* — pre-loaded at session start, neither; the binary flag keeps them
   model-invoked for mechanical reasons. Per-skill rationale lives in the YAML
-  front-matter. ADR: `docs/adr/0002-skill-invocation-rule.md`.
+  front-matter. ADR: `.dojo/adr/0002-skill-invocation-rule.md`.
 - **Meta-skill as bridge, not fork.** `dojo-write-skill/SKILL.md` is a Dojo-native
   bridge to upstream `writing-great-skills` (MIT). It imports the upstream's vocabulary
   (leading word, branch, router skill, single source of truth) but restates none of its
   content; the upstream remains canonical for skill-writing knowledge. Attribution at
   the top of the file. Completion criterion: the skill passes its own checklist. ADR:
-  `docs/adr/0003-meta-skill-bridge-not-fork.md`.
+  `.dojo/adr/0003-meta-skill-bridge-not-fork.md`.
 - **Skill-writing vocabulary is now part of the project's domain language.** Adopted
-  from `writing-great-skills` (MIT) at the randori that produced `TASKS.md`. New glossary
+  from `writing-great-skills` (MIT) at the randori that produced `.dojo/TASKS.md`. New glossary
   entries above; reversion is via `/kaizen` with an ADR if a wave finds a term doesn't
   earn its place.
 - **External memory tooling evaluated — not adopted (2026-09-02).** Evaluated
@@ -147,3 +166,17 @@
   own docs say to run structural tools beside it. If cross-harness or cross-repo episodic
   recall ever becomes a real pain, ai-memory may run as a sidecar — never as source of
   truth for protocol state.
+- **Artifact layout: one `.dojo/` folder (2026-09-03).** The durable record at `.dojo/`'s
+  root (this file, `.dojo/TASKS.md`, `.dojo/progress.md`, `.dojo/learning-log.md`,
+  `.dojo/findings.md`, `.dojo/DOJO-MANUAL.md`); function-named subfolders: `.dojo/adr/`
+  (decision records); the live run at `.dojo/session/dojo-session.md`,
+  `.dojo/session/resume.md`, `.dojo/session/scoping-questions.md`; gate evidence at
+  `.dojo/proof/check-proof`,
+  `check-output.log`), `.dojo/tanren/` (optimization loop workspace). The map is
+  machine-checked: lint R17. ADR: `.dojo/adr/0005-artifact-layout-and-sharing-boundary.md`.
+- **Tracking posture (this repo): track-all (2026-09-03).** The full `.dojo/` footprint is
+  tracked — run state and proof artifacts included; this is the discipline's own home, and
+  the posture doubles as the record's backup. Expressed in this repo's `.gitignore`
+  (negations overriding `~/.gitignore_global`), applied by the human, verified with
+  `git check-ignore`. `graphify-out/` stays at the repo root — the tool-homed exception —
+  and is tracked here like everything else (ADR 0005).

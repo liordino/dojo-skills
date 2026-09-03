@@ -74,8 +74,8 @@ genuinely red and the durable test proves it has teeth.
 3. `/kata-green` integrates the winner from scratch into the tracked source — the algorithm is
    already designed and proven, so GREEN is the *integration*, not fresh problem-solving — which
    turns the check green. Green's refactor step cleans it; `/kata-commit` commits the integrated
-   winner **only** — never the dead-end candidates or the untracked ledger. Record the chosen
-   approach and its metric in the commit body and CONTEXT.md → Decisions.
+   winner **only** — never the dead-end candidates or the loop's scratch ledger. Record the chosen
+   approach and its metric in the commit body and .dojo/CONTEXT.md → Decisions.
 
 ---
 
@@ -85,7 +85,7 @@ genuinely red and the durable test proves it has teeth.
 loop — the champion, its metric vs baseline, the held-out evidence, and the rejected approaches
 worth remembering. STOP for approval before handing to `/kata-red` to ratify.
 **Autonomous:** confirm the human pre-approved metric + budget (refuse if not); run the loop to a
-stopping criterion; log the full ledger summary to findings.md and learning-log.md; proceed to
+stopping criterion; log the full ledger summary to .dojo/findings.md and .dojo/learning-log.md; proceed to
 `/kata-red` to ratify the winner. Never commit from inside the loop.
 
 State lives in `.dojo/tanren/` (`run.json`, `score.sh`, `results.tsv`, `best.json`). Load
