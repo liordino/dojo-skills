@@ -41,11 +41,11 @@ preferred.
 Items the author wants to revisit at some point. Not a plan; not a commitment;
 not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is right.
 
-- Landing page (`docs/index.html`) — last regenerated from an external pages
-  repo; the source of truth for visuals lives elsewhere. Re-pull as needed.
-  **Re-pull conflict (2026-09-03):** the HANDOFF.md artifact card was hand-replaced
-  here with the no-snapshot-document note; the upstream pages repo still carries the
-  old card. Patch upstream (or expect the re-pull to resurrect it) before the next pull.
+- **Landing page source-of-truth** — **resolved 2026-09-03:** the Codeberg-era premise
+  ("generated from an external pages repo") is stale. The site moved to GitHub Pages and
+  lives in this repo (`docs/index.html`), hand-maintained, published on every push. The
+  source of truth for the site is now this repo — the 2026-09-03 HANDOFF-card edit is
+  canonical, no re-pull exists to resurrect anything. Item closed.
 - Eval coverage — three scenarios exist (greenfield supervised, brownfield,
   autonomous-ceiling). Coverage is honest (artifact assertions only); expand
   only when a real protocol gap appears, not for its own sake.
