@@ -24,3 +24,12 @@
   - Merge progress.md into HANDOFF (rejected — the agent reload wants the terse log
     small and append-only; HANDOFF's snapshot job benefits from not growing).
   - Status quo (rejected — two histories was the observed drift source).
+
+## Addendum (2026-09-02) — HANDOFF deleted
+
+The HANDOFF.md snapshot surface itself was deleted. Its overview/architecture duplicate the
+README and the filesystem; its Wave History was already removed by this ADR; its one unique
+surface — the Improvement Backlog — moved to `TASKS.md`. The reload path a fresh session
+follows is README → CONTEXT.md → TASKS.md → progress.md → git log; every surface has one job
+and none duplicates another. `evals/scenarios/s1-assert.sh` asserts the relocated backlog in
+the same wave (the same-wave rule).

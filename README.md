@@ -16,7 +16,8 @@ Built for headless agent harnesses with tool calling; language-agnostic. Develop
 own harness (the Pi Coding Agent) — the `/command` and auto-trigger semantics vary between
 harnesses, but anything that can load `SKILL.md` files and follow them works, with at worst
 degraded auto-triggering. Dojo is also **solo-first**: one human, one agent, one repo.
-`dojo-session.md` is per-machine and gitignored; `HANDOFF.md` is the shared resume surface.
+`dojo-session.md` is per-machine and gitignored; durable shared state lives in `CONTEXT.md`,
+`TASKS.md`, and `progress.md` — a fresh session reloads from disk.
 
 ## Philosophy
 
@@ -81,8 +82,8 @@ The `skills` CLI reads the GitHub repo directly and copies the skill directories
 agent's skills folder (see github.com/vercel-labs/skills). Prefer manual install? Copy the
 skill directories yourself — each is a directory containing a `SKILL.md`.
 
-On a fresh project `/hajime` scaffolds everything (CONTEXT.md, the proof-writing `dojo-check`,
-HANDOFF.md) and runs the design grill. On an existing project it detects what's present and
+On a fresh project `/hajime` scaffolds everything (CONTEXT.md, the proof-writing `dojo-check`)
+and runs the design grill. On an existing project it detects what's present and
 resumes — including brownfield projects with pre-existing test failures, which are tracked
 rather than blocking.
 
@@ -120,8 +121,7 @@ idempotency, explicit types, error propagation, refactor step, stuck branch (kat
 ## Living artifacts
 
 - `dojo-session.md` — current wave state (gitignored; per-machine)
-- `TASKS.md` — the plan: every wave a verifiable outcome with a status
-- `HANDOFF.md` — snapshot project document (always current; the resume surface)
+- `TASKS.md` — the plan: every wave a verifiable outcome with a status · Improvement Backlog (revisit items; not a plan)
 - `progress.md` — the single terse per-wave log · `learning-log.md` — per-wave debriefs (briefs in supervised sessions)
 - `CONTEXT.md` — Glossary, Non-Goals, Decisions · `docs/adr/` — decision records
 - `findings.md` — discoveries and halt diagnostics · `RESUME.md` — autonomous-pause pointer

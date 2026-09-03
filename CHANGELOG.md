@@ -12,6 +12,12 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   the record).
 - **docs/proposals/ deleted** — both plan files were executed or invalidated; outcomes
   durably recorded in progress.md/CHANGELOG/tombstones. Plans are disposable by design.
+- **HANDOFF.md deleted; Improvement Backlog relocated to TASKS.md** — HANDOFF's overview/
+  architecture duplicated README and the filesystem; its Wave History was already gone per
+  ADR 0004. The resume story is now explicit: a cold reader orients from README → CONTEXT.md →
+  TASKS.md → progress.md → git log. Reload paths rewritten in hajime, kata-commit, kata-red,
+  kata-green, kan, kaizen, dojo-conduct, DOJO-MANUAL, README, and the landing page; eval s1
+  now asserts the relocated backlog. ADR 0004 addendum records the decision.
 - **dojo-lint R8 strengthened** — the PowerShell dojo-check reference's proof-contract
   field names are now compared against the canonical template extracted live from
   hajime/SKILL.md (same extraction run-mechanics.sh uses); drift fails lint instead of

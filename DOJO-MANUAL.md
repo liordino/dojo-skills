@@ -107,7 +107,7 @@ Every skill reads `dojo-session.md` when it loads and writes to it when it exits
 memory of the session. It lets skills pick up exactly where the previous one left off, lets
 autonomous mode resume after a context reset, and lets you inspect or steer the session by
 editing one small file. It is per-machine working state and is **gitignored** (hajime sets
-this up); `HANDOFF.md` is the durable, shared resume surface.
+this up); durable, shared state lives in `CONTEXT.md`, `TASKS.md`, and `progress.md`.
 
 ### The Deterministic Gate: dojo-check
 
@@ -145,7 +145,7 @@ principle is internalized) · a specialized UI skill for whatever framework you 
 #### Step 1: Nothing to install — Dojo scaffolds itself
 
 On the first `/hajime`, Dojo creates its own structure: `CONTEXT.md` (Glossary / Non-Goals /
-Decisions), `scripts/dojo-check.sh` (with the proof artifact), `HANDOFF.md`,
+Decisions), `scripts/dojo-check.sh` (with the proof artifact),
 `learning-log.md`, and `.gitignore` entries for `.dojo/` and `dojo-session.md`. `docs/adr/`
 appears lazily with the first ADR; `TASKS.md` appears when randori plans multi-wave work.
 
@@ -318,7 +318,6 @@ files; the context holds only the current wave.
 | `TASKS.md` | Whole plan | randori, kata-commit, kaizen | Every wave as a verifiable outcome + status |
 | `progress.md` | Per wave | Each commit | The single terse per-wave log: built, exposes, next dependency, hash |
 | `learning-log.md` | Per wave | Each commit | Debriefs; briefs in supervised sessions |
-| `HANDOFF.md` | Whole project | Each commit | Snapshot document — pick the project up cold |
 | `CONTEXT.md` | Whole project | randori, kaizen | Glossary · Non-Goals · Decisions |
 | `docs/adr/` | Whole project | As decided | Decision records with rationale |
 | `findings.md` | As needed | Diagnosis, halts | Discoveries and halt diagnostics |
@@ -327,18 +326,18 @@ files; the context holds only the current wave.
 | `poc-lessons.md` | PoC only | kata-commit (poc) | What the real build should do differently |
 | `RESUME.md` | Autonomous pause | kata-commit | One-line continuation pointer |
 
-### HANDOFF.md — the living project document
+### No snapshot document
 
-Updated incrementally at each wave's close, never rewritten. A fresh agent or returning human
-reads it and is oriented without replaying history. Stable skeleton: Project Overview (once,
-from CONTEXT.md) · Architecture (as structure grows) · Key Concepts (appended when new) ·
-Current State (overwritten) · Improvement Backlog (accumulated). Per-wave history lives in
-progress.md — one log, no double bookkeeping (ADR 0004). Walking away mid-project costs nothing.
+There is deliberately no snapshot/handoff document (the former HANDOFF.md was deleted;
+ADR 0004). A cold reader — new agent or returning human — orients from the README, then
+CONTEXT.md (what the project means and refuses), TASKS.md (the plan, tombstone ledger, and
+Improvement Backlog), progress.md (what each wave built), and git log. Each surface has one
+job; none duplicates another.
 
 ### The compaction cycle
 
 `kata-commit` (wave close) writes everything durable to disk — code to git, summary to
-progress.md, pedagogy to learning-log.md, state to HANDOFF.md — then signals that the wave's
+progress.md, pedagogy to learning-log.md, state to CONTEXT.md/TASKS.md — then signals that the wave's
 working context is released. `kata-red` (next wave) reloads from disk and treats prior-wave
 conversation as disposable. Each wave starts lean regardless of how many came before. The
 governance files are never treated as wave context — kata-red reloads them if evicted.
@@ -408,7 +407,7 @@ tools (graphify's active treatment defined here). Normative text: `dojo-conduct/
 **hajime** — `/hajime [description]`. Session entry (feature or bugfix — bugfix is a fork,
 not a separate skill): resume/crash check, preferences, rigor (real/PoC) + mode + "feature or
 bugfix?" questions, the scaffolding checklist (CONTEXT.md, canonical dojo-check + proof,
-gitignore, graphify offer, HANDOFF/learning-log), brownfield baseline handling, commit-style
+gitignore, graphify offer, learning-log), brownfield baseline handling, commit-style
 and log-sink questions, plan audit or randori (features) or kan diagnosis (bugfixes), session
 init, hand-off (autonomous: divergence rules, candidates batches). Normative: `hajime/SKILL.md`.
 
@@ -468,7 +467,7 @@ check, wave ceiling / RESUME.md, context release. Normative: `kata-commit/SKILL.
 
 **kaizen** — `/kaizen`, always supervised. Reads current reality, grills the change, assesses
 impact honestly (including invalidated committed waves), rewrites TASKS.md, updates CONTEXT.md
-/ ADRs / HANDOFF.md / dojo-session.md, then asks auto-vs-supervised when resolving an
+/ ADRs / dojo-session.md, then asks auto-vs-supervised when resolving an
 autonomous halt. Never writes code. Normative: `kaizen/SKILL.md`.
 
 **kokai** — `/kokai`. Release and distribution: problem-first README first, installation
@@ -596,8 +595,7 @@ Regression: applyDiscount_isIdempotent_whenCalledTwice
 Choosing autonomous in `/hajime` still runs design supervised: if no TASKS.md exists, randori
 grills first, you confirm the plan, and only then autonomy begins; if one exists, it is audited
 and gaps are named before the run. During the run the agent loops the cycle, kata-commit
-advancing the goal from TASKS.md. It HALTS — at a clean point, with findings.md and HANDOFF.md
-written — on divergence (false assumption, invalidated wave, pivot), on approach toward a
+advancing the goal from TASKS.md. It HALTS — at a clean point, with findings.md written — on divergence (false assumption, invalidated wave, pivot), on approach toward a
 declared non-goal, on a contestable determinism-gate call, or at STUCK after its one adjusted
 attempt. At the wave ceiling it pauses cleanly and writes RESUME.md so a relaunch continues
 the plan with fresh context. You resolve divergences with `/kaizen`, which asks whether to
@@ -646,7 +644,7 @@ sessions. Absent it, navigation falls back to rg/sg.
 
 **Multi-session persistence** — hajime initializes `progress.md` and `findings.md` for work
 that may span waves or sessions; randori writes `TASKS.md`. These survive context resets: a
-resumed session reads them (plus HANDOFF.md) and is oriented without re-exploring.
+resumed session reads them and is oriented without re-exploring.
 
 **Specialized UI skills (optional)** — invoked by kata-green's refactor step when a wave
 touched UI: it detects the framework and runs whatever matching skill you have installed,

@@ -76,7 +76,7 @@ Hand it to kata-red as the wave's failing test.
 ## After diagnosis: what would have prevented this?
 
 If the answer is structural — no good test seam, tangled callers, hidden coupling — record it
-with specifics in HANDOFF.md → Improvement Backlog. The bug is a symptom worth recording even
+with specifics in TASKS.md → Improvement Backlog. The bug is a symptom worth recording even
 when fixing the structure is a separate wave.
 
 ---
@@ -86,7 +86,7 @@ when fixing the structure is a separate wave.
 Root cause differs from the reported symptom in a way that changes the plan — a deeper design
 problem, or a fix that means design change rather than patch:
 **Supervised:** present what you found; recommend `/kaizen`.
-**Autonomous:** halt, write to findings.md and HANDOFF.md, surface, recommend `/kaizen`.
+**Autonomous:** halt, write to findings.md, surface, recommend `/kaizen`.
 Never expand scope autonomously into a design change.
 
 ---

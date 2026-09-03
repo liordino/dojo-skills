@@ -207,3 +207,12 @@ Wave briefs and debriefs. Append-only.
 - **Bigger picture status:** no pending waves. The HANDOFF-usefulness debate (user, this session) is open: HANDOFF's Architecture tree duplicates the filesystem and its Overview duplicates README — candidate for the same tombstone treatment if kaizen confirms nothing reloads it.
 - **Promotion candidates:** none new.
 - **Engagement note:** wave run in full kata: asserts written first, 7 failing at RED, tightened one assert (A1 anchor) rather than weakening the check.
+
+## HANDOFF-deletion debrief (2026-09-03) — Closing Debrief
+
+- **What was done:** the author judged HANDOFF's resume surface redundant against what already exists, and the inspection agreed: its Overview/Architecture duplicated README and the filesystem, its Wave History was gone per ADR 0004, and its one unique surface — the Improvement Backlog — had a better home in TASKS.md. Deleted in one wave: ~20 live references rewritten across hajime, kata-commit, kata-red, kata-green, kan, kaizen, dojo-conduct, DOJO-MANUAL, README, docs/index.html, and eval s1-assert (which now asserts the relocated backlog). Reload story made explicit everywhere: README → CONTEXT.md → TASKS.md → progress.md → git log. ADR 0004 gained a dated addendum.
+- **Why the approach works:** an artifact whose every section duplicates another surface is a liability, not a resume — it drifts the moment someone forgets to update it (the same drift HANDOFF's own Wave History removal fixed). Deleting it doesn't lose the capability; the reload capability is now a *composed* property of the surviving surfaces, each with exactly one job.
+- **Systemic improvement opportunities:** the general test: for each durable artifact, ask "if a cold reader needed this, could they compose it from the other surfaces?" If yes and nothing reloads it, deletion passes. Also: deletion waves should relocate the artifact's one unique capability *in the same wave* — the same-wave rule applied to content, not just references.
+- **Bigger picture status:** no pending waves. Durable surfaces: README, CONTEXT.md, TASKS.md (+backlog), progress.md, learning-log.md, findings.md, RESUME.md (autonomous-pause only), CHANGELOG, ADRs. One fewer always-current document to maintain per wave (kata-commit write targets 5 → 4).
+- **Promotion candidates:** none new.
+- **Engagement note:** second supervised wave this session; asserts refined twice at GREEN (D2's live-reference filter) — each refinement tightened the check against records-about-the-change vs. live dependencies.

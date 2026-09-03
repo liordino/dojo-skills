@@ -23,7 +23,7 @@ When instructions conflict, resolve by precedence (highest first):
    waived and record the deviation in progress.md before complying. Never refuse; never comply
    silently.
 2. **The governance files** (dojo-principles, dojo-project, dojo-conduct).
-3. **Project facts on disk** — dojo-session.md, CONTEXT.md, TASKS.md, HANDOFF.md, and the
+3. **Project facts on disk** — dojo-session.md, CONTEXT.md, TASKS.md, progress.md, and the
    nearest AGENTS.md chain for the path being touched.
 4. **Skill step text.**
 5. **Conversation memory** (lowest — files beat recollection, evidence beats claims).
@@ -80,7 +80,7 @@ magic values, tangled boundaries) · coverage on the changed surface · docs in 
 `scripts/dojo-check.sh` for the deterministic signal — **necessary, not sufficient**; the
 judgment items still need the read. The agent audits and advises with specifics + file
 references; **merging, rejecting, and sign-off are always the human's.** A directed fix runs
-through the normal kata cycle; a systemic finding goes to HANDOFF → Improvement Backlog.
+through the normal kata cycle; a systemic finding goes to TASKS.md → Improvement Backlog.
 
 ## Tools Dojo Pairs Well With (acknowledgments, not dependencies)
 

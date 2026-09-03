@@ -19,12 +19,11 @@ A fresh wave reloads from durable files, never from prior-wave conversation:
 1. `dojo-session.md` — goal, **intent** (keep it in mind for every micro-decision), mode,
    rigor, gate_density, commit style.
 2. `progress.md` — what previous waves built and expose.
-3. `HANDOFF.md` → Current State.
-4. `CONTEXT.md` — domain language (used in all names) and **Non-Goals** (the divergence check
+3. `CONTEXT.md` — domain language (used in all names) and **Non-Goals** (the divergence check
    cannot fire without them in context).
-5. The **AGENTS.md chain** for the paths this wave touches (dojo-project → Local Agent
+4. The **AGENTS.md chain** for the paths this wave touches (dojo-project → Local Agent
    Contracts).
-6. The governance files — if compaction or a fresh session may have evicted
+5. The governance files — if compaction or a fresh session may have evicted
    `dojo-principles`/`dojo-project`/`dojo-conduct`, reload them. Compaction releases *wave*
    context; governance stays active every wave.
 

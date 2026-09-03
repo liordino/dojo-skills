@@ -90,10 +90,10 @@ hash to progress.md.
 After the commit (or the human's manual commit), write everything durable to disk:
 
 1. **progress.md** — append: wave N, type+summary, built, exposes, next dependency, commit hash.
-2. **HANDOFF.md** — incremental, never a rewrite: overwrite Current State; update
-   Architecture only on structural change; append Key Concepts only if genuinely new;
-   append unacted opportunities and any reverted refactor to Improvement Backlog. (The
-   per-wave log lives in progress.md — one history, no double bookkeeping; ADR 0004.)
+2. **TASKS.md** — append unacted opportunities and any reverted refactor to the Improvement
+   Backlog. (The per-wave log lives in progress.md — one history, no double bookkeeping; ADR
+   0004. There is no snapshot document — a cold reader orients from CONTEXT.md, TASKS.md,
+   progress.md, and git log.)
 3. **Owning AGENTS.md** — only if the wave changed a subtree's structure, contracts, or
    footguns (dojo-project → Local Agent Contracts). Delete stale text immediately.
 4. **CONTEXT.md** — only if the wave invalidated an existing Glossary or Decisions entry
@@ -126,8 +126,8 @@ If installed: diff added/removed files or changed public signatures → suggest
 Count waves completed this session against `wave_ceiling` (dojo-session; default 4).
 
 - **Supervised, ceiling reached or you notice re-reading files you should know:** suggest a
-  fresh session — "Everything is committed and on disk; a new /hajime reloads from HANDOFF.md
-  and progress.md. Start fresh, or continue?" A suggestion from wave count and the
+  fresh session — "Everything is committed and on disk; a new /hajime reloads from CONTEXT.md,
+  TASKS.md, and progress.md. Start fresh, or continue?" A suggestion from wave count and the
   clean-checkpoint fact — never a claim about internal context quality, which cannot be
   reliably self-assessed.
 - **Autonomous, ceiling reached:** pause at this clean checkpoint. Write **RESUME.md**: one
@@ -138,7 +138,7 @@ Count waves completed this session against `wave_ceiling` (dojo-session; default
 ## Release working context
 
 The wave is durable: code in git, summary in progress.md, pedagogy in learning-log.md, state
-in HANDOFF.md. This wave's in-context detail — diffs, iterations, discussion — is disposable;
+in CONTEXT.md/TASKS.md. This wave's in-context detail — diffs, iterations, discussion — is disposable;
 the next `/kata-red` reloads from disk. **Not** disposable: the governance files — kata-red
 reloads them if evicted.
 

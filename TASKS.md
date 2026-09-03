@@ -35,3 +35,37 @@ no pending waves; new work starts a new plan section.
 None. New work starts here as a new plan section with the same per-wave shape:
 self-contained waves, lint green at every step, no dangling pointers, byte-negative
 preferred.
+
+## Improvement Backlog
+
+Items the author wants to revisit at some point. Not a plan; not a commitment;
+not a `TASKS.md` wave. Promote into a wave via `/kaizen` when the moment is right.
+
+- Landing page (`docs/index.html`) — last regenerated from an external pages
+  repo; the source of truth for visuals lives elsewhere. Re-pull as needed.
+- Eval coverage — three scenarios exist (greenfield supervised, brownfield,
+  autonomous-ceiling). Coverage is honest (artifact assertions only); expand
+  only when a real protocol gap appears, not for its own sake.
+- Promote section in `dojo-principles` — none yet. Earned by working sessions,
+  not invented.
+- Refactor assessment — when a wave ends, the assessment is *brief + one
+  decision*. Avoid overproducing ceremony.
+- `scripts/dojo-lint.sh` R4 false-positives on ADR filenames — the regex
+  `\b(dojo|kata|hajime)-[a-z][a-z-]*[a-z]\b` matches ADR file names like
+  `0001-dojo-check-source-of-truth.md` as if they were skill directories.
+  Hit during Wave 1's refactor step when `DOJO-MANUAL.md` referenced the
+  ADR by full filename. Fix candidates: tighten the regex to require the
+  matched token to be an existing directory; or add ADR paths to R4's
+  whitelist. Defer — current workaround is to reference ADRs by number
+  only ("see ADR 0001 in `docs/adr/`").
+- Wave 3 design note (from external review, 2026-07-10) — **resolved 2026-08-31, without
+  the router:** the router wave was invalidated; the banner dedup kept the inline
+  imperative (one banner in hajime) rather than a pointer chain — the note's warning
+  about pointer chains is what the assumes-loaded notes implement.
+- Wave 4 counter-proposal (from external review, 2026-07-10) — **resolved 2026-08-29:**
+  the sigil tokens were invalidated post-trim; natural phrases stay canonical. Remaining
+  micro-item: kata-red says "failing check", other files say "failing test" — pick the
+  canonical when touching those files (not worth a lint rule).
+- HANDOFF surface (2026-09-02) — **resolved in the same wave it was raised:** deleted;
+  the backlog moved here. A cold reader orients from README + CONTEXT.md + TASKS.md +
+  progress.md + git log (ADR 0004 addendum).

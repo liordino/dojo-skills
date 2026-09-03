@@ -113,8 +113,8 @@ Clean in priority order:
 Run `dojo-check` after each meaningful change (`dojo-check-fast` inner loop; full before
 hand-off). A test breaks → the refactor changed behavior: revert that change and reassess.
 **Autonomous:** apply the assessment, re-run; still green → commit; broken → revert the
-refactor entirely, keep the working GREEN, log to progress.md, add the opportunity to HANDOFF
-Improvement Backlog, proceed. Never commit a broken refactor — minimal working beats clean
+refactor entirely, keep the working GREEN, log to progress.md, add the opportunity to the
+TASKS.md Improvement Backlog, proceed. Never commit a broken refactor — minimal working beats clean
 broken.
 
 Set `step: COMMIT` when done (or immediately if refactor declined).

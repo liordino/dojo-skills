@@ -7,7 +7,7 @@ description: >
   autonomous); then whether the work is feature or bugfix. Bugfix sessions route through /kan
   for diagnosis and shape the wave goal as a regression test (the bug is reproducible, fails
   now, passes after the fix). Feature sessions ask whether the design is done. Runs the
-  session-start checklist (scaffolds CONTEXT.md, dojo-check with proof artifact, HANDOFF.md),
+  session-start checklist (scaffolds CONTEXT.md, dojo-check with proof artifact),
   grills via randori if needed (always supervised; produces TASKS.md for multi-wave work), and
   initializes dojo-session.md.
 ---
@@ -42,7 +42,7 @@ set → stop and ask.
 Look for `dojo-session.md` in the project root, and run `git status --porcelain`.
 
 - **Found, `step: DONE`, clean tree** — last wave committed cleanly. Starting fresh is safe.
-- **Found, `step: DONE`, dirty Dojo artifacts** (HANDOFF/progress/learning-log edits uncommitted)
+- **Found, `step: DONE`, dirty Dojo artifacts** (progress/learning-log/TASKS edits uncommitted)
   — a kata-commit was interrupted after the git commit. Finish its artifact updates first, then
   proceed.
 - **Found, any other step** — a wave is mid-flight. If the tree is also dirty, the run may have
@@ -119,7 +119,7 @@ never batched into assent — they change what the session does, not how it talk
 ## 2b. PoC adjustments (rigor: poc)
 
 **Loosens:** tests minimal (only the risky core claim, or none if exploratory) — gate is
-compile + lint; pedagogy off (no briefs/debriefs); kokai off; HANDOFF/ceremony minimal; skip
+compile + lint; pedagogy off (no briefs/debriefs); kokai off; ceremony minimal; skip
 the commit-style and log-sink questions (defaults).
 
 **Tightens:** randori's Step 0 scope gate runs hard — "what is the single thing this PoC must
@@ -194,8 +194,7 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
    The proof is evidence, not a claim — kata-commit verifies it before committing. On Windows,
    run under Git Bash or WSL — or use the PowerShell variant at
    `hajime/reference/dojo-check.ps1` (same contract; swap the same three commands).
-4. Ensure `.gitignore` covers `.dojo/` **and `dojo-session.md`** (per-machine state; HANDOFF.md
-   is the shared resume surface).
+4. Ensure `.gitignore` covers `.dojo/` **and `dojo-session.md`** (per-machine state; durable shared state lives in CONTEXT.md, TASKS.md, and progress.md).
 5. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
    stack?" Do not proceed until confirmed.
 6. Run it to establish the **baseline**:
@@ -216,23 +215,11 @@ so the grill is informed by real structure.
 
 ### Living artifacts
 
-Create if absent: **HANDOFF.md** (skeleton below, Project Overview synthesized from CONTEXT.md —
-a snapshot; per-wave history lives in progress.md), **learning-log.md** (header: "# Learning
+Create if absent: **learning-log.md** (header: "# Learning
 Log — [project]. Debriefs; briefs in supervised sessions. Append-only."), and always
 **progress.md** (the single per-wave log) plus **findings.md** (discoveries and halt
-diagnostics — kata-commit and the halt protocols append to them).
-
-```markdown
-# Project Handoff — [project name]
-## Project Overview
-## Architecture
-## Key Concepts
-## Current State
-## Improvement Backlog
-```
-
-Per-wave history lives in `progress.md` (the single append-only log); HANDOFF stays a
-snapshot (ADR 0004).
+diagnostics — kata-commit and the halt protocols append to them). There is no snapshot
+document: a cold reader orients from CONTEXT.md, TASKS.md, progress.md, and git log.
 
 ---
 
@@ -353,7 +340,7 @@ Summarize: what was learned (if grilled), the wave 1 goal, baseline status, mode
 
 **Autonomous:** begin `/kata-red` → `/kata-green` → `/kata-commit`, looping per wave;
 kata-commit advances the goal from TASKS.md between waves. HALT at a clean point,
-write to findings.md and HANDOFF.md, and recommend `/kaizen` whenever: reality diverges from
+write to findings.md (and TASKS.md → Improvement Backlog if systemic), and recommend `/kaizen` whenever: reality diverges from
 the plan (false assumption, invalidated wave, needed pivot); work heads toward a declared
 non-goal (CONTEXT.md); or a probabilistic approach is about to replace a plausible
 deterministic one. Never rewrite the plan autonomously. Green's stuck branch halts after
