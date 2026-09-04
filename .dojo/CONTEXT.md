@@ -181,7 +181,9 @@
   machine-checked: lint R17. ADR: `.dojo/adr/0005-artifact-layout-and-sharing-boundary.md`.
 - **Tracking posture (this repo): track-all (2026-09-03).** The full `.dojo/` footprint is
   tracked — run state and proof artifacts included; this is the discipline's own home, and
-  the posture doubles as the record's backup. Expressed in this repo's `.gitignore`
-  (negations overriding `~/.gitignore_global`), applied by the human, verified with
-  `git check-ignore`. `graphify-out/` stays at the repo root — the tool-homed exception —
-  and is tracked here like everything else (ADR 0005).
+  the posture doubles as the record's backup. Expressed by the absence of ignore rules:
+  nothing in this repo is ignored — the global excludesfile was removed and the
+  negation-only `.gitignore` retired (2026-09-03); the *effective* policy is verified
+  with `git check-ignore`, never assumed from file contents. `graphify-out/` stays at the
+  repo root — the tool-homed exception — and is tracked here like everything else
+  (ADR 0005).
