@@ -1,0 +1,7 @@
+# Normalize line endings in-repo to LF. CRLF in a shell script's shebang breaks
+# execution on Linux (`/usr/bin/env: 'bash\r': No such file`); this prevents the class.
+# eol=lf repo-wide also silences autocrlf conversion warnings on every commit of text files.
+* text=auto eol=lf
+*.sh text eol=lf
+.gitignore text eol=lf
+*.ps1 text eol=crlf
