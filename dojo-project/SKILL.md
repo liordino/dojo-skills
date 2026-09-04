@@ -13,7 +13,7 @@ description: >
 
 # Dojo Project — Project-Level Principles
 
-Rules only. Rationale lives in .dojo/DOJO-MANUAL.md.
+Rules only. Rationale lives in the dojo-skills source repo: .dojo/DOJO-MANUAL.md.
 
 ## Problem-First Documentation
 
@@ -33,6 +33,8 @@ Rules only. Rationale lives in .dojo/DOJO-MANUAL.md.
 - Standardized, agent-legible entrypoints: same names, same contract in every project —
   `bin/setup` prepares, `bin/deploy` ships, a tag cuts a release. Contents are stack-specific;
   names and contract are constant. Predictable structure is what makes delegation safe.
+- Content/docs-only repos may substitute their published surfaces (README, CONTEXT) for
+  `bin/` entrypoints and AGENTS.md; record the substitution in `.dojo/CONTEXT.md` → Decisions.
 - `README.md`: architecture, component map, key flows (Mermaid/ASCII). Not a tutorial.
 - `AGENTS.md` / `CLAUDE.md`: imperative bullets only — build/test/lint commands, deviations,
   files not to touch, footguns. Dense; re-read every query.

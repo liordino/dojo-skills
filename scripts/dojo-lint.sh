@@ -354,6 +354,18 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
 	esac
 fi
 
+# R18 — no shell scripts ship inside skill directories. The install path copies skill
+# dirs verbatim but may normalize line endings (observed: repo LF → installed CRLF);
+# a CRLF shebang is fatal off-Windows (R13's class, relocated to the deploy edge).
+# Shell tooling lives in scripts/ and evals/, where R13 guards the index.
+for skill_dir in */SKILL.md; do
+	[ -e "$skill_dir" ] || continue
+	d="${skill_dir%/*}"
+	while IFS= read -r sh; do
+		err "R18: shell script inside skill dir '$d': $sh — ship it in scripts/ or evals/ instead"
+	done < <(find "$d" -name '*.sh' -type f)
+done
+
 if [ "$FAIL" -eq 0 ]; then
 	say "dojo-lint: PASS — all consistency checks green."
 	exit 0

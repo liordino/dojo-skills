@@ -3,14 +3,14 @@
 mode: supervised
 rigor: real
 type: feature
-wave: 1
-step: GREEN
+wave: 2
+step: RED
 gate_density: standard
 wave_ceiling: 4
 intent: Close the repo→runtime fidelity gap — install drift detectable, EOL mutation harmless — and correct the three currency findings — so the philosophy the agent runs is provably the philosophy in the repo.
-goal: scripts/install-parity.sh exists and is wired into the mechanics eval — exit 0 with per-skill OK on a fresh fixture install (LF and CRLF variants alike), exit nonzero with per-file DRIFT/MISSING/EXTRA lines on a seeded stale fixture; it reports only, never mutates the target.
+goal: Lint R18 (no *.sh inside skill directories) is enforced and drift-injection-verified; the three currency fixes are landed — .dojo/CONTEXT.md glossary names no rule-count, the governance trio's manual pointer names its home repo, dojo-project carries the content-repo carve-out.
 commit_style: conventional
-test_written: install-parity mechanics section (evals/run-mechanics.sh) — 7 one-behavior assertions
-test_status: failing ✓ (install-parity.sh missing or not executable)
+test_written:
+test_status:
 attempts: 0
 pre_existing_failures: none

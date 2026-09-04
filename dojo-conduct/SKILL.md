@@ -12,7 +12,7 @@ description: >
 
 # Dojo Conduct — How the Agent Behaves
 
-Rules only. Rationale lives in .dojo/DOJO-MANUAL.md.
+Rules only. Rationale lives in the dojo-skills source repo: .dojo/DOJO-MANUAL.md.
 
 ## Precedence — the Contract Hierarchy
 

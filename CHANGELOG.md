@@ -13,6 +13,22 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   parity is the invariant, not byte parity. Reports only; never mutates the target.
   Wired into the mechanics eval (7 fixture assertions, including a CRLF-normalized copy);
   documented in README → Updating Dojo.
+- **Lint R18** — no `*.sh` inside skill directories: the install path copies skill dirs
+  verbatim but may normalize line endings (observed: LF → CRLF), and a CRLF shebang is
+  fatal off-Windows — the structural ban makes the deploy-edge hazard impossible instead
+  of per-machine checked. Drift-injection verified (seeded violation fails, clean tree
+  passes).
+
+### Fixed
+
+- Governance-trio currency fixes from the session-start content review: the glossary's
+  "lint R1–R14" enumeration dropped (no rule-count baked into prose — it went stale at
+  R15 and would have gone stale again at R18); the "rationale lives in
+  .dojo/DOJO-MANUAL.md" pointer now names its home repo (it dangled in user projects —
+  the manual ships with the repo, not with installed skills); dojo-project gains the
+  content-repo carve-out this repo itself relies on (published surfaces may substitute
+  for `bin/` entrypoints + AGENTS.md; substitution recorded in .dojo/CONTEXT.md →
+  Decisions).
 
 ## [1.5.0] — 2026-09-03
 

@@ -14,7 +14,7 @@ description: >
 
 # Dojo Principles — Cross-Cutting Engineering Rules
 
-Rules only. Rationale and examples live in .dojo/DOJO-MANUAL.md.
+Rules only. Rationale and examples live in the dojo-skills source repo: .dojo/DOJO-MANUAL.md.
 
 ## Code Navigation — rg and ast-grep
 

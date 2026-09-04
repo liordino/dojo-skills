@@ -41,8 +41,8 @@
   places, the secondary sites are pointers and (where possible) lint-enforced
   equivalences. Source: same.
 - **enforce-over-instruct** — when a rule can be enforced by a script (a hook, a generated
-  artifact, a state check), prefer that to prompting. Dojo's mechanisms for it: lint
-  R1–R14, the dojo-check proof artifact, the freshness rule in kata-commit.
+  artifact, a state check), prefer that to prompting. Dojo's mechanisms for it: the lint
+  R-rules, the dojo-check proof artifact, the freshness rule in kata-commit.
 - **proof artifact** — the `.dojo/proof/check-proof` file (sha256'd pass/fail with
   `ts`/`exit`/`output_sha256`) written by a green run; the concrete evidence that gates
   a commit. "Tests passed" is prose; the proof is evidence.

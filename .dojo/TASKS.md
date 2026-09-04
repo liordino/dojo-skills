@@ -97,7 +97,7 @@ variants alike), fails with per-file output on a seeded stale one.
 
 ### Wave 2 — no shell script ships inside a skill dir; currency fixes land
 
-status: pending
+status: done
 Lint R18: any `*.sh` under a skill directory fails lint (the install path normalizes EOLs;
 a CRLF shebang is fatal off-Windows — R13's class, relocated to the deploy edge; structural
 ban beats per-machine checking). Plus the content-review fixes: .dojo/CONTEXT.md glossary
