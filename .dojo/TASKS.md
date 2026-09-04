@@ -56,8 +56,9 @@ not a `.dojo/TASKS.md` wave. Promote into a wave via `/kaizen` when the moment i
 - Eval coverage — three scenarios exist (greenfield supervised, brownfield,
   autonomous-ceiling). Coverage is honest (artifact assertions only); expand
   only when a real protocol gap appears, not for its own sake.
-- Promote section in `dojo-principles` — none yet. Earned by working sessions,
-  not invented.
+- Promote section in `dojo-principles` — **seeded 2026-09-03:** first entries promoted by
+  explicit human approval (deploy-edge content parity; no rule-counts in prose). Earned by
+  working sessions, not invented.
 - Refactor assessment — when a wave ends, the assessment is *brief + one
   decision*. Avoid overproducing ceremony.
 - `scripts/dojo-lint.sh` R4 false-positives on ADR filenames — **resolved 2026-09-03:**

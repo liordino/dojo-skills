@@ -193,3 +193,12 @@ This section is yours; preserve it across Dojo updates.
   *effective* policy is verified against recorded intent (evidence, e.g.
   `git check-ignore -v`) rather than assumed from file contents. (dojo-skills consolidation,
   2026-09-03; ADR 0005)
+- **At deploy edges, the invariant is content parity, not byte parity.** Distribution and
+  install paths may normalize what the repo preserves (observed: LF → CRLF on skill
+  install); byte equality flags the platform, not the defect. Compare content, and when a
+  normalized artifact becomes hazardous (a CRLF shebang), ban the class structurally
+  instead of checking per machine. (dojo-skills install-fidelity session, 2026-09-03)
+- **A rule-count in prose is a policy baked into a name.** Never enumerate by range
+  ("rules R1–R14") on a living surface — the range goes stale at the next rule. Name the
+  mechanism ("the lint R-rules"); the script owns the inventory. (dojo-skills
+  install-fidelity session, 2026-09-03)
