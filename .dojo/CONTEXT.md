@@ -104,6 +104,11 @@
   rewrites git history, or changes what is shared or published; it presents the exact change
   with each option's consequence and the human applies it. Commit messages describe the
   change in the project's language — tool attribution is the human's opt-in.
+- **The fidelity tooling stays thin (2026-09-03).** install-parity reports only — it never
+  mutates an install; content parity only — no byte-parity mode (the install path
+  normalizes EOLs); mechanics-eval coverage only — no agent-replay scenario; no CI mirror
+  of dojo-check — the local gate is canonical (confirmed by the human 2026-09-03).
+  Crossing: `/kaizen` with an ADR.
 
 ## Decisions
 

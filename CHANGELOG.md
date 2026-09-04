@@ -4,6 +4,14 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 ## [Unreleased]
 
+- (nothing yet)
+
+## [1.6.0] — 2026-09-03
+
+Install fidelity: the repo→runtime edge is checkable (`scripts/install-parity.sh`), the
+deploy-edge EOL hazard is structurally banned (lint R18), and the governance trio's text
+now matches recorded practice.
+
 ### Added
 
 - **`scripts/install-parity.sh`** — content-parity check between this repo's skill
