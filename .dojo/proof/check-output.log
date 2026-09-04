@@ -22,6 +22,14 @@ warning: in the working copy of 'src/app.txt', LF will be replaced by CRLF the n
   ok: exit nonzero on failure
   ok: proof NOT rewritten on failure
   ok: freshness rule: commit gate correctly blocked
+== Install parity: repo→runtime drift is detectable ==
+  ok: fresh fixture install: exit 0, no drift
+  ok: CRLF-normalized copy still exits 0 (content parity, not byte parity)
+  ok: stale content: nonzero exit + DRIFT line
+  ok: missing skill dir: nonzero exit + MISSING line
+  ok: extra file in skill dir: nonzero exit + EXTRA line
+  ok: reports only: install dir untouched by a run
+  ok: usage error (no target dir): exit 2
 
-mechanics eval: 12 ok, 0 failed
+mechanics eval: 19 ok, 0 failed
 RESULT: PASS

@@ -4,7 +4,15 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 ## [Unreleased]
 
-- (nothing yet)
+### Added
+
+- **`scripts/install-parity.sh`** — content-parity check between this repo's skill
+  directories and an installed skills dir (`scripts/install-parity.sh <dir>`): per-skill
+  OK, per-file MISSING/DRIFT/EXTRA, exit 0 parity / 1 drift / 2 usage. EOL-tolerant by
+  design — the install path normalizes line endings (observed: LF → CRLF), so content
+  parity is the invariant, not byte parity. Reports only; never mutates the target.
+  Wired into the mechanics eval (7 fixture assertions, including a CRLF-normalized copy);
+  documented in README → Updating Dojo.
 
 ## [1.5.0] — 2026-09-03
 

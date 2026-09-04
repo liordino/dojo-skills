@@ -250,3 +250,19 @@ Wave briefs and debriefs. Append-only.
   before extending.
 - **Bigger picture:** invisible use (anonymous posture via .git/info/exclude) is a
   first-class option; adoption and removal are single-folder operations.
+
+## Wave 1 — Opening Brief (2026-09-03)
+
+- **What:** `scripts/install-parity.sh <dir>` — a content-parity check between this repo's skill directories and an installed skills directory, plus its section in the mechanics eval.
+- **Why:** this session proved the repo's single-source-of-truth promise breaks silently at the deploy edge (all 12 installed skills were stale). The check makes drift visible with one command; EOL-insensitivity is the design consequence of F4.
+- **Concepts:** content parity vs byte parity · EOL normalization at deploy edges · fixture-based mechanics testing.
+- **Bigger picture:** closes the detection gap (F2′); Wave 2 then makes the EOL hazard structurally impossible (lint R18).
+
+## Wave 1 — Closing Debrief (2026-09-03)
+
+- **What was done:** `scripts/install-parity.sh <dir>` — content-parity check (EOL-insensitive by design) between the repo's skill directories and an installed skills dir; per-file MISSING/DRIFT/EXTRA lines, per-skill OK, exit 0/1/2, reports-only. Wired into `evals/run-mechanics.sh` as a 7-assertion fixture section (fresh install, CRLF-normalized copy, stale content, missing skill, extra file, reports-only, usage error). README → Updating Dojo names the check. The refactor step caught a GREEN defect: the OK line gated on the global drift flag, so after the first drifting skill every later clean skill lost its OK — per-skill flag restored the stated contract.
+- **Why the approach works:** content parity, not byte parity — the install path normalizes EOLs (F4), so byte equality would false-positive forever; the CRLF fixture case encodes that as a contract instead of a comment. Run against the live install: 12/12 OK, exit 0 — the runtime is provably current, and the next drift is one command from being seen.
+- **Systemic improvement opportunities:** the eval's `&& ok || die` idiom matches the file's established pattern (ok/die never fail — SC2015 is style-consistent, left alone); the one real hazard (empty variable in `rm -rf`) got `${var:?}` hardening. Non-goal refinement, named: "no eval scenario" meant no new agent-replay scenario — a shipped script's contract belongs in the mechanics eval (deterministic, fixture-based), which is where it landed.
+- **Bigger picture status:** the detection gap (F2′) is closed. Wave 2 makes the EOL hazard structurally impossible (lint R18) and lands the three currency fixes from the content review.
+- **Promotion candidates:** "At deploy edges, the invariant is content parity, not byte parity — installers normalize what repos preserve." Generalizes beyond skills to any built-artifact distribution. End-of-run batch.
+- **Engagement note:** stop gates waived by explicit human instruction ("do it all, including the commits") — recorded in progress.md at session start per conduct; gates all ran, presentations batched here.

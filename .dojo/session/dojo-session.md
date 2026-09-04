@@ -3,30 +3,14 @@
 mode: supervised
 rigor: real
 type: feature
-wave: 12
-step: DONE
+wave: 1
+step: GREEN
 gate_density: standard
 wave_ceiling: 4
-intent: consolidate all Dojo artifacts under one .dojo/ folder (ADR 0005) and make the sharing boundary explicit.
-goal: layout consolidated per the artifact map; lint R17 + mechanics green; sharing boundary explicit; posture recorded (track-all) and verified.
+intent: Close the repo→runtime fidelity gap — install drift detectable, EOL mutation harmless — and correct the three currency findings — so the philosophy the agent runs is provably the philosophy in the repo.
+goal: scripts/install-parity.sh exists and is wired into the mechanics eval — exit 0 with per-skill OK on a fresh fixture install (LF and CRLF variants alike), exit nonzero with per-file DRIFT/MISSING/EXTRA lines on a seeded stale fixture; it reports only, never mutates the target.
 commit_style: conventional
-test_written: lint R17 (artifact map + stale-path ban + denylist agreement + posture verification); mechanics eval (proof contract on fixture)
-test_status: passing ✓
+test_written: install-parity mechanics section (evals/run-mechanics.sh) — 7 one-behavior assertions
+test_status: failing ✓ (install-parity.sh missing or not executable)
 attempts: 0
 pre_existing_failures: none
-last_commit: (this wave's closing commit)
-
----
-
-## Run summary
-
-**Consolidation complete (Waves A+B of ADR 0005).** Durable record at .dojo/ root (CONTEXT,
-TASKS, progress, learning-log, findings, DOJO-MANUAL); ADRs at .dojo/adr/ (0005 written);
-run state at .dojo/session/ (dojo-session.md, resume.md — RESUME.md joins the ephemeral
-tier); gate evidence at .dojo/proof/; tanren workspace unchanged; graphify-out/ stays at
-root (tool-homed exception, verified upstream-hardcoded). ~35 surfaces rewritten in
-lockstep. The sharing boundary is explicit: conduct section + glossary + Non-Goal +
-posture question in hajime (never edits ignore files; presents patterns and locations;
-verifies with check-ignore).
-
-**Halting at a clean point.** Commit authorized by the human; closing with this wave's commit.

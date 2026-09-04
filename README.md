@@ -154,6 +154,15 @@ learning-logs. Preserve it across updates (re-apply it after `npx skills add`, o
 fork). See CHANGELOG.md for what changed between versions. `scripts/dojo-lint.sh` checks the
 package's internal consistency — run it if you edit the skills.
 
+After updating, verify the installed copies still match the repo:
+
+```bash
+scripts/install-parity.sh <your-skills-dir>   # content-parity check; EOL-tolerant
+```
+
+Drift means the install is stale — re-run `npx skills add liordino/dojo-skills`. The check is
+content-based, not byte-based: the installer may normalize line endings, and that is not drift.
+
 ## Testing This Package
 
 If you edit a skill and want to check you haven't broken a protocol guarantee:

@@ -4,6 +4,8 @@
 #   the canonical dojo-check template is extracted live from hajime/SKILL.md,
 #   so if the canonical block drifts, this eval fails loudly.
 # Dev-side tool: assumes GNU coreutils (date -d, stat -c). Run from package root.
+# Also exercises scripts/install-parity.sh against a fixture install (content parity,
+# including CRLF normalization — the deploy edge may rewrite line endings; that is not drift).
 set -u
 PASS=0
 FAILN=0
@@ -87,6 +89,56 @@ old=$(grep '^ts=' .dojo/proof/check-proof)
 if ./scripts/dojo-check.sh >/dev/null 2>&1; then die "check passed on broken fixture"; else ok "exit nonzero on failure"; fi
 [ "$old" = "$(grep '^ts=' .dojo/proof/check-proof)" ] && ok "proof NOT rewritten on failure" || die "proof rewritten on failure"
 fresh && die "blocked state reported fresh" || ok "freshness rule: commit gate correctly blocked"
+
+echo "== Install parity: repo→runtime drift is detectable =="
+PARITY="$ROOT/scripts/install-parity.sh"
+if [ ! -x "$PARITY" ]; then
+	die "install-parity.sh missing or not executable"
+else
+	INST="$TMP/install"
+	mkdir -p "$INST"
+	for d in "$ROOT"/*/; do
+		[ -f "${d}SKILL.md" ] && cp -r "$d" "$INST/"
+	done
+	"$PARITY" "$INST" >/dev/null 2>&1 &&
+		ok "fresh fixture install: exit 0, no drift" ||
+		die "fresh fixture install reported drift"
+	first_md=$(find "$INST" -name SKILL.md | head -1)
+	sed -i 's/$/\r/' "$first_md"
+	"$PARITY" "$INST" >/dev/null 2>&1 &&
+		ok "CRLF-normalized copy still exits 0 (content parity, not byte parity)" ||
+		die "EOL normalization flagged as drift"
+	printf 'drift line\n' >>"$first_md"
+	out=$("$PARITY" "$INST" 2>&1)
+	rc=$?
+	[ $rc -ne 0 ] && echo "$out" | grep -q 'DRIFT:' &&
+		ok "stale content: nonzero exit + DRIFT line" ||
+		die "stale content not detected (rc=$rc)"
+	first_skill=$(basename "$(dirname "$first_md")")
+	rm -rf "$INST/${first_skill:?}"
+	out=$("$PARITY" "$INST" 2>&1)
+	rc=$?
+	[ $rc -ne 0 ] && echo "$out" | grep -q 'MISSING:' &&
+		ok "missing skill dir: nonzero exit + MISSING line" ||
+		die "missing skill dir not detected (rc=$rc)"
+	second_skill=$(find "$INST" -mindepth 1 -maxdepth 1 -type d | head -1)
+	touch "$second_skill/stray-file.txt"
+	out=$("$PARITY" "$INST" 2>&1)
+	rc=$?
+	[ $rc -ne 0 ] && echo "$out" | grep -q 'EXTRA:' &&
+		ok "extra file in skill dir: nonzero exit + EXTRA line" ||
+		die "extra file not detected (rc=$rc)"
+	cp -r "$INST" "$TMP/install.snapshot"
+	"$PARITY" "$INST" >/dev/null 2>&1
+	if diff -r "$INST" "$TMP/install.snapshot" >/dev/null 2>&1; then
+		ok "reports only: install dir untouched by a run"
+	else
+		die "install dir was mutated by a run"
+	fi
+	"$PARITY" >/dev/null 2>&1
+	rc=$?
+	[ $rc -eq 2 ] && ok "usage error (no target dir): exit 2" || die "missing-arg run exited $rc, expected 2"
+fi
 
 echo
 echo "mechanics eval: $PASS ok, $FAILN failed"

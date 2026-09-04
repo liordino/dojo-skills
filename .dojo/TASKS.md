@@ -77,3 +77,31 @@ not a `.dojo/TASKS.md` wave. Promote into a wave via `/kaizen` when the moment i
 - HANDOFF surface (2026-09-02) — **resolved in the same wave it was raised:** deleted;
   the backlog moved here. A cold reader orients from README + .dojo/CONTEXT.md + .dojo/TASKS.md +
   .dojo/progress.md + git log (ADR 0004 addendum).
+
+## Plan 2026-09-03 — install fidelity (repo → runtime)
+
+intent: Close the repo→runtime fidelity gap — install drift detectable, EOL mutation harmless —
+and correct the three currency findings — so the philosophy the agent runs is provably the
+philosophy in the repo. (Findings provenance: .dojo/findings.md, session-start discoveries.)
+
+### Wave 1 — install drift is detectable by one command
+
+status: done
+`scripts/install-parity.sh <dir>` reports content parity (EOL-insensitive by design — the
+install path normalizes line endings) between this repo's skill directories and an installed
+skills dir: per-skill OK, per-file DRIFT/MISSING/EXTRA lines, exit nonzero on any drift,
+exit 2 on usage error. Reports only — never mutates the target. Documented in README
+("Updating Dojo").
+Proven by: a mechanics-eval section — passes on a fresh fixture install (LF and CRLF
+variants alike), fails with per-file output on a seeded stale one.
+
+### Wave 2 — no shell script ships inside a skill dir; currency fixes land
+
+status: pending
+Lint R18: any `*.sh` under a skill directory fails lint (the install path normalizes EOLs;
+a CRLF shebang is fatal off-Windows — R13's class, relocated to the deploy edge; structural
+ban beats per-machine checking). Plus the content-review fixes: .dojo/CONTEXT.md glossary
+drops the stale "R1–R14" enumeration (no count baked into a name — it goes stale at R18);
+the manual pointer in the governance trio names its home repo (dangles in user projects);
+dojo-project gains the content-repo carve-out this repo itself relies on (ADR 0004 addendum).
+Proven by: lint green with R18 enforced; a seeded skill-dir .sh fails R18.
