@@ -202,3 +202,9 @@ This section is yours; preserve it across Dojo updates.
   ("rules R1–R14") on a living surface — the range goes stale at the next rule. Name the
   mechanism ("the lint R-rules"); the script owns the inventory. (dojo-skills
   install-fidelity session, 2026-09-03)
+- **A wave that spans repositories closes in every repository it touched.** When one wave's
+  work splits across repos (fix in one, test net in another), each repo's durable record
+  carries the wave's closure — commit, proof, and the counterpart's hash — before the wave
+  is called done. The record's unit of closure is the repo, not the wave: an immaculate
+  record in the sibling repo leaves the home repo's cold reader reconstructing history
+  from file mtimes and logs. (two-repo sync session, 2026-09-05)

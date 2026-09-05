@@ -4,7 +4,14 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 ## [Unreleased]
 
-- (nothing yet)
+### Added
+
+- **`dojo-principles` — fourth Promoted entry: cross-repo wave closure.** *"A wave that
+  spans repositories closes in every repository it touched"* — when one wave's work splits
+  across repos (fix in one, test net in another), each repo's durable record carries the
+  closure (commit, proof, counterpart hash) before the wave is done. Promoted with explicit
+  human consent from the two-repo sync session (2026-09-05); source mirrored
+  from the runtime copy, restoring content parity (install-parity green).
 
 ## [1.6.0] — 2026-09-03
 
