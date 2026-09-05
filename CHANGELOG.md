@@ -18,6 +18,8 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   insert); silently-failing key-writes compound one collision into a permanent desync.
   Promoted with explicit human consent from the same session (2026-09-05); the Promoted
   section's provenance norm is now session type + date, never the project of origin.
+- **Site**: the Principles showcase gained the two new entries as cards — *One wave, every
+  repo* and *Mirror metadata* — directly after the "Promoted insights" card they exemplify.
 
 ## [1.6.0] — 2026-09-03
 
