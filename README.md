@@ -15,10 +15,12 @@ and carries a project from idea to shipped, installable release. Landing page:
 Built for headless agent harnesses with tool calling; language-agnostic. Developed against my
 own harness (the Pi Coding Agent) — the `/command` and auto-trigger semantics vary between
 harnesses, but anything that can load `SKILL.md` files and follow them works, with at worst
-degraded auto-triggering. Dojo is also **solo-first**: one human, one agent, one repo. Dojo's
+degraded auto-triggering. Dojo is also **solo-first**: one human, one agent, one loop. Dojo's
 whole footprint is one folder — `.dojo/` holds every artifact: the durable record at its root,
-the live run in `session/`, gate evidence in `proof/`. What of it is shared is the human's
-*tracking posture* decision, never assumed; a fresh session reloads from disk.
+the live run in `session/`, gate evidence in `proof/`. Each repo carries its own `.dojo/`; a
+cross-repo wave records its closure — commit, proof, the counterpart's hash — in each. What
+of it is shared is the human's *tracking posture* decision, never assumed; a fresh session
+reloads from disk.
 
 ## Philosophy
 
