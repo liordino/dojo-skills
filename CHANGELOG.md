@@ -10,8 +10,14 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
   spans repositories closes in every repository it touched"* — when one wave's work splits
   across repos (fix in one, test net in another), each repo's durable record carries the
   closure (commit, proof, counterpart hash) before the wave is done. Promoted with explicit
-  human consent from the two-repo sync session (2026-09-05); source mirrored
-  from the runtime copy, restoring content parity (install-parity green).
+  human consent from a two-repo sync session (2026-09-05); source mirrored from the runtime
+  copy, restoring content parity (install-parity green).
+- **`dojo-principles` — fifth Promoted entry: mirror metadata is never the source of
+  truth.** When a map indexes an authoritative, append-only collection, indices and counts
+  derive from the collection at use-time and every mirror write is loud (upsert or checked
+  insert); silently-failing key-writes compound one collision into a permanent desync.
+  Promoted with explicit human consent from the same session (2026-09-05); the Promoted
+  section's provenance norm is now session type + date, never the project of origin.
 
 ## [1.6.0] — 2026-09-03
 

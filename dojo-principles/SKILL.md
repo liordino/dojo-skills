@@ -184,27 +184,35 @@ pipelines, or frontend trees. The entity/component/system rules and the legacy e
 ## Promoted (local)
 
 Insights promoted from project learning-logs by explicit human approval (see dojo-project).
-This section is yours; preserve it across Dojo updates.
+Provenance names the session type and date — never the project an insight emerged in; the
+origin's full record lives in that project. This section is yours; preserve it across Dojo
+updates.
 
 - **Names describe function; configuration describes policy.** Never bake a policy choice
   (what is ignored, shared, or deployed where) into an identifier, file, or folder name —
   names must survive every policy change without renaming. The policy lives in its own
   surface, presented with each option's consequence, applied by the human; and the
   *effective* policy is verified against recorded intent (evidence, e.g.
-  `git check-ignore -v`) rather than assumed from file contents. (dojo-skills consolidation,
+  `git check-ignore -v`) rather than assumed from file contents. (consolidation,
   2026-09-03; ADR 0005)
 - **At deploy edges, the invariant is content parity, not byte parity.** Distribution and
   install paths may normalize what the repo preserves (observed: LF → CRLF on skill
   install); byte equality flags the platform, not the defect. Compare content, and when a
   normalized artifact becomes hazardous (a CRLF shebang), ban the class structurally
-  instead of checking per machine. (dojo-skills install-fidelity session, 2026-09-03)
+  instead of checking per machine. (install-fidelity session, 2026-09-03)
 - **A rule-count in prose is a policy baked into a name.** Never enumerate by range
   ("rules R1–R14") on a living surface — the range goes stale at the next rule. Name the
-  mechanism ("the lint R-rules"); the script owns the inventory. (dojo-skills
-  install-fidelity session, 2026-09-03)
+  mechanism ("the lint R-rules"); the script owns the inventory. (install-fidelity
+  session, 2026-09-03)
 - **A wave that spans repositories closes in every repository it touched.** When one wave's
   work splits across repos (fix in one, test net in another), each repo's durable record
   carries the wave's closure — commit, proof, and the counterpart's hash — before the wave
   is called done. The record's unit of closure is the repo, not the wave: an immaculate
   record in the sibling repo leaves the home repo's cold reader reconstructing history
   from file mtimes and logs. (two-repo sync session, 2026-09-05)
+- **A mirror's metadata is never the source of truth.** When a map indexes an
+  authoritative, append-only collection, derive indices and counts from the collection at
+  use-time, and make every mirror write loud — upsert or checked insert; a key-write that
+  can silently no-op turns one collision into a permanent, compounding desync no later
+  code self-heals. Diagnostic tell: lag that grows and never recovers is a
+  silently-failing bookkeeping write, not bad data. (two-repo sync session, 2026-09-05)
