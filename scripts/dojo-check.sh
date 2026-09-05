@@ -3,7 +3,7 @@
 #
 # This repo ships no application code (no compile, no unit tests). The meaningful
 # gates for a skill package are:
-#   1. dojo-lint.sh      — static internal consistency (R1–R15)
+#   1. dojo-lint.sh      — static internal consistency (the lint R-rules)
 #   2. evals/run-mechanics.sh — proof-contract behavior end-to-end
 #
 # Both compose into the standard dojo-check proof contract (.dojo/proof/check-proof +
