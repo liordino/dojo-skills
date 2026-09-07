@@ -8,6 +8,16 @@
       content="Dojo — a disciplined development system for AI coding agents: XP pair programming, TDD in approval-gated waves, a shared domain language, and living project docs."
     />
     <title>Dojo — A Disciplined Development System for AI Agents</title>
+    <meta
+      name="description"
+      content="Dojo turns an AI coding agent into a disciplined pair-programming partner: test-driven waves, approval gates, living docs, one folder footprint."
+    />
+    <meta property="og:title" content="Dojo — A Disciplined Development System for AI Agents" />
+    <meta
+      property="og:description"
+      content="Turns an AI coding agent into a disciplined pair-programming partner — test-driven development in approval-gated waves, supervised or autonomous."
+    />
+    <meta property="og:url" content="https://liordino.github.io/dojo-skills/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -34,7 +44,11 @@
 
       html {
         font-size: 16px;
-        scroll-behavior: smooth;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
       }
 
       body {
@@ -181,6 +195,12 @@
         transition:
           background 0.15s,
           color 0.15s;
+      }
+      a:focus-visible,
+      .btn:focus-visible {
+        outline: 2px solid var(--red);
+        outline-offset: 2px;
+        border-radius: 2px;
       }
       .btn-primary {
         background: var(--ink);
@@ -638,8 +658,8 @@
           >
         </div>
         <p class="hero-latest">
-          Latest wave — kokai's published description now names the four
-          principles · d0b10a8 · 2026-09-07
+          Latest session · 2026-09-07 — both run modes explained, every named
+          skill carrying its kanji, and an accessibility floor added
         </p>
       </header>
 

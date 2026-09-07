@@ -114,7 +114,7 @@ pre-edit checks unscoped (a consumer could read them as theirs), shows no kanji/
 the skill cards, omits tanren from its names grid (README's technique list omits it too), and
 opens with nothing current. Each wave fixes one layer; impeccable owns the final UI polish.
 
-- **Wave 1 — modes explained, checks scoped** — status: pending
+- **Wave 1 — modes explained, checks scoped** — status: done (6590136)
   goal: #cycle gains a supervised/autonomous modes block — a per-session choice at /hajime;
   supervised stops at gates (density full/standard/light, engagement notes), autonomous runs to
   completion (halts on divergence, pauses at the wave ceiling with resume.md) — facts mirrored
@@ -122,7 +122,7 @@ opens with nothing current. Each wave fixes one layer; impeccable owns the final
   Dojo's own skills (scripts/ + evals/ live in this repo, not in installs); README's technique
   list gains tanren. Proven by: grep assertions + R16 green (catalogue/cycle/install tokens
   untouched) + dojo-check green.
-- **Wave 2 — kanji identity on the cards, latest wave in the hero** — status: pending
+- **Wave 2 — kanji identity on the cards, latest wave in the hero** — status: done (13a0216)
   goal: every named skill card carries its kanji + translation sourced from the corpus — hajime
   始め begin · randori 乱取り freeform sparring · kan 看 perception · kaizen 改善 continuous
   improvement · tanren 鍛錬 forging · kokai 公開 making public · kata-red/green/commit 型 the
@@ -130,7 +130,7 @@ opens with nothing current. Each wave fixes one layer; impeccable owns the final
   #names grid gains tanren 鍛錬; hero gains a hand-curated latest-wave line derived from
   .dojo/progress.md. Proven by: per-card grep, names grid = 8 terms, hero line matches
   .dojo/progress.md's last entry, R16 green.
-- **Wave 3 — impeccable polish pass** — status: pending
+- **Wave 3 — impeccable polish pass** — status: done
   goal: run the impeccable skill's refinement flow on docs/index.html (context.mjs setup; a
   narrow refinement on the incumbent implementation — refinement preserves, no redesign; its
   bounded-pass ceiling governs verification). The incumbent world (ink/stone palette, kanji
