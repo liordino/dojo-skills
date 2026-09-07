@@ -106,3 +106,33 @@ drops the stale "R1–R14" enumeration (no count baked into a name — it goes s
 the manual pointer in the governance trio names its home repo (dangles in user projects);
 dojo-project gains the content-repo carve-out this repo itself relies on (ADR 0004 addendum).
 Proven by: lint green with R18 enforced; a seeded skill-dir .sh fails R18.
+
+## Plan — the site says what the system does: modes, scope, names, freshness, polish (2026-09-07)
+
+intent: the landing page currently explains the two run modes in one parenthetical, leaves the
+pre-edit checks unscoped (a consumer could read them as theirs), shows no kanji/translation on
+the skill cards, omits tanren from its names grid (README's technique list omits it too), and
+opens with nothing current. Each wave fixes one layer; impeccable owns the final UI polish.
+
+- **Wave 1 — modes explained, checks scoped** — status: pending
+  goal: #cycle gains a supervised/autonomous modes block — a per-session choice at /hajime;
+  supervised stops at gates (density full/standard/light, engagement notes), autonomous runs to
+  completion (halts on divergence, pauses at the wave ceiling with resume.md) — facts mirrored
+  from README's modes sentence; #install's "Two checks" block states it applies to editing
+  Dojo's own skills (scripts/ + evals/ live in this repo, not in installs); README's technique
+  list gains tanren. Proven by: grep assertions + R16 green (catalogue/cycle/install tokens
+  untouched) + dojo-check green.
+- **Wave 2 — kanji identity on the cards, latest wave in the hero** — status: pending
+  goal: every named skill card carries its kanji + translation sourced from the corpus — hajime
+  始め begin · randori 乱取り freeform sparring · kan 看 perception · kaizen 改善 continuous
+  improvement · tanren 鍛錬 forging · kokai 公開 making public · kata-red/green/commit 型 the
+  wave form; the governing trio gets none (no kanji exists in the corpus — none invented);
+  #names grid gains tanren 鍛錬; hero gains a hand-curated latest-wave line derived from
+  .dojo/progress.md. Proven by: per-card grep, names grid = 8 terms, hero line matches
+  .dojo/progress.md's last entry, R16 green.
+- **Wave 3 — impeccable polish pass** — status: pending
+  goal: run the impeccable skill's refinement flow on docs/index.html (context.mjs setup; a
+  narrow refinement on the incumbent implementation — refinement preserves, no redesign; its
+  bounded-pass ceiling governs verification). The incumbent world (ink/stone palette, kanji
+  accents) is preserved; polish fixes defects, not identity. Proven by: the polish reference's
+  checklist in bounded passes; HTML valid; R16 tokens intact; dojo-check green.

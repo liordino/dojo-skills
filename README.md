@@ -48,7 +48,7 @@ engagement note that says so when you stop deciding.
 A **dojo** (道場) is the training hall — the place and practice where discipline is built. A
 **kata** (型) is a form practiced within it until internalized. Dojo is the system; the kata is
 the wave cycle performed inside it (the `kata-*` steps); the named techniques (hajime, randori,
-kan, kaizen, kokai) are moves practiced in the hall. The prefix tells you what a
+kan, tanren, kaizen, kokai) are moves practiced in the hall. The prefix tells you what a
 skill is: `dojo-*` governs the whole hall, `kata-*` is a step in the form, a bare name is a
 technique.
 
