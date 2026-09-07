@@ -163,6 +163,11 @@
         gap: 1rem;
         flex-wrap: wrap;
       }
+      .hero-latest {
+        margin-top: 1.25rem;
+        font-size: 0.82rem;
+        color: var(--stone);
+      }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -371,6 +376,11 @@
         font-weight: 500;
         color: var(--ink);
         margin-bottom: 0.3rem;
+      }
+      .skill-card-kanji {
+        font-size: 0.78rem;
+        color: var(--stone);
+        margin-bottom: 0.35rem;
       }
       .skill-card-role {
         font-size: 0.84rem;
@@ -627,6 +637,10 @@
             >View on GitHub ↗</a
           >
         </div>
+        <p class="hero-latest">
+          Latest wave — kokai's published description now names the four
+          principles · d0b10a8 · 2026-09-07
+        </p>
       </header>
 
       <span class="stroke"></span>
@@ -834,6 +848,7 @@
           <div class="skills-grid">
             <div class="skill-card">
               <div class="skill-card-name">hajime</div>
+              <div class="skill-card-kanji">始め — “begin”</div>
               <div class="skill-card-role">
                 Session start (feature or bugfix) — asks rigor (real/PoC) and
                 mode, scaffolds the project, runs the design grill; bugfix
@@ -848,6 +863,7 @@
           <div class="skills-grid">
             <div class="skill-card">
               <div class="skill-card-name">kata-red</div>
+              <div class="skill-card-kanji">型 — the wave form</div>
               <div class="skill-card-role">
                 Write the failing check — invariant-based, property-first
                 strategy ladder; the algorithm-approach discipline lives here
@@ -855,6 +871,7 @@
             </div>
             <div class="skill-card">
               <div class="skill-card-name">kata-green</div>
+              <div class="skill-card-kanji">型 — the wave form</div>
               <div class="skill-card-role">
                 Minimum implementation — YAGNI, idempotency, explicit types,
                 error propagation; includes the refactor step and the
@@ -863,6 +880,7 @@
             </div>
             <div class="skill-card">
               <div class="skill-card-name">kata-commit</div>
+              <div class="skill-card-kanji">型 — the wave form</div>
               <div class="skill-card-role">
                 Commit the wave — proof-verified gate, explicit staging with
                 denylist, debrief, .dojo/TASKS.md advancement, wave ceiling
@@ -878,6 +896,7 @@
           <div class="skills-grid">
             <div class="skill-card">
               <div class="skill-card-name">randori</div>
+              <div class="skill-card-kanji">乱取り — freeform sparring</div>
               <div class="skill-card-role">
                 Interview-driven design grill — domain language, ADRs, the
                 .dojo/TASKS.md plan. Scoping mode when answers live elsewhere
@@ -885,6 +904,7 @@
             </div>
             <div class="skill-card">
               <div class="skill-card-name">kan</div>
+              <div class="skill-card-kanji">看 — perception</div>
               <div class="skill-card-role">
                 Disciplined diagnosis — reproduce → minimise → hypothesise →
                 instrument → fix → regression-test
@@ -892,6 +912,7 @@
             </div>
             <div class="skill-card">
               <div class="skill-card-name">tanren</div>
+              <div class="skill-card-kanji">鍛錬 — forging and tempering</div>
               <div class="skill-card-role">
                 Iterative optimization — forge a better algorithm by propose →
                 score → keep-or-revert, gated on a measurable metric and a
@@ -900,6 +921,7 @@
             </div>
             <div class="skill-card">
               <div class="skill-card-name">kaizen</div>
+              <div class="skill-card-kanji">改善 — continuous improvement</div>
               <div class="skill-card-role">
                 Re-grill and rewrite the plan on pivots or divergence halts.
                 Never writes code
@@ -907,6 +929,7 @@
             </div>
             <div class="skill-card">
               <div class="skill-card-name">kokai</div>
+              <div class="skill-card-kanji">公開 — to make public</div>
               <div class="skill-card-role">
                 Release and distribution — problem-first README, CI mirrors
                 dojo-check, build-once packaging, the bin/deploy contract
@@ -1184,6 +1207,10 @@
           >
           <span class="name-term">kan 看</span
           ><span class="name-def">Perception — disciplined diagnosis</span>
+          <span class="name-term">tanren 鍛錬</span
+          ><span class="name-def"
+            >Forging and tempering — iterative optimization</span
+          >
           <span class="name-term">kaizen 改善</span
           ><span class="name-def">Continuous improvement — plan revision</span>
           <span class="name-term">kokai 公開</span
