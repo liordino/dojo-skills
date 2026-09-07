@@ -104,7 +104,7 @@ rather than blocking.
 | `kata-red` | Write the failing check (test-first) |
 | `kata-green` | Minimum implementation, refactor step, and stuck branch inline (the cycle is red → green → commit) |
 | `kata-commit` | Commit + living docs + wave advancement + compaction |
-| `kokai` | Release & distribution — install surface, CI, tag-release, changelog |
+| `kokai` | Release & distribution — problem-first README, CI, build-once packaging, bin/deploy contract |
 | `kaizen` | Re-grill and update the plan on discoveries or pivots |
 
 ## Engineering principles (where they live)
