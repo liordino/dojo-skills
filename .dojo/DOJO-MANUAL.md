@@ -18,6 +18,7 @@
 4. [The Session File](#4-the-session-file)
 5. [The dojo-check Script](#5-the-dojo-check-script)
 5b. [Artifact Hierarchy and Context Management](#5b-artifact-hierarchy-and-context-management)
+5c. [The Branching Convention](#5c-the-branching-convention)
 6. [Skill Reference](#6-skill-reference)
 7. [Workflow Walkthroughs](#7-workflow-walkthroughs)
 8. [Supporting Skills Integration](#8-supporting-skills-integration)
@@ -394,6 +395,37 @@ changes that don't move the graph.
 Debriefs always land in `.dojo/learning-log.md`; briefs are supervised-only — an autonomous wave
 carries its what/why in the commit body and the progress log, since there is no researching
 human in the moment.
+
+## 5c. The Branching Convention
+
+The branching strategy is a convention, not a per-project choice: one **plan branch** per
+plan (`plan/<slug>`), created by hajime at session start, carrying the plan's waves as
+proof-gated commits, merged to `main` at plan completion — the natural close of the session.
+
+Why this shape (ADR 0006 in the source repo's `.dojo/adr/`):
+
+- **Trunk-adjacent isolation.** `main` only ever receives completed plans, so it is always
+  green and shippable; the dojo-check proof remains the only currency of "done". Unlike
+  branch-per-wave, giving up a plan deletes the branch — `main` never saw any of it, not
+  even completed waves.
+- **Merge autonomy is bounded.** Merging is the session's close: supervised mode proposes,
+  the human approves or reproves; autonomous mode merges itself. No separate merge skill —
+  the merge is not a new kind of work, it is the same decision the commit gate already made.
+- **Push is the human's.** In every mode, on every branch — the agent never pushes. Push is
+  the one gesture that turns local green into shared green.
+- **Parked ≠ abandoned.** Halting a plan mid-flight leaves its branch for the resuming
+  session. Abandonment is the human's decision; the agent harvests the durable record
+  (findings, lessons, `.dojo/poc-lessons.md`) onto `main` before the branch dies — lessons
+  often live in abandoned code.
+- **PRs.** Wherever they exist, AI revision never replaces human presence: a human must be
+  present at review and merge.
+- **Deferred, not decided:** worktree-based same-machine parallel sessions wait in the
+  backlog until concurrent autonomous sessions are real.
+
+Enforcement: lint R19 gates cross-surface agreement (the invariant in `dojo-principles`, the
+lifecycle in `dojo-conduct`, the wiring in hajime + kata-commit, the contract in
+`.dojo/CONTEXT.md`); kata-commit's branch guard halts a wave commit that would land on
+`main`.
 
 ---
 

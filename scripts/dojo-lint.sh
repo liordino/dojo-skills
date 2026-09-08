@@ -366,6 +366,31 @@ for skill_dir in */SKILL.md; do
 	done < <(find "$d" -name '*.sh' -type f)
 done
 
+# R19 — the branching convention (ADR 0006): cross-surface agreement. The invariant lives
+# in dojo-principles, the lifecycle in dojo-conduct, the wiring in hajime + kata-commit,
+# the contract in .dojo/CONTEXT.md, the why in .dojo/adr/0006. Prose surfaces may wrap a
+# phrase across lines, so matching normalizes newlines: phrase presence, not line layout.
+r19_has() { # r19_has <file> <phrase> — wrap-tolerant phrase presence
+	tr '\n' ' ' < "$1" 2>/dev/null | grep -q -- "$2"
+}
+r19_need() { # r19_need <file> <phrase> <what>
+	r19_has "$1" "$2" || err "R19: $1 lacks '$2' ($3)"
+}
+[ -f .dojo/adr/0006-plan-branch-convention.md ] || err "R19: .dojo/adr/0006-plan-branch-convention.md missing (the convention's why)"
+grep -q '^## The Branching Convention' dojo-conduct/SKILL.md || err "R19: dojo-conduct lacks the '## The Branching Convention' section"
+grep -q '^## The Integration Line' dojo-principles/SKILL.md || err "R19: dojo-principles lacks '## The Integration Line' (the invariant)"
+r19_need dojo-principles/SKILL.md 'proof-gated' 'the invariant names the proof gate'
+r19_need dojo-conduct/SKILL.md 'The agent never pushes' 'the push rule'
+r19_need dojo-conduct/SKILL.md 'plan completion' 'the merge timing'
+r19_need dojo-conduct/SKILL.md 'a human must be present' 'the PR human-presence clause'
+r19_need dojo-conduct/SKILL.md 'harvest' 'the abandonment rule'
+r19_need hajime/SKILL.md 'creates or resumes' 'branch create/resume at session start'
+r19_need hajime/SKILL.md 'plan/<slug>' 'the branch naming pattern'
+r19_need hajime/SKILL.md 'plan completion' 'merge at plan-complete close'
+r19_need kata-commit/SKILL.md 'wave commit while on' 'the main-guard'
+r19_need .dojo/CONTEXT.md 'plan branch' 'the glossary term'
+r19_need .dojo/CONTEXT.md 'plan-branch convention' 'the decision entry'
+
 if [ "$FAIL" -eq 0 ]; then
 	say "dojo-lint: PASS — all consistency checks green."
 	exit 0

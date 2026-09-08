@@ -72,6 +72,10 @@ completion (autonomous mode), with mandatory human gates when reality diverges f
 `.dojo/TASKS.md` (written by randori, advanced by kata-commit, rewritten by kaizen), so the cycle
 always knows what the next wave is.
 
+Each plan works on its own **plan branch** (`plan/<slug>`): waves commit there, proof-gated,
+and the branch merges to `main` when the plan completes — so `main` only ever holds complete,
+green work, and a plan you give up on dies with its branch. You push; the agent never does.
+
 ## Install
 
 ```bash
