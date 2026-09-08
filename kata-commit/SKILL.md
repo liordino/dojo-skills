@@ -67,6 +67,9 @@ autonomous mode wearing supervised's clothes; say so and let the human choose.
 
 ## Commit execution — explicit staging, never blind
 
+**Branch guard.** A wave commit while on `main` means the plan branch was never created —
+halt, create `plan/<slug>` (dojo-conduct → The Branching Convention), and commit there.
+
 Build the stage list: the files this wave touched plus the updated Dojo artifacts. **Never
 `git add -A`.** Run `git status --porcelain` and check untracked/new files against the
 denylist: `.env*`, `*.pem`, `*.key`, credential-looking names, files > 1 MB, and — unless the recorded

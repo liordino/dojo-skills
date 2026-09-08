@@ -364,6 +364,10 @@ reproduction: [how to reproduce]
 Present the goal. Supervised: confirm it. Autonomous: confirm the full plan before any
 autonomy begins.
 
+**Plan branch.** hajime creates or resumes the plan branch (`plan/<slug>`, slug from the
+plan title) at session start (dojo-conduct → The Branching Convention). All wave commits
+land on it; `main` only ever receives merged, completed plans.
+
 ---
 
 ## 7. Hand off
@@ -386,6 +390,12 @@ and writes .dojo/session/resume.md.
 HALT and recommend `/kaizen` if the fix reveals a different root cause than diagnosed, or the
 bug needs a design change rather than a patch — never expand scope autonomously. Never commit
 a broken fix.
+
+**Plan complete → merge.** At plan completion — .dojo/TASKS.md with no pending waves — the
+session closes by merging the plan branch to `main`: supervised, propose the merge for
+approval; autonomous, merge and delete the branch. A mid-plan close parks the branch: no
+merge; resume.md points back at it. The agent never pushes (dojo-conduct → The Branching
+Convention).
 
 During the run, accumulate (never act mid-run): **preference candidates** (durable about-you
 defaults) and **insight promotion candidates** (per-project insights general enough for
