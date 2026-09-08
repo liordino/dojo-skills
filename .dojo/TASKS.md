@@ -78,6 +78,9 @@ not a `.dojo/TASKS.md` wave. Promote into a wave via `/kaizen` when the moment i
 - HANDOFF surface (2026-09-02) — **resolved in the same wave it was raised:** deleted;
   the backlog moved here. A cold reader orients from README + .dojo/CONTEXT.md + .dojo/TASKS.md +
   .dojo/progress.md + git log (ADR 0004 addendum).
+- Same-machine parallel sessions via git worktrees — **deferred 2026-09-08**
+  (branching-convention grill): attractive as a default for concurrent autonomous sessions, but
+  "evolve slowly" won; revisit via /kaizen when the need is real.
 
 ## Plan 2026-09-03 — install fidelity (repo → runtime)
 
@@ -136,3 +139,32 @@ opens with nothing current. Each wave fixes one layer; impeccable owns the final
   bounded-pass ceiling governs verification). The incumbent world (ink/stone palette, kanji
   accents) is preserved; polish fixes defects, not identity. Proven by: the polish reference's
   checklist in bounded passes; HTML valid; R16 tokens intact; dojo-check green.
+
+## Plan 2026-09-08 — the branching convention: plan branches
+
+intent: git flow works the same way in every Dojo project — one plan branch per plan, wave
+commits on it, merge at plan-complete session close, push human-only — so main always holds
+complete, proof-gated work, plans park or die at branch cost, and the human stays the only
+publisher.
+
+- **Wave 1 — the convention is recorded and sanctioned** — status: pending
+  goal: ADR 0006 records the why (plan-branch granularity over wave-branches, merge autonomy
+  at session close, abandonment = human decision + harvest + delete, worktrees deferred);
+  dojo-conduct carries the plan-branch lifecycle (create/resume at hajime, wave commits via
+  kata-commit, merge at plan-complete close, push human-only, harvest rule, and the clause that
+  AI revision never replaces human presence at PR review and merge); dojo-principles carries
+  the integration invariant (main only ever receives work that completed a plan branch, every
+  wave proof-gated); .dojo/CONTEXT.md pins "plan branch" in the glossary (with git-flow and
+  skill-branch exclusions), the non-goals, and the Decisions entry. Proven by: grep assertions
+  per surface + lint green + dojo-check green.
+- **Wave 2 — the flow is wired into the session skills** — status: pending
+  goal: hajime creates or resumes the plan branch at session init and merges at
+  plan-complete close (supervised: propose; autonomous: self); kata-commit gains the
+  main-guard (a wave commit while on main means the branch was never created → halt).
+  Proven by: grep assertions on the new steps; mechanics eval green; lint green.
+- **Wave 3 — consistency: lint, manual, public docs** — status: pending
+  goal: a new lint R asserts cross-surface agreement of the convention tokens (R16 style;
+  a seeded violation fails); DOJO-MANUAL gains the rationale entries; README +
+  docs/index.html carry a short consumer-level workflow mention (no publish/site coupling in
+  the convention text — consumers vary per project). Proven by: lint green with the new R
+  enforced + seeded-violation check; R16 tokens intact; dojo-check green.

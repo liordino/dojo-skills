@@ -6,6 +6,13 @@ All notable changes to the Dojo skill package. Format: [Keep a Changelog](https:
 
 ### Added
 
+- **The branching convention — plan branches.** One plan branch per plan (`plan/<slug>`)
+  carrying proof-gated wave commits, merged to `main` at plan-complete session close
+  (agent-capable; push stays the human's); abandonment = human decision + harvest +
+  delete. Recorded in `dojo-conduct` (lifecycle), `dojo-principles` (integration
+  invariant), and `.dojo/CONTEXT.md` (glossary, non-goals); rationale in ADR 0006 of the
+  source repo.
+
 - **`dojo-principles` — fourth Promoted entry: cross-repo wave closure.** *"A wave that
   spans repositories closes in every repository it touched"* — when one wave's work splits
   across repos (fix in one, test net in another), each repo's durable record carries the

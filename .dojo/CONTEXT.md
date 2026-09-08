@@ -31,6 +31,11 @@
 - **branch** — a distinct way a skill is invoked; different runs taking different paths
   through it. Each branch earns its own trigger phrase in the description; collapsing
   synonyms to one branch keeps context load honest. Source: same.
+- **plan branch** — the git branch that carries one plan's waves (`plan/<slug>`); created
+  by hajime at session start, merged at plan completion, never long-lived beyond it. When
+  we say plan branch we do not mean git-flow's feature/develop/release branches (releases
+  are tags here), and not the "branch" above (a way a skill is invoked). Lifecycle:
+  dojo-conduct → The Branching Convention.
 - **router skill** — (Pocock vocabulary) a user-invoked skill whose body is an index of
   other skills by name and trigger, for when user-invoked skills pile up past what the
   human can remember. Dojo deliberately has none: the router wave was invalidated
@@ -109,6 +114,13 @@
   normalizes EOLs); mechanics-eval coverage only — no agent-replay scenario; no CI mirror
   of dojo-check — the local gate is canonical (confirmed by the human 2026-09-03).
   Crossing: `/kaizen` with an ADR.
+- **No branch-flow infrastructure (2026-09-08).** The plan-branch convention (ADR 0006)
+  adds no PR pipeline (review is the gates plus human approvals — and wherever PRs exist, a
+  human must be present at review and merge), no release branches (releases are tags), no
+  branch registry or parking notes (a forgotten branch is tolerated), no team/multi-human
+  flow (it governs repos where the human holds the flow), and no publish/site coupling in
+  its text (consumers vary per project). Same-machine parallel sessions via worktrees:
+  deferred to the backlog, deliberately not a non-goal.
 
 ## Decisions
 
@@ -187,3 +199,9 @@
   with `git check-ignore`, never assumed from file contents. `graphify-out/` stays at the
   repo root — the tool-homed exception — and is tracked here like everything else
   (ADR 0005).
+- **The plan-branch convention (2026-09-08).** One plan branch per plan (`plan/<slug>`),
+  wave commits proof-gated on it, merge to main at plan-complete session close
+  (agent-capable — supervised approve/reprove, autonomous self), push human-only,
+  abandonment = human decision + harvest + delete. This session's own waves landed on main:
+  the wiring is its wave 2, and the convention starts with its first new plan. ADR:
+  `.dojo/adr/0006-plan-branch-convention.md`.

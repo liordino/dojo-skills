@@ -125,6 +125,17 @@ must reference `check-proof`, `output_sha256`, and `check-output.log` to keep ag
 
 When in doubt about the contract, change it here — the proof rule is one place.
 
+## The Integration Line — Plan Branches
+
+- One plan branch per plan (`plan/<slug>`): the plan's waves land on it as proof-gated
+  commits (the kata loop, red → green → commit per wave).
+- The integration line (`main`) only ever receives work that completed a plan branch,
+  merged at plan completion — every wave on it proof-gated. Nothing lands unproven,
+  directly or partially.
+- The agent never pushes; publishing is the human's act.
+- Lifecycle rules — create, resume, merge, park, abandon, harvest: dojo-conduct → The
+  Branching Convention.
+
 ## Logging — Structured, at the Boundary
 
 - Logging is a side effect: the shell logs; the pure core stays silent (propagate outward as a

@@ -65,6 +65,34 @@ never-commit-without-instruction gate, the preferences-store consent rule (dojo-
 promotion consent rule, and review sign-off (below). Named once here so the pattern is
 findable; those clauses remain the local law.
 
+## The Branching Convention — Plan Branches
+
+One plan branch per plan (`plan/<slug>`): created by hajime at session start (or resumed
+by it), carrying the plan's waves as proof-gated commits, merged to `main` at plan
+completion — the natural close of the session. `main` is the integration line: only
+completed plans land on it, and every wave that reached it was proof-gated. The invariant
+lives in dojo-principles → The Integration Line.
+
+- **Merge autonomy.** Merging a completed plan branch is the session's close: supervised,
+  the agent proposes and the human approves or reproves; autonomous, the agent merges
+  itself. A wave commit while on `main` means the branch was never created — halt and
+  create it.
+- **The agent never pushes** — branches or `main`. Push is the human's publish act: the
+  one gesture that turns local green into shared green.
+- **Parked ≠ abandoned.** Halting a plan mid-flight leaves its branch; the resuming
+  session lands back on it. A forgotten branch is tolerated — `git branch` is the
+  registry, no parking notes.
+- **Abandonment is the human's decision** (an autonomous run halts on divergence rather
+  than abandoning). The agent executes the harvest: durable-record updates written on the
+  branch (findings, lessons, `.dojo/poc-lessons.md`) land on `main` as their own commit; reusable
+  code is carried back only if the human names it; then the branch dies. Lessons survive
+  abandoned code.
+- **Wherever PRs exist**, the agent may prepare and advise, but AI revision never replaces
+  human presence: a human must be present at review and merge.
+- **Out of scope by design:** worktree-based same-machine parallel sessions (deferred),
+  team/multi-human flow, release branches (releases are tags), and any publish/site
+  coupling in the convention text — consumers vary per project.
+
 ## Supervised Gates: Ask for a Decision, Not Assent
 
 - Frame gates to require a decision with content: not "approve? [y/n]" but "anything you'd

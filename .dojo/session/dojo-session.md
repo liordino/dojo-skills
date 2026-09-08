@@ -1,16 +1,16 @@
 # Dojo Session
 
-mode: autonomous
+mode: supervised
 rigor: real
 type: feature
-wave: 3
-step: DONE
+wave: 1
+step: GREEN
 gate_density: standard
 wave_ceiling: 4
-intent: The landing page says what the system does, scoped and current — both run modes explained (not one parenthetical), the pre-edit checks scoped to Dojo's own repo, every named skill carrying its corpus-sourced kanji/translation, the latest wave visible at the top, then an impeccable UI polish pass.
-goal: plan complete — wave 1 modes+scoping (6590136), wave 2 kanji identity + latest-session line (13a0216), wave 3 impeccable polish (this commit). All proven by grep assertions RED→GREEN, R16 parity green, the impeccable bounded-pass contract, and dojo-check green.
+intent: git flow works the same way in every Dojo project — one plan branch per plan, wave commits on it, merge at plan-complete session close, push human-only — so main always holds complete, proof-gated work, plans park or die at branch cost, and the human stays the only publisher.
+goal: the branching convention is recorded and sanctioned — ADR 0006 (the why), dojo-conduct (plan-branch lifecycle: create/resume, wave commits, merge at plan-complete close, push human-only, abandonment harvest, human-presence-at-PR clause), dojo-principles (integration invariant), .dojo/CONTEXT.md (plan-branch glossary term with exclusions, non-goals, Decisions entry). Proven by grep assertions per surface + lint green + dojo-check green.
 commit_style: conventional
-test_written: per-wave grep assertions (modes/scoping; per-card kanji; names-grid count; hero line) + impeccable polish checklist (meta/og, focus-visible, reduced-motion) + R16 token greps + dojo-check gate
-test_status: passing ✓
+test_written: 11 wave-1 content assertions (/tmp/w1-asserts.sh) — adr_0006_plan_branch_exists; conduct_uses_plan_branch_term / push_is_human_only / merge_times_at_plan_completion / abandonment_harvest_rule / pr_needs_human_presence; principles_invariant_uses_plan_branch / names_proof_gate; context_glossary_pins_plan_branch / decisions_record_convention / nongoals_bound_branch_flow
+test_status: failing ✓ (11/11 RED, right reason: tokens absent)
 attempts: 0
 pre_existing_failures: none
