@@ -371,7 +371,7 @@ done
 # the contract in .dojo/CONTEXT.md, the why in .dojo/adr/0006. Prose surfaces may wrap a
 # phrase across lines, so matching normalizes newlines: phrase presence, not line layout.
 r19_has() { # r19_has <file> <phrase> — wrap-tolerant phrase presence
-	tr '\n' ' ' < "$1" 2>/dev/null | grep -q -- "$2"
+	tr '\n' ' ' <"$1" 2>/dev/null | grep -q -- "$2"
 }
 r19_need() { # r19_need <file> <phrase> <what>
 	r19_has "$1" "$2" || err "R19: $1 lacks '$2' ($3)"
