@@ -147,7 +147,7 @@ commits on it, merge at plan-complete session close, push human-only — so main
 complete, proof-gated work, plans park or die at branch cost, and the human stays the only
 publisher.
 
-- **Wave 1 — the convention is recorded and sanctioned** — status: pending
+- **Wave 1 — the convention is recorded and sanctioned** — status: done (36dcf25)
   goal: ADR 0006 records the why (plan-branch granularity over wave-branches, merge autonomy
   at session close, abandonment = human decision + harvest + delete, worktrees deferred);
   dojo-conduct carries the plan-branch lifecycle (create/resume at hajime, wave commits via
@@ -157,12 +157,12 @@ publisher.
   wave proof-gated); .dojo/CONTEXT.md pins "plan branch" in the glossary (with git-flow and
   skill-branch exclusions), the non-goals, and the Decisions entry. Proven by: grep assertions
   per surface + lint green + dojo-check green.
-- **Wave 2 — the flow is wired into the session skills** — status: pending
+- **Wave 2 — the flow is wired into the session skills** — status: done (0be4703)
   goal: hajime creates or resumes the plan branch at session init and merges at
   plan-complete close (supervised: propose; autonomous: self); kata-commit gains the
   main-guard (a wave commit while on main means the branch was never created → halt).
   Proven by: grep assertions on the new steps; mechanics eval green; lint green.
-- **Wave 3 — consistency: lint, manual, public docs** — status: pending
+- **Wave 3 — consistency: lint, manual, public docs** — status: done (cf401af)
   goal: a new lint R asserts cross-surface agreement of the convention tokens (R16 style;
   a seeded violation fails); DOJO-MANUAL gains the rationale entries; README +
   docs/index.html carry a short consumer-level workflow mention (no publish/site coupling in

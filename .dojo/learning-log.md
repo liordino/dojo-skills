@@ -291,3 +291,44 @@ Wave briefs and debriefs. Append-only.
 - **Systemic note:** R17 caught a bare progress.md reference in the plan text itself — the gate reads its own records (working as designed, not a new rule). The hero latest-session line is a hand-curated mirror: it describes the session at site-edit granularity (no self-referential commit hash — a "latest wave · hash" line goes false the moment its own commit lands), refreshed like the rest of the curated page; a build-step alternative is a non-goal for a static one-pager. Named exception, not drift.
 - **Bigger picture:** the page now explains the system's core choice (mode) instead of one parenthetical, shows the language behind every skill name, and holds an a11y floor (focus-visible, reduced-motion) it never held before; the polish pass's identity-level findings (font face, copy cadence) go to the end-of-run report as redesign suggestions for the human, where they belong.
 - **Engagement note:** autonomous run; the plan was confirmed once at session start; commits landed per mode; detector + bounded-pass ceiling from impeccable itself bounded the polish.
+
+## Wave 1 — Closing Debrief (branching convention, 2026-09-08)
+
+- **What was done, and why it works** — ADR 0006 + conduct lifecycle + principles invariant
+  - CONTEXT contract, written in one lockstep pass. The three-layer split mirrors the
+  proof-contract SoT architecture (invariant → principles, rules → conduct, why → ADR), so
+  every surface stays terse and lint can gate agreement across them.
+- **Systemic note** — the wrap-tolerant grep (normalize newlines before matching) is the
+  honest check shape for prose surfaces: phrase presence, not line layout. Reusable for
+  wave 3's lint R. R17 flagging unqualified `poc-lessons` in brand-new text confirms the
+  artifact-map gate covers hand-written references, not just renames.
+- **Bigger picture** — waves 2–3 wire the flow (hajime create/resume/merge, kata-commit
+  main-guard) and enforce consistency (lint R, manual, README/site); the next session
+  dogfoods the convention on its first new plan.
+
+## Wave 2 — Closing Debrief (branching convention, 2026-09-08)
+
+- **What was done, and why it works** — three insertion points, each the exact moment its
+  rule applies: hajime §6 (the branch exists before RED), hajime §7 (merge is the session's
+  close; park ≠ merge), kata-commit (the guard catches the forgotten branch at the only
+  moment it can be caught cheaply — commit time). All three point at conduct as the rule's
+  home; the skills stay thin.
+- **Systemic note** — the guard names the cause, not just the symptom: "the plan branch was
+  never created" — the error message teaches the convention at the moment of failure.
+- **Bigger picture** — wave 3 mechanizes agreement (lint R) and tells the humans (manual,
+  README, site); the session after this one runs the convention for real.
+
+## Wave 3 — Closing Debrief (branching convention, 2026-09-08)
+
+- **What was done, and why it works** — R19 in the R17 style: cross-surface tokens
+  (ADR existence, section headings, per-surface phrases) with wrap-tolerant matching —
+  the wave-1 lesson promoted into the rule's own implementation. Seeded-violation proof
+  ran before the commit (seed → exact R19 message → restore → green). Manual §5c carries
+  the why; README/site stay consumer-level, one sentence each.
+- **Systemic note** — a prose-surface lint must normalize whitespace or it polices line
+  layout instead of language; and the drift-injection pattern (R8/R18/R19) keeps earning:
+  the rule proves it can fail before it's trusted to pass.
+- **Bigger picture** — plan complete. The next /hajime in any project creates
+  `plan/<slug>`, works its waves on it, and merges at plan-complete close; installs pick
+  the convention up at the next `npx skills add` refresh (install-parity will report
+  DRIFT until then — expected, not regressions).
