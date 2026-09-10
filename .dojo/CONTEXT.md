@@ -91,6 +91,13 @@
 - **The wave cycle is settled.** The red → green → commit loop (refactor inline in
   green), gate density, and the meaning of the proof artifact are not re-litigated by
   ordinary waves; none may redefine them. Cross this line only via `/kaizen` with an ADR.
+- **No markdown-structure lint rules for skill files.** List-marker / indent drift is
+  fixed at source when a paste bug happens; a lint rule for it is probabilistic
+  machinery for a rare, one-time defect. (2026-09-03 feedback triage)
+- **No `install-hooks.sh` and no lite-governance variant.** The consent boundary's
+  enforcement cost is named in dojo-principles, accepted as a trade-off; a hooks script
+  and a trimmed rule set both stay unbuilt until real drift or real small-task friction
+  shows up. Crossing: `/kaizen`. (2026-09-03 feedback triage)
 - **Anti-inflation charter (2026-08-31 review; binding on future sessions and autonomous
   runs):**
   - No router skill — until user-invoked skills exceed ~7 (ADR 0002's own threshold) or

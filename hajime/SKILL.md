@@ -75,7 +75,7 @@ confirm-or-override instead of cold questions. It is a convenience; never depend
 **Rigor — real work or throwaway?**
 
 ```
-What are we building? — full discipline (tests, durable docs, the works)
+1. What are we building? — full discipline (tests, durable docs, the works)
   2. Proof of concept — a throwaway experiment to answer one question fast
 ```
 
@@ -104,7 +104,7 @@ Grilling is always supervised. Autonomy begins only after the plan is set and co
 **Feature or bugfix?** (Ask *after* rigor + mode are set, before the plan step.)
 
 ```
-What kind of work is this? — new behaviour, change in scope. Routes to §3 (checklist) then §5 (randori / plan audit).
+1. Feature — new behaviour, change in scope. Routes to §3 (checklist) then §5 (randori / plan audit).
   2. Bugfix — something is broken; the goal is a regression test that fails now and passes after the fix.
      Routes to §3 (checklist, same), §5b (kan diagnosis, replaces randori), then §6 (bugfix fields).
 ```
@@ -184,24 +184,24 @@ If missing:
    lives in `dojo-principles → Enforce Over Instruct — the Proof Contract`, which is the
    normative definition. Swap only the three stack commands:
 
-```bash
-#!/usr/bin/env bash
-set -e
-set -o pipefail
-mkdir -p .dojo/proof
-{
-  cargo build 2>&1
-  cargo clippy -- -D warnings 2>&1
-  cargo test 2>&1
-} | tee .dojo/proof/check-output.log
-# Reached only if every check passed (set -e + pipefail):
-sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
-{
-  echo "ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-  echo "exit=0"
-  echo "output_sha256=$(sha .dojo/proof/check-output.log | awk '{print $1}')"
-} > .dojo/proof/check-proof
-```
+   ```bash
+   #!/usr/bin/env bash
+   set -e
+   set -o pipefail
+   mkdir -p .dojo/proof
+   {
+     cargo build 2>&1
+     cargo clippy -- -D warnings 2>&1
+     cargo test 2>&1
+   } | tee .dojo/proof/check-output.log
+   # Reached only if every check passed (set -e + pipefail):
+   sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
+   {
+     echo "ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+     echo "exit=0"
+     echo "output_sha256=$(sha .dojo/proof/check-output.log | awk '{print $1}')"
+   } > .dojo/proof/check-proof
+   ```
 
    The proof is evidence, not a claim — kata-commit verifies it before committing. On Windows,
    run under Git Bash or WSL — or use the PowerShell variant at
@@ -211,14 +211,15 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
    shared is the human's call, made here once per project and recorded in .dojo/CONTEXT.md →
    Decisions as the *tracking posture*:
 
-- **hide-all** — invisible mode: nothing of Dojo in shared history (work repos, or anywhere
+   - **hide-all** — invisible mode: nothing of Dojo in shared history (work repos, or anywhere
      the discipline stays private). The record is machine-local; a fresh clone starts cold, and
      deleting the footprint means starting fresh — the posture is also the backup policy: any
      posture that tracks the record gets its history for free; hide-all declines deliberately.
-  - **hide-ephemeral** — the durable record travels in git; `session/`, `proof/`, `tanren/`,
+   - **hide-ephemeral** — the durable record travels in git; `session/`, `proof/`, `tanren/`,
      and graphify's regenerable cache stay local. Default for solo repos.
-- **track-all** — everything travels, run state included; concurrent mid-wave edits on two
+   - **track-all** — everything travels, run state included; concurrent mid-wave edits on two
      machines conflict at pull, and the human picks one machine's truth.
+
    Present the ignore patterns for the choice and the *locations* the patterns may live in,
    each with its consequence — repo `.gitignore` (tracked, shared with collaborators) ·
    `.git/info/exclude` (per-clone, invisible — the anonymous route; its lifecycle matches the
@@ -229,13 +230,13 @@ sha() { sha256sum "$1" 2>/dev/null || shasum -a 256 "$1"; }
    recorded posture is surfaced, never assumed away. Backstop: kata-commit's denylist keeps
    ephemeral files unstaged regardless of ignore state.
 
-1. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
+5. `chmod +x scripts/dojo-check.sh`. Show the script; ask "Does this look right for your
    stack?" Do not proceed until confirmed.
-2. Run it to establish the **baseline**:
+6. Run it to establish the **baseline**:
 
-- All green → proceed.
-- No tests yet → create a trivial passing test, re-run.
-- **Pre-existing failures** (brownfield) → record them in .dojo/session/dojo-session.md under
+   - All green → proceed.
+   - No tests yet → create a trivial passing test, re-run.
+   - **Pre-existing failures** (brownfield) → record them in .dojo/session/dojo-session.md under
      `pre_existing_failures`, then offer: (a) a **stabilization wave 0** to green the baseline
      first (recommended), or (b) proceed with the rule that every gate requires *no new
      failures* — pre-existing ones are tracked, not fixed silently, not allowed to grow.

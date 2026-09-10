@@ -1,14 +1,14 @@
 # Dojo Session
 
-mode: autonomous
+mode: supervised
 rigor: real
 type: feature
-wave: 3
-step: DONE
+wave: 1
+step: RED
 gate_density: standard
 wave_ceiling: 4
-intent: git flow works the same way in every Dojo project — one plan branch per plan, wave commits on it, merge at plan-complete session close, push human-only — so main always holds complete, proof-gated work, plans park or die at branch cost, and the human stays the only publisher.
-goal: plan complete — wave 1 recorded+sanctioned (36dcf25), wave 2 wired (0be4703), wave 3 consistent+enforced (cf401af). Proven by per-wave grep assertions RED→GREEN, drift-injection (a seeded R19 violation fails lint), R16/R17 parity green, and dojo-check green at every wave.
+intent: the 2026-09-03 external review of the skill set is triaged and its real findings land as source fixes, so installed copies read well-formed and the proof/mtime contract states what is actually enforced.
+goal: every option block in hajime/SKILL.md carries its first item; §3's checklist numbers run 1–6 without restarting; the three tracking postures are siblings at one indent level. Proven by grep assertions RED→GREEN.
 commit_style: conventional
 test_written:
 test_status:

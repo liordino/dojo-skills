@@ -168,3 +168,27 @@ publisher.
   docs/index.html carry a short consumer-level workflow mention (no publish/site coupling in
   the convention text — consumers vary per project). Proven by: lint green with the new R
   enforced + seeded-violation check; R16 tokens intact; dojo-check green.
+
+## Plan — 2026-09-03 external-feedback triage (grilled, two waves)
+
+intent: the 2026-09-03 external review of the skill set is triaged and its real findings
+land as source fixes, so installed copies read well-formed and the proof/mtime contract
+states what is actually enforced.
+
+## Wave 1 — hajime's list structure is well-formed
+
+status: pending
+Every option block in `hajime/SKILL.md` carries its first item (rigor, feature-or-bugfix);
+§3's checklist numbers run 1–6 without restarting after the tracking-posture block; the
+three tracking postures are siblings at one indent level. Proven by grep assertions
+RED→GREEN.
+
+## Wave 2 — cross-surface prose currency
+
+status: pending
+(a) The manual pointer in `dojo-conduct/SKILL.md` and `dojo-project/SKILL.md` names the
+source repo and repo-root file explicitly (no `.dojo/` path). (b) The freshness invariant
+in `kata-commit/SKILL.md` and `dojo-principles/SKILL.md` reads as advisory ("regenerate"
+signal), with the final dojo-check run as the actual gate. (c) `dojo-principles` names the
+consent-for-enforcement tension (denylist/never-push/plan-branch guards are prose; hooks
+are a human-run option, deliberately unbuilt). Proven by grep assertions RED→GREEN.
