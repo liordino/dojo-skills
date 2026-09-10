@@ -4,7 +4,7 @@ mode: supervised
 rigor: real
 type: feature
 wave: 2
-step: RED
+step: DONE
 gate_density: standard
 wave_ceiling: 4
 intent: the 2026-09-03 external review of the skill set is triaged and its real findings land as source fixes, so installed copies read well-formed and the proof/mtime contract states what is actually enforced.
