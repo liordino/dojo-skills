@@ -20,8 +20,11 @@ description: >
 1. Run `dojo-check` one last time. Fails → do not commit; return to `/kata-green`. (rigor: poc
    → the gate is whatever the PoC's script runs, compile + lint.)
 2. **Verify the proof** (enforce, don't trust — dojo-conduct): `.dojo/proof/check-proof` must exist
-   and be **fresh**. Operational rule: fresh = nothing was edited after the run that wrote it —
-   no tracked source file (per `git status --porcelain` + mtimes) newer than the proof's `ts`.
+   and be **fresh**. The gate is running `dojo-check` one last time, immediately before
+   staging — the proof it emits is the commit's evidence. The mtime comparison (a tracked
+   source file newer than the proof's `ts`) is a cheap advisory signal that the proof is
+   stale after an unnoticed touch — treat it as "re-run dojo-check", never as a contract
+   violation; git checkouts, stash pops, and build steps legitimately rewrite mtimes.
    Edited anything since the check? It's stale: re-run. Missing entirely and the script never
    writes one? The script predates the canonical template — **upgrade it first** (add the proof
    block from /hajime §3, show the diff, confirm), then run it. Only a fresh proof clears the

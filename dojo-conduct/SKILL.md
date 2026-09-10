@@ -12,7 +12,8 @@ description: >
 
 # Dojo Conduct — How the Agent Behaves
 
-Rules only. Rationale lives in the dojo-skills source repo: .dojo/DOJO-MANUAL.md.
+Rules only. Rationale lives in the dojo-skills source repo, at `.dojo/DOJO-MANUAL.md` in
+that repo — not in the local project's `.dojo/`.
 
 ## Precedence — the Contract Hierarchy
 
@@ -39,6 +40,11 @@ A conflict between adjacent layers is surfaced, not silently resolved.
 - Honesty about limits: in a single-agent harness with shell access, no artifact is unforgeable.
   The bar is making the real work *easier than the lie*.
 - Design test for any new rule: can this be a script instead of a sentence? If yes, make it one.
+- Tension, named: the staging denylist, never-push rule, and plan-branch guard stay prose
+  because their deterministic enforcement (git hooks) lives in `.git/`, which the Sharing
+  Boundary puts off-limits to the agent. A human-run `scripts/install-hooks.sh` is the escape
+  hatch — deliberately unbuilt until real drift shows up. The consent boundary trades
+  enforcement strength for agent safety; that is the accepted price, not an oversight.
 
 ## The Sharing Boundary
 

@@ -13,7 +13,8 @@ description: >
 
 # Dojo Project — Project-Level Principles
 
-Rules only. Rationale lives in the dojo-skills source repo: .dojo/DOJO-MANUAL.md.
+Rules only. Rationale lives in the dojo-skills source repo, at `.dojo/DOJO-MANUAL.md` in
+that repo — not in the local project's `.dojo/`.
 
 ## Problem-First Documentation
 
