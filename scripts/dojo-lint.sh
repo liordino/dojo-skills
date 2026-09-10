@@ -94,7 +94,7 @@ else
 	for marker in 'check-proof' 'output_sha256' 'check-output.log'; do
 		grep -q -- "$marker" "$PS1" || err "$PS1 missing marker '$marker'"
 	done
-	canon_fields=$(awk '/^```bash$/{b=1;buf="";next} /^```$/{if(b){if(buf ~ /check-proof/){printf "%s", buf; exit}};b=0;next} b{buf=buf $0 "\n"}' hajime/SKILL.md |
+	canon_fields=$(awk '/^ *```bash$/{b=1;buf="";next} /^ *```$/{if(b){if(buf ~ /check-proof/){printf "%s", buf; exit}};b=0;next} b{buf=buf $0 "\n"}' hajime/SKILL.md |
 		grep -oE '"[a-z_0-9]+=' | tr -d '"=' | sort -u)
 	ps1_fields=$(grep -oE '"[a-z_0-9]+=' "$PS1" | tr -d '"' | sed 's/=$//' | sort -u)
 	if [ "$canon_fields" != "$ps1_fields" ]; then

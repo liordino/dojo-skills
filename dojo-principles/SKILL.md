@@ -111,10 +111,12 @@ output_sha256=$(sha .dojo/proof/check-output.log | awk '{print $1}')
 - `output_sha256` is the sha256 of `.dojo/proof/check-output.log` — the full stdout/stderr of the
   check run. The log is the *input*; the proof is the *seal*.
 
-The **freshness invariant** is part of the contract: the proof's `ts` must be newer than
-every tracked source file. `kata-commit` enforces this before any commit — a stale proof
-cannot pass the gate. Edit anything after the run, the proof is no longer fresh; re-run
-dojo-check.
+The **freshness check** is part of the contract, with its weight stated honestly: the
+proof's `ts` compared against tracked-file mtimes is a cheap advisory signal that the
+proof is stale — checkouts, stash pops, and build steps legitimately touch mtimes, so the
+signal false-positives and occasionally misses. The actual gate is `kata-commit`'s final
+`dojo-check` run, immediately before staging; the proof it emits is the commit's evidence.
+An mtime hit means one thing: re-run dojo-check.
 
 **Where the contract is referenced from:** `scripts/dojo-check.sh` writes it (the per-project
 stack executor); `hajime/SKILL.md` and `.dojo/DOJO-MANUAL.md` carry *illustrative* cargo-shaped

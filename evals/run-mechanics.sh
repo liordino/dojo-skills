@@ -34,15 +34,15 @@ echo "hello" >src/app.txt
 printf '.dojo/session/\n.dojo/proof/\n.dojo/tanren/\n' >.gitignore
 
 echo "== Extract canonical template from hajime/SKILL.md =="
-awk '/^```bash$/{b=1;buf="";next} /^```$/{if(b){if(buf ~ /check-proof/){print buf; exit}};b=0;next} b{buf=buf $0 "\n"}' \
+awk '/^ *```bash$/{b=1;buf="";next} /^ *```$/{if(b){if(buf ~ /check-proof/){print buf; exit}};b=0;next} b{buf=buf $0 "\n"}' \
 	"$ROOT/hajime/SKILL.md" >scripts/dojo-check.sh
 [ -s scripts/dojo-check.sh ] && ok "canonical block extracted" || die "canonical block not found"
 
 # Swap ONLY the three stack commands (the template's own contract).
 sed -i \
-	-e 's#^  cargo build 2>&1$#  echo build-ok#' \
-	-e 's#^  cargo clippy -- -D warnings 2>&1$#  echo lint-ok#' \
-	-e 's#^  cargo test 2>&1$#  grep -q hello src/app.txt \&\& echo test-ok#' \
+	-e 's#^ *cargo build 2>&1$#echo build-ok#' \
+	-e 's#^ *cargo clippy -- -D warnings 2>&1$#echo lint-ok#' \
+	-e 's#^ *cargo test 2>&1$#  grep -q hello src/app.txt \&\& echo test-ok#' \
 	scripts/dojo-check.sh
 grep -q cargo scripts/dojo-check.sh &&
 	die "canonical command lines changed in hajime — update this eval's sed swaps" ||
