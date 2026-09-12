@@ -391,6 +391,40 @@ r19_need kata-commit/SKILL.md 'wave commit while on' 'the main-guard'
 r19_need .dojo/CONTEXT.md 'plan branch' 'the glossary term'
 r19_need .dojo/CONTEXT.md 'plan-branch convention' 'the decision entry'
 
+# R20 — the effective-ignore audit: what git's effective ignore configuration (repo
+# .gitignore + global excludesfile + .git/info/exclude) actually masks must agree with
+# the artifact map — nothing durable masked, nothing junk present-but-invisible.
+# The class (findings 2026-09-03, re-read at the determinize triage): a global
+# excludesfile makes `git status` lie in both directions — .ruff_cache/ present in the
+# tree but invisible, .gitattributes recorded as tracked but actually masked for a
+# whole release. Evidence, not assumption: the failure names the offending rule via
+# `git check-ignore -v` (the promoted effective-policy-not-assumed principle, given a
+# mechanism). The check reports the masked path and the rule; what to do about it
+# stays with the agent.
+if git rev-parse --git-dir >/dev/null 2>&1; then
+	r20_masked() { # r20_masked <path> — fail if ignored, naming the offending rule
+		local v
+		if v=$(git check-ignore -v --no-index "$1" 2>/dev/null); then
+			err "R20: '$1' is masked by the effective ignore config — the config may mask only the ephemeral tier (.dojo/session .dojo/proof .dojo/tanren, graphify-out), per the artifact map (ADR 0005); offending rule:"
+			say "      $v"
+		fi
+	}
+	# direction 1: present-but-invisible — ignored paths sitting in the worktree
+	while IFS= read -r p; do
+		[ -n "$p" ] || continue
+		p=${p#\!\! }
+		case "$p" in
+		.dojo/session/* | .dojo/session | .dojo/proof/* | .dojo/proof | .dojo/tanren/* | .dojo/tanren | graphify-out/* | graphify-out) continue ;; # allowed: ephemeral tier + tool-homed cache
+		esac
+		r20_masked "$p"
+	done < <(git status --porcelain --ignored=matching 2>/dev/null | grep '^!! ')
+	# direction 2: masked durable record — a map entry the config ignores
+	for f in $R17_DURABLE .dojo/adr/*.md; do
+		[ -f "$f" ] || continue
+		r20_masked "$f"
+	done
+fi
+
 if [ "$FAIL" -eq 0 ]; then
 	say "dojo-lint: PASS — all consistency checks green."
 	exit 0

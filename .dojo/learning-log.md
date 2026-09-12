@@ -332,3 +332,15 @@ Wave briefs and debriefs. Append-only.
   `plan/<slug>`, works its waves on it, and merges at plan-complete close; installs pick
   the convention up at the next `npx skills add` refresh (install-parity will report
   DRIFT until then — expected, not regressions).
+
+## 2026-09-10 — determinize plan, waves 1–2 (debrief)
+
+- **What was done / why:** the determinize inward pass ran its evidence gate honestly: wave 1 swept 17 surfaces for judge/verify instructions and triaged them against the R1–R19 inventory; the human then rejected bucket 1's single candidate on an evidence mismatch the wave had missed — the cited near-miss (a globally-ignored `.ruff_cache/`) could never have reached the staged set the drafted check watched. Verified by second instrument before acting (the measurement lesson, applied to ourselves). Wave 2 converted the correctly-read class instead: R20 audits what the effective ignore config actually masks, in both directions.
+- **Why the approach works:** the check collapses the context the old prose judgment needed — hajime's posture-verify "never assumed away" now has a continuous mechanism that names the offending rule. The durable direction needed `check-ignore --no-index`: plain check-ignore treats tracked files as un-maskable, which is exactly the opacity the class describes.
+- **Bigger picture:** bucket 3 (11 entries) is the durable negative space — questions recorded as the model's to answer. Wave N+1 (promote the principle) is unlocked; one real conversion with a receipt now exists.
+
+## 2026-09-10 — determinize wave 3 (debrief)
+
+- **What was done:** the principle recorded in Promoted (local) — determinize what has a stable right answer; check = sensor, model = interpreter; convert only after a real failure; the context-collapse second-order reason stated (fewer tokens, no retry-round). Receipt: lint R20. Provenance in the house norm (session type + date, never the origin project).
+- **Why it works:** the Promoted section is the one surface consumers preserve across updates — the rule now travels with every install, and the evidence-pass triage (bucket 3 especially) is the worked example a future evidence pass starts from.
+- **Bigger picture:** plan complete. Assert-wrap lesson: wrap-tolerant matching must squeeze whitespace (`tr -s ' '`), not just join lines — the third distinct grep-normalization pitfall this repo has hit (wrap-tolerance R19, CR mangling, multi-space wrap).
