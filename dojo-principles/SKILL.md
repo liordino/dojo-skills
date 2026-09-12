@@ -229,3 +229,12 @@ updates.
   can silently no-op turns one collision into a permanent, compounding desync no later
   code self-heals. Diagnostic tell: lag that grows and never recovers is a
   silently-failing bookkeeping write, not bad data. (two-repo sync session, 2026-09-05)
+- **Determinize what has a stable right answer; leave judgment where the answer is
+  contextual.** Where a question's answer does not depend on intent, a deterministic check
+  is the sensor and the model is the interpreter — the check reports the fact, the model
+  decides what it means. Convert only once a real failure has shown the check is needed;
+  a rule that encodes a guess is confidently wrong and cannot be argued with. The
+  second-order reason, which is the part that is not obvious: a check collapses the
+  context the judgment needed (read five surfaces → read one failure line), so it usually
+  costs fewer tokens than the judgment, and removes the retry-round that a wrong judgment
+  spawns. Receipt: lint R20, the effective-ignore audit. (determinize session, 2026-09-10)

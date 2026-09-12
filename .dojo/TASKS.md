@@ -60,7 +60,7 @@ recorded); lint + mechanics green.
 
 ## Wave N+1 — record the principle
 
-status: pending (only after at least one conversion has shipped)
+status: done — the entry is in Promoted (local) with its receipt
 
 Promote the principle into `dojo-principles` → Promoted (local), house style
 (session type + date): determinize what has a stable right answer; check = sensor,
