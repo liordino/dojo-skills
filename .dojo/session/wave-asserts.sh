@@ -1,27 +1,59 @@
 #!/usr/bin/env bash
-# Wave 2 asserts — cross-surface prose currency.
+# Wave 1 asserts — determinize evidence pass (read-only inventory triage).
 set -e
-pass=0; fail=0
-chk() { if tr '
-' ' ' < "$3" | grep -qF "$2"; then pass=$((pass+1)); else fail=$((fail+1)); echo "FAIL: $1"; fi; }
-no() { if grep -qF "$2" "$3"; then fail=$((fail+1)); echo "FAIL: $1"; else pass=$((pass+1)); fi; }
+pass=0
+fail=0
+chk() { if tr '\n' ' ' <"$3" | grep -qF "$2"; then pass=$((pass + 1)); else
+  fail=$((fail + 1))
+  echo "FAIL: $1"
+fi; }
+no() { if grep -qF "$2" "$3" 2>/dev/null; then
+  fail=$((fail + 1))
+  echo "FAIL: $1"
+else pass=$((pass + 1)); fi; }
 
-# (a) manual pointer — names source repo + repo-root file, no .dojo/ path
-for f in dojo-conduct/SKILL.md dojo-project/SKILL.md; do
-  chk "manual pointer names the source repo's own .dojo/ ($f)" 'at `.dojo/DOJO-MANUAL.md` in' "$f"
-  chk "pointer disambiguates from the local project ($f)" "not in the local project's" "$f"
-  no "no colon-path ambiguity in manual pointer ($f)" 'source repo: .dojo/DOJO-MANUAL.md' "$f"
-done
+TABLE=$(ls .dojo/findings.md 2>/dev/null || echo .dojo/determinize-candidates.md)
+[ -f "$TABLE" ] || {
+  echo "FAIL: triage table document exists"
+  exit 1
+}
+pass=$((pass + 1))
 
-# (b) freshness invariant reads advisory
-chk "kata-commit: gate is the final dojo-check run" 'The gate is running `dojo-check`' kata-commit/SKILL.md
-chk "kata-commit: mtime check is advisory" 'advisory' kata-commit/SKILL.md
-no "kata-commit: no mtime-as-contract wording" 'no tracked source file (per `git status --porcelain` + mtimes) newer' kata-commit/SKILL.md
-chk "principles: mtime advisory wording" 'cheap advisory signal' dojo-principles/SKILL.md
-no "principles: no invariant wording" 'must be newer than\nevery tracked source file' dojo-principles/SKILL.md
+# (a) three buckets present
+chk "bucket 1 heading" "Scriptable, with a real recorded failure" "$TABLE"
+chk "bucket 2 heading" "Scriptable, theoretical only" "$TABLE"
+chk "bucket 3 heading" "Intent-dependent" "$TABLE"
 
-# (c) tension named in dojo-principles
-chk "tension named" "enforcement strength for agent safety" dojo-conduct/SKILL.md
+# (b) table header carries the required fields per entry
+chk "surface field" "surface" "$TABLE"
+chk "instruction field" "instruction" "$TABLE"
+chk "intent-dependence verdict field" "intent-dependent" "$TABLE"
+chk "existing-rule check field (R-rules)" "existing rule" "$TABLE"
+chk "failure field" "failure" "$TABLE"
+chk "cost / false-positive field" "cost" "$TABLE"
 
-echo "wave-2 asserts: $pass ok, $fail failed"
+# (c) bucket 1 entries cite a real recorded instance (durable-record evidence)
+BUCKET1=$(awk '/Scriptable, with a real recorded failure/,/Scriptable, theoretical only/' "$TABLE")
+if tr '\n' ' ' <<<"$BUCKET1" | grep -qE 'learning-log|findings 2026-|CHANGELOG'; then pass=$((pass + 1)); else
+  fail=$((fail + 1))
+  echo "FAIL: bucket 1 cites durable-record evidence"
+fi
+
+# (d) surfaces swept are counted (12 skills + 3 governance + tooling)
+if grep -qF "Surfaces swept" "$TABLE"; then pass=$((pass + 1)); else
+  fail=$((fail + 1))
+  echo "FAIL: surfaces-swept count recorded"
+fi
+
+# (e) the triage stop is recorded — nothing built in this wave
+chk "stop-for-triage recorded" "STOP for human triage" "$TABLE"
+
+# (f) tree discipline: only the triage document (+ session state) may differ
+DIRTY=$({ git status --porcelain | grep -v -E '^\?\? \.dojo/(findings|session)/|^\s*M \.dojo/(findings\.md|session/)' | grep -v -E ' \.dojo/(proof|session)/'; } || true)
+if [ -n "$DIRTY" ]; then
+  fail=$((fail + 1))
+  echo "FAIL: unexpected tree changes: $DIRTY"
+else pass=$((pass + 1)); fi
+
+echo "wave-1 asserts: $pass ok, $fail failed"
 [ "$fail" -eq 0 ]
