@@ -62,7 +62,8 @@ Look for `.dojo/session/dojo-session.md` in the project root, and run `git statu
 Also verify the **tracking posture** (ADR 0005): it is recorded in .dojo/CONTEXT.md → Decisions;
 `git check-ignore -v` on the artifact paths is the evidence of what git actually does. A divergence
 between the recorded posture and observed behavior — tracked state git ignores, or the reverse — is
-surfaced here, never assumed away.
+surfaced here, never assumed away. In Dojo's own repo the continuous form of this check is lint
+R20 (the effective-ignore audit); here the one-time posture read is the work.
 
 ---
 
