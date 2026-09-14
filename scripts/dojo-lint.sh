@@ -9,6 +9,28 @@ err() {
 	FAIL=1
 }
 
+# gq — quiet grep with fail-path evidence (wave: instrument-red-gate, 2026-09-10).
+# Success: no output and no behavioural change. Cost: one subshell per check
+# (command substitution, 15 sites) on every lint run — accepted deliberately to
+# make the red self-diagnosing; see findings 2026-09-10 for the observer risk this
+# adds to the same path the flake is hypothesised to live on. Failure: leaves
+# GQ_EVIDENCE set — grep's raw exit code, its stderr, and the target file's
+# readability at that moment — so the next intermittent red names its own mechanism
+# (findings 2026-09-10: one undiagnosed R16 red, 0-rate across ~145 counted-loop
+# runs; not fixable until its next occurrence). NO retry, NO tolerance: callers
+# still fail hard; this only makes the red self-diagnosing.
+GQ_EVIDENCE=""
+gq() { # gq <file> <pattern> — mirrors `grep -q <pattern> <file>`
+	GQ_EVIDENCE=""
+	local out rc
+	out=$(grep -q -- "$2" "$1" 2>&1)
+	rc=$?
+	if [ $rc -ne 0 ]; then
+		GQ_EVIDENCE="evidence: grep exit=$rc stderr=[$out] readable=$([ -r "$1" ] && echo yes || echo no)"
+	fi
+	return $rc
+}
+
 FILES=$(
 	ls */SKILL.md 2>/dev/null
 	ls README.md .dojo/DOJO-MANUAL.md 2>/dev/null
@@ -71,8 +93,8 @@ for sf in $R10_SURFACES; do
 		continue
 	fi
 	for mk in $R10_MARKERS; do
-		if ! grep -q -- "$mk" "$sf"; then
-			err "R10: surface '$sf' does not reference proof-contract identifier '$mk'"
+		if ! gq "$sf" "$mk"; then
+			err "R10: surface '$sf' does not reference proof-contract identifier '$mk' ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 			R10_FAIL=1
 		fi
 	done
@@ -92,7 +114,7 @@ if [ ! -f "$PS1" ]; then
 	err "missing $PS1"
 else
 	for marker in 'check-proof' 'output_sha256' 'check-output.log'; do
-		grep -q -- "$marker" "$PS1" || err "$PS1 missing marker '$marker'"
+		gq "$PS1" "$marker" || err "$PS1 missing marker '$marker' ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 	done
 	canon_fields=$(awk '/^ *```bash$/{b=1;buf="";next} /^ *```$/{if(b){if(buf ~ /check-proof/){printf "%s", buf; exit}};b=0;next} b{buf=buf $0 "\n"}' hajime/SKILL.md |
 		grep -oE '"[a-z_0-9]+=' | tr -d '"=' | sort -u)
@@ -100,7 +122,7 @@ else
 	if [ "$canon_fields" != "$ps1_fields" ]; then
 		err "$PS1 proof-contract fields diverge from canonical template: canonical=[$canon_fields] ps1=[$ps1_fields]"
 	fi
-	grep -q '"exit=0"' "$PS1" || err "$PS1 missing literal 'exit=0' (proof written only on green)"
+	gq "$PS1" '"exit=0"' || err "$PS1 missing literal 'exit=0' (proof written only on green) ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 fi
 
 # R9 — tanren reference exists and still carries its safety-critical markers
@@ -109,7 +131,7 @@ if [ ! -f "$TR" ]; then
 	err "missing $TR"
 else
 	for marker in 'held-out' 'FROZEN' 'results.tsv' 'gaming'; do
-		grep -qi -- "$marker" "$TR" || err "$TR missing marker '$marker'"
+		gq "$TR" "$marker" || err "$TR missing marker '$marker' ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}" # case-insensitive
 	done
 fi
 
@@ -235,7 +257,7 @@ if [ -f .dojo/CONTEXT.md ]; then
 	h2s=$(grep -cE '^## ' .dojo/CONTEXT.md)
 	[ "$h2s" -eq 3 ] || err "R15: .dojo/CONTEXT.md must have exactly 3 H2 sections (Glossary/Non-Goals/Decisions); found $h2s"
 	for s in 'Glossary' 'Non-Goals' 'Decisions'; do
-		grep -qE "^## $s" .dojo/CONTEXT.md || err "R15: .dojo/CONTEXT.md missing '## $s'"
+		gq .dojo/CONTEXT.md "^## $s" || err "R15: .dojo/CONTEXT.md missing '## $s' ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 	done
 fi
 
@@ -252,14 +274,14 @@ if [ -f README.md ] && [ -f docs/index.html ]; then
 	table=$(sed -n '/^## Skills/,/^## [^S]/p' README.md | grep -oE '^\| `[a-z-]+`' | tr -d '|` ' | sort -u)
 	[ "$dirs" = "$grid" ] || err "R16: site skill grid != skill directories:"$'\n'"$(diff <(echo "$dirs") <(echo "$grid") | sed 's/^/  /')"
 	[ "$dirs" = "$table" ] || err "R16: README skills table != skill directories:"$'\n'"$(diff <(echo "$dirs") <(echo "$table") | sed 's/^/  /')"
-	grep -q 'red → green → commit' README.md && grep -q 'red → green → commit' docs/index.html ||
-		err "R16: canonical cycle string must appear in README and docs/index.html"
+	gq README.md 'red → green → commit' && gq docs/index.html 'red → green → commit' ||
+		err "R16: canonical cycle string must appear in README and docs/index.html ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 	for tok in 'skills add' 'liordino/dojo-skills'; do
-		grep -q -- "$tok" README.md && grep -q -- "$tok" docs/index.html ||
-			err "R16: install command fragment '$tok' must appear in README and docs/index.html"
+		gq README.md "$tok" && gq docs/index.html "$tok" ||
+			err "R16: install command fragment '$tok' must appear in README and docs/index.html ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 	done
 	for a in '.dojo/session/dojo-session.md' '.dojo/TASKS.md' '.dojo/progress.md' '.dojo/learning-log.md' '.dojo/CONTEXT.md' '.dojo/findings.md' '.dojo/session/resume.md' 'check-proof' '.dojo/adr'; do
-		grep -q -- "$a" docs/index.html || err "R16: artifact '$a' missing from the landing page"
+		gq docs/index.html "$a" || err "R16: artifact '$a' missing from the landing page ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 	done
 fi
 
@@ -313,16 +335,16 @@ r17_ban '.dojo/check-proof'
 r17_ban '.dojo/check-output.log'
 # kata-commit's staging denylist must cover exactly the ephemeral tier (ADR 0005)
 for d in $R17_EPHEMERAL; do
-	grep -q -- "$d" kata-commit/SKILL.md || err "R17: kata-commit denylist does not cover ephemeral folder '$d'"
+	gq kata-commit/SKILL.md "$d" || err "R17: kata-commit denylist does not cover ephemeral folder '$d' ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 done
 # The sharing boundary is explicit (ADR 0005): conduct section, hajime posture
 # question, glossary terms, and the repo-governance non-goal.
-grep -q '^## The Sharing Boundary' dojo-conduct/SKILL.md || err "R17: dojo-conduct lacks '## The Sharing Boundary'"
-grep -q 'tracking posture' hajime/SKILL.md || err "R17: hajime lacks the tracking-posture question"
+gq dojo-conduct/SKILL.md '^## The Sharing Boundary' || err "R17: dojo-conduct lacks '## The Sharing Boundary' ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
+gq hajime/SKILL.md 'tracking posture' || err "R17: hajime lacks the tracking-posture question ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 for term in 'artifact map' 'tracking posture' 'sharing boundary'; do
-	grep -q -- "$term" .dojo/CONTEXT.md || err "R17: .dojo/CONTEXT.md lacks the '$term' entry"
+	gq .dojo/CONTEXT.md "$term" || err "R17: .dojo/CONTEXT.md lacks the '$term' entry ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 done
-grep -q 'Not a repo-governance owner' .dojo/CONTEXT.md || err "R17: Non-Goals lack the repo-governance boundary"
+gq .dojo/CONTEXT.md 'Not a repo-governance owner' || err "R17: Non-Goals lack the repo-governance boundary ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 # The recorded tracking posture is verified against git's actual behavior —
 # evidence, not file-content guessing (ADR 0005).
 if git rev-parse --git-dir >/dev/null 2>&1; then
@@ -371,14 +393,18 @@ done
 # the contract in .dojo/CONTEXT.md, the why in .dojo/adr/0006. Prose surfaces may wrap a
 # phrase across lines, so matching normalizes newlines: phrase presence, not line layout.
 r19_has() { # r19_has <file> <phrase> — wrap-tolerant phrase presence
-	tr '\n' ' ' <"$1" 2>/dev/null | grep -q -- "$2"
+	if [ ! -r "$1" ]; then
+		GQ_EVIDENCE="evidence: readable=no stderr=[cannot open $1]"
+		return 1
+	fi
+	tr '\n' ' ' <"$1" | grep -q -- "$2"
 }
 r19_need() { # r19_need <file> <phrase> <what>
 	r19_has "$1" "$2" || err "R19: $1 lacks '$2' ($3)"
 }
 [ -f .dojo/adr/0006-plan-branch-convention.md ] || err "R19: .dojo/adr/0006-plan-branch-convention.md missing (the convention's why)"
-grep -q '^## The Branching Convention' dojo-conduct/SKILL.md || err "R19: dojo-conduct lacks the '## The Branching Convention' section"
-grep -q '^## The Integration Line' dojo-principles/SKILL.md || err "R19: dojo-principles lacks '## The Integration Line' (the invariant)"
+gq dojo-conduct/SKILL.md '^## The Branching Convention' || err "R19: dojo-conduct lacks the '## The Branching Convention' section ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
+gq dojo-principles/SKILL.md '^## The Integration Line' || err "R19: dojo-principles lacks '## The Integration Line' (the invariant) ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 r19_need dojo-principles/SKILL.md 'proof-gated' 'the invariant names the proof gate'
 r19_need dojo-conduct/SKILL.md 'The agent never pushes' 'the push rule'
 r19_need dojo-conduct/SKILL.md 'plan completion' 'the merge timing'
