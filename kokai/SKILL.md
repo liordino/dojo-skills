@@ -53,8 +53,9 @@ The mechanical release procedure is the script's (`bin/release`, dojo-project co
 The judgment around it is yours:
 
 - **Gate first, at the exact tree.** Run the gate and release only on a proof sealed over
-  the tree being tagged — a green from earlier in the session is stale, and a pending,
-  skipped, or unproven gate is no gate.
+  the tree the release is cut from — the pre-bump tree (bin/release commits the version bump
+  after the proof is sealed, so the tagged commit is mechanical, not re-attested). A green
+  from earlier in the session is stale, and a pending, skipped, or unproven gate is no gate.
 - **The level derives from the changelog classification** — fix → patch, additive →
   minor, breaking → major. It is computed from the recorded classification, not guessed
   from the diff. A requested level that conflicts → **stop and make the human confirm**;

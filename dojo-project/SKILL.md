@@ -39,8 +39,10 @@ that repo — not in the local project's `.dojo/`.
   the caller's judgment, never inferred. It bumps the version wherever the repo keeps it,
   tags the repo's integration line, produces the artifact, places it, and prints what it
   did (version, tag, artifact path). It **refuses loudly and never proceeds half-way**:
-  dirty tree; not on the integration line; no proof sealed over the exact tree being tagged
-  (a stale green is not a gate); the tag already exists or is already published. It never
+  dirty tree; not on the integration line; no proof sealed over the tree the release is cut
+  from — the pre-bump tree (the version bump is committed after the proof is sealed, so the
+  tagged commit is mechanical, not re-attested; a stale green is not a gate); the tag already
+  exists or is already published. It never
   communicates — no push, no upload, no announcement; publishing is the human's act.
   Language-, artifact-, and toolchain-agnostic: a repo that ships a DLL, a container, a
   zip, or nothing built implements the same contract its own way.
