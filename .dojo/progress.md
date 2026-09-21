@@ -86,3 +86,11 @@ partial — the "one real release" verification was waived for now, pending
 genuine release; publish acts remain the human's throughout.
 Plan closes partial: branch plan/release-entrypoint parked, no merge (Wave 1
 end-to-end pending). Resume: run the real release in kumite, flip Wave 1, merge.
+## 2026-09-21 — release-entrypoint plan CLOSED (merged to main, 340ac44)
+
+Wave 1 verified end-to-end by kumite's genuine first release v0.2.0 (minor,
+changelog-derived; proof sealed over the exact pre-bump tree — recomputed
+tree_sha256 matches; human published). Gate hardening arrived with the release
+(kumite 6bd15c2: failed check deletes proof, pre-bump-tree seal stated). Plan
+branch merged and deleted. Determinize candidate remains open: changelog-
+derivation as a computed sensor, now that a real CHANGELOG exists in kumite.
