@@ -83,8 +83,10 @@ lives in dojo-principles → The Integration Line.
   the agent proposes and the human approves or reproves; autonomous, the agent merges
   itself. A wave commit while on `main` means the branch was never created — halt and
   create it.
-- **The agent never pushes** — branches or `main`. Push is the human's publish act: the
-  one gesture that turns local green into shared green.
+- **The agent never pushes on its own initiative** — branches or `main`. On an explicit
+  instruction to push, it states exactly what will be pushed (branch, commit range, tags)
+  and then executes. The decision is the publish act, and it stays the human's: the one
+  gesture that turns local green into shared green.
 - **Parked ≠ abandoned.** Halting a plan mid-flight leaves its branch; the resuming
   session lands back on it. A forgotten branch is tolerated — `git branch` is the
   registry, no parking notes.

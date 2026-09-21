@@ -396,8 +396,9 @@ a broken fix.
 **Plan complete → merge.** At plan completion — .dojo/TASKS.md with no pending waves — the
 session closes by merging the plan branch to `main`: supervised, propose the merge for
 approval; autonomous, merge and delete the branch. A mid-plan close parks the branch: no
-merge; resume.md points back at it. The agent never pushes (dojo-conduct → The Branching
-Convention).
+merge; resume.md points back at it. The agent never pushes on its own initiative (dojo-conduct → The Branching Convention);
+on an explicit instruction to push, it states exactly what will be pushed (branch, commit
+range, tags) and then executes.
 
 During the run, accumulate (never act mid-run): **preference candidates** (durable about-you
 defaults) and **insight promotion candidates** (per-project insights general enough for

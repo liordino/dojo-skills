@@ -406,7 +406,11 @@ r19_need() { # r19_need <file> <phrase> <what>
 gq dojo-conduct/SKILL.md '^## The Branching Convention' || err "R19: dojo-conduct lacks the '## The Branching Convention' section ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 gq dojo-principles/SKILL.md '^## The Integration Line' || err "R19: dojo-principles lacks '## The Integration Line' (the invariant) ${GQ_EVIDENCE:+[$GQ_EVIDENCE]}"
 r19_need dojo-principles/SKILL.md 'proof-gated' 'the invariant names the proof gate'
-r19_need dojo-conduct/SKILL.md 'The agent never pushes' 'the push rule'
+r19_need dojo-conduct/SKILL.md 'The agent never pushes on its own initiative' 'the push rule'
+r19_need dojo-conduct/SKILL.md 'branch, commit range, tags' 'the push-rule explicit-instruction clause'
+r19_need .dojo/adr/0006-plan-branch-convention.md 'never pushes on its own initiative' 'the push rule (ADR)'
+r19_need .dojo/adr/0006-plan-branch-convention.md 'opens a new plan branch' 'the post-close follow-up rule'
+r19_need .dojo/adr/0006-plan-branch-convention.md 'Nothing commits directly to' 'the post-close no-direct-main rule'
 r19_need dojo-conduct/SKILL.md 'plan completion' 'the merge timing'
 r19_need dojo-conduct/SKILL.md 'a human must be present' 'the PR human-presence clause'
 r19_need dojo-conduct/SKILL.md 'harvest' 'the abandonment rule'
