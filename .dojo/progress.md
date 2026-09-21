@@ -95,3 +95,15 @@ tree_sha256 matches; human published). Gate hardening arrived with the release
 branch merged and deleted. Determinize candidate remains open: changelog-
 derivation as a computed sensor, now that a real CHANGELOG exists in kumite.
 2026-09-21 | wave 1 | docs | ADR 0006 addendum (post-close follow-ups open a new plan branch; nothing commits directly to main) + push rule reworded on six surfaces (never on own initiative; on explicit instruction state branch/range/tags, then execute) + progress.md CRLF-only diff discarded | the release-entrypoint close exposed both gaps; this plan is the first application of the follow-up rule | gate green (lint + mechanics 19/19, R19 extended) |
+## 2026-09-21 — rule-clarifications follow-up plan (consent-boundary items)
+
+New plan branch (plan/send-rule-and-sourcing) — first application of the ADR 0006
+addendum follow-up rule. Three items from reading the rule-clarifications diff:
+kokai's send rule redefined to stand alone (no never-push analogy; explicit
+instruction → state recipients/channel + full message, then send; channel-agnostic);
+push rule single-sourced to dojo-conduct (dojo-principles Integration Line and
+hajime merge paragraph now carry pointers only; R19 negative checks enforce —
+'branch, commit range, tags' banned in dojo-principles/hajime); scar-tissue-first
+principle promoted to dojo-principles → Promoted (human-approved): reversible
+failures wait for the scar, irreversible ones are guarded pre-emptively. ADR 0006,
+DOJO-MANUAL, .dojo/CONTEXT.md untouched (record + docs, not instructions).
