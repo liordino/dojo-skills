@@ -54,7 +54,7 @@ commits directly to main.
   (local) (bullets opening `- **`) must never be lower than at HEAD. Edits to
   an entry pass; removals fail. Prove red-first by seeding the removal of an
   existing entry, running lint, confirming R21 fails, then restoring.
-- status: pending
+- status: done (2026-09-21)
 
 ### Wave 2 — pointer hygiene and provenance correction
 
@@ -69,4 +69,4 @@ commits directly to main.
 - Provenance: the scar-tissue entry cites the rule-clarifications session; the
   reasoning originated in the release-entrypoint session (closed 2026-09-21,
   merged 340ac44). Correct the citation.
-- status: pending
+- status: done (2026-09-21)

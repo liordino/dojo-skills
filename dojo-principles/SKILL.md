@@ -246,5 +246,5 @@ updates.
   triage: ask which kind of failure a risk is, then choose when to guard. Receipts:
   the kata-commit secrets denylist (guarded pre-emptively — unrecoverable once
   shared), kokai's published-tag and unrequested-release guards (never rewrite a
-  published tag; never cut a release nobody asked for). (rule-clarifications
+  published tag; never cut a release nobody asked for). (release-entrypoint
   session, 2026-09-21)
