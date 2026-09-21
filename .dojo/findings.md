@@ -71,3 +71,16 @@ of which questions are settled as the model's to answer.
 **Verdict 2026-09-10:** bucket 1's candidate REJECTED as drafted (evidence mismatch, above);
 wave 2 approved, re-aimed at the effective-ignore-opacity class.
 2026-09-10 | determinize-w3 | discovery | Gate flake: one dojo-check run failed lint R16 ('skills add' fragment missing from README/docs) with an unchanged tree; standalone lint and an immediate re-run both passed 19/19. **Classification corrected (same session, human verdict): NOT a third instance of the MSYS text-mode class.** The two prior bugs (2026-09-03 grep -c artifact; 2026-08-29 R13 CR command substitution) had verified root causes with a CR/text-mode fingerprint; this occurrence's fingerprint is demonstrably absent — zero CR bytes in README.md/docs/index.html/scripts (probed 2026-09-13), plain-text greps on LF files. Re-recorded as: two verified MSYS text-mode construct bugs, both fixed at source, plus one UNDIAGNOSED intermittent red. Counted-loop reproduction attempts (2026-09-13): 0 failures across ~145 runs (fragment ×100, lint ×15, dojo-check ×10, lint ×20 under 4-way concurrency) — nothing to fix yet; guessing against a 0-rate signal is forbidden. The R16 failure path and sibling file-reading marker greps are instrumented to emit grep exit code + stderr + readability on failure; the bug stays open, awaiting its next occurrence, which will now name its own mechanism. A red gate always means stop — no re-run allowance exists or may exist. OBSERVER RISK (recorded 2026-09-14, as hypothesis): the working hypothesis for this red is an MSYS fork/exec hiccup under load, and the instrumentation adds subshell forks to exactly that path (15 sites, every run) — command substitution being the same construct family as R13's verified bug. If the flake's rate INCREASES after this change, the instrumentation is implicated — a diagnostic signal (rate-delta isolates the mechanism), not a setback. TEMP-REPO TEST-BENCH LESSON (2026-09-14, third instance of "symptom adjacency is not shared mechanism", now inside the test tooling): a multi-source `cp` copies by BASENAME, so a temp-copy test harness silently produced `index.html` instead of `docs/index.html` and R16 failed there for a mundane guard reason that MIMICKED the I/O flake under investigation — the test instrument nearly produced a false diagnosis of the very bug being diagnosed. Verify a temp-repo harness's own layout before reading its reds.
+## 2026-09-20 — HALT: release-entrypoint Wave 1, concurrent session in kumite
+
+Wave 1 (bin/release) targeted kumite (C:\Users\liord\src\kumite). On arrival the
+working tree was changing in real time (dir/mtimes within seconds of observation:
+.env.example reappeared, .gitignore rewritten, client/vite.config.ts touched;
+main.go/run_agent.ps1/DESIGN.md present in first listing, gone minutes later;
+agent_errors.log records an autonomous pi -r loop). Two agents on one tree is
+corruption, not competition — wave halted before any write beyond reversible
+scaffolding (branch plan/release-entrypoint, untracked scripts/.dojo — removed).
+
+Also observed for the record: main contains no Go sources (scaffold + client only),
+no tags, no remote, no version anywhere — the Wave 1 sketch was already known to
+need adjustment (version home, proof gate would need scaffolding).

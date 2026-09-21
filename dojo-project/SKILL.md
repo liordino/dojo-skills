@@ -32,8 +32,18 @@ that repo — not in the local project's `.dojo/`.
 - Observable commands: one command per gate (`make test`, `make lint`, `make dojo-check`).
 - Idempotent setup: `bin/setup` works on a clean machine without guidance.
 - Standardized, agent-legible entrypoints: same names, same contract in every project —
-  `bin/setup` prepares, `bin/deploy` ships, a tag cuts a release. Contents are stack-specific;
-  names and contract are constant. Predictable structure is what makes delegation safe.
+  `bin/setup` prepares, `bin/deploy` ships, `bin/release <major|minor|patch>` cuts a release.
+  Contents are stack-specific; names and contract are constant. Predictable structure is
+  what makes delegation safe.
+- The `bin/release` contract: takes the semver level as its only argument — the *level* is
+  the caller's judgment, never inferred. It bumps the version wherever the repo keeps it,
+  tags the repo's integration line, produces the artifact, places it, and prints what it
+  did (version, tag, artifact path). It **refuses loudly and never proceeds half-way**:
+  dirty tree; not on the integration line; no proof sealed over the exact tree being tagged
+  (a stale green is not a gate); the tag already exists or is already published. It never
+  communicates — no push, no upload, no announcement; publishing is the human's act.
+  Language-, artifact-, and toolchain-agnostic: a repo that ships a DLL, a container, a
+  zip, or nothing built implements the same contract its own way.
 - Content/docs-only repos may substitute their published surfaces (README, CONTEXT) for
   `bin/` entrypoints and AGENTS.md; record the substitution in `.dojo/CONTEXT.md` → Decisions.
 - `README.md`: architecture, component map, key flows (Mermaid/ASCII). Not a tutorial.

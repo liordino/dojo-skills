@@ -47,6 +47,28 @@ draft from conventional-commit history, human-curated. **Release trigger**: tag-
 (`v*.*.*`); pipeline is idempotent (re-running detects "already exists" and continues);
 never auto-publish without a deliberately pushed tag.
 
+## The release judgment layer — around `bin/release`
+
+The mechanical release procedure is the script's (`bin/release`, dojo-project contract).
+The judgment around it is yours:
+
+- **Gate first, at the exact tree.** Run the gate and release only on a proof sealed over
+  the tree being tagged — a green from earlier in the session is stale, and a pending,
+  skipped, or unproven gate is no gate.
+- **The level derives from the changelog classification** — fix → patch, additive →
+  minor, breaking → major. It is computed from the recorded classification, not guessed
+  from the diff. A requested level that conflicts → **stop and make the human confirm**;
+  a silent bump is forbidden. A bump no human saw is forbidden.
+- **Invoke `bin/release <level>` and read its printed facts** — version, tag, artifact.
+  Never restate or reimplement the procedure.
+- **Never rewrite a published tag.** Once it is out, it is out; the fix is a new version,
+  never a moved tag. **Never cut a release nobody asked for** — not on a green plan
+  close, not on a merge, never on initiative.
+- **Draft the change summary; the human sends it.** From the changelog entries since the
+  previous tag, in the audience's language — then hand it over. Same boundary as
+  never-push: a communication to other humans cannot be unsent, so sending is the
+  human's publish act.
+
 ---
 
 ## Hand off
