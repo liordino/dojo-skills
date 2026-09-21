@@ -84,3 +84,18 @@ scaffolding (branch plan/release-entrypoint, untracked scripts/.dojo — removed
 Also observed for the record: main contains no Go sources (scaffold + client only),
 no tags, no remote, no version anywhere — the Wave 1 sketch was already known to
 need adjustment (version home, proof gate would need scaffolding).
+
+## 2026-09-21 — Promoted (local) regression: replacement passed as promotion
+
+- **Regression:** the scar-tissue promotion (commit 883a17f) REPLACED the
+  "Determinize what has a stable right answer" entry in dojo-principles →
+  Promoted (local) instead of appending the new entry after it. The section
+  bullet count stayed at 6, so no count check existed to catch it; the entry
+  survived only in git history (f696432). Promoted (local) is append-only.
+- **Class:** an edit meant to ADD content consumes what is next to it. Second
+  occurrence (first: 2026-07-10, the Logging heading). Recurring, so it clears
+  the scar-tissue bar — wave 1 adds lint R21 (entry count must never be lower
+  than at HEAD; edits pass, removals fail).
+- **Report-vs-diff divergence:** the session report said "promoted" while the
+  diff showed a replacement. Lesson: a promotion claim on a living section is
+  verified against the diff, not the prose summary.
