@@ -208,7 +208,9 @@
   (ADR 0005).
 - **The plan-branch convention (2026-09-08).** One plan branch per plan (`plan/<slug>`),
   wave commits proof-gated on it, merge to main at plan-complete session close
-  (agent-capable — supervised approve/reprove, autonomous self), push human-only,
+  (agent-capable — supervised approve/reprove, autonomous self), push human-decided —
+  never on the agent's own initiative; on explicit instruction, state what will be pushed
+  (branch, commit range, tags), then execute,
   abandonment = human decision + harvest + delete. This session's own waves landed on main:
   the wiring is its wave 2, and the convention starts with its first new plan. ADR:
   `.dojo/adr/0006-plan-branch-convention.md`.

@@ -94,3 +94,4 @@ tree_sha256 matches; human published). Gate hardening arrived with the release
 (kumite 6bd15c2: failed check deletes proof, pre-bump-tree seal stated). Plan
 branch merged and deleted. Determinize candidate remains open: changelog-
 derivation as a computed sensor, now that a real CHANGELOG exists in kumite.
+2026-09-21 | wave 1 | docs | ADR 0006 addendum (post-close follow-ups open a new plan branch; nothing commits directly to main) + push rule reworded on six surfaces (never on own initiative; on explicit instruction state branch/range/tags, then execute) + progress.md CRLF-only diff discarded | the release-entrypoint close exposed both gaps; this plan is the first application of the follow-up rule | gate green (lint + mechanics 19/19, R19 extended) |

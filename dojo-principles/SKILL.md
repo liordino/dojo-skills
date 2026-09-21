@@ -134,7 +134,9 @@ When in doubt about the contract, change it here — the proof rule is one place
 - The integration line (`main`) only ever receives work that completed a plan branch,
   merged at plan completion — every wave on it proof-gated. Nothing lands unproven,
   directly or partially.
-- The agent never pushes; publishing is the human's act.
+- The agent never pushes on its own initiative; on an explicit instruction to push, it
+  states exactly what will be pushed (branch, commit range, tags) and then executes.
+  Publishing is the human's decision.
 - Lifecycle rules — create, resume, merge, park, abandon, harvest: dojo-conduct → The
   Branching Convention.
 

@@ -411,8 +411,9 @@ Why this shape (ADR 0006 in the source repo's `.dojo/adr/`):
 - **Merge autonomy is bounded.** Merging is the session's close: supervised mode proposes,
   the human approves or reproves; autonomous mode merges itself. No separate merge skill —
   the merge is not a new kind of work, it is the same decision the commit gate already made.
-- **Push is the human's.** In every mode, on every branch — the agent never pushes. Push is
-  the one gesture that turns local green into shared green.
+- **Push is the human's decision.** In every mode, on every branch — the agent never pushes
+  on its own initiative. On an explicit instruction to push, it states exactly what will be
+  pushed (branch, commit range, tags) and then executes.
 - **Parked ≠ abandoned.** Halting a plan mid-flight leaves its branch for the resuming
   session. Abandonment is the human's decision; the agent harvests the durable record
   (findings, lessons, `.dojo/poc-lessons.md`) onto `main` before the branch dies — lessons

@@ -44,7 +44,9 @@ parallelism is wanted someday, deliberately deferred ("evolve slowly").
 3. **Merge at plan-complete close of the hajime session.** Agent-capable: supervised mode
    proposes, the human approves or reproves; autonomous mode merges itself. No kata-merge
    skill.
-4. **The agent never pushes** — branches or `main`. Push is the human's publish act.
+4. **The agent never pushes on its own initiative** — branches or `main`. On an explicit
+   instruction to push, the agent states exactly what will be pushed (branch, commit range,
+   tags) and then executes. The decision is the publish act, and it stays the human's.
 5. **Parked ≠ abandoned.** A halted plan keeps its branch; the resuming session lands back
    on it. Forgotten branches are tolerated; `git branch` is the registry, no parking notes.
 6. **Abandonment is the human's decision** (autonomous runs halt on divergence rather than
@@ -80,3 +82,20 @@ parallelism is wanted someday, deliberately deferred ("evolve slowly").
 - **PR pipeline + branch protection.** Rejected as machinery for a solo repo (review is the
   gates plus human approvals); the human-presence clause records the principle for repos
   that do use PRs. Protection config, if ever wanted, is human-applied (sharing boundary).
+
+## Addendum — follow-ups after a plan closes (2026-09-21)
+
+Prompted by the release-entrypoint close: a contract-wording follow-up
+(6525a4b) was committed directly to `main` on the reasoning that reopening the
+already-merged branch would contradict the completed-plan close. That was a
+named deviation, accepted as such — not redone. It missed a third option the
+convention already implies:
+
+- **A follow-up to a closed plan opens a new plan branch** (`plan/<slug>`),
+  however small. The waves land there proof-gated; the branch merges at its
+  own plan-complete close.
+- **Nothing commits directly to `main`** — not fixes, not docs, not after a
+  merge. "No trivial-fix exception" holds after close as it did before.
+- The branching rule is about *where work lands*, not about branch lifetime:
+  closing a plan doesn't extend `main`'s admission policy to follow-up work;
+  it just ends that branch's.
