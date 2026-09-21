@@ -3,7 +3,7 @@ mode: autonomous
 rigor: real
 type: bugfix
 wave: 2
-step: GREEN
+step: DONE
 gate_density: standard
 wave_ceiling: 4
 intent: "Promoted (local) is append-only, but the scar-tissue promotion replaced the determinize entry — restore it, guard the section against silent removals, and clean the pointer/provenance leftovers from the send-rule-and-sourcing plan."
