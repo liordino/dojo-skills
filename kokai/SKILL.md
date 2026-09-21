@@ -65,7 +65,7 @@ The judgment around it is yours:
 - **Never rewrite a published tag.** Once it is out, it is out; the fix is a new version,
   never a moved tag. **Never cut a release nobody asked for** — not on a green plan
   close, not on a merge, never on initiative.
-- **Draft the change summary; the human sends it.** From the changelog entries since the
+- **Draft the change summary; sending is the human's publish act.** From the changelog entries since the
   previous tag, in the audience's language — then hand it over. The agent never sends a
   release communication on its own initiative. On an explicit instruction to send, it
   states exactly what will be sent — recipients or channel, and the full message — and

@@ -464,6 +464,22 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
 	done
 fi
 
+# R21 — Promoted (local) is append-only. The number of entries (bullets opening
+# '- **') must never be lower than at HEAD: edits to an entry pass, removals
+# fail. Scar tissue, second occurrence: an edit meant to add content consumed
+# what was next to it (2026-07-10 the Logging heading; 2026-09-21 the
+# scar-tissue promotion replaced the determinize entry).
+if command -v git >/dev/null && git rev-parse --verify HEAD >/dev/null 2>&1; then
+	r21_count() { # r21_count <content> — bullets in the Promoted (local) section
+		awk '/^## Promoted \(local\)$/{on=1; next} /^## /{on=0} on && /^- \*\*/{c++} END{print c+0}'
+	}
+	now=$(r21_count < dojo-principles/SKILL.md)
+	head=$(git show HEAD:dojo-principles/SKILL.md 2>/dev/null | r21_count)
+	if [ -n "$head" ] && [ "$now" -lt "$head" ]; then
+		err "R21: Promoted (local) has $now entries, HEAD had $head — the section is append-only; an entry was removed (edit in place is allowed, removal is not)"
+	fi
+fi
+
 if [ "$FAIL" -eq 0 ]; then
 	say "dojo-lint: PASS — all consistency checks green."
 	exit 0

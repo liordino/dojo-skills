@@ -37,3 +37,36 @@ status: done (2026-09-21)
   in kokai. House style: session type + date, never the project of origin.
 
 Gate: lint + mechanics (R12 and R19 included). Merge at plan close. Do not push.
+## Plan — restore determinize; guard Promoted (local); pointer hygiene
+
+**Intent:** the scar-tissue promotion (883a17f) replaced the determinize entry
+instead of appending after it — Promoted (local) is append-only and must be
+guarded against silent removals; three pointer/provenance leftovers from the
+same plan get fixed. New plan branch per the ADR 0006 addendum; nothing
+commits directly to main.
+
+### Wave 1 — restore the determinize principle; lint-guard Promoted (local)
+
+- Restore the "Determinize what has a stable right answer" entry verbatim from
+  f696432 (git show f696432:dojo-principles/SKILL.md), with the scar-tissue
+  entry after it. Promoted (local) is append-only.
+- New lint rule R21: the number of entries in dojo-principles → Promoted
+  (local) (bullets opening `- **`) must never be lower than at HEAD. Edits to
+  an entry pass; removals fail. Prove red-first by seeding the removal of an
+  existing entry, running lint, confirming R21 fails, then restoring.
+- status: done (2026-09-21)
+
+### Wave 2 — pointer hygiene and provenance correction
+
+- hajime: replace "Pushing — including a post-merge push — is the human's"
+  with the bare pointer "Pushing, including after a merge: dojo-conduct → The
+  Branching Convention." — a pointer carries no claim, so a paraphrase cannot
+  drift against the rule it points at.
+- kokai: the bold lead-in "the human sends it" contradicts the paragraph under
+  it (the agent never sends on own initiative; sends only on explicit
+  instruction, stating what and to whom first). Reword the lead-in so it and
+  the body agree.
+- Provenance: the scar-tissue entry cites the rule-clarifications session; the
+  reasoning originated in the release-entrypoint session (closed 2026-09-21,
+  merged 340ac44). Correct the citation.
+- status: done (2026-09-21)

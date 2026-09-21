@@ -107,3 +107,6 @@ hajime merge paragraph now carry pointers only; R19 negative checks enforce —
 principle promoted to dojo-principles → Promoted (human-approved): reversible
 failures wait for the scar, irreversible ones are guarded pre-emptively. ADR 0006,
 DOJO-MANUAL, .dojo/CONTEXT.md untouched (record + docs, not instructions).
+## 2026-09-21 — restore-determinize-guard-promoted plan
+2026-09-21 | wave 1 | docs+lint | determinize entry restored verbatim from f696432 (scar-tissue entry after it) + lint R21 (Promoted (local) entry count must never be lower than at HEAD; edits pass, removals fail) | scar-tissue promotion replaced the determinize entry instead of appending; count stayed 6 so nothing caught it | red-first proven by seeded removal (R21 failed 5 vs 6), green + edit-in-place direction verified; gate green (lint + mechanics 19/19)
+2026-09-21 | wave 2 | docs | hajime push text reduced to a bare pointer (pointers carry no claim — a paraphrase can't drift); kokai lead-in reworded to agree with its body ("sending is the human's publish act"); scar-tissue provenance corrected to the release-entrypoint session (2026-09-21) — reasoning originated there, not in the rule-clarifications session | leftovers from the send-rule-and-sourcing plan | gate green; plan close, merge to main
