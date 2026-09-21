@@ -15,9 +15,13 @@ If reality diverges from the sketched interface, the contract follows reality.
 
 ## Wave 1 — one real `bin/release`, in one consumer repo
 
-status: partial — script exists; refusal paths proven; end-to-end verification pending
-the next genuine release (do not manufacture one). Pending record: kumite
-`.dojo/progress.md` (2026-09-20 entry) — run the real release, confirm, flip to done.
+status: done — end-to-end verified by kumite's first genuine release (2026-09-21,
+human-confirmed publish): level `minor`, version 0.1.0 → 0.2.0, tag v0.2.0 on
+27b8c5c, artifact dist/kumite.exe, facts printed, publishing was the human's act.
+Wave A gate hardening included: failed check deletes the proof (stale green can't
+survive a red gate), real exit status recorded, proof contract stated as sealing the
+PRE-BUMP tree with bin/release printing that fact (kumite 6bd15c2). Full record:
+kumite `.dojo/progress.md` (2026-09-21 entry).
 
 **Ran in kumite (C:\Users\liord\src\kumite), branch plan/release-entrypoint,
 commits 032718f + 97adb22.** Human rescopes (2026-09-20): no due release exists, and
