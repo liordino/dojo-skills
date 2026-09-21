@@ -134,11 +134,8 @@ When in doubt about the contract, change it here — the proof rule is one place
 - The integration line (`main`) only ever receives work that completed a plan branch,
   merged at plan completion — every wave on it proof-gated. Nothing lands unproven,
   directly or partially.
-- The agent never pushes on its own initiative; on an explicit instruction to push, it
-  states exactly what will be pushed (branch, commit range, tags) and then executes.
-  Publishing is the human's decision.
-- Lifecycle rules — create, resume, merge, park, abandon, harvest: dojo-conduct → The
-  Branching Convention.
+- Lifecycle rules — create, resume, merge, park, abandon, push, harvest:
+  dojo-conduct → The Branching Convention.
 
 ## Logging — Structured, at the Boundary
 
@@ -231,12 +228,14 @@ updates.
   can silently no-op turns one collision into a permanent, compounding desync no later
   code self-heals. Diagnostic tell: lag that grows and never recovers is a
   silently-failing bookkeeping write, not bad data. (two-repo sync session, 2026-09-05)
-- **Determinize what has a stable right answer; leave judgment where the answer is
-  contextual.** Where a question's answer does not depend on intent, a deterministic check
-  is the sensor and the model is the interpreter — the check reports the fact, the model
-  decides what it means. Convert only once a real failure has shown the check is needed;
-  a rule that encodes a guess is confidently wrong and cannot be argued with. The
-  second-order reason, which is the part that is not obvious: a check collapses the
-  context the judgment needed (read five surfaces → read one failure line), so it usually
-  costs fewer tokens than the judgment, and removes the retry-round that a wrong judgment
-  spawns. Receipt: lint R20, the effective-ignore audit. (determinize session, 2026-09-10)
+- **Scar-tissue-first is the default for reversible failures; pre-emptive guards are
+  for irreversible ones.** Don't add a rule for a failure you haven't had — the rule
+  would encode a guess about a failure mode you don't understand yet, and the scar
+  teaches what the guard must actually check. But when a failure is irreversible, the
+  scar *is* the loss — a moved published tag, a leaked secret cannot be walked back —
+  so those are guarded before first occurrence, named and bounded. The habit is the
+  triage: ask which kind of failure a risk is, then choose when to guard. Receipts:
+  the kata-commit secrets denylist (guarded pre-emptively — unrecoverable once
+  shared), kokai's published-tag and unrequested-release guards (never rewrite a
+  published tag; never cut a release nobody asked for). (rule-clarifications
+  session, 2026-09-21)

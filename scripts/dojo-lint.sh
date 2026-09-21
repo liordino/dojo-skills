@@ -420,6 +420,15 @@ r19_need hajime/SKILL.md 'plan completion' 'merge at plan-complete close'
 r19_need kata-commit/SKILL.md 'wave commit while on' 'the main-guard'
 r19_need .dojo/CONTEXT.md 'plan branch' 'the glossary term'
 r19_need .dojo/CONTEXT.md 'plan-branch convention' 'the decision entry'
+# Single-sourcing (2026-09-21): the push rule's explicit-instruction clause is stated
+# once, in dojo-conduct. The other loaded surfaces carry a pointer, not a restatement.
+r19_ban() { # r19_ban <file> <phrase> <what>
+	if r19_has "$1" "$2"; then
+		err "R19: $1 restates '$2' ($3) — single-source it: point at dojo-conduct instead"
+	fi
+}
+r19_ban dojo-principles/SKILL.md 'branch, commit range, tags' 'the push-rule explicit-instruction clause'
+r19_ban hajime/SKILL.md 'branch, commit range, tags' 'the push-rule explicit-instruction clause'
 
 # R20 — the effective-ignore audit: what git's effective ignore configuration (repo
 # .gitignore + global excludesfile + .git/info/exclude) actually masks must agree with
