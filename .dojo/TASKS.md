@@ -135,6 +135,7 @@ the ADR 0006 addendum; nothing commits directly to main.
 - status: pending
 
 ### Wave 4 — scan .dojo/findings.md for other recurring families never promoted
+- status: done (2026-09-21) — report-only; four families surfaced, none promoted
 
 - Report-only: surface families with their instances; no promotion without
   explicit consent.

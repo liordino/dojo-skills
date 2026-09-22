@@ -2,7 +2,7 @@
 mode: autonomous
 rigor: real
 type: bugfix
-wave: 3
+wave: 4
 step: DONE
 gate_density: standard
 wave_ceiling: 4

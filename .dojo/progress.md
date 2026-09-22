@@ -119,3 +119,6 @@ Red seed: pointer "kan → The loop" at a line end followed by a blank line and 
 
 ## Wave 3 — group-by-mechanism promoted (2026-09-21)
 Appended "Group failures by mechanism, not by symptom" to dojo-principles → Promoted (local) under the human-approved wording, receipts naming the four instances, house style "(bugfix session, 2026-09-21)". Corrected the 2026-09-21 R21 finding in .dojo/findings.md in place: "first occurrence" → fourth instance of the family, promoted. Deviation noted per conduct: .dojo/findings.md is append-only; the human explicitly instructed this in-place correction, so the label was amended and this deviation is recorded here.
+
+## Wave 4 — recurring-family census (2026-09-21)
+Report-only scan of findings.md per human instruction; four unpromoted multi-instance families surfaced (findings entry 2026-09-21 wave 4) for the human's promotion decision. None promoted.
