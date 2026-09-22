@@ -70,3 +70,29 @@ commits directly to main.
   reasoning originated in the release-entrypoint session (closed 2026-09-21,
   merged 340ac44). Correct the citation.
 - status: done (2026-09-21)
+
+## Plan — R21 from count to identity; R12 wrapped-pointer fix
+
+**Intent:** R21 cannot catch the replacement that motivated it (6 entries
+before, 6 after — the count is unchanged). Upgrade R21 to title identity and
+fix R12's per-line pointer matching through one shared wrapped-line helper.
+New plan branch per the ADR 0006 addendum.
+
+### Wave 1 — identity guard + shared join helper, proven against the actual failures
+
+- Shared helper: join soft-wrapped lines within a bullet/paragraph (each
+  `- ` bullet starts a logical line, continuations append with a space).
+- R21: every entry title (bold lead of each joined `- **` bullet) in
+  dojo-principles → Promoted (local) at HEAD must still be present in the
+  working tree; additions and body edits pass; a removed or retitled entry
+  fails, naming the missing title.
+- R12: extract `skill → Section` from joined content, not per line.
+- Supersession norm in the Promoted (local) intro: entries are never removed
+  or retitled; a replacement keeps the old entry, annotates its body
+  "superseded by <new title> (date)", and adds the new one.
+- Red-first against the ACTUAL failures: seed the replacement exactly as it
+  happened and show count-based R21 passes it (the hole), then fail after the
+  upgrade; seed a body-only edit and confirm it passes; wrap a pointer
+  mid-section-name and rename its target heading, show R12 currently passes,
+  then fails after the fix.
+- status: done (2026-09-21)
