@@ -40,6 +40,15 @@ FILES=$(
 	exit 2
 }
 
+# join_wrapped — read stdin, print content with soft-wrapped lines joined: each
+# '- ' bullet starts a new logical line, every other line appends to the current
+# one with a space. Shared by R12 (pointer names wrap mid-section-name) and R21
+# (entry titles wrap). Titles and pointer names must be extracted from the
+# joined logical line, never per physical line.
+join_wrapped() {
+	awk '{ sub(/^[ \t]+/, "") } /^- /{printf "\n%s", $0; next} {printf " %s", $0} END{printf "\n"}'
+}
+
 # R1 — banned stale tokens
 for tok in 'task_plan' 'root cause from diagnose'; do
 	hits=$(grep -rn -- "$tok" $FILES 2>/dev/null || true)
@@ -210,9 +219,11 @@ done
 # R12 — "skill → Section" cross-references must resolve to a real heading in that skill.
 # Catches the eaten-heading class: an edit deletes/renames an H2 that other files point at
 # (the bug class R3 was born from, now enforced for prose anchors). Substring match against
-# H2/H3 lines, so a reference may name a heading's distinctive prefix.
+# H2/H3 lines, so a reference may name a heading's distinctive prefix. Extraction runs on
+# join_wrapped output (2026-09-21): per-line matching gave a wrapped pointer a truncated
+# name ("The") that substring-matched almost any heading — the check passed a dangling ref.
 R12_SKILLS='dojo-principles|dojo-project|dojo-conduct|hajime|randori|kan|tanren|kaizen|kokai|kata-red|kata-green|kata-commit'
-refs=$(grep -rhoE "($R12_SKILLS) → [A-Za-z][A-Za-z0-9 '/-]*" $FILES | sort -u)
+refs=$(for f in $FILES; do join_wrapped <"$f" 2>/dev/null; done | grep -hoE "($R12_SKILLS) → [A-Za-z][A-Za-z0-9 '/-]*" | sort -u)
 while IFS= read -r ref; do
 	[ -z "$ref" ] && continue
 	skill=${ref%% → *}
@@ -464,19 +475,32 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
 	done
 fi
 
-# R21 — Promoted (local) is append-only. The number of entries (bullets opening
-# '- **') must never be lower than at HEAD: edits to an entry pass, removals
-# fail. Scar tissue, second occurrence: an edit meant to add content consumed
-# what was next to it (2026-07-10 the Logging heading; 2026-09-21 the
-# scar-tissue promotion replaced the determinize entry).
+# R21 — Promoted (local) is append-only and title-stable. Every entry title
+# (the bold lead of each joined '- **' bullet) present at HEAD must still be
+# present in the working tree: additions and body edits pass; a removed or
+# retitled entry fails, naming the missing title. Originally a count
+# comparison — the count passes a REPLACEMENT, which is exactly the incident
+# that motivated it (the determinize entry replaced, 6 entries before and
+# after), so it was upgraded to identity (2026-09-21, second look at the
+# same scar).
 if command -v git >/dev/null && git rev-parse --verify HEAD >/dev/null 2>&1; then
-	r21_count() { # r21_count <content> — bullets in the Promoted (local) section
-		awk '/^## Promoted \(local\)$/{on=1; next} /^## /{on=0} on && /^- \*\*/{c++} END{print c+0}'
+	r21_titles() { # r21_titles — content on stdin, one entry title per line
+		# Extract the whole section first, THEN join — extracting only bullet
+		# lines would drop a wrapped title's continuation and lose the entry.
+		awk '/^## Promoted \(local\)$/{on=1; next} /^## /{on=0} on' \
+			| join_wrapped | sed -n 's/^- \*\*\([^*]*\)\*\*.*/\1/p'
 	}
-	now=$(r21_count < dojo-principles/SKILL.md)
-	head=$(git show HEAD:dojo-principles/SKILL.md 2>/dev/null | r21_count)
-	if [ -n "$head" ] && [ "$now" -lt "$head" ]; then
-		err "R21: Promoted (local) has $now entries, HEAD had $head — the section is append-only; an entry was removed (edit in place is allowed, removal is not)"
+	titles=$(git show HEAD:dojo-principles/SKILL.md 2>/dev/null | r21_titles)
+	if [ -n "$titles" ]; then
+		section=$(awk '/^## Promoted \(local\)$/{on=1; next} /^## /{on=0} on' dojo-principles/SKILL.md | join_wrapped)
+		missing=""
+		while IFS= read -r t; do
+			[ -z "$t" ] && continue
+			case "$section" in *"$t"*) ;; *) missing="$missing '$t'" ;; esac
+		done <<R21EOF
+$titles
+R21EOF
+		[ -z "$missing" ] || err "R21: Promoted (local) lost entry(ies):$missing — the section is append-only and title-stable; to replace a principle, keep the old entry, annotate its body 'superseded by <new title> (date)', and add the new one"
 	fi
 fi
 

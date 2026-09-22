@@ -99,3 +99,21 @@ need adjustment (version home, proof gate would need scaffolding).
 - **Report-vs-diff divergence:** the session report said "promoted" while the
   diff showed a replacement. Lesson: a promotion claim on a living section is
   verified against the diff, not the prose summary.
+
+## 2026-09-21 — a guard proven against a simplified failure is not proven against the incident
+
+- R21's red-first proof seeded a pure removal — a different, easier failure
+  than the real one. The incident was a REPLACEMENT (determinize entry removed,
+  new entry added, 6 entries before and after): the count-based check passed
+  that commit shape. Proven directly this session: seed the replacement, the
+  count rule exits 0. The upgrade to title identity was needed precisely
+  because the original red proof tested a neighboring failure.
+- Class: a guard was proven against a simplified failure rather than the
+  incident itself. First occurrence — promote only if it recurs.
+- Rule for future red-first proofs (unpromoted, applies here): seed the
+  failure in the exact shape it occurred, not an easier neighbor of it.
+- Also fixed in passing (same wave, same root shape): R12 extracted
+  `skill → Section` per physical line, so a wrapped pointer was checked
+  against a truncated name ("The") that substring-matched almost any heading —
+  proven passing a dangling wrapped pointer before the fix. Both now extract
+  from join_wrapped output (bullets/paragraphs joined to logical lines).
