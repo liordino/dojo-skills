@@ -122,3 +122,6 @@ Appended "Group failures by mechanism, not by symptom" to dojo-principles → Pr
 
 ## Wave 4 — recurring-family census (2026-09-21)
 Report-only scan of findings.md per human instruction; four unpromoted multi-instance families surfaced (findings entry 2026-09-21 wave 4) for the human's promotion decision. None promoted.
+
+## findings-family-promotions plan — wave 1 (2026-09-22)
+2026-09-22 | wave 1 | docs | "An edit meant to add is proven by a diff that only adds" and "A measurement from one instrument is a hypothesis" promoted to Promoted (local) under approved wording; group-by-mechanism provenance corrected to (findings-family sweep, 2026-09-21) and header sentence updated; findings.md header states strict append-only-with-corrections; families (3) and (4) appended as not-promoted corrections to the census | plan branch per ADR 0006 addendum | gate green (lint + mechanics 19/19); commit 0dba356
