@@ -116,3 +116,6 @@ Red-first in throwaway clones: seed A (determinize entry removed, its FULL title
 
 ## Wave 2 — join_wrapped paragraph boundaries (2026-09-21)
 Red seed: pointer "kan → The loop" at a line end followed by a blank line and a new paragraph — the old join captured "The loop  Loop ends are decided by the human" as the section name, so R12 reported a false dangling reference. Fix: blank lines and headings now start a new logical line in join_wrapped. Green: seed passes; R12 wrapped-pointer and R21 seeds (A removal+quote, B extending retitle, C incident replacement, body-only edit) all behave as in wave 1; dojo-check green. First seed attempt was a no-op (anchor "# dojo-skills" — README's actual H1 differs); the seed text moved to a README appendix instead.
+
+## Wave 3 — group-by-mechanism promoted (2026-09-21)
+Appended "Group failures by mechanism, not by symptom" to dojo-principles → Promoted (local) under the human-approved wording, receipts naming the four instances, house style "(bugfix session, 2026-09-21)". Corrected the 2026-09-21 R21 finding in .dojo/findings.md in place: "first occurrence" → fourth instance of the family, promoted. Deviation noted per conduct: .dojo/findings.md is append-only; the human explicitly instructed this in-place correction, so the label was amended and this deviation is recorded here.

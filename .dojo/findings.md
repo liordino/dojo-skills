@@ -109,7 +109,12 @@ need adjustment (version home, proof gate would need scaffolding).
   count rule exits 0. The upgrade to title identity was needed precisely
   because the original red proof tested a neighboring failure.
 - Class: a guard was proven against a simplified failure rather than the
-  incident itself. First occurrence — promote only if it recurs.
+  incident itself. LABEL CORRECTED 2026-09-21: not a first occurrence — the
+  fourth instance of the family recorded here as "symptom adjacency is not
+  shared mechanism" (bucket-1 self-blind candidate 2026-09-10; R16 flake
+  misfiled as a third text-mode bug 2026-09-10; temp-repo cp artifact that
+  nearly faked the flake 2026-09-14). Promoted 2026-09-21 as "Group failures
+  by mechanism, not by symptom".
 - Rule for future red-first proofs (unpromoted, applies here): seed the
   failure in the exact shape it occurred, not an easier neighbor of it.
 - Also fixed in passing (same wave, same root shape): R12 extracted
