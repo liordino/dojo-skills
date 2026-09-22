@@ -117,3 +117,4 @@ need adjustment (version home, proof gate would need scaffolding).
   against a truncated name ("The") that substring-matched almost any heading —
   proven passing a dangling wrapped pointer before the fix. Both now extract
   from join_wrapped output (bullets/paragraphs joined to logical lines).
+2026-09-21 | r21-asymmetry wave 1 | discovery | Red-first seed-shape lesson: the "extending retitle" false pass needs the old title to remain a contiguous substring INCLUDING its terminal period — a mid-title insertion ("X, refined;" where X ended with ';') fails even under the substring rule. The false pass family has (at least) two distinct mechanisms: quoted-elsewhere (any other logical line containing the full title string) and prefix-extension (new title = old title + suffix). Both closed by exact-line comparison (grep -Fx) on both sides.

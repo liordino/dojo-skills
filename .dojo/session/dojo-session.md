@@ -3,15 +3,15 @@ mode: autonomous
 rigor: real
 type: bugfix
 wave: 1
-step: DONE
+step: RED
 gate_density: standard
 wave_ceiling: 4
-intent: R21 cannot catch the replacement that motivated it - count stayed 6. Upgrade to identity via title presence, and fix R12's per-line pointer matching while at it (shared join helper).
-goal: R21 upgraded from count to identity (every Promoted (local) title at HEAD still present in the tree, named on failure) via a shared wrapped-line-joining helper also used by R12; both rules proven red-first against the ACTUAL failures (replacement seed for R21, wrapped-pointer seed for R12), and the supersession norm stated in the section intro.
+intent: R21's comparison is asymmetric (HEAD titles extracted, tree checked as substring of the joined section) and join_wrapped ignores paragraph boundaries; both fixed red-first, then the approved group-by-mechanism promotion lands under a correct guard.
+goal: R21 compares exact entry titles on both sides (seeds a and b fail after the fix, incident seed keeps failing); join_wrapped starts a new logical line at blank lines and headings (R12 captures only the pointer's own section name); group-by-mechanism promoted; unpromoted families reported.
 commit_style: conventional
 test_written:
 test_status:
 attempts: 0
 pre_existing_failures: none
-diagnosis: The edit adding the scar-tissue principle consumed the adjacent determinize entry (replaced instead of appended); section bullet count stayed 6, so nothing detected it. Class: an edit meant to add content consumes what is next to it — second occurrence (first: 2026-07-10, the Logging heading).
-reproduction: count-based R21 passes the actual incident's commit shape (replace determinize with a new entry, 6->6); R12 passes a wrapped pointer whose captured section name substring-matches the renamed heading.
+diagnosis: R21 checks HEAD titles as substrings of the whole joined tree section — a title quoted in another entry's body or extended by a retitle passes although the entry is gone. join_wrapped appends every non-bullet line to the current logical line, across blank lines and headings, so a wrapped pointer's captured section name runs into the next paragraph.
+reproduction: seed (a) removal + quoted title elsewhere, seed (b) extending retitle — both pass the current R21; seed (c) pointer at line end followed by a new paragraph — R12 captures the wrong name.

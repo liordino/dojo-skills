@@ -96,3 +96,48 @@ New plan branch per the ADR 0006 addendum.
   mid-section-name and rename its target heading, show R12 currently passes,
   then fails after the fix.
 - status: done (2026-09-21)
+
+## Plan — R21 exact-title comparison; join_wrapped paragraph boundaries; group-by-mechanism promotion
+
+**Intent:** two defects in the r21-identity work (de1c2af) — R21 checks HEAD titles
+as substrings of the whole joined tree section (asymmetric: false passes on a
+removed entry quoted in another's body, and on a retitle that extends the old
+title), and join_wrapped joins across blank lines and headings despite its
+"bullets/paragraphs" contract. Then an approved promotion. Fix R21 before
+promoting, so the new entry lands under a correct guard. New plan branch per
+the ADR 0006 addendum; nothing commits directly to main.
+
+### Wave 1 — R21 symmetric exact-line comparison
+
+- Fix: run r21_titles on both sides and compare exact lines (grep -Fx), not
+  substring of the joined section.
+- Red-first: seed (a) an entry removed while another entry's body quotes its
+  title — current rule passes it; seed (b) a retitle that extends the old
+  title ("X" → "X, refined") — current rule passes it. After the fix both
+  seeds fail. The actual-incident seed (clean replacement) keeps failing.
+- status: pending
+
+### Wave 2 — join_wrapped: blank lines and headings start a new logical line
+
+- The comment and findings entry say "bullets/paragraphs"; the code does
+  bullets only. Make blank lines and headings start a new logical line.
+- Red seed: a pointer at the end of a line with no punctuation, followed by a
+  new paragraph — R12 must capture only the pointer's own section name.
+- Re-run the existing R12 and R21 seeds to confirm nothing regressed.
+- status: pending
+
+### Wave 3 — promote "group failures by mechanism, not by symptom"
+
+- Append to dojo-principles → Promoted (local), human-approved wording;
+  house style (session type + date); receipts name the four instances.
+- Correct the R21 finding's "first occurrence" label in .dojo/findings.md to
+  point at the family.
+- status: pending
+
+### Wave 4 — scan .dojo/findings.md for other recurring families never promoted
+
+- Report-only: surface families with their instances; no promotion without
+  explicit consent.
+- status: pending
+
+Gate: dojo-check green each wave. Merge at plan close. Do not push.
