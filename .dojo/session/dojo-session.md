@@ -3,7 +3,7 @@ mode: autonomous
 rigor: real
 type: bugfix
 wave: 1
-step: RED
+step: DONE
 gate_density: standard
 wave_ceiling: 4
 intent: R21's comparison is asymmetric (HEAD titles extracted, tree checked as substring of the joined section) and join_wrapped ignores paragraph boundaries; both fixed red-first, then the approved group-by-mechanism promotion lands under a correct guard.

@@ -42,11 +42,18 @@ FILES=$(
 
 # join_wrapped — read stdin, print content with soft-wrapped lines joined: each
 # '- ' bullet starts a new logical line, every other line appends to the current
-# one with a space. Shared by R12 (pointer names wrap mid-section-name) and R21
-# (entry titles wrap). Titles and pointer names must be extracted from the
-# joined logical line, never per physical line.
+# one with a space; blank lines and headings also start a new logical line
+# (2026-09-21: the comment and findings said "bullets/paragraphs" but the code
+# joined only on bullets, so a pointer at the end of a line captured the next
+# paragraph's words into its section name). Shared by R12 (pointer names wrap
+# mid-section-name) and R21 (entry titles wrap). Titles and pointer names must
+# be extracted from the joined logical line, never per physical line.
 join_wrapped() {
-	awk '{ sub(/^[ \t]+/, "") } /^- /{printf "\n%s", $0; next} {printf " %s", $0} END{printf "\n"}'
+	awk '{ sub(/^[ \t]+/, "") }
+		/^- / || /^#/ { printf "\n%s", $0; next }
+		$0 == "" { printf "\n"; next }
+		{ printf " %s", $0 }
+		END { printf "\n" }'
 }
 
 # R1 — banned stale tokens
