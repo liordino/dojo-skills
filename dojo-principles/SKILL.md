@@ -196,8 +196,9 @@ pipelines, or frontend trees. The entity/component/system rules and the legacy e
 ## Promoted (local)
 
 Insights promoted from project learning-logs by explicit human approval (see dojo-project).
-Provenance names the session type and date — never the project an insight emerged in; the
-origin's full record lives in that project. This section is yours; preserve it across Dojo
+Provenance names the session that recognized the insight, descriptively (e.g. "findings-family
+sweep, 2026-09-21") — never the project it emerged in (the origin's full record lives there), and
+never the hajime type field. This section is yours; preserve it across Dojo
 updates.
 
 - **Names describe function; configuration describes policy.** Never bake a policy choice
@@ -256,4 +257,20 @@ updates.
   (2026-09-10); the R16 gate flake misfiled as a third text-mode bug
   (2026-09-10); the temp-repo cp-by-basename artifact that nearly faked the
   flake (2026-09-14); the R21 count guard proven against a pure removal while
-  the incident was a replacement (2026-09-21). (bugfix session, 2026-09-21)
+  the incident was a replacement (2026-09-21). (findings-family sweep, 2026-09-21)
+- **An edit meant to add is proven by a diff that only adds.** Inserting next to
+  existing material is where an edit consumes its neighbour — the insertion
+  replaces what it was meant to sit beside. The tell is mechanical even when
+  the fix isn't: an additive change whose diff contains deletions has consumed
+  something. Before committing an addition, read every deleted line and confirm
+  it was meant to go. Receipts: 2026-07-10, the proof-contract heading that ate
+  the Logging heading; 2026-09-21, the scar-tissue promotion that replaced the
+  determinize entry. (findings-family sweep, 2026-09-21)
+- **A measurement from one instrument is a hypothesis.** A count, a grep result,
+  a single red, a performance number — one tool's output describes that tool's
+  view as much as the thing measured. Before a measurement becomes a finding or
+  drives a fix, confirm it with a second, independent instrument. Receipts:
+  2026-08-29, R13's command-substitution false positives (every file reported
+  CR; xxd showed pure LF); 2026-09-03, the MSYS grep -c text-mode artifact (a
+  false CRLF census, corrected by hex dumps and tr byte counts).
+  (findings-family sweep, 2026-09-21)
