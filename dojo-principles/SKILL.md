@@ -248,3 +248,12 @@ updates.
   shared), kokai's published-tag and unrequested-release guards (never rewrite a
   published tag; never cut a release nobody asked for). (release-entrypoint
   session, 2026-09-21)
+- **Group failures by mechanism, not by symptom.** Two failures that look alike
+  can have different causes, and a fix or guard built for one misses the other.
+  So a guard is proven only against the incident that motivated it, seeded in
+  the exact shape it occurred — never an easier neighbour. Receipts: the
+  determinize bucket-1 candidate that couldn't catch its own cited instance
+  (2026-09-10); the R16 gate flake misfiled as a third text-mode bug
+  (2026-09-10); the temp-repo cp-by-basename artifact that nearly faked the
+  flake (2026-09-14); the R21 count guard proven against a pure removal while
+  the incident was a replacement (2026-09-21). (bugfix session, 2026-09-21)

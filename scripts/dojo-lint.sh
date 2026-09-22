@@ -42,11 +42,18 @@ FILES=$(
 
 # join_wrapped — read stdin, print content with soft-wrapped lines joined: each
 # '- ' bullet starts a new logical line, every other line appends to the current
-# one with a space. Shared by R12 (pointer names wrap mid-section-name) and R21
-# (entry titles wrap). Titles and pointer names must be extracted from the
-# joined logical line, never per physical line.
+# one with a space; blank lines and headings also start a new logical line
+# (2026-09-21: the comment and findings said "bullets/paragraphs" but the code
+# joined only on bullets, so a pointer at the end of a line captured the next
+# paragraph's words into its section name). Shared by R12 (pointer names wrap
+# mid-section-name) and R21 (entry titles wrap). Titles and pointer names must
+# be extracted from the joined logical line, never per physical line.
 join_wrapped() {
-	awk '{ sub(/^[ \t]+/, "") } /^- /{printf "\n%s", $0; next} {printf " %s", $0} END{printf "\n"}'
+	awk '{ sub(/^[ \t]+/, "") }
+		/^- / || /^#/ { printf "\n%s", $0; next }
+		$0 == "" { printf "\n"; next }
+		{ printf " %s", $0 }
+		END { printf "\n" }'
 }
 
 # R1 — banned stale tokens
@@ -482,7 +489,12 @@ fi
 # comparison — the count passes a REPLACEMENT, which is exactly the incident
 # that motivated it (the determinize entry replaced, 6 entries before and
 # after), so it was upgraded to identity (2026-09-21, second look at the
-# same scar).
+# same scar). That identity was first checked asymmetrically: HEAD titles
+# extracted with r21_titles, but the tree side matched as a SUBSTRING of the
+# whole joined section — a removed entry whose title is quoted in another
+# entry's body passed, and so did a retitle that extends the old title. Fixed
+# (2026-09-21): r21_titles runs on both sides and titles compare as exact
+# lines (grep -Fx).
 if command -v git >/dev/null && git rev-parse --verify HEAD >/dev/null 2>&1; then
 	r21_titles() { # r21_titles — content on stdin, one entry title per line
 		# Extract the whole section first, THEN join — extracting only bullet
@@ -492,11 +504,11 @@ if command -v git >/dev/null && git rev-parse --verify HEAD >/dev/null 2>&1; the
 	}
 	titles=$(git show HEAD:dojo-principles/SKILL.md 2>/dev/null | r21_titles)
 	if [ -n "$titles" ]; then
-		section=$(awk '/^## Promoted \(local\)$/{on=1; next} /^## /{on=0} on' dojo-principles/SKILL.md | join_wrapped)
+		tree_titles=$(r21_titles <dojo-principles/SKILL.md)
 		missing=""
 		while IFS= read -r t; do
 			[ -z "$t" ] && continue
-			case "$section" in *"$t"*) ;; *) missing="$missing '$t'" ;; esac
+			printf '%s\n' "$tree_titles" | grep -qFx -- "$t" || missing="$missing '$t'"
 		done <<R21EOF
 $titles
 R21EOF

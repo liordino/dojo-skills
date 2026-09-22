@@ -109,7 +109,12 @@ need adjustment (version home, proof gate would need scaffolding).
   count rule exits 0. The upgrade to title identity was needed precisely
   because the original red proof tested a neighboring failure.
 - Class: a guard was proven against a simplified failure rather than the
-  incident itself. First occurrence — promote only if it recurs.
+  incident itself. LABEL CORRECTED 2026-09-21: not a first occurrence — the
+  fourth instance of the family recorded here as "symptom adjacency is not
+  shared mechanism" (bucket-1 self-blind candidate 2026-09-10; R16 flake
+  misfiled as a third text-mode bug 2026-09-10; temp-repo cp artifact that
+  nearly faked the flake 2026-09-14). Promoted 2026-09-21 as "Group failures
+  by mechanism, not by symptom".
 - Rule for future red-first proofs (unpromoted, applies here): seed the
   failure in the exact shape it occurred, not an easier neighbor of it.
 - Also fixed in passing (same wave, same root shape): R12 extracted
@@ -117,3 +122,6 @@ need adjustment (version home, proof gate would need scaffolding).
   against a truncated name ("The") that substring-matched almost any heading —
   proven passing a dangling wrapped pointer before the fix. Both now extract
   from join_wrapped output (bullets/paragraphs joined to logical lines).
+2026-09-21 | r21-asymmetry wave 1 | discovery | Red-first seed-shape lesson: the "extending retitle" false pass needs the old title to remain a contiguous substring INCLUDING its terminal period — a mid-title insertion ("X, refined;" where X ended with ';') fails even under the substring rule. The false pass family has (at least) two distinct mechanisms: quoted-elsewhere (any other logical line containing the full title string) and prefix-extension (new title = old title + suffix). Both closed by exact-line comparison (grep -Fx) on both sides.
+2026-09-21 | r21-asymmetry wave 2 | discovery | join_wrapped's bullets-only join made R12's pointer capture run across blank-line boundaries into the next paragraph — the "bullets/paragraphs" contract in the comment and findings was not what the code did. Class overlap with the eaten-heading family: extraction semantics drift from their stated contract; the statement is checked by nothing. Closed here by making blank lines and headings logical-line boundaries.
+2026-09-21 | r21-asymmetry wave 4 | discovery | Recurring-family census requested by the human (report-only; no promotions). Families with multiple recorded instances never promoted to Promoted (local): (1) "an edit meant to add content consumes what is next to it" — 2 instances (2026-07-10 Logging heading eaten by the proof-contract H2; 2026-09-21 determinize entry replaced by the scar-tissue promotion), guarded by R12/R21 but stated as a principle nowhere. (2) "census/measurement claims need a second instrument" — 3 instances (2026-08-29 R13 CR command-substitution false positives; 2026-09-03 MSYS grep -c text-mode artifact; 2026-09-10 bucket-1 evidence mismatch verified in a throwaway repo); the rule is stated in the 2026-09-03 entry but never promoted. (3) "the effective ignore configuration makes git status lie" — 2 instances (2026-09-03 .ruff_cache invisible; .gitattributes masked); guarded by R20 and arguably covered by the promoted effective-policy-not-assumed clause. (4) "a wave leaves the durable record stale where it invalidated it" — 2+ instances (2026-07-10 CONTEXT contradicting Decisions; 2026-09-03 glossary range, dangling manual pointer, missing carve-out — kata-commit item-4 misses); adjacent to but broader than the promoted rule-count-in-prose entry. Singletons, not families: the undiagnosed R16 intermittent red (open, 0-rate reproduction), report-vs-diff divergence (2026-09-21), install-freshness drift (2026-09-03), the kumite concurrent-session halt.
